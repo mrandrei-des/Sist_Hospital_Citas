@@ -1,3 +1,229 @@
-* {
-    font-family: 'Manrope';
+:root {
+    --primary-color: #378ADD;
+    --primary-hover-color: #0C447C;
+    --primary-bg-color: #f5f5f5;
+    --secondary-bg-color: #fff;
+    --text-neutro-color: #888780;
+    --primary--border-color: #D3D1C7;
+    --shadow-color: #B5D4F4;
+    --box-swadow-color: #D3D1C7;
+}
+
+*, *::after, *::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Manrope;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+p {
+    text-wrap: pretty;
+}
+
+h1, h2, h3, h4, h5, h6  {
+    text-wrap: balance;
+}
+
+body {
+    height: 100dvh;
+    background-color: var(--primary-bg-color);
+}
+
+.main__wrapper {
+    width: 100%;
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor__formulario__login {
+    width: clamp(420px, 75%, 1000px);
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 2rem;
+    border-radius: 8px;
+    background-color: var(--secondary-bg-color);
+    animation: aparecer_abajo 1s ease-in-out 1 forwards;
+}
+
+@keyframes aparecer_abajo {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.formulario__logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.img__logo {
+    width: 50px;
+}
+
+.nombre__sistema {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--primary-hover-color);
+}
+
+.formulario__login {
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.formulario__login__titulo {
+    display: flex;
+    flex-direction: column;
+}
+
+.formulario__titulo {
+    font-size: clamp(1.75rem, 2vw, 2rem);
+    letter-spacing: -2px;
+    font-weight: 800;
+}
+
+.formulario__inputs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contenedor__input {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.input {
+    outline: none;
+    padding: 15px 12px;
+    padding-bottom: 3px;
+    border: 2px solid var(--primary--border-color);
+    border-radius: 8px;
+    font-size: .8rem;
+    transition: box-shadow .2s ease-in-out, border-color .2s ease-in-out;
+}
+
+.input:hover {
+    box-shadow: 0 0 3px 2px var(--shadow-color), 
+    0 0 10px 2px var(--shadow-color);
+}
+
+.input:focus {
+    border-color: var(--primary-color);
+}
+
+.input__label {
+    font-size: .75rem;
+    font-weight: 600;
+    color: var(--text-neutro-color);
+    position: absolute;
+    top: 15px;
+    left: 12px;
+    transition: top .2s ease-in-out;
+}
+
+.input:focus ~ .input__label,
+.input:not(:placeholder-shown) ~ .input__label {
+    top: 3px;
+}
+
+.input__error {
+    margin-top: 3px;
+    margin-left: 6px;
+    font-size: .75rem;
+    font-weight: 800;
+    color: #d00;
+}
+
+.enlace {
+    font-size: .8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    transition: color .2s ease-in-out;
+}
+
+.enlace:hover {
+    color: var(--primary-hover-color);
+}
+
+.btn {
+    cursor: pointer;
+    border: none;
+    font-size: .85rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 16px;
+    transition: background-color .2s ease-in-out;
+}
+
+.btn__login {
+    width: 100%;
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.btn__login:hover {
+    background-color: var(--primary-hover-color);
+}
+
+.contenedor__crear__cuenta {
+    text-align: center;
+}
+
+.parrafo {
+    font-size: .8rem;
+}
+
+.parrafo__registro {
+    font-weight: 600;
+    color: var(--text-neutro-color);
+}
+
+.contenedor__formulario__img__area {
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulario__img {
+    width: 350px;
+}
+
+@media screen and (min-width: 1000px) {
+
+    .contenedor__formulario__login {
+        grid-template-columns: 1fr 1fr;
+
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .formulario__login {
+        padding: 0 3rem;
+    }
+
+    .contenedor__formulario__img__area {
+        display: flex;
+    }
 }

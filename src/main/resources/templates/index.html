@@ -3,15 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Inicio Sesión</title>
     <!-- <link rel="stylesheet" href="../static/css/index.css">
     <link rel="stylesheet" href="../static/css/fonts.css"> -->
-
     <link rel="stylesheet" th:href="@{/css/index.css}">
     <link rel="stylesheet" th:href="@{/css/fonts.css}">
 </head>
 <body>
-    <h1>Bienvenid@.</h1>
-    <p>Próximamente un sistema de citas de hospital...</p>
+    <main class="main__wrapper">
+        <div class="contenedor__formulario__login">
+
+            <div class="contenedor__formulario__input__area">
+                <form action="/login" method="post" class="formulario__login">
+                    <div class="formulario__logo">
+                        <img th:src="@{/img/hospital.png}" src="../static/img/hospital.png" alt="Sticker de un hospital" class="img__logo">
+                        <p class="nombre__sistema">Hospital MR</p>
+                    </div>
+
+                    <div class="formulario__login__titulo">
+                        <h2 class="formulario__titulo">
+                            Hola, 
+                        </h2>
+                        <h2 class="formulario__titulo">
+                            Bienvenido de nuevo
+                        </h2>
+                    </div>
+
+                    <div class="formulario__inputs">
+                        <div class="contenedor__input">
+                            <input type="text" class="input" id="userName" placeholder="">
+                            <label for="userName" class="input__label">Usuario</label>
+                            <p class="input__error">
+                                ¡Debe indicar un usuario!
+                            </p>
+                        </div>
+                        <div class="contenedor__input">
+                            <input type="password" class="input" id="password" placeholder="">
+                            <label for="password" class="input__label">Contraseña</label>
+                            <p class="input__error">
+                                ¡Debe indicar una contraseña!
+                            </p>
+                        </div>
+                        <div class="contenedor__olvido__contrasenna">
+                            <a href="#" class="enlace enlace__cambio__contrasenna">¿Olvidó su contraseña?</a>
+                        </div>
+                    </div>
+
+                    <div class="formulario__botones">
+                        <button type="submit" class="btn btn__login">Ingresar</button>
+                    </div>
+
+                    <div class="contenedor__crear__cuenta">
+                        <p class="parrafo parrafo__registro">¿Aún no tiene una cuenta? <a href="#" class="enlace">Registrarme</a></p>
+                    </div>
+                </form>
+            </div>
+
+            <div class="contenedor__formulario__img__area">
+                <img th:src="@{/img/doctor_login.jpg}" src="../static/img/doctor_login.jpg" alt="Ilustración de un doctor" class="formulario__img">
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+    </footer>
 </body>
 </html>
