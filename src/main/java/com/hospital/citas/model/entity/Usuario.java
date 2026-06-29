@@ -9,14 +9,19 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 @Entity
-@Table (name = "", uniqueConstraints = @UniqueConstraint(
+@Table (name = "Usuarios", uniqueConstraints = @UniqueConstraint(
     name = "UK_cedula_correo_usuario", columnNames = {"identificacion", "correoElectronico"}
 ))
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @NotNull(message = "¡Debe indicar un usuario!")
+    @Positive(message = "¡El usuario debe ser un valor numérico positivo!")
     private Long id;
 
     @ManyToOne
@@ -26,6 +31,7 @@ public class Usuario {
     @Column(name = "identificacion", nullable = false)
     private String identificacion;
 
+    @NotBlank(message = "¡Debe indicar una contraseña!")
     @Column(name = "ContrasennaHash", nullable = false)
     private String contrasennaHash;
 

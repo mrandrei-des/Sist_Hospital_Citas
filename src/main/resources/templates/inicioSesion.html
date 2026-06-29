@@ -4,17 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio Sesión</title>
-    <!-- <link rel="stylesheet" href="../static/css/index.css">
-    <link rel="stylesheet" href="../static/css/fonts.css"> -->
-    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="stylesheet" href="../static/css/restablecerElementos.css">
+    <link rel="stylesheet" href="../static/css/mensajes_notificaciones.css">
+    <link rel="stylesheet" href="../static/css/inicioSesion.css">
+    <link rel="stylesheet" href="../static/css/fonts.css">
+
+    <link rel="stylesheet" th:href="@{/css/restablecerElementos.css}">
+    <link rel="stylesheet" th:href="@{/css/mensajes_notificaciones.css}">
+    <link rel="stylesheet" th:href="@{/css/inicioSesion.css}">
     <link rel="stylesheet" th:href="@{/css/fonts.css}">
 </head>
 <body>
+    <div class="contenedor__mensaje--error" id="contenedorMensaje" th:if="${mostrarError}">
+        <div class="contenedor__mensaje__img">
+            <img src="../static/img/errorUsuario.png" th:src="@{/img/errorUsuario.png}" alt="Ilustración guarda seguridad" class="mensaje__img">
+        </div>
+        <div class="contenedor__mensaje__texto">
+            <p class="parrafo">¡El usuario y/o la contraseña no son válidos!</p>
+        </div>
+    </div>
+
     <main class="main__wrapper">
         <div class="contenedor__formulario__login">
-
             <div class="contenedor__formulario__input__area">
-                <form action="/login" method="post" class="formulario__login">
+                <form action="/login" method="post" class="formulario__login" th:object="${usuario}" novalidate>
                     <div class="formulario__logo">
                         <img th:src="@{/img/hospital.png}" src="../static/img/hospital.png" alt="Sticker de un hospital" class="img__logo">
                         <p class="nombre__sistema">Hospital MR</p>
@@ -31,18 +44,14 @@
 
                     <div class="formulario__inputs">
                         <div class="contenedor__input">
-                            <input type="text" class="input" id="userName" placeholder="">
+                            <input type="text" class="input" th:field="*{id}" id="userName" placeholder="">
                             <label for="userName" class="input__label">Usuario</label>
-                            <p class="input__error">
-                                ¡Debe indicar un usuario!
-                            </p>
+                            <p class="input__error" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></p>
                         </div>
                         <div class="contenedor__input">
-                            <input type="password" class="input" id="password" placeholder="">
+                            <input type="password" class="input" id="password" placeholder="" th:field="*{contrasennaHash}">
                             <label for="password" class="input__label">Contraseña</label>
-                            <p class="input__error">
-                                ¡Debe indicar una contraseña!
-                            </p>
+                            <p class="input__error" th:if="${#fields.hasErrors('contrasennaHash')}" th:errors="*{contrasennaHash}"></p>
                         </div>
                         <div class="contenedor__olvido__contrasenna">
                             <a href="#" class="enlace enlace__cambio__contrasenna">¿Olvidó su contraseña?</a>
@@ -62,11 +71,13 @@
             <div class="contenedor__formulario__img__area">
                 <img th:src="@{/img/doctor_login.jpg}" src="../static/img/doctor_login.jpg" alt="Ilustración de un doctor" class="formulario__img">
             </div>
-
-        </div>
+        </div>        
     </main>
 
     <footer>
     </footer>
+
+    <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
+    <script src="../static/js/mensajesNotificaciones.js" th:src="@{/js/mensajesNotificaciones.js}"></script>
 </body>
 </html>

@@ -23,10 +23,14 @@ public class Rol {
     @JoinColumn(name = "estado", nullable = false)
     private Estado estado;
 
-    public Rol(Long id, String descripcion, Estado estado) {
+    @Column(name = "paginaInicio", nullable = false)
+    private String nombrePaginaInicio;
+
+    public Rol(Long id, String descripcion, Estado estado, String nombrePaginaInicio) {
         this.id = id;
         this.descripcion = descripcion;
         this.estado = estado;
+        this.nombrePaginaInicio = nombrePaginaInicio;
     }
 
     public Rol() {
@@ -54,5 +58,13 @@ public class Rol {
 
     public void setEstado(Estado estado) {
         this.estado = estado;
+    }
+
+    public String getNombrePaginaInicio() {
+        return nombrePaginaInicio;
+    }
+
+    public void setNombrePaginaInicio(String nombrePaginaInicio) {
+        this.nombrePaginaInicio = nombrePaginaInicio;
     }
 }
