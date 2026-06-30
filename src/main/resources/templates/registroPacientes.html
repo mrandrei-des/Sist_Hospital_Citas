@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Pacientes</title>
+    <link rel="stylesheet" href="../static/css/styles_fonts.css">
+    <link rel="stylesheet" href="../static/css/styles_resetElements.css">
+    <link rel="stylesheet" href="../static/css/styles_colors.css">
+    <link rel="stylesheet" href="../static/css/styles_inputs.css">
+    <link rel="stylesheet" href="../static/css/styles_buttons.css">
+    <link rel="stylesheet" href="../static/css/registroPacientes.css">
+
+    <link rel="stylesheet" th:href="@{/css/styles_fonts.css}">
+    <link rel="stylesheet" th:href="@{/css/styles_resetElements.css}">
+    <link rel="stylesheet" th:href="@{/css/styles_colors.css}">
+    <link rel="stylesheet" th:href="@{/css/styles_inputs.css}">
+    <link rel="stylesheet" th:href="@{/css/styles_buttons.css}">
+    <link rel="stylesheet" th:href="@{/css/registroPacientes.css}">
+</head>
+<body>
+    <main class="main__wrapper">
+        <div class="contenedor__principal__formulario">
+            <section class="formulario__row__section">
+                <h2 class="formulario__titulo">
+                    Crear una cuenta
+                </h2>
+            </section>
+            <section class="formulario__row__section">
+                <form action="/" method="post" class="formulario">
+                    <div class="formulario__section__input">
+                        <div class="section__input__encabezado">
+                            <p class="section__input__parrafo">
+                                <span class="section__input__icon">
+                                    <i class="fa-solid fa-user-injured"></i>
+                                </span>
+                                Datos Personales Titular
+                            </p>
+                            <p class="section__input__parrafo">
+                                Paso <strong>1</strong> de 3
+                            </p>
+                        </div>
+                        <div class="section__input__main">
+                            <div class="contenedor__input">
+                                <select id="tipoIdentificacion" class="input">
+                                    <option value="0">Cédula Física</option>
+                                    <option value="1">Pasaporte</option>
+                                    <option value="2">DIMEX</option>
+                                </select>
+                                <label for="tipoIdentificacion" class="input__label">Tipo Identificación</label>
+                                <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p>
+                            </div>
+                            <div class="contenedor__input">
+                                <input type="text" class="input" th:field="*{}" id="identificacion" placeholder="">
+                                <label for="identificacion" class="input__label">Identificación</label>
+                                <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p>
+                            </div>
+                            <div class="contenedor__input contenedor__input__sp2">
+                                <input type="text" class="input" th:field="*{}" id="nombre" placeholder="">
+                                <label for="nombre" class="input__label">Nombre</label>
+                                <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p>
+                            </div>
+                            <div class="contenedor__input">
+                                <input type="text" class="input" th:field="*{}" id="primerApellido" placeholder="">
+                                <label for="primerApellido" class="input__label">Primer Apellido</label>
+                                <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p>
+                            </div>
+                            <div class="contenedor__input">
+                                <input type="text" class="input" th:field="*{}" id="segundoApellido" placeholder="">
+                                <label for="segundoApellido" class="input__label">Segundo Apellido</label>
+                                <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="formulario__section__input">
+                        <div class="section__input__encabezado">
+                            <p class="section__input__parrafo">
+                                <span class="section__input__icon">
+                                    <i class="fa-solid fa-phone-flip"></i>
+                                </span>
+                                Datos para Contacto
+                            </p>
+                            <p class="section__input__parrafo">
+                                Paso <strong>2</strong> de 3
+                            </p>
+                        </div>
+                        <div class="section__input__main">
+                            <div class="contenedor__input contenedor__input__sp2">
+                                <input type="password" class="input" th:field="*{}" id="password" placeholder="">
+                                <label for="password" class="input__label">Contraseña</label>
+                                <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="formulario__section__input">
+                        <div class="section__input__encabezado">
+                            <p class="section__input__parrafo">
+                                <span class="section__input__icon">
+                                    <i class="fa-solid fa-unlock"></i>
+                                </span>
+                                Datos para Acceso
+                            </p>
+                            <p class="section__input__parrafo">
+                                Paso <strong>3</strong> de 3
+                            </p>
+                        </div>
+                        <div class="section__input__main">
+                            <div class="contenedor__input contenedor__input__sp2">
+                                <input type="email" class="input" th:field="*{}" id="correo" placeholder="">
+                                <label for="correo" class="input__label">Correo</label>
+                                <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="formulario__section__input formulario__section__button">
+                        <button type="submit" class="btn btn__registro">Crear cuenta</button>
+                    </div>
+                </form>
+            </section>
+            <section class="formulario__row__section">
+                <p class="formulario__parrafo parrafo__inicioSesion">
+                    ¿Ya tienes una cuenta? <a href="#" class="formulario__enlace">Inicia Sesión</a>
+                </p>
+            </section>
+        </div>
+    </main>
+    <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
+</body>
+</html>

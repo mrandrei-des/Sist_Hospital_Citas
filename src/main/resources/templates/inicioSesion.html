@@ -4,15 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio Sesión</title>
-    <link rel="stylesheet" href="../static/css/restablecerElementos.css">
+
+    <link rel="stylesheet" href="../static/css/styles_fonts.css">
+    <link rel="stylesheet" href="../static/css/styles_resetElements.css">
+    <link rel="stylesheet" href="../static/css/styles_colors.css">
+    <link rel="stylesheet" href="../static/css/styles_inputs.css">
+    <link rel="stylesheet" href="../static/css/styles_buttons.css">
+
     <link rel="stylesheet" href="../static/css/mensajes_notificaciones.css">
     <link rel="stylesheet" href="../static/css/inicioSesion.css">
-    <link rel="stylesheet" href="../static/css/fonts.css">
 
-    <link rel="stylesheet" th:href="@{/css/restablecerElementos.css}">
+    <link rel="stylesheet" th:href="@{/css/styles_fonts.css}">
+    <link rel="stylesheet" th:href="@{/css/styles_resetElements.css}">
+    <link rel="stylesheet" th:href="@{/css/styles_colors.css}">
+    <link rel="stylesheet" th:href="@{/css/styles_inputs.css}">
+    <link rel="stylesheet" th:href="@{/css/styles_buttons.css}">
+
     <link rel="stylesheet" th:href="@{/css/mensajes_notificaciones.css}">
     <link rel="stylesheet" th:href="@{/css/inicioSesion.css}">
-    <link rel="stylesheet" th:href="@{/css/fonts.css}">
 </head>
 <body>
     <div class="contenedor__mensaje--error" id="contenedorMensaje" th:if="${mostrarError}">
@@ -54,7 +63,7 @@
                             <p class="input__error" th:if="${#fields.hasErrors('contrasennaHash')}" th:errors="*{contrasennaHash}"></p>
                         </div>
                         <div class="contenedor__olvido__contrasenna">
-                            <a href="#" class="enlace enlace__cambio__contrasenna">¿Olvidó su contraseña?</a>
+                            <a href="/recuperarContrasenna" class="enlace enlace__cambio__contrasenna">¿Olvidó su contraseña?</a>
                         </div>
                     </div>
 
@@ -63,7 +72,7 @@
                     </div>
 
                     <div class="contenedor__crear__cuenta">
-                        <p class="parrafo parrafo__registro">¿Aún no tiene una cuenta? <a href="#" class="enlace">Registrarme</a></p>
+                        <p class="parrafo parrafo__registro">¿Aún no tiene una cuenta? <a href="/registrarPaciente" class="enlace">Registrarme</a></p>
                     </div>
                 </form>
             </div>

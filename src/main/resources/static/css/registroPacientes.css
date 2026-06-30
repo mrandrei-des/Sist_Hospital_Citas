@@ -1,0 +1,95 @@
+.main__wrapper {
+    width: 100%;
+    height: 100dvh;
+    background-color: var(--primary-bg-color);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor__principal__formulario {
+    width: 700px;
+    max-width: 1000px;
+    padding: 3rem;
+    border-radius: 8px;
+    background-color: var(--secondary-bg-color);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 1rem;
+}
+
+/*** INICIO formulario__row__section TÍTULO ***/
+
+.formulario__titulo {
+    font-size: clamp(1.75rem, 2vw, 2rem);
+    letter-spacing: -2px;
+    font-weight: 800;
+}
+
+/*** FIN formulario__row__section TÍTULO ***/
+
+/*** INICIO Formulario ***/
+
+.formulario {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    gap: 1rem;
+}
+
+.section__input__encabezado {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+}
+
+.section__input__main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.contenedor__input__sp2 {
+    grid-column: span 2;
+}
+
+.btn__registro {
+    width: 100%;
+    color: #fff;
+    background-color: var(--primary-color);
+}
+
+.btn__registro:hover {
+    background-color: var(--primary-hover-color);
+}
+
+/*** FIN Formulario ***/
+
+/*** INICIO formulario__row__section Inicio Sesión ***/
+.formulario__row__section .parrafo__inicioSesion {
+    text-align: center;
+}
+
+.formulario__parrafo {
+    font-size: .8rem;
+}
+
+.parrafo__inicioSesion {
+    font-weight: 600;
+    color: var(--text-neutro-color);
+}
+
+.formulario__enlace {
+    font-size: .8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    transition: color .2s ease-in-out;
+}
+
+.formulario__enlace:hover {
+    color: var(--primary-hover-color);
+}
+
+/*** FIN formulario__row__section Inicio Sesión ***/

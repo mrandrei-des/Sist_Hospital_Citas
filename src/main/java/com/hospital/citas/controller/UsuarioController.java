@@ -39,4 +39,15 @@ public class UsuarioController {
     public String mostrarHomeAdministrador(@PathVariable String pantallaHome) {
         return pantallaHome;
     }
+
+    @GetMapping("/registrarPaciente")
+    public String mostrarFormularioRegistroPaciente(Model model) {
+        model.addAttribute("usuario", new Usuario());
+        return "registroPacientes";
+    }
+
+    @GetMapping("/recuperarContrasenna")
+    public String mostrarFormularioRecuperacionContrasenna() {
+        return "solicitudCambioContrasena";
+    }
 }
