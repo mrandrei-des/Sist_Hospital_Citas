@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fragments</title>
+
+    <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_header.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_footer.css">
+    
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_fonts.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_resetElements.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_colors.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_inputs.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_buttons.css}">
+    
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_header.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_footer.css}">
+
+</head>
+<body>
+    <header class="header__principal">
+        <div class="contenedor__menu__logo">
+            <img src="../static/img/hospital.png" alt="Sticker de un hospital estilo animado" class="menu__logo">
+            <span class="menu__logo__nombre">Hospital MR</span>
+        </div>
+        <div class="contenedor__menu">
+            <nav class="menu__principal">
+                <ul class="menu__lista">
+                    <li class="menu__elemento menu__elemento__usuario">
+                        <span class="menu__avatar__usuario">
+                            <i class="fa-solid fa-circle-user"></i>
+                        </span>
+                        <p class="menu__nombre__usuario">John Doe</p>
+                    </li>
+
+
+
+                    <li class="menu__elemento">
+                        <span class="menu__icono">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        </span>
+                        <a href="/" class="menu__enlace">Cerrar Sesión</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <footer class="footer__principal">
+        <div class="footer__elemento">
+            <p class="footer__leyenda">&copy; Todos los derechos reservados</p>
+        </div>
+        <div class="footer__elemento">
+            <p class="footer__leyenda">Desarrollado por: 
+                <strong>
+                    <a href="/" target="_blank" class="footer__enlace">Andrei Mesén Romero</a>
+                </strong>
+            </p>
+        </div>
+        <div class="footer__elemento">
+            <p class="footer__leyenda">2026 - Costa Rica</p>
+        </div>
+    </footer>
+    
+    <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
+</body>
+</html>

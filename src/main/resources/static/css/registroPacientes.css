@@ -24,7 +24,7 @@
 /*** INICIO formulario__row__section TÍTULO ***/
 
 .formulario__titulo {
-    font-size: clamp(1.75rem, 2vw, 2rem);
+    font-size: clamp(1.25rem, 1.5vw, 1.5rem);
     letter-spacing: -2px;
     font-weight: 800;
 }
@@ -43,6 +43,15 @@
     display: flex;
     justify-content: space-between;
     padding: 12px;
+}
+
+.section__input__parrafo {
+    font-size: 1rem;
+}
+
+.section__input__parrafo strong {
+    color: var(--secodary-color);
+    font-weight: 800;
 }
 
 .section__input__main {
@@ -93,3 +102,13 @@
 }
 
 /*** FIN formulario__row__section Inicio Sesión ***/
+
+@media screen and (max-width: 600px) {
+    .section__input__main {
+        grid-template-columns: 1fr;
+    }
+
+    .contenedor__input__sp2 {
+        grid-column: span 1;
+    }
+}

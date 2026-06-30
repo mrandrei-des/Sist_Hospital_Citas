@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Pacientes</title>
-    <link rel="stylesheet" href="../static/css/styles_fonts.css">
-    <link rel="stylesheet" href="../static/css/styles_resetElements.css">
-    <link rel="stylesheet" href="../static/css/styles_colors.css">
-    <link rel="stylesheet" href="../static/css/styles_inputs.css">
-    <link rel="stylesheet" href="../static/css/styles_buttons.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css">
     <link rel="stylesheet" href="../static/css/registroPacientes.css">
 
-    <link rel="stylesheet" th:href="@{/css/styles_fonts.css}">
-    <link rel="stylesheet" th:href="@{/css/styles_resetElements.css}">
-    <link rel="stylesheet" th:href="@{/css/styles_colors.css}">
-    <link rel="stylesheet" th:href="@{/css/styles_inputs.css}">
-    <link rel="stylesheet" th:href="@{/css/styles_buttons.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_fonts.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_resetElements.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_colors.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_inputs.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_buttons.css}">
     <link rel="stylesheet" th:href="@{/css/registroPacientes.css}">
 </head>
 <body>
@@ -86,8 +86,8 @@
                         </div>
                         <div class="section__input__main">
                             <div class="contenedor__input contenedor__input__sp2">
-                                <input type="password" class="input" th:field="*{}" id="password" placeholder="">
-                                <label for="password" class="input__label">Contraseña</label>
+                                <input type="email" class="input" th:field="*{}" id="correo" placeholder="">
+                                <label for="correo" class="input__label">Correo</label>
                                 <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
                         <div class="section__input__encabezado">
                             <p class="section__input__parrafo">
                                 <span class="section__input__icon">
-                                    <i class="fa-solid fa-unlock"></i>
+                                    <i class="fa-solid fa-lock"></i>
                                 </span>
                                 Datos para Acceso
                             </p>
@@ -106,8 +106,8 @@
                         </div>
                         <div class="section__input__main">
                             <div class="contenedor__input contenedor__input__sp2">
-                                <input type="email" class="input" th:field="*{}" id="correo" placeholder="">
-                                <label for="correo" class="input__label">Correo</label>
+                                <input type="password" class="input" th:field="*{}" id="password" placeholder="">
+                                <label for="password" class="input__label">Contraseña</label>
                                 <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p>
                             </div>
                         </div>

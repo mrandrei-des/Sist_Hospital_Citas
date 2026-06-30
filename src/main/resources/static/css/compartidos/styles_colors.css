@@ -6,5 +6,9 @@
     --text-neutro-color: #888780;
     --primary--border-color: #D3D1C7;
     --shadow-color: #B5D4F4;
-    --box-swadow-color: #D3D1C7;
+    --box-shadow-color: #D3D1C7;
+    --secondary-color: #D85A30;
+    --secondary-color-bg-color: #F5C4B3;
+    --secondary-color-hover-color: #F0997B;
+    --sombra-elementos: box-shadow: 0 0 15px 2px #0005;
 }
