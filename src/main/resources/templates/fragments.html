@@ -24,12 +24,12 @@
 
 </head>
 <body>
-    <header class="header__principal">
+    <header class="header__principal" th:fragment="header (mostrarOpcionesMenu)">
         <div class="contenedor__menu__logo">
-            <img src="../static/img/hospital.png" alt="Sticker de un hospital estilo animado" class="menu__logo">
+            <img src="../static/img/hospital.png" th:src="@{/img/hospital.png}" alt="Sticker de un hospital estilo animado" class="menu__logo">
             <span class="menu__logo__nombre">Hospital MR</span>
         </div>
-        <div class="contenedor__menu">
+        <div class="contenedor__menu" th:if="${mostrarOpcionesMenu}">
             <nav class="menu__principal">
                 <ul class="menu__lista">
                     <li class="menu__elemento menu__elemento__usuario">
@@ -52,7 +52,7 @@
         </div>
     </header>
 
-    <footer class="footer__principal">
+    <footer class="footer__principal" th:fragment="footer">
         <div class="footer__elemento">
             <p class="footer__leyenda">&copy; Todos los derechos reservados</p>
         </div>

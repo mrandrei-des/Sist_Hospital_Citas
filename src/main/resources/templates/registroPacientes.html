@@ -16,9 +16,14 @@
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_colors.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_inputs.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_buttons.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_header.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_footer.css}">
     <link rel="stylesheet" th:href="@{/css/registroPacientes.css}">
 </head>
 <body>
+
+    <div th:replace="~{fragments::header(mostrarOpcionesMenu=${false})}"></div>
+
     <main class="main__wrapper">
         <div class="contenedor__principal__formulario">
             <section class="formulario__row__section">
@@ -48,27 +53,27 @@
                                     <option value="2">DIMEX</option>
                                 </select>
                                 <label for="tipoIdentificacion" class="input__label">Tipo Identificación</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p>
+                                <!-- <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p> -->
                             </div>
                             <div class="contenedor__input">
-                                <input type="text" class="input" th:field="*{}" id="identificacion" placeholder="">
+                                <input type="text" class="input" id="identificacion" placeholder="">
                                 <label for="identificacion" class="input__label">Identificación</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p>
+                                <!-- <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p> -->
                             </div>
                             <div class="contenedor__input contenedor__input__sp2">
-                                <input type="text" class="input" th:field="*{}" id="nombre" placeholder="">
+                                <input type="text" class="input" id="nombre" placeholder="">
                                 <label for="nombre" class="input__label">Nombre</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p>
+                                <!-- <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p> -->
                             </div>
                             <div class="contenedor__input">
-                                <input type="text" class="input" th:field="*{}" id="primerApellido" placeholder="">
+                                <input type="text" class="input" id="primerApellido" placeholder="">
                                 <label for="primerApellido" class="input__label">Primer Apellido</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p>
+                                <!-- <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p> -->
                             </div>
                             <div class="contenedor__input">
-                                <input type="text" class="input" th:field="*{}" id="segundoApellido" placeholder="">
+                                <input type="text" class="input" id="segundoApellido" placeholder="">
                                 <label for="segundoApellido" class="input__label">Segundo Apellido</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p>
+                                <!-- <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p> -->
                             </div>
                         </div>
                     </div>
@@ -86,9 +91,9 @@
                         </div>
                         <div class="section__input__main">
                             <div class="contenedor__input contenedor__input__sp2">
-                                <input type="email" class="input" th:field="*{}" id="correo" placeholder="">
+                                <input type="email" class="input" id="correo" placeholder="">
                                 <label for="correo" class="input__label">Correo</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p>
+                                <!-- <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p> -->
                             </div>
                         </div>
                     </div>
@@ -106,9 +111,9 @@
                         </div>
                         <div class="section__input__main">
                             <div class="contenedor__input contenedor__input__sp2">
-                                <input type="password" class="input" th:field="*{}" id="password" placeholder="">
+                                <input type="password" class="input" id="password" placeholder="">
                                 <label for="password" class="input__label">Contraseña</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p>
+                                <!-- <p class="input__error" th:if="${#fields.hasErrors('')}" th:errors="*{}"></p> -->
                             </div>
                         </div>
                     </div>
@@ -119,11 +124,13 @@
             </section>
             <section class="formulario__row__section">
                 <p class="formulario__parrafo parrafo__inicioSesion">
-                    ¿Ya tienes una cuenta? <a href="#" class="formulario__enlace">Inicia Sesión</a>
+                    ¿Ya tienes una cuenta? <a href="/" class="formulario__enlace">Inicia Sesión</a>
                 </p>
             </section>
         </div>
     </main>
+
+    <div th:replace="~{fragments::footer}"></div>
     <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
 </body>
 </html>

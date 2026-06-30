@@ -1,8 +1,8 @@
 .main__wrapper {
     width: 100%;
-    height: 100dvh;
     background-color: var(--primary-bg-color);
 
+    padding: 4rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,6 +19,20 @@
     flex-direction: column;
     justify-content: start;
     gap: 1rem;
+
+    animation: aparecer_abajo 1s ease-in-out 1 forwards;
+}
+
+@keyframes aparecer_abajo {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /*** INICIO formulario__row__section TÍTULO ***/
@@ -50,7 +64,7 @@
 }
 
 .section__input__parrafo strong {
-    color: var(--secodary-color);
+    color: var(--secondary-color);
     font-weight: 800;
 }
 
@@ -104,6 +118,10 @@
 /*** FIN formulario__row__section Inicio Sesión ***/
 
 @media screen and (max-width: 600px) {
+    .main__wrapper {
+        padding: 2rem 1rem;
+    }
+
     .section__input__main {
         grid-template-columns: 1fr;
     }
