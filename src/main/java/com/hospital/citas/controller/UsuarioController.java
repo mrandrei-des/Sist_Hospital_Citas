@@ -6,7 +6,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.hospital.citas.model.entity.Rol;
+import com.hospital.citas.model.entity.TipoIdentificacion;
 import com.hospital.citas.model.entity.Usuario;
+import com.hospital.citas.service.TipoIdentificacionService;
 import com.hospital.citas.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +19,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class UsuarioController {
     private UsuarioService usuarioService;
 
-    UsuarioController(UsuarioService usuarioService) {
+    private final TipoIdentificacionService tipoIdentificacionService;
+
+    UsuarioController(UsuarioService usuarioService, TipoIdentificacionService tipoIdentificacionService) {
         this.usuarioService = usuarioService;
+        this.tipoIdentificacionService = tipoIdentificacionService;
     }
 
     @PostMapping("/login")
@@ -42,8 +49,17 @@ public class UsuarioController {
 
     @GetMapping("/registrarPaciente")
     public String mostrarFormularioRegistroPaciente(Model model) {
-        model.addAttribute("usuario", new Usuario());
-        return "registroPacientes";
+        
+        Usuario pacienteNuevo = new Usuario();
+        Rol rolPaciente = new Rol();
+        TipoIdentificacion tipoIdentificacionPaciente = new TipoIdentificacion();
+        rolPaciente.setId(1L);
+        pacienteNuevo.setRol(rolPaciente);
+        pacienteNuevo.setTipoIdentificacion(tipoIdentificacionPaciente);
+        
+        model.addAttribute("paciente", pacienteNuevo);
+        model.addAttribute("listaTipoIdentificacion", tipoIdentificacionService.consultarTiposDeIdentificacion());
+        return "formularioPacientes";
     }
 
     @GetMapping("/recuperarContrasenna")
