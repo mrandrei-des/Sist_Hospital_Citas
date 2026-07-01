@@ -1,10 +1,15 @@
 body {
     background-color: var(--primary-bg-color);
+    display: flex;
+    flex-direction: column;
 }
 
 .main__wrapper {
+    flex-grow: 2;
     width: 100%;
-    min-height: 100dvh;
+    background-color: var(--primary-bg-color);
+    padding: 4rem;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,7 +18,10 @@ body {
 .contenedor__formulario__login {
     width: clamp(420px, 75%, 1000px);
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 2rem;
+
     padding: 2rem;
     border-radius: 8px;
     background-color: var(--secondary-bg-color);
@@ -49,7 +57,7 @@ body {
 }
 
 .formulario__login {
-    padding: 0 1rem;
+    padding: 0 3rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -61,7 +69,7 @@ body {
 }
 
 .formulario__titulo {
-    font-size: clamp(1.75rem, 2vw, 2rem);
+    font-size: clamp(1.25rem, 2vw, 2rem);
     letter-spacing: -2px;
     font-weight: 800;
 }
@@ -104,7 +112,7 @@ body {
 }
 
 .contenedor__formulario__img__area {
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -113,20 +121,44 @@ body {
     width: 350px;
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (max-width: 1200px) {
+    .contenedor__formulario__login {
+        gap: 0;
+    }
+
+    .formulario__img {
+        width: 250px;
+    }    
+}
+
+@media screen and (max-width: 925px) {
+    .main__wrapper {
+        padding: 2rem 0;
+    }
 
     .contenedor__formulario__login {
-        grid-template-columns: 1fr 1fr;
-
-        align-items: center;
-        gap: 2rem;
+        grid-template-columns: 1fr;
     }
 
     .formulario__login {
-        padding: 0 3rem;
+        padding: 0 1rem;
     }
 
     .contenedor__formulario__img__area {
-        display: flex;
+        display: none;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .main__wrapper {
+        padding: 2rem 1rem;
+    }
+
+    .contenedor__formulario__login {
+        grid-template-columns: 1fr;
+    }
+
+    .formulario__login {
+        padding: 0 1rem;
     }
 }

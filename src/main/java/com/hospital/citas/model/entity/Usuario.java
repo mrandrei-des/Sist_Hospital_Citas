@@ -10,8 +10,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table (name = "Usuarios", uniqueConstraints = @UniqueConstraint(
@@ -19,9 +17,7 @@ import jakarta.validation.constraints.Positive;
 ))
 public class Usuario {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    @NotNull(message = "¡Debe indicar un usuario!")
-    @Positive(message = "¡El usuario debe ser un valor numérico positivo!")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -45,6 +41,7 @@ public class Usuario {
     private String segundoApellido;
 
     @Column(name = "correoElectronico", nullable = false)
+    @NotBlank(message = "¡Debe indicar el correo electrónico!")
     private String correoElectronico;
 
     @ManyToOne

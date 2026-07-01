@@ -57,9 +57,9 @@
 
                     <div class="formulario__inputs">
                         <div class="contenedor__input">
-                            <input type="text" class="input" th:field="*{id}" id="userName" placeholder="">
-                            <label for="userName" class="input__label">Usuario</label>
-                            <p class="input__error" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></p>
+                            <input type="text" class="input" th:field="*{correoElectronico}" id="username" placeholder="">
+                            <label for="username" class="input__label">Usuario</label>
+                            <p class="input__error" th:if="${#fields.hasErrors('correoElectronico')}" th:errors="*{correoElectronico}"></p>
                         </div>
                         <div class="contenedor__input">
                             <input type="password" class="input" id="password" placeholder="" th:field="*{contrasennaHash}">
