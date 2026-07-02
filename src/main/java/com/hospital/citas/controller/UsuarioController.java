@@ -3,20 +3,17 @@ package com.hospital.citas.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-
+import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.model.entity.Usuario;
 import com.hospital.citas.service.RolService;
 import com.hospital.citas.service.TipoIdentificacionService;
 import com.hospital.citas.service.UsuarioService;
-
 import jakarta.validation.Valid;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-// AÚN NO SE HA DEFINIDO QUÉ SE VA A HACER CON ESTE CONTROLLER
 @Controller
 public class UsuarioController {
     private final UsuarioService usuarioService;
@@ -39,14 +36,18 @@ public class UsuarioController {
             model.addAttribute("esUnPaciente", origenPeticion);
             return "formularioCuenta";
         }
-        return "/";
-    }
 
-/*
-    @GetMapping("/mostarHome/{pantallaHome}")
-    public String mostrarHomeAdministrador(@PathVariable String pantallaHome) {
-        return pantallaHome;
-    }*/
+        Estado estado = new Estado();
+        estado.setId(4L);
+        usuario.setEstado(estado);
+        usuarioService.crearCuenta(usuario);
+
+        if(origenPeticion.equals("S")) {
+            return "redirect:/";
+        }else {
+            return "redirect:/homeAdmin";
+        }
+    }
 
     @GetMapping("/recuperarContrasenna")
     public String mostrarFormularioRecuperacionContrasenna() {

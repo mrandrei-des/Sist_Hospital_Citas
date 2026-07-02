@@ -1,42 +1,29 @@
 package com.hospital.citas.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.hospital.citas.model.entity.Usuario;
 import com.hospital.citas.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
+    @Autowired
     private UsuarioRepository usuarioRepository;
 
-    UsuarioService(UsuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
-    }
-
-    public boolean validarCredenciales(Usuario usuarioIniciaSesion) {
-        Usuario usuarioEncontrado = usuarioRepository.findById(usuarioIniciaSesion.getId()).orElse(null);
-
-        if(usuarioEncontrado != null) {
-            String passwordEncontrada = usuarioEncontrado.getContrasennaHash();
-            String passwordEncriptada = encriptarPassword(usuarioIniciaSesion.getContrasennaHash());
-
-            if(passwordEncontrada.equals(passwordEncriptada)) {
-                return true;
-            }
+    public Usuario crearCuenta(Usuario usuarioNuevo) {
+        Usuario usuarioRegistrado = usuarioRepository.save(usuarioNuevo);
+        if(usuarioRegistrado != null) {
+            Long idUsuarioRealizoAccion = 1L;
+            usuarioRepository.insertaRegistroBitacoraCambiosUsuario(1L, usuarioRegistrado.getId(), "El usuario ha sido registrado en el sistema.", idUsuarioRealizoAccion);
         }
-        return false;
+        return usuarioRegistrado;
     }
 
-    public String consultarPaginaInicioPorRol(Usuario usuario){
-        Usuario usuarioEncontrado = usuarioRepository.findById(usuario.getId()).orElse(null);
-        if(usuarioEncontrado != null) {
-            return usuarioEncontrado.getRol().getNombrePaginaInicio();
-        }
-        return "homeNoEncontrada";
+    public Usuario buscarPorCorreoElectronico(String correoElectronicoBuscar) {
+        return usuarioRepository.findByCorreoElectronico(correoElectronicoBuscar).orElse(null);
     }
 
-    private String encriptarPassword(String passwordPorEncriptar) {
-        // Desarrollar el proceso de encriptación de la contraseña
-        return passwordPorEncriptar;
+    public Usuario buscarPorIdentificacion(String identificacionBuscar) {
+        return usuarioRepository.findByIdentificacion(identificacionBuscar).orElse(null);
     }
 }

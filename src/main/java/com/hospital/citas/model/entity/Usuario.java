@@ -1,5 +1,10 @@
 package com.hospital.citas.model.entity;
 
+import com.hospital.citas.validation.annotation.CorreoFormato;
+import com.hospital.citas.validation.annotation.CorreoUnico;
+import com.hospital.citas.validation.annotation.IdentificacionUnica;
+import com.hospital.citas.validation.annotation.SoloLetras;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,26 +31,36 @@ public class Usuario {
 
     @Column(name = "identificacion", nullable = false)
     @NotBlank(message = "Debe indicar el número de identificación.")
+    @IdentificacionUnica
     private String identificacion;
 
     @Column(name = "ContrasennaHash", nullable = false)
     @NotBlank(message = "Debe indicar una contraseña.")
+    // @PasswordSeguro
+    // @Min(value = 5, message = "La contraseña debe tener mínimo 5 caracteres.")
+    // @Max(value = 15, message = "La contraseña debe tener máximo 15 caracteres.")
     private String contrasennaHash;
     
     @Column(name = "nombre", nullable = false)
     @NotBlank(message = "Debe indicar el nombre.")
+    @SoloLetras
     private String nombre;
     
     @Column(name = "primerApellido", nullable = false)
     @NotBlank(message = "Debe indicar el primer apellido.")
+    @SoloLetras
     private String primerApellido;
     
     @Column(name = "segundoApellido", nullable = false)
     @NotBlank(message = "Debe indicar el segundo apellido.")
+    @SoloLetras
     private String segundoApellido;
     
     @Column(name = "correoElectronico", nullable = false)
-    @NotBlank(message = "Debe indicar el correo electrónico.")
+    @NotBlank(message = "Debe indicar el correo.")
+    // @Email(message = "Debe ingresar un correo válido.")
+    @CorreoFormato
+    @CorreoUnico
     private String correoElectronico;
 
     @ManyToOne
