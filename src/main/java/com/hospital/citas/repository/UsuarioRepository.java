@@ -6,9 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import com.hospital.citas.model.entity.Usuario;
-
 import jakarta.transaction.Transactional;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
@@ -23,5 +21,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
         @Param("idUsuarioAfectado") Long idUsuarioAfectado,
         @Param("descripcionAccion") String descripcionAccion,
         @Param("idUsuarioRealizoAccion") Long idUsuarioRealizoAccion
-    );
+    );    
 }

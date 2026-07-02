@@ -85,16 +85,6 @@ body {
     grid-column: span 2;
 }
 
-.btn__registro {
-    width: 100%;
-    color: #fff;
-    background-color: var(--primary-color);
-}
-
-.btn__registro:hover {
-    background-color: var(--primary-hover-color);
-}
-
 /*** FIN Formulario ***/
 
 /*** INICIO formulario__row__section Inicio Sesión ***/
@@ -104,11 +94,6 @@ body {
 
 .formulario__parrafo {
     font-size: .8rem;
-}
-
-.parrafo__inicioSesion {
-    font-weight: 600;
-    color: var(--text-neutro-color);
 }
 
 .formulario__enlace {

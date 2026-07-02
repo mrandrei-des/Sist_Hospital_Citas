@@ -69,7 +69,7 @@ body {
 }
 
 .formulario__titulo {
-    font-size: clamp(1.25rem, 2vw, 2rem);
+    font-size: clamp(1.25rem, 1.5vw, 1.5rem);
     letter-spacing: -2px;
     font-weight: 800;
 }
@@ -100,15 +100,6 @@ body {
 
 .contenedor__crear__cuenta {
     text-align: center;
-}
-
-.parrafo {
-    font-size: .8rem;
-}
-
-.parrafo__registro {
-    font-weight: 600;
-    color: var(--text-neutro-color);
 }
 
 .contenedor__formulario__img__area {

@@ -57,14 +57,14 @@
 
                     <div class="formulario__inputs">
                         <div class="contenedor__input">
-                            <input type="text" class="input" th:field="*{correoElectronico}" id="username" placeholder="">
+                            <input type="text" class="input" th:field="*{correo}" id="username" placeholder="">
                             <label for="username" class="input__label">Usuario</label>
-                            <p class="input__error" th:if="${#fields.hasErrors('correoElectronico')}" th:errors="*{correoElectronico}"></p>
+                            <p class="input__error" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></p>
                         </div>
                         <div class="contenedor__input">
-                            <input type="password" class="input" id="password" placeholder="" th:field="*{contrasennaHash}">
+                            <input type="password" class="input" id="password" placeholder="" th:field="*{contrasenna}">
                             <label for="password" class="input__label">Contraseña</label>
-                            <p class="input__error" th:if="${#fields.hasErrors('contrasennaHash')}" th:errors="*{contrasennaHash}"></p>
+                            <p class="input__error" th:if="${#fields.hasErrors('contrasenna')}" th:errors="*{contrasenna}"></p>
                         </div>
                         <div class="contenedor__olvido__contrasenna">
                             <a href="/recuperarContrasenna" class="enlace enlace__cambio__contrasenna">¿Olvidó su contraseña?</a>
@@ -72,11 +72,11 @@
                     </div>
 
                     <div class="formulario__botones">
-                        <button type="submit" class="btn btn__login">Ingresar</button>
+                        <button type="submit" class="btn btn__primary">Ingresar</button>
                     </div>
 
                     <div class="contenedor__crear__cuenta">
-                        <p class="parrafo parrafo__registro">¿Aún no tiene una cuenta? <a href="/registrarPaciente" class="enlace">Registrarme</a></p>
+                        <p class="parrafo parrafo__formulario">¿Aún no tiene una cuenta? <a href="/registrarPaciente" class="enlace">Registrarme</a></p>
                     </div>
                 </form>
             </div>

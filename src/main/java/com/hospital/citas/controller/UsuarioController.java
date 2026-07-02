@@ -3,6 +3,8 @@ package com.hospital.citas.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+
+import com.hospital.citas.model.dto.UsuarioInicioSesionDTO;
 import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.model.entity.Usuario;
 import com.hospital.citas.service.RolService;
@@ -49,8 +51,15 @@ public class UsuarioController {
         }
     }
 
-    @GetMapping("/recuperarContrasenna")
-    public String mostrarFormularioRecuperacionContrasenna() {
-        return "solicitudCambioContrasena";
+    @PostMapping("/procesarRecuperacion")
+    public String mostrarFormularioRecuperacionContrasenna(@Valid @ModelAttribute("usuario") UsuarioInicioSesionDTO usuario, BindingResult bindingResult, Model model) {       
+        
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("usuario", usuario);
+            return "solicitudCambioContrasena";
+        }
+
+        usuarioService.procesarRecuperacionContrasenna(usuario);
+        return "cambioContrasena";
     }
 }

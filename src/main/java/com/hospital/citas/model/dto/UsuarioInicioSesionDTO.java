@@ -1,18 +1,22 @@
 package com.hospital.citas.model.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 public class UsuarioInicioSesionDTO {
     private Long id;
+    @NotBlank(message = "Debe indicar una contraseña.")
     private String contrasenna;
-    private String nombre;
-    private String primerApellido;
+    @NotBlank(message = "Debe indicar un correo.")
+    @Email(message = "Debe ingresar un correo válido.")
+    private String correo;
     private Long idRol;
     public UsuarioInicioSesionDTO() {
     }
-    public UsuarioInicioSesionDTO(Long id, String contrasenna, String nombre, String primerApellido, Long idRol) {
+    public UsuarioInicioSesionDTO(Long id, String contrasenna, String correo, Long idRol) {
         this.id = id;
         this.contrasenna = contrasenna;
-        this.nombre = nombre;
-        this.primerApellido = primerApellido;
+        this.correo = correo;
         this.idRol = idRol;
     }
     public Long getId() {
@@ -27,17 +31,11 @@ public class UsuarioInicioSesionDTO {
     public void setContrasenna(String contrasenna) {
         this.contrasenna = contrasenna;
     }
-    public String getNombre() {
-        return nombre;
+    public String getCorreo() {
+        return correo;
     }
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-    public String getPrimerApellido() {
-        return primerApellido;
-    }
-    public void setPrimerApellido(String primerApellido) {
-        this.primerApellido = primerApellido;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
     public Long getIdRol() {
         return idRol;

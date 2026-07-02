@@ -4,13 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-    <link rel="stylesheet" href="../static/css/restablecerElementos.css">
-    <link rel="stylesheet" href="../static/css/fonts.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css">
 
-    <link rel="stylesheet" th:href="@{/css/restablecerElementos.css}">
-    <link rel="stylesheet" th:href="@{/css/fonts.css}">
+    <link rel="stylesheet" href="../static/css/solicitudCambioContrasenna.css">
+
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_fonts.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_resetElements.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_colors.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_inputs.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_buttons.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_header.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_footer.css}">
+    <link rel="stylesheet" th:href="@{/css/solicitudCambioContrasenna.css}">
 </head>
 <body>
-    <h1>Solicitud de cambio de contraseña</h1>
+    <main class="main__wrapper">
+        <div class="contenedor__principal__formulario">
+            <form action="/procesarRecuperacion" method="post" class="formulario__reset" th:object="${usuario}" novalidate>
+                <input type="hidden" th:field="*{contrasenna}">
+                <section class="formulario__row__section">
+                    <h2 class="formulario__titulo">
+                        Solicitar Recuperación de Contraseña
+                    </h2>
+                </section>
+                <section class="formulario__row__section">
+                    <div class="formulario__section__input">
+                        <div class="section__input__encabezado">
+                            <p class="section__input__parrafo">
+                                Ingrese el correo de contacto
+                            </p>
+                        </div>
+                        <div class="section__input__main">
+                            <div class="contenedor__input">
+                                <input type="email" class="input" id="correo" placeholder="" th:field="*{correo}">
+                                <label for="correo" class="input__label">Correo</label>
+                                <p class="input__error" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="formulario__row__section">
+                    <p class="parrafo parrafo__formulario parrafo__formulario--mensaje">
+                        Si el correo se encuentra registrado en el sistema, se le enviará un código OTP para que realice el cambio de contraseña.
+                    </p>
+                </section>
+                <section class="formulario__row__section">
+                    <button type="submit" class="btn btn__primary">Generar y Enviar</button>
+                </section>
+            </form>
+        </div>
+    </main>
 </body>
 </html>

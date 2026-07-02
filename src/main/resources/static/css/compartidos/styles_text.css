@@ -1,0 +1,9 @@
+.parrafo {
+    font-size: .8rem;
+}
+
+.parrafo__formulario {
+    font-weight: 600;
+    color: var(--text-neutro-color);
+    text-wrap: wrap;
+}
