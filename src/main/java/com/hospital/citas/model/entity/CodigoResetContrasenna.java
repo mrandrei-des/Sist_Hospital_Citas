@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "CodigosRecuperacionContrasenna_Activos", uniqueConstraints = @UniqueConstraint(
@@ -21,6 +22,7 @@ public class CodigoResetContrasenna {
     private Long id;
 
     @Column(name = "codigoGenerado", nullable = false)
+    @NotBlank(message = "Debe indicar el código recibido.")
     private String codigoGenerado;
     
     @OneToOne

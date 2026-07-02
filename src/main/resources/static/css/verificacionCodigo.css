@@ -37,6 +37,21 @@ body {
     gap: 8px;
 }
 
+.formulario__row__section--mensaje {
+    text-align: center;
+}
+
+.enlace {
+    font-size: .8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    transition: color .2s ease-in-out;
+}
+
+.enlace:hover {
+    color: var(--primary-hover-color);
+}
+
 .formulario__titulo {
     font-size: clamp(1.25rem, 1.5vw, 1.5rem);
     letter-spacing: 0px;

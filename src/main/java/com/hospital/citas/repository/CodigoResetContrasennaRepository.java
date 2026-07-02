@@ -2,6 +2,7 @@ package com.hospital.citas.repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -13,7 +14,14 @@ import jakarta.transaction.Transactional;
 
 public interface CodigoResetContrasennaRepository extends JpaRepository<CodigoResetContrasenna, Long> {
     List<CodigoResetContrasenna> findAllByUsuario(Usuario usuario);
-    void deleteByUsuario(Usuario usuario);
+    Optional<CodigoResetContrasenna> findByCodigoGeneradoAndUsuario(String codigoGenerado, Usuario usuario);
+
+    @Transactional
+    @Modifying
+    @Query(value = "{call sp_EliminaCodigos_OTP_Antiguos(:idUsuario)}", nativeQuery = true)
+    void eliminarCodigosAntiguosPorIDUsuario(
+        @Param("idUsuario") Long idUsuario
+    ); 
 
     @Transactional
     @Modifying
@@ -28,6 +36,14 @@ public interface CodigoResetContrasennaRepository extends JpaRepository<CodigoRe
     @Modifying
     @Query(value = "{call sp_InsertaCodigo_OTP_Usado(:codigoGenerado, :idUsuario)}", nativeQuery = true)
     void insertaRegistroBitacoraCodigoOTP_Usado(
+        @Param("codigoGenerado") String codigoGenerado,
+        @Param("idUsuario") Long idUsuario
+    );
+
+    @Transactional
+    @Modifying
+    @Query(value = "{call sp_EliminaCodigo_OTP_Usado(:codigoGenerado, :idUsuario)}", nativeQuery = true)
+    void eliminarCodigoSeguridad_Usado(
         @Param("codigoGenerado") String codigoGenerado,
         @Param("idUsuario") Long idUsuario
     );     

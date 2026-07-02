@@ -21,5 +21,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
         @Param("idUsuarioAfectado") Long idUsuarioAfectado,
         @Param("descripcionAccion") String descripcionAccion,
         @Param("idUsuarioRealizoAccion") Long idUsuarioRealizoAccion
-    );    
+    );
 }

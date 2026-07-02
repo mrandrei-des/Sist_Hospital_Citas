@@ -3,49 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cambio de Contraseña</title>
+    <title>Verificación de código</title>
     <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css">
     <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css">
     <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css">
     <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css">
     <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css">
-    <link rel="stylesheet" href="../static/css/CambioContrasenna.css">
+    <link rel="stylesheet" href="../static/css/verificacionCodigo.css">
 
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_fonts.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_resetElements.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_colors.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_inputs.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_buttons.css}">
-    <link rel="stylesheet" th:href="@{/css/CambioContrasenna.css}">
+    <link rel="stylesheet" th:href="@{/css/verificacionCodigo.css}">
 </head>
 <body>
     <main class="main__wrapper">
         <div class="contenedor__principal__formulario">
-            <form action="/procesarCambioContrasenna" method="post" class="formulario__reset" th:object="${usuario}" novalidate>
+            <form action="/procesarVerificacion" method="post" class="formulario__reset" th:object="${codigoOTP}" novalidate>
                 <input type="hidden" th:field="*{correo}">
                 <section class="formulario__row__section">
                     <h2 class="formulario__titulo">
-                        Cambio de Contraseña
+                        Verificación de Código
                     </h2>
                 </section>
                 <section class="formulario__row__section">
                     <div class="formulario__section__input">
                         <div class="section__input__encabezado">
                             <p class="section__input__parrafo">
-                                Ingrese la nueva contraseña
+                                Ingrese el código recibido
                             </p>
                         </div>
                         <div class="section__input__main">
                             <div class="contenedor__input">
-                                <input type="password" class="input" id="contrasenna" placeholder="" th:field="*{contrasenna}">
-                                <label for="contrasenna" class="input__label">Contraseña Nueva</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('contrasenna')}" th:errors="*{contrasenna}"></p>
+                                <input type="text" class="input" id="codigo" placeholder="" th:field="*{codigoSeguridad}" maxlength="6">
+                                <label for="codigo" class="input__label">Código</label>
+                                <p class="input__error" th:if="${#fields.hasErrors('codigoSeguridad')}" th:errors="*{codigoSeguridad}"></p>
+                                <p class="input__error" th:if="${mostrarMensajeDeIncorrecto}">El código no es correcto. Inténtelo nuevamente.</p>
+                                <p class="input__error" th:if="${mostrarMensajeDeExpirado}">El código ha expirado.
+                                    <a href="/recuperarContrasenna" class="enlace enlace__cambio__contrasenna">Solicitar nuevo</a>
+                                </p>
                             </div>
                         </div>
                     </div>
                 </section>
-                <section class="formulario__row__section">
-                    <button type="submit" class="btn btn__primary">Cambiar Contraseña</button>
+                <section class="formulario__row__section" th:if="${mostrarMensajeDeExpirado}">
+                    <button type="submit" class="btn btn__primary">Verificar</button>
+                </section>
+                <section class="formulario__row__section formulario__row__section--mensaje" th:if="${mostrarMensajeDeExpirado}">
+                    <p class="parrafo parrafo__formulario parrafo__formulario--mensaje">
+                        ¿No recibió el código de seguridad?
+                    </p>
+                    <a href="/" class="enlace">Reenviar código</a>
                 </section>
             </form>
         </div>
