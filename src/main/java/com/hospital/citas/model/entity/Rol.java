@@ -8,12 +8,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table (name = "Roles")
 public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @NotNull(message = "Debe seleccionar el rol del usuario.")
     private Long id;
 
     @Column(name = "descripcion", nullable = false)

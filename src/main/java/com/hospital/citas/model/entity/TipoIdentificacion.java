@@ -6,12 +6,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table (name = "TipoIdentificaciones")
 public class TipoIdentificacion {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull(message = "Debe seleccionar el tipo de identificación.")
     private Long id;
 
     @Column(name = "descripcion", nullable = false)

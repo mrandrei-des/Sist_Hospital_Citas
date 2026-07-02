@@ -25,23 +25,27 @@ public class Usuario {
     private TipoIdentificacion tipoIdentificacion;
 
     @Column(name = "identificacion", nullable = false)
+    @NotBlank(message = "Debe indicar el número de identificación.")
     private String identificacion;
 
-    @NotBlank(message = "¡Debe indicar una contraseña!")
     @Column(name = "ContrasennaHash", nullable = false)
+    @NotBlank(message = "Debe indicar una contraseña.")
     private String contrasennaHash;
-
+    
     @Column(name = "nombre", nullable = false)
+    @NotBlank(message = "Debe indicar el nombre.")
     private String nombre;
-
+    
     @Column(name = "primerApellido", nullable = false)
+    @NotBlank(message = "Debe indicar el primer apellido.")
     private String primerApellido;
-
+    
     @Column(name = "segundoApellido", nullable = false)
+    @NotBlank(message = "Debe indicar el segundo apellido.")
     private String segundoApellido;
-
+    
     @Column(name = "correoElectronico", nullable = false)
-    @NotBlank(message = "¡Debe indicar el correo electrónico!")
+    @NotBlank(message = "Debe indicar el correo electrónico.")
     private String correoElectronico;
 
     @ManyToOne
@@ -52,7 +56,7 @@ public class Usuario {
     @JoinColumn (name = "idRol", nullable = false)
     private Rol rol;
 
-    public Usuario() {
+    public Usuario() {        
     }
 
     public Usuario(Long id, TipoIdentificacion tipoIdentificacion, String identificacion, String contrasennaHash,
