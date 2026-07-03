@@ -40,7 +40,7 @@
     <main class="main__wrapper">
         <div class="contenedor__formulario__login">
             <div class="contenedor__formulario__input__area">
-                <form action="/login" method="post" class="formulario__login" th:object="${usuario}" novalidate>
+                <form th:action="@{/login}" method="post" class="formulario__login" th:object="${usuario}" novalidate>
                     <div class="formulario__logo">
                         <img th:src="@{/img/hospital.png}" src="../static/img/hospital.png" alt="Sticker de un hospital" class="img__logo">
                         <p class="nombre__sistema">Hospital MR</p>

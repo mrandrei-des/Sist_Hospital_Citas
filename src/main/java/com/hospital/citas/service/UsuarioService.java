@@ -1,13 +1,11 @@
 package com.hospital.citas.service;
 
-import com.hospital.citas.controller.UsuarioController;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.hospital.citas.model.dto.UsuarioInicioSesionDTO;
 import com.hospital.citas.model.entity.CodigoResetContrasenna;
 import com.hospital.citas.model.entity.Usuario;
@@ -29,7 +27,12 @@ public class UsuarioService {
     @Autowired
     private CorreoService correoService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public Usuario crearCuenta(Usuario usuarioNuevo) {
+        // FALTA ENCRIPTAR LA CONTRASEÑA
+        usuarioNuevo.setContrasennaHash(passwordEncoder.encode(usuarioNuevo.getContrasennaHash()));
         Usuario usuarioRegistrado = usuarioRepository.save(usuarioNuevo);
         if(usuarioRegistrado != null) {
             Long idUsuarioRealizoAccion = 1L;
@@ -116,7 +119,8 @@ public class UsuarioService {
     public boolean procesarCambioContrasenna(UsuarioInicioSesionDTO usuario) {
         Usuario usuarioEncontrado = usuarioRepository.findByCorreoElectronico(usuario.getCorreo()).orElse(null);
         if(usuarioEncontrado != null) {
-            usuarioRepository.cambioContrasenna(usuarioEncontrado.getId(), usuario.getContrasenna());
+            // FALTA ENCRIPTAR LA CONTRASEÑA
+            usuarioRepository.cambioContrasenna(usuarioEncontrado.getId(), passwordEncoder.encode(usuario.getContrasenna()));
             usuarioRepository.insertaRegistroBitacoraCambiosUsuario(4L, usuarioEncontrado.getId(), "El usuario realizó la recuperación de contraseña.", usuarioEncontrado.getId());
             return true;
         }

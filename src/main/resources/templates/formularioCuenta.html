@@ -32,7 +32,7 @@
                 </h2>
             </section>
             <section class="formulario__row__section">
-                <form action="/cuentaNueva" method="post" class="formulario" th:object="${cuentaNueva}" novalidate>
+                <form th:action="@{/cuentaNueva}" method="post" class="formulario" th:object="${cuentaNueva}" novalidate>
                     <input type="hidden" th:if="${esUnPaciente == 'S'}" th:field="*{rol.id}">
                     <input type="hidden" name="origenPeticion" th:value="${esUnPaciente}">
 
@@ -137,6 +137,8 @@
             </section>
         </div>
     </main>
+
+<!-- CAMBIAR LOS HREF POR th:href="@{}" -->
 
     <div th:replace="~{fragments::footer}"></div>
     <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>

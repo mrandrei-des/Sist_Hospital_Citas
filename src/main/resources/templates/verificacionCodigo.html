@@ -21,7 +21,7 @@
 <body>
     <main class="main__wrapper">
         <div class="contenedor__principal__formulario">
-            <form action="/procesarVerificacion" method="post" class="formulario__reset" th:object="${codigoOTP}" novalidate>
+            <form th:action="@{/procesarVerificacion}" method="post" class="formulario__reset" th:object="${codigoOTP}" novalidate>
                 <input type="hidden" name="correo" th:value="${correo}">
                 <section class="formulario__row__section">
                     <h2 class="formulario__titulo">

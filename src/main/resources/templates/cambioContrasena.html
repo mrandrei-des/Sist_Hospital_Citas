@@ -21,7 +21,7 @@
 <body>
     <main class="main__wrapper">
         <div class="contenedor__principal__formulario">
-            <form action="/procesarCambioContrasenna" method="post" class="formulario__reset" th:object="${usuario}" novalidate>
+            <form th:action="@{/procesarCambioContrasenna}" method="post" class="formulario__reset" th:object="${usuario}" novalidate>
                 <input type="hidden" th:field="*{correo}">
                 <section class="formulario__row__section">
                     <h2 class="formulario__titulo">
