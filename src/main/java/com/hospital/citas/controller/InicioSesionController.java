@@ -12,12 +12,16 @@ public class InicioSesionController {
     @GetMapping("/")
     public String cargarInicioSesion(Model model){
         model.addAttribute("usuario", new UsuarioInicioSesionDTO());
+        model.addAttribute("mostrarNotificacion", false);
+        model.addAttribute("mensaje", "");
         return "inicioSesion";
     }
 
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("usuario", new UsuarioInicioSesionDTO());
+        model.addAttribute("mostrarNotificacion", false);
+        model.addAttribute("mensaje", "");
         return "inicioSesion";
     }
 
@@ -28,12 +32,4 @@ public class InicioSesionController {
         model.addAttribute("usuario", usuarioDTO);
         return "solicitudCambioContrasena";
     }
-
-    /*
-    @GetMapping("/cambioContrasenna")
-    public String cambioContrasenna(Model model) {
-        model.addAttribute("usuario", new Usuario());
-        return "cambioContrasenna";
-    }
-    */
 }

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css">
     <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css">
     <link rel="stylesheet" href="../static/css/compartidos/styles_header.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css">
     <link rel="stylesheet" href="../static/css/compartidos/styles_footer.css">
     
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_fonts.css}">
@@ -18,10 +19,9 @@
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_colors.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_inputs.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_buttons.css}">
-    
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_notificaciones.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_header.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_footer.css}">
-
 </head>
 <body>
     <header class="header__principal" th:fragment="header (mostrarOpcionesMenu)">
@@ -39,18 +39,29 @@
                         <p class="menu__nombre__usuario">John Doe</p>
                     </li>
 
-
-
                     <li class="menu__elemento">
                         <span class="menu__icono">
                             <i class="fa-solid fa-arrow-right-from-bracket"></i>
                         </span>
-                        <a href="/" class="menu__enlace">Cerrar Sesión</a>
+                        <a th:href="@{/}" class="menu__enlace">Cerrar Sesión</a>
                     </li>
                 </ul>
             </nav>
         </div>
     </header>
+
+    <div class="contenedor__notificacion" id="contenedorNotificacion" th:fragment="notificacion (mostrarNotificacion, mensajeNotificacion)" th:if="${mostrarNotificacion}">
+        <div class="notificacion__items">
+            <div class="item__icon">
+                <span class="item__contenedor__icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </span>
+            </div>
+            <div class="item__titulo">
+                <h3 class="notificacion__titulo" th:text="${mensajeNotificacion}"></h3>
+            </div>
+        </div>
+    </div>
 
     <footer class="footer__principal" th:fragment="footer">
         <div class="footer__elemento">
@@ -68,6 +79,8 @@
         </div>
     </footer>
     
+    <script src="../static/js/notificaciones.js"></script>
     <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
+
 </body>
 </html>

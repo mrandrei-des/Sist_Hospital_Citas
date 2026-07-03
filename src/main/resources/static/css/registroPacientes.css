@@ -18,14 +18,14 @@ body {
 .contenedor__principal__formulario {
     width: 700px;
     max-width: 1000px;
-    padding: 3rem;
+    padding: 2rem;
     border-radius: 8px;
     background-color: var(--secondary-bg-color);
 
     display: flex;
     flex-direction: column;
     justify-content: start;
-    gap: 1rem;
+    gap: 2rem;
 
     animation: aparecer_abajo 1s ease-in-out 1 forwards;
 }
@@ -90,10 +90,6 @@ body {
 /*** INICIO formulario__row__section Inicio Sesión ***/
 .formulario__row__section .parrafo__inicioSesion {
     text-align: center;
-}
-
-.formulario__parrafo {
-    font-size: .8rem;
 }
 
 .formulario__enlace {

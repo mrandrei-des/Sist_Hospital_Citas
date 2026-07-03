@@ -1,4 +1,4 @@
-.parrafo {
+/* .parrafo {
     font-size: .8rem;
 }
 
@@ -6,4 +6,15 @@
     font-weight: 600;
     color: var(--text-neutro-color);
     text-wrap: wrap;
+} */
+
+.formulario__parrafo {
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--text-neutro-color);
+    text-wrap: wrap;
+}
+
+.formulario__parrafo--center {
+    text-align: center;
 }

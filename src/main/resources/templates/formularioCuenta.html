@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css">
     <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css">
     <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_text.css">
     <link rel="stylesheet" href="../static/css/registroPacientes.css">
 
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_fonts.css}">
@@ -16,6 +17,7 @@
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_colors.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_inputs.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_buttons.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_text.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_header.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_footer.css}">
     <link rel="stylesheet" th:href="@{/css/registroPacientes.css}">
@@ -123,6 +125,13 @@
                                 <label for="rolUsuario" class="input__label">Rol Usuario</label>
                                 <p class="input__error" th:if="${#fields.hasErrors('rol.id')}" th:errors="*{rol.id}"></p>
                             </div>
+                            <div class="contenedor__input contenedor__input__sp2" th:if="${esUnPaciente == 'N'}">
+                                <select id="estadoUsuario" class="input" th:field="*{estado.id}">
+                                    <option th:each="estado : ${listaEstados}" th:value="${estado.getId()}" th:text="${estado.getDescripcion()}">Activo</option>
+                                </select>
+                                <label for="estadoUsuario" class="input__label">Estado Usuario</label>
+                                <p class="input__error" th:if="${#fields.hasErrors('estado.id')}" th:errors="*{estado.id}"></p>
+                            </div>
                         </div>
                     </div>
                     <div class="formulario__section__input formulario__section__button">
@@ -131,14 +140,12 @@
                 </form>
             </section>
             <section class="formulario__row__section" th:if="${esUnPaciente == 'S'}">
-                <p class="formulario__parrafo parrafo__formulario">
-                    ¿Ya tienes una cuenta? <a href="/" class="formulario__enlace">Inicia Sesión</a>
+                <p class="formulario__parrafo formulario__parrafo--center">
+                    ¿Ya tienes una cuenta? <a th:href="@{/}" class="formulario__enlace">Inicia Sesión</a>
                 </p>
             </section>
         </div>
     </main>
-
-<!-- CAMBIAR LOS HREF POR th:href="@{}" -->
 
     <div th:replace="~{fragments::footer}"></div>
     <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>

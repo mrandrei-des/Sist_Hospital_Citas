@@ -119,7 +119,6 @@ public class UsuarioService {
     public boolean procesarCambioContrasenna(UsuarioInicioSesionDTO usuario) {
         Usuario usuarioEncontrado = usuarioRepository.findByCorreoElectronico(usuario.getCorreo()).orElse(null);
         if(usuarioEncontrado != null) {
-            // FALTA ENCRIPTAR LA CONTRASEÑA
             usuarioRepository.cambioContrasenna(usuarioEncontrado.getId(), passwordEncoder.encode(usuario.getContrasenna()));
             usuarioRepository.insertaRegistroBitacoraCambiosUsuario(4L, usuarioEncontrado.getId(), "El usuario realizó la recuperación de contraseña.", usuarioEncontrado.getId());
             return true;

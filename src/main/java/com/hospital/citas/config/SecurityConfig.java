@@ -28,9 +28,30 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 //rutas publicas 
-                .requestMatchers("/login", "/css/**", "/js/**", "/img/**", "/fonts/**", "/registrarPaciente", "/recuperarContrasenna", "/procesarRecuperacion", "/procesarVerificacion", "/procesarCambioContrasenna", "/reenviarCodigoReset", "/verificacionCodigo", "/cuentaNueva", "/registrarPaciente/cuentaNueva").permitAll()
-                //rutas que ADMIN y USUARIO pueden ver
+                // RECURSOS
+                .requestMatchers("/css/**", "/js/**", "/img/**", "/fonts/**").permitAll()
+
+                // GET MAPPING PÚBLICO
+                .requestMatchers("/login", "/", "/registrarPaciente", "/recuperarContrasenna", "/verificacionCodigo").permitAll()
+
+                // POST MAPPING PÚBLICO
+                .requestMatchers("/cuentaNueva", "/procesarRecuperacion", "/procesarVerificacion", "/procesarCambioContrasenna", "/reenviarCodigoReset").permitAll()
+
+                // GET MAPPING PRIVADO PACIENTE Y ADMIN
                 .requestMatchers("/acceso-denegado").hasAnyRole("1", "2")
+
+                // GET MAPPING PRIVADO PACIENTE
+                .requestMatchers("/inicio").hasAnyRole("1")
+                
+                // POST MAPPING PRIVADO PACIENTE
+                // .requestMatchers().hasAnyRole("1")
+                
+                // GET MAPPING PRIVADO ADMIN
+                .requestMatchers("/registroUsuario").hasAnyRole("2")
+
+                // POST MAPPING PRIVADO ADMIN
+                // .requestMatchers().hasAnyRole("2")
+
                 .requestMatchers("/inicio").hasAnyRole("1")
                 //Todo lo demas, exige que sea ADMIN 
                 .anyRequest().hasRole("2") 

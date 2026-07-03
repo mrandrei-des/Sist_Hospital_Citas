@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css">
     <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css">
     <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css">
     <link rel="stylesheet" href="../static/css/verificacionCodigo.css">
 
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_fonts.css}">
@@ -16,9 +17,13 @@
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_colors.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_inputs.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_buttons.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_notificaciones.css}">
     <link rel="stylesheet" th:href="@{/css/verificacionCodigo.css}">
 </head>
 <body>
+    <!-- NOTIFICACIÓN DE CÓDIGO ENVIADO -->
+    <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${mensaje})}"></div>
+    
     <main class="main__wrapper">
         <div class="contenedor__principal__formulario">
             <form th:action="@{/procesarVerificacion}" method="post" class="formulario__reset" th:object="${codigoOTP}" novalidate>
@@ -42,7 +47,7 @@
                                 <p class="input__error" th:if="${#fields.hasErrors('codigoGenerado')}" th:errors="*{codigoGenerado}"></p>
                                 <p class="input__error" th:if="${mostrarMensajeDeIncorrecto}">El código no es correcto. Inténtelo nuevamente.</p>
                                 <p class="input__error" th:if="${mostrarMensajeDeExpirado}">El código ha expirado.
-                                    <a href="/recuperarContrasenna/" class="enlace enlace__cambio__contrasenna">Solicitar nuevo</a>
+                                    <a th:href="@{/recuperarContrasenna}"  class="enlace enlace__cambio__contrasenna">Solicitar nuevo</a>
                                 </p>
                             </div>
                         </div>
@@ -60,5 +65,7 @@
             </form>
         </div>
     </main>
+    <script src="../static/js/notificaciones.js" th:src="@{/js/notificaciones.js}"></script>
+    <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
 </body>
 </html>

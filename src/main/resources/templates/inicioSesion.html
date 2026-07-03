@@ -10,8 +10,11 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css">
     <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css">
     <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_text.css">
 
-    <link rel="stylesheet" href="../static/css/mensajes_notificaciones.css">
+
+    <link rel="stylesheet" href="../static/css/compartidos/styles_mensajes_notificaciones.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css">
     <link rel="stylesheet" href="../static/css/inicioSesion.css">
 
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_fonts.css}">
@@ -19,14 +22,18 @@
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_colors.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_inputs.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_buttons.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_text.css}">
+
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_header.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_footer.css}">
-    <link rel="stylesheet" th:href="@{/css/mensajes_notificaciones.css}">
+    <link rel="stylesheet" th:href="@{/css/compatidos/styles_mensajes_notificaciones.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_notificaciones.css}">
     <link rel="stylesheet" th:href="@{/css/inicioSesion.css}">
 </head>
-<body>
-
+<body>    
     <div th:replace="~{fragments::header(mostrarOpcionesMenu=${false})}"></div>
+    
+    <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${mensaje})}"></div>
 
     <div class="contenedor__mensaje--error" id="contenedorMensaje" th:if="${mostrarError}">
         <div class="contenedor__mensaje__img">
@@ -67,7 +74,7 @@
                             <p class="input__error" th:if="${#fields.hasErrors('contrasenna')}" th:errors="*{contrasenna}"></p>
                         </div>
                         <div class="contenedor__olvido__contrasenna">
-                            <a href="/recuperarContrasenna" class="enlace enlace__cambio__contrasenna">¿Olvidó su contraseña?</a>
+                            <a th:href="@{/recuperarContrasenna}"  class="enlace enlace__cambio__contrasenna">¿Olvidó su contraseña?</a>
                         </div>
                     </div>
 
@@ -76,7 +83,7 @@
                     </div>
 
                     <div class="contenedor__crear__cuenta">
-                        <p class="parrafo parrafo__formulario">¿Aún no tiene una cuenta? <a href="/registrarPaciente" class="enlace">Registrarme</a></p>
+                        <p class="formulario__parrafo formulario__parrafo--center">¿Aún no tiene una cuenta? <a th:href="@{/registrarPaciente}"  class="enlace">Registrarme</a></p>
                     </div>
                 </form>
             </div>
@@ -89,7 +96,8 @@
 
     <div th:replace="~{fragments::footer}"></div>
 
-    <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
     <script src="../static/js/mensajesNotificaciones.js" th:src="@{/js/mensajesNotificaciones.js}"></script>
+    <script src="../static/js/notificaciones.js" th:src="@{/js/notificaciones.js}"></script>
+    <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
 </body>
 </html>

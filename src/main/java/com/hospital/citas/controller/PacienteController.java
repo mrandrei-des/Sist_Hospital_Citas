@@ -23,7 +23,6 @@ public class PacienteController {
 
     @GetMapping("/registrarPaciente")
     public String mostrarFormularioRegistroPaciente(Model model) {
-
         Usuario pacienteNuevo = new Usuario();
         Rol rolPaciente = new Rol();
         TipoIdentificacion tipoIdentificacionPaciente = new TipoIdentificacion();
@@ -33,7 +32,6 @@ public class PacienteController {
         
         model.addAttribute("cuentaNueva", pacienteNuevo);
         model.addAttribute("listaTipoIdentificacion", tipoIdentificacionService.consultarTiposDeIdentificacion());
-        model.addAttribute("listaRoles", rolService.consultarRolesDTO());
         // PARA EVALUAR SI EL FORMULARIO LO VA A USAR UN ADMIN O UN PACIENTE NUEVO
         // EN EL ADMIN SE DEBE ENVIAR EL PARÁMETRO PERO CON VALOR N
         model.addAttribute("esUnPaciente", "S");

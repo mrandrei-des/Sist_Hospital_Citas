@@ -7,7 +7,7 @@ public class UsuarioInicioSesionDTO {
     private Long id;
     @NotBlank(message = "Debe indicar una contraseña.")
     private String contrasenna;
-    @NotBlank(message = "Debe indicar un correo.")
+    @NotBlank(message = "Debe indicar el correo registrado.")
     @Email(message = "Debe ingresar un correo válido.")
     private String correo;
     private Long idRol;
