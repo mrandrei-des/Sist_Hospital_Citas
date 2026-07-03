@@ -22,7 +22,7 @@
     <main class="main__wrapper">
         <div class="contenedor__principal__formulario">
             <form action="/procesarVerificacion" method="post" class="formulario__reset" th:object="${codigoOTP}" novalidate>
-                <input type="hidden" th:field="*{correo}">
+                <input type="hidden" name="correo" th:value="${correo}">
                 <section class="formulario__row__section">
                     <h2 class="formulario__titulo">
                         Verificación de Código
@@ -37,25 +37,25 @@
                         </div>
                         <div class="section__input__main">
                             <div class="contenedor__input">
-                                <input type="text" class="input" id="codigo" placeholder="" th:field="*{codigoSeguridad}" maxlength="6">
+                                <input type="text" class="input" id="codigo" placeholder="" th:field="*{codigoGenerado}" maxlength="6">
                                 <label for="codigo" class="input__label">Código</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('codigoSeguridad')}" th:errors="*{codigoSeguridad}"></p>
+                                <p class="input__error" th:if="${#fields.hasErrors('codigoGenerado')}" th:errors="*{codigoGenerado}"></p>
                                 <p class="input__error" th:if="${mostrarMensajeDeIncorrecto}">El código no es correcto. Inténtelo nuevamente.</p>
                                 <p class="input__error" th:if="${mostrarMensajeDeExpirado}">El código ha expirado.
-                                    <a href="/recuperarContrasenna" class="enlace enlace__cambio__contrasenna">Solicitar nuevo</a>
+                                    <a href="/recuperarContrasenna/" class="enlace enlace__cambio__contrasenna">Solicitar nuevo</a>
                                 </p>
                             </div>
                         </div>
                     </div>
                 </section>
-                <section class="formulario__row__section" th:if="${mostrarMensajeDeExpirado}">
+                <section class="formulario__row__section" th:if="${!mostrarMensajeDeExpirado}">
                     <button type="submit" class="btn btn__primary">Verificar</button>
                 </section>
-                <section class="formulario__row__section formulario__row__section--mensaje" th:if="${mostrarMensajeDeExpirado}">
+                <section class="formulario__row__section formulario__row__section--mensaje" th:if="${!mostrarMensajeDeExpirado}">
                     <p class="parrafo parrafo__formulario parrafo__formulario--mensaje">
                         ¿No recibió el código de seguridad?
                     </p>
-                    <a href="/" class="enlace">Reenviar código</a>
+                    <button type="submit" class="btn--enlace" th:formaction="@{/reenviarCodigoReset}">Reenviar código</button>
                 </section>
             </form>
         </div>

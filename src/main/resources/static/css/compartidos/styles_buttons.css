@@ -17,3 +17,19 @@
 .btn__primary:hover {
     background-color: var(--primary-hover-color);
 }
+
+.btn--enlace {
+    border: none;
+    outline: none;
+    padding: 0;
+    font-size: .8rem;
+    font-weight: 700;
+    background-color: transparent;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: color .2s ease-in-out;
+}
+
+.btn--enlace:hover {
+    color: var(--primary-hover-color);
+}

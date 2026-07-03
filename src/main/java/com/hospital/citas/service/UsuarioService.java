@@ -1,5 +1,6 @@
 package com.hospital.citas.service;
 
+import com.hospital.citas.controller.UsuarioController;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -7,7 +8,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hospital.citas.model.dto.CodigoResetContrasennaDTO;
 import com.hospital.citas.model.dto.UsuarioInicioSesionDTO;
 import com.hospital.citas.model.entity.CodigoResetContrasenna;
 import com.hospital.citas.model.entity.Usuario;
@@ -16,7 +16,6 @@ import com.hospital.citas.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
-    private final CodigoResetContrasennaService codigoResetContrasennaService;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -29,11 +28,6 @@ public class UsuarioService {
 
     @Autowired
     private CorreoService correoService;
-
-    UsuarioService(CorreoService correoService, CodigoResetContrasennaService codigoResetContrasennaService) {
-        this.correoService = correoService;
-        this.codigoResetContrasennaService = codigoResetContrasennaService;
-    }
 
     public Usuario crearCuenta(Usuario usuarioNuevo) {
         Usuario usuarioRegistrado = usuarioRepository.save(usuarioNuevo);
@@ -74,7 +68,7 @@ public class UsuarioService {
             CodigoResetContrasenna codigoReset = new CodigoResetContrasenna();
             codigoReset.setUsuario(usuarioEncontrado);
             codigoReset.setCodigoGenerado(codigoOTP);
-            codigoReset.setFechaExpiracion(fechaHoraActual.plusMinutes(5));
+            codigoReset.setFechaExpiracion(fechaHoraActual.plusMinutes(15));
             codigoResetContrasennaRepository.save(codigoReset);
 
             // Procede a enviar el código generado por correo.
@@ -96,15 +90,15 @@ public class UsuarioService {
         }
     }
 
-    public boolean codigoSeguridadEsValido(CodigoResetContrasennaDTO codigoSeguridad, String correoUsuario){
+    public boolean codigoSeguridadEsValido(CodigoResetContrasenna codigoSeguridad, String correoUsuario){
         Usuario usuario = usuarioRepository.findByCorreoElectronico(correoUsuario).orElse(null);
-        CodigoResetContrasenna codigoResetEncontrado = codigoResetContrasennaRepository.findByCodigoGeneradoAndUsuario(codigoSeguridad.getCodigoSeguridad(), usuario).orElse(null);
+        CodigoResetContrasenna codigoResetEncontrado = codigoResetContrasennaRepository.findByCodigoGeneradoAndUsuario(codigoSeguridad.getCodigoGenerado(), usuario).orElse(null);
         return codigoResetEncontrado != null;
     }
 
-    public boolean codigoSeguridadEstaActivo(CodigoResetContrasennaDTO codigoSeguridad, String correoUsuario){
+    public boolean codigoSeguridadEstaActivo(CodigoResetContrasenna codigoSeguridad, String correoUsuario){
         Usuario usuario = usuarioRepository.findByCorreoElectronico(correoUsuario).orElse(null);
-        CodigoResetContrasenna codigoResetEncontrado = codigoResetContrasennaRepository.findByCodigoGeneradoAndUsuario(codigoSeguridad.getCodigoSeguridad(), usuario).orElse(null);
+        CodigoResetContrasenna codigoResetEncontrado = codigoResetContrasennaRepository.findByCodigoGeneradoAndUsuario(codigoSeguridad.getCodigoGenerado(), usuario).orElse(null);
 
         if(codigoResetEncontrado != null) {
             LocalDateTime fechaHoraActual = consultaDBServerService.consultaFechaHoraActualServer();
@@ -113,9 +107,30 @@ public class UsuarioService {
         return false;
     }
 
-    public void procesarCodigoSeguridad(CodigoResetContrasennaDTO codigoSeguridad, String correoUsuario){
+    public void procesarCodigoSeguridad(CodigoResetContrasenna codigoSeguridad, String correoUsuario){
         Usuario usuario = usuarioRepository.findByCorreoElectronico(correoUsuario).orElse(null);
-        codigoResetContrasennaRepository.insertaRegistroBitacoraCodigoOTP_Usado(codigoSeguridad.getCodigoSeguridad(), usuario.getId());
-        codigoResetContrasennaRepository.eliminarCodigoSeguridad_Usado(codigoSeguridad.getCodigoSeguridad(), usuario.getId());
+        codigoResetContrasennaRepository.insertaRegistroBitacoraCodigoOTP_Usado(codigoSeguridad.getCodigoGenerado(), usuario.getId());
+        codigoResetContrasennaRepository.eliminarCodigoSeguridad_Usado(codigoSeguridad.getCodigoGenerado(), usuario.getId());
+    }
+
+    public boolean procesarCambioContrasenna(UsuarioInicioSesionDTO usuario) {
+        Usuario usuarioEncontrado = usuarioRepository.findByCorreoElectronico(usuario.getCorreo()).orElse(null);
+        if(usuarioEncontrado != null) {
+            usuarioRepository.cambioContrasenna(usuarioEncontrado.getId(), usuario.getContrasenna());
+            usuarioRepository.insertaRegistroBitacoraCambiosUsuario(4L, usuarioEncontrado.getId(), "El usuario realizó la recuperación de contraseña.", usuarioEncontrado.getId());
+            return true;
+        }
+        return false;
+    }
+
+    public void reenviarCodigoResetContrasenna(String correoUsuario) {
+        Usuario usuarioEncontrado = usuarioRepository.findByCorreoElectronico(correoUsuario).orElse(null);
+        if(usuarioEncontrado != null) {
+            CodigoResetContrasenna codigoResetContrasenna = codigoResetContrasennaRepository.findByUsuario(usuarioEncontrado).orElse(null);
+            if(codigoResetContrasenna != null) {
+                String codigoOTP = codigoResetContrasenna.getCodigoGenerado();
+                correoService.enviarCorreoCodigo(usuarioEncontrado.getCorreoElectronico(), codigoOTP);
+            }
+        }
     }
 }

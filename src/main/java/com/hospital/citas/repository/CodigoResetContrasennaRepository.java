@@ -1,5 +1,6 @@
 package com.hospital.citas.repository;
 
+import java.lang.StackWalker.Option;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import jakarta.transaction.Transactional;
 public interface CodigoResetContrasennaRepository extends JpaRepository<CodigoResetContrasenna, Long> {
     List<CodigoResetContrasenna> findAllByUsuario(Usuario usuario);
     Optional<CodigoResetContrasenna> findByCodigoGeneradoAndUsuario(String codigoGenerado, Usuario usuario);
+    Optional<CodigoResetContrasenna> findByUsuario(Usuario usuario);
 
     @Transactional
     @Modifying

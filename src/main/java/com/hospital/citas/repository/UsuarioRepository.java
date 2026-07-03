@@ -22,4 +22,12 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
         @Param("descripcionAccion") String descripcionAccion,
         @Param("idUsuarioRealizoAccion") Long idUsuarioRealizoAccion
     );
+
+    @Transactional
+    @Modifying
+    @Query(value = "{call sp_CambioContrasenna(:idUsuario, :contrasennaNueva)}", nativeQuery = true)
+    void cambioContrasenna(
+        @Param("idUsuario") Long idAccion,
+        @Param("contrasennaNueva") String descripcionAccion
+    );
 }

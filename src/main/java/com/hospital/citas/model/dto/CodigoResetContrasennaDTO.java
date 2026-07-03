@@ -3,7 +3,6 @@ package com.hospital.citas.model.dto;
 import jakarta.validation.constraints.NotBlank;
 
 public class CodigoResetContrasennaDTO {
-
     private Long idUsuario;
     @NotBlank(message = "Debe indicar el código recibido.")
     private String codigoSeguridad;
