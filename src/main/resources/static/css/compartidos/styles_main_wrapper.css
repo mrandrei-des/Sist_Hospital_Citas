@@ -1,0 +1,10 @@
+.contenedor__wrapper {
+    height: calc(100vh - 100px - 115px);
+}
+
+@media screen and (max-width: 925px) {
+    .contenedor__wrapper {
+        height: auto;
+        position: relative;
+    }
+}

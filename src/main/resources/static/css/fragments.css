@@ -1,0 +1,38 @@
+body {
+    background-color: var(--primary-bg-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.contenedor__main {
+    flex: 1;
+    padding: 2rem;
+    padding-left: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.contenedor__menu__lateral, .contenedor__principal__wrapper {
+    border-radius: 8px;
+    background-color: var(--secondary-bg-color);
+    box-shadow: 0 0 15px 5px #0001;
+    transition: box-shadow .2s ease-in-out;
+}
+
+.contenedor__principal__wrapper {
+    flex-grow: 2;
+}
+
+.contenedor__menu__lateral:hover, 
+.contenedor__principal__wrapper:hover {
+    box-shadow: 0 0 15px 5px #0002;
+}
+
+.contenedor__menu__lateral {
+    flex-grow: 1;
+    max-width: 250px;
+    justify-self: start;
+}
