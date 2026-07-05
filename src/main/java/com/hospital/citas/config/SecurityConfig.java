@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .requestMatchers("/cuentaNueva", "/procesarRecuperacion", "/procesarVerificacion", "/procesarCambioContrasenna", "/reenviarCodigoReset").permitAll()
 
                 // GET MAPPING PRIVADO PACIENTE Y ADMIN
-                .requestMatchers("/acceso-denegado").hasAnyRole("1", "2")
+                .requestMatchers("/acceso-denegado", "/logout").hasAnyRole("1", "2")
 
                 // GET MAPPING PRIVADO PACIENTE
                 .requestMatchers("/inicio").hasAnyRole("1")
@@ -47,10 +47,10 @@ public class SecurityConfig {
                 // .requestMatchers().hasAnyRole("1")
                 
                 // GET MAPPING PRIVADO ADMIN
-                .requestMatchers("/registroUsuario").hasAnyRole("2")
+                .requestMatchers("/registroUsuario", "/mostrarPanel", "/especialidades", "/buscar-especialidad/{id}").hasAnyRole("2")
 
                 // POST MAPPING PRIVADO ADMIN
-                // .requestMatchers().hasAnyRole("2")
+                .requestMatchers("/registro-especialidad").hasAnyRole("2")
 
                 .requestMatchers("/inicio").hasAnyRole("1")
                 //Todo lo demas, exige que sea ADMIN 

@@ -70,7 +70,6 @@ body {
 
 .formulario__titulo {
     font-size: clamp(1.25rem, 1.5vw, 1.5rem);
-    letter-spacing: -2px;
     font-weight: 800;
 }
 

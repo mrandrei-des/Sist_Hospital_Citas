@@ -5,34 +5,14 @@ body {
     position: relative;
 }
 
-.contenedor__wrapper {
-    display: grid;
-    grid-template-areas: 
-        "menuLateral principal";
-    position: relative;
-}
-
 .contenedor__menu__lateral {
-    grid-area: menuLateral;
     width: 250px;
     position: relative;
-}
-
-.contenedor__principal {
-    grid-area: principal;
-    overflow-y: scroll;
-}
-
-.contenedor__wrapper :is(.contenedor__menu__lateral, .contenedor__principal){
-    background-color: var(--secondary-bg-color);
-    box-shadow: 0 0 3px 0 var(--box-shadow-color);
-    padding: 2rem;
 }
 
 /*
     INICIO MENÚ LATERAL
 */
-
 .contenedor__menu__lateral {
     transition: transform .2s ease-in-out;
 }
@@ -127,11 +107,14 @@ body {
     gap: .5rem;
     padding: 8px;
     border-radius: 6px;
+    border: none;
+    background-color: transparent;
     font-size: .8rem;
     font-weight: bold;
     color: #333;
     transition: background-color .2s ease-in-out,
                 gap .2s ease-in-out;
+    cursor: pointer;
 }
 
 .menu__lateral__enlace span i {

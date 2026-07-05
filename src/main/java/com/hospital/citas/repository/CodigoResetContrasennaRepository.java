@@ -49,4 +49,12 @@ public interface CodigoResetContrasennaRepository extends JpaRepository<CodigoRe
         @Param("codigoGenerado") String codigoGenerado,
         @Param("idUsuario") Long idUsuario
     );     
+
+    @Transactional
+    @Modifying
+    @Query(value = "{call sp_InsertaCodigo_OTP_Generado(:codigoGenerado, :idUsuario)}", nativeQuery = true)
+    void insertaRegistroBitacoraCodigoOTP_Generado(
+        @Param("codigoGenerado") String codigoGenerado,
+        @Param("idUsuario") Long idUsuario
+    );         
 }

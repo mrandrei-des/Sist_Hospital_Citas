@@ -3,10 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio Administrador</title>
-    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_text.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_header.css">
+    <!-- <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css"> -->
+    <link rel="stylesheet" href="../static/css/compartidos/styles_footer.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_main_wrapper.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css">
+
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_fonts.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_resetElements.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_colors.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_inputs.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_buttons.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_text.css}">
+    <!-- <link rel="stylesheet" th:href="@{/css/compartidos/styles_notificaciones.css}"> -->
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_header.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_main_wrapper.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_menu_lateral.css}">
+    <link rel="stylesheet" th:href="@{/css/compartidos/styles_footer.css}">
 </head>
 <body>
-    <h1>Home Admin</h1>
+    <div th:replace="~{fragments::header(mostrarOpcionesMenu=${false})}"></div>
+    
+    <!-- <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${mensaje})}"></div> -->
+    
+    <div class="contenedor__wrapper">
+        <!-- 
+        <div class="contenedor__menu__lateral" id="contenedorMenuLateral">
+            <div class="contenedor__toggle__menu toggle__menu__close" id="toggleMenuClose">
+                <button type="button" class="btn__toggle__menu" id="btnToggleMenuClose">
+                    <i class="fa-solid fa-minimize"></i>
+                </button>
+            </div>
+            <div class="contenedor__toggle__menu toggle__menu__open" id="toggleMenuOpen">
+                <button type="button" class="btn__toggle__menu" id="btnToggleMenuOpen">
+                    <i class="fa-solid fa-maximize"></i>
+                </button>
+            </div>
+            <nav class="menu__lateral" id="menuLateral">
+                <div class="contenedor__secciones__menu__lateral">
+                    <section class="section__menu__lateral">
+                        <div class="section__menu__contenedor__titulo">
+                            <h2 class="section__menu__titulo">Medicina</h2>
+                        </div>
+                        <div class="section__menu__contenedor__lista__enlaces">
+                            <ul class="menu__lateral__lista">
+                                <li class="lista__elemento">
+                                    <a href="#" class="menu__lateral__enlace">
+                                        <span class="menu__lateral__contenedor__icono">
+                                            <i class="fa-solid fa-shapes"></i>
+                                        </span>
+                                        Especialidades
+                                    </a>
+                                </li>
+                                <li class="lista__elemento">
+                                    <a href="#" class="menu__lateral__enlace">
+                                        <span class="menu__lateral__contenedor__icono">
+                                            <i class="fa-solid fa-user-doctor"></i>
+                                        </span>
+                                        Médicos
+                                    </a>
+                                </li>
+                                <li class="lista__elemento">
+                                    <a href="#" class="menu__lateral__enlace">
+                                        <span class="menu__lateral__contenedor__icono">
+                                            <i class="fa-regular fa-calendar"></i>
+                                        </span>
+                                        Horarios
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <div class="separador__section__menu"></div>
+
+                    <section class="section__menu__lateral">
+                        <div class="section__menu__contenedor__titulo">
+                            <h2 class="section__menu__titulo">Reservas</h2>
+                        </div>
+                        <div class="section__menu__contenedor__lista__enlaces">
+                            <ul class="menu__lateral__lista">
+                                <li class="lista__elemento">
+                                    <a href="#" class="menu__lateral__enlace">
+                                        <span class="menu__lateral__contenedor__icono">
+                                            <i class="fa-solid fa-hand-holding-medical"></i>
+                                        </span>
+                                        Agendar
+                                    </a>
+                                </li>
+                                <li class="lista__elemento">
+                                    <a href="#" class="menu__lateral__enlace">
+                                    <span class="menu__lateral__contenedor__icono">
+                                        <i class="fa-regular fa-calendar-days"></i>
+                                    </span>
+                                        Horarios Disponibles
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                    
+                    <div class="separador__section__menu"></div>
+                    
+                    <section class="section__menu__lateral">
+                        <div class="section__menu__contenedor__titulo">
+                            <h2 class="section__menu__titulo">Reportes</h2>
+                        </div>
+                        <div class="section__menu__contenedor__lista__enlaces">
+                            <ul class="menu__lateral__lista">
+                                <li class="lista__elemento">
+                                    <a href="#" class="menu__lateral__enlace">
+                                        <span class="menu__lateral__contenedor__icono">
+                                            <i class="fa-solid fa-clipboard-user"></i>
+                                        </span>
+                                        Especialidades
+                                    </a>
+                                </li>
+                                <li class="lista__elemento">
+                                    <a href="#" class="menu__lateral__enlace">
+                                        <span class="menu__lateral__contenedor__icono">
+                                            <i class="fa-solid fa-clipboard-check"></i>
+                                        </span>
+                                        Citas
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                    
+                    <div class="separador__section__menu"></div>
+                    
+                    <section class="section__menu__lateral">
+                        <div class="section__menu__contenedor__titulo">
+                            <h2 class="section__menu__titulo">Usuarios</h2>
+                        </div>
+                        <div class="section__menu__contenedor__lista__enlaces">
+                            <ul class="menu__lateral__lista">
+                                <li class="lista__elemento">
+                                    <a href="#" class="menu__lateral__enlace">
+                                        <span class="menu__lateral__contenedor__icono">
+                                            <i class="fa-solid fa-circle-user"></i>
+                                        </span>
+                                        Mi Perfil
+                                    </a>
+                                </li>
+                                <li class="lista__elemento">
+                                    <a href="#" class="menu__lateral__enlace">
+                                        <span class="menu__lateral__contenedor__icono">
+                                            <i class="fa-solid fa-users"></i>
+                                        </span>
+                                        Pacientes
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+                <div class="contenedor__cerrarSesion__menu__lateral">
+                    <a href="#" class="menu__lateral__enlace">
+                        <span class="menu__lateral__contenedor__icono">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        </span>
+                        Cerrar Sesión
+                    </a>
+                </div>
+            </nav>
+        </div>
+        -->
+
+        <div th:replace="~{fragments::menuLateral}"></div>
+
+        <main class="contenedor__principal">
+            <div class="content">
+            </div>
+        </main>
+    </div>
+
+    <div th:replace="~{fragments::footer}"></div>
+
+    <!-- <script src="../static/js/notificaciones.js" th:src="@{/js/notificaciones.js}"></script> -->
+    <script src="../static/js/menuLateral.js" th:src="@{/js/menuLateral.js}"></script>
+    <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -73,7 +73,7 @@ public class UsuarioService {
             codigoReset.setCodigoGenerado(codigoOTP);
             codigoReset.setFechaExpiracion(fechaHoraActual.plusMinutes(15));
             codigoResetContrasennaRepository.save(codigoReset);
-
+            codigoResetContrasennaRepository.insertaRegistroBitacoraCodigoOTP_Generado(codigoOTP, usuarioEncontrado.getId());
             // Procede a enviar el código generado por correo.
             correoService.enviarCorreoCodigo(usuarioEncontrado.getCorreoElectronico(), codigoOTP);
         }

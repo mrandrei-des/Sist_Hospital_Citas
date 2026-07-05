@@ -40,26 +40,6 @@
     color: var(--text-neutro-color);
 }
 
-.menu__elemento:last-child {
-    padding: 6px 12px;
-    border-radius: 8px;
-    background-color: var(--secondary-color-bg-color);
-    color: var(--secondary-color);
-    margin-left: 10px;
-
-    transition: background-color .2s ease-in-out;
-}
-
-.menu__elemento:last-child:hover {
-    background-color: var(--secondary-color-hover-color);
-}
-
-.menu__enlace {
-    color: inherit;
-    background-color: inherit;
-    font-weight: 800;
-}
-
 @media screen and (max-width: 600px) {
 
     .header__principal {
@@ -68,9 +48,4 @@
     .menu__elemento__usuario {
         display: none;
     }
-
-    .menu__elemento:last-child {
-        margin-left: 0;
-    }
-
 }

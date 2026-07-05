@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,7 +47,7 @@
     <main class="main__wrapper">
         <div class="contenedor__formulario__login">
             <div class="contenedor__formulario__input__area">
-                <form th:action="@{/login}" method="post" class="formulario__login" th:object="${usuario}" novalidate>
+                <form th:action="@{/login}" method="post" class="formulario__login">
                     <div class="formulario__logo">
                         <img th:src="@{/img/hospital.png}" src="../static/img/hospital.png" alt="Sticker de un hospital" class="img__logo">
                         <p class="nombre__sistema">Hospital MR</p>
@@ -64,14 +64,14 @@
 
                     <div class="formulario__inputs">
                         <div class="contenedor__input">
-                            <input type="text" class="input" th:field="*{correo}" id="username" placeholder="">
+                            <input type="email" class="input" id="username" name="username" placeholder="">
                             <label for="username" class="input__label">Usuario</label>
-                            <p class="input__error" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></p>
+                            <!-- <p class="input__error" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></p> -->
                         </div>
                         <div class="contenedor__input">
-                            <input type="password" class="input" id="password" placeholder="" th:field="*{contrasenna}">
+                            <input type="password" class="input" id="password" name="password" placeholder="">
                             <label for="password" class="input__label">Contraseña</label>
-                            <p class="input__error" th:if="${#fields.hasErrors('contrasenna')}" th:errors="*{contrasenna}"></p>
+                            <!-- <p class="input__error" th:if="${#fields.hasErrors('contrasenna')}" th:errors="*{contrasenna}"></p> -->
                         </div>
                         <div class="contenedor__olvido__contrasenna">
                             <a th:href="@{/recuperarContrasenna}"  class="enlace enlace__cambio__contrasenna">¿Olvidó su contraseña?</a>

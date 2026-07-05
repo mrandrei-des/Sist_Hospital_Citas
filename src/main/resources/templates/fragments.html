@@ -56,8 +56,6 @@
         </div>
     </header>
 
-
-<!--
     <div class="contenedor__notificacion" id="contenedorNotificacion" th:fragment="notificacion (mostrarNotificacion, mensajeNotificacion)" th:if="${mostrarNotificacion}">
         <div class="notificacion__items">
             <div class="item__icon">
@@ -70,11 +68,10 @@
             </div>
         </div>
     </div>
--->
 
     <div class="contenedor__wrapper">
         
-        <div class="contenedor__menu__lateral" id="contenedorMenuLateral">
+        <div class="contenedor__menu__lateral" id="contenedorMenuLateral" th:fragment="menuLateral">
             <div class="contenedor__toggle__menu toggle__menu__close" id="toggleMenuClose">
                 <button type="button" class="btn__toggle__menu" id="btnToggleMenuClose">
                     <i class="fa-solid fa-minimize"></i>
@@ -94,7 +91,7 @@
                         <div class="section__menu__contenedor__lista__enlaces">
                             <ul class="menu__lateral__lista">
                                 <li class="lista__elemento">
-                                    <a href="#" class="menu__lateral__enlace">
+                                    <a href="#" th:href="@{/especialidades}" class="menu__lateral__enlace">
                                         <span class="menu__lateral__contenedor__icono">
                                             <i class="fa-solid fa-shapes"></i>
                                         </span>
@@ -102,7 +99,7 @@
                                     </a>
                                 </li>
                                 <li class="lista__elemento">
-                                    <a href="#" class="menu__lateral__enlace">
+                                    <a href="#" th:href="@{/medicos}" class="menu__lateral__enlace">
                                         <span class="menu__lateral__contenedor__icono">
                                             <i class="fa-solid fa-user-doctor"></i>
                                         </span>
@@ -110,7 +107,7 @@
                                     </a>
                                 </li>
                                 <li class="lista__elemento">
-                                    <a href="#" class="menu__lateral__enlace">
+                                    <a href="#" th:href="@{/horarios}" class="menu__lateral__enlace">
                                         <span class="menu__lateral__contenedor__icono">
                                             <i class="fa-regular fa-calendar"></i>
                                         </span>
@@ -130,15 +127,15 @@
                         <div class="section__menu__contenedor__lista__enlaces">
                             <ul class="menu__lateral__lista">
                                 <li class="lista__elemento">
-                                    <a href="#" class="menu__lateral__enlace">
+                                    <a href="#" th:href="@{/reservar}" class="menu__lateral__enlace">
                                         <span class="menu__lateral__contenedor__icono">
                                             <i class="fa-solid fa-hand-holding-medical"></i>
                                         </span>
-                                        Agendar
+                                        Reservar
                                     </a>
                                 </li>
                                 <li class="lista__elemento">
-                                    <a href="#" class="menu__lateral__enlace">
+                                    <a href="#" th:href="@{/disponibilidad-horarios}" class="menu__lateral__enlace">
                                     <span class="menu__lateral__contenedor__icono">
                                         <i class="fa-regular fa-calendar-days"></i>
                                     </span>
@@ -158,7 +155,7 @@
                         <div class="section__menu__contenedor__lista__enlaces">
                             <ul class="menu__lateral__lista">
                                 <li class="lista__elemento">
-                                    <a href="#" class="menu__lateral__enlace">
+                                    <a href="#" th:href="@{/reporte-especialidades}" class="menu__lateral__enlace">
                                         <span class="menu__lateral__contenedor__icono">
                                             <i class="fa-solid fa-clipboard-user"></i>
                                         </span>
@@ -166,7 +163,7 @@
                                     </a>
                                 </li>
                                 <li class="lista__elemento">
-                                    <a href="#" class="menu__lateral__enlace">
+                                    <a href="#" th:href="@{/reporte-citas}" class="menu__lateral__enlace">
                                         <span class="menu__lateral__contenedor__icono">
                                             <i class="fa-solid fa-clipboard-check"></i>
                                         </span>
@@ -186,7 +183,7 @@
                         <div class="section__menu__contenedor__lista__enlaces">
                             <ul class="menu__lateral__lista">
                                 <li class="lista__elemento">
-                                    <a href="#" class="menu__lateral__enlace">
+                                    <a href="#" th:href="@{/mi-perfil}" class="menu__lateral__enlace">
                                         <span class="menu__lateral__contenedor__icono">
                                             <i class="fa-solid fa-circle-user"></i>
                                         </span>
@@ -194,7 +191,7 @@
                                     </a>
                                 </li>
                                 <li class="lista__elemento">
-                                    <a href="#" class="menu__lateral__enlace">
+                                    <a href="#" th:href="@{/pacientes}" class="menu__lateral__enlace">
                                         <span class="menu__lateral__contenedor__icono">
                                             <i class="fa-solid fa-users"></i>
                                         </span>
@@ -206,16 +203,17 @@
                     </section>
                 </div>
                 <div class="contenedor__cerrarSesion__menu__lateral">
-                    <a href="#" class="menu__lateral__enlace">
-                        <span class="menu__lateral__contenedor__icono">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                        </span>
-                        Cerrar Sesión
-                    </a>
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="menu__lateral__enlace">
+                            <span class="menu__lateral__contenedor__icono">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            </span>
+                            Cerrar Sesión
+                        </button>
+                    </form>
                 </div>
             </nav>
         </div>
-
 
         <main class="contenedor__principal">
             <div class="content">
@@ -226,6 +224,7 @@
 
     </div>
 
+    
     <footer class="footer__principal" th:fragment="footer">
         <div class="footer__elemento">
             <p class="footer__leyenda">&copy; Todos los derechos reservados</p>

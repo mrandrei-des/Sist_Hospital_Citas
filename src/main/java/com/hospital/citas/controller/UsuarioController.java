@@ -1,6 +1,5 @@
 package com.hospital.citas.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -75,8 +74,6 @@ public class UsuarioController {
             model.addAttribute("usuario", usuario);
             return "solicitudCambioContrasena";
         }
-
-        // Validación para que si el correo indicado no existe, entonces que no pueda seguir de aquí
 
         usuarioService.procesarRecuperacionContrasenna(usuario);
         model.addAttribute("correo", usuario.getCorreo());

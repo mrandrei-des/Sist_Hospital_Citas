@@ -1,5 +1,26 @@
 .contenedor__wrapper {
+    width: 100%;
     height: calc(100vh - 100px - 115px);
+    display: grid;
+    grid-template-areas: "menuLateral principal";
+    grid-template-columns: auto 1fr;
+    position: relative;
+}
+
+.contenedor__menu__lateral {
+    grid-area: menuLateral;
+    z-index: 10;
+}
+
+.contenedor__principal {
+    grid-area: principal;
+    z-index: 5;
+}
+
+.contenedor__wrapper :is(.contenedor__menu__lateral, .contenedor__principal){
+    background-color: var(--secondary-bg-color);
+    box-shadow: 0 0 3px 0 var(--box-shadow-color);
+    padding: 2rem;
 }
 
 @media screen and (max-width: 925px) {

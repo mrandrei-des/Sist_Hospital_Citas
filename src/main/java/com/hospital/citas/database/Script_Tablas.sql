@@ -24,6 +24,7 @@ CREATE TABLE Roles (
 id bigint NOT NULL auto_increment PRIMARY KEY,
 descripcion VARCHAR(30) NOT NULL,
 estado bigint NOT NULL,
+paginaInicio VARCHAR(50) NOT NULL,
 FOREIGN KEY (estado) REFERENCES Estados(id)
 );
 
@@ -52,6 +53,7 @@ segundoApellido VARCHAR(30) NOT NULL,
 correoElectronico VARCHAR(100) NOT NULL UNIQUE,
 estado bigint NOT NULL,
 idRol bigint NOT NULL,
+correoContacto VARCHAR(100) NOT NULL UNIQUE,
 FOREIGN KEY (idTipoIdentificacion) REFERENCES TipoIdentificaciones (id),
 FOREIGN KEY (estado) REFERENCES Estados (id),
 FOREIGN KEY (idRol) REFERENCES Roles (id)
@@ -70,28 +72,29 @@ FOREIGN KEY (idUsuarioAfectado) REFERENCES Usuarios(id),
 FOREIGN KEY (idUsuarioRealizoAccion) REFERENCES Usuarios(id)
 );
 
+create TABLE TiposParametrosConfig
+(
+id bigint NOT NULL auto_increment PRIMARY KEY,
+tipoParametro VARCHAR(50) NOT NULL UNIQUE,
+fechaHoraRegistro DATETIME NOT NULL default NOW()
+);
+
 -- TABLA de configuración para los Códigos de recuperación de contraseña
 CREATE TABLE CodigosRecuperacionContrasenna_Config (
 id bigint NOT NULL auto_increment PRIMARY KEY,
+idTipoParametro bigint NOT NULL,
+nombreParametro VARCHAR(50) NOT NULL UNIQUE,
 descripcion VARCHAR(100) NOT NULL,
 valorInt INT NULL,
-ValorVarchar VARCHAR(100) NULL,
-ValorDate DATETIME NULL
-);
-
--- TABLA de Códigos generados para recuperar la contraseña
-CREATE TABLE CodigosRecuperacionContrasenna_Generados (
-id bigint NOT NULL auto_increment PRIMARY KEY,
-codigoGenerado bigint NOT NULL,
-idUsuario bigint NOT NULL,
-fechaHoraGeneracion DATETIME NOT NULL,
-FOREIGN KEY (idUsuario) REFERENCES Usuarios(id)
+valorVarchar VARCHAR(100) NULL,
+valorDate DATETIME NULL,
+FOREIGN KEY (idTipoParametro) REFERENCES TiposParametrosConfig (id)
 );
 
 -- TABLA de Códigos de recuperación de contraseña que se encuentran activos y vigentes
 CREATE TABLE CodigosRecuperacionContrasenna_Activos (
 id bigint NOT NULL auto_increment PRIMARY KEY,
-codigoGenerado bigint NOT NULL,
+codigoGenerado VARCHAR(500) NOT NULL,
 idUsuario bigint NOT NULL,
 fechaHoraExpiracion DATETIME NOT NULL,
 FOREIGN KEY (idUsuario) REFERENCES Usuarios(id)
@@ -100,7 +103,7 @@ FOREIGN KEY (idUsuario) REFERENCES Usuarios(id)
 -- TABLA de Códigos de recuperación de contraseña que vencieron
 CREATE TABLE CodigosRecuperacionContrasenna_Expirados (
 id bigint NOT NULL auto_increment PRIMARY KEY,
-codigoGenerado bigint NOT NULL,
+codigoGenerado VARCHAR(500) NOT NULL,
 idUsuario bigint NOT NULL,
 fechaHoraExpiro DATETIME NOT NULL,
 FOREIGN KEY (idUsuario) REFERENCES Usuarios(id)
@@ -109,7 +112,7 @@ FOREIGN KEY (idUsuario) REFERENCES Usuarios(id)
 -- TABLA de Códigos de recuperación de contraseña que sí se utilizaron
 CREATE TABLE CodigosRecuperacionContrasenna_Usados (
 id bigint NOT NULL auto_increment PRIMARY KEY,
-codigoGenerado bigint NOT NULL,
+codigoGenerado VARCHAR(500) NOT NULL,
 idUsuario bigint NOT NULL,
 fechaHoraUso DATETIME NOT NULL,
 FOREIGN KEY (idUsuario) REFERENCES Usuarios(id)

@@ -1,6 +1,5 @@
 package com.hospital.citas.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,8 +11,11 @@ import com.hospital.citas.repository.UsuarioRepository;
 
 @Service
 public class UsuarioDetailsService implements UserDetailsService {
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
+
+    UsuarioDetailsService(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
 
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
         Usuario usuario = usuarioRepository.findByCorreoElectronico(email)

@@ -13,7 +13,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         boolean esAdmin = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).anyMatch(a -> a.equals("ROLE_2"));
         if (esAdmin){
-            response.sendRedirect("/panel");
+            response.sendRedirect("/mostrarPanel");
         } else {
             response.sendRedirect("/inicio");
         }

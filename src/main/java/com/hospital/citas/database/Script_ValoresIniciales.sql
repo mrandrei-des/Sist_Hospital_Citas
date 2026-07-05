@@ -18,8 +18,8 @@ VALUES ('INSERTAR', 'Ha insertado'),
 ('ELIMINAR_PERMISO', 'Ha eliminado permisos');
 
 -- VALORES INICIALES Roles
-INSERT INTO Roles (descripcion, estado)
-VALUES ('Paciente', 4), ('Administrador', 4);
+INSERT INTO Roles (descripcion, estado, paginaInicio)
+VALUES ('Paciente', 4, 'homePaciente'), ('Administrador', 4, 'homeAdmin');
 
 -- VALORES INICIALES Usuarios
 INSERT INTO Usuarios (idTipoIdentificacion, identificacion, contrasennaHash, nombre, primerApellido, segundoApellido, correoElectronico, estado, idRol)
