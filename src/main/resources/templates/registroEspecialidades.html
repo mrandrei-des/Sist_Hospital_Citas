@@ -101,7 +101,7 @@
                         <div class="contenedor__especialidades__ingresadas">
                             <div class="especialidad__ingresada" th:each="ultEspecialidad : ${listaUltEspecialidades}">
                                 <p class="especialidad__ingresada__nombre" th:text="${ultEspecialidad.getDescripcion()}">ABCDEF</p>
-                                <p class="especialidad__ingresada__fechaRegistro" th:text="${ultEspecialidad.getFechaFormateada()}">01-01-1990</p>
+                                <p class="especialidad__ingresada__fechaRegistro" th:text="${ultEspecialidad.getFechaRegistro()}">01-01-1990</p>
                             </div>
                         </div>
                     </aside>

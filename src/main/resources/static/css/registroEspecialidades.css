@@ -99,8 +99,13 @@
     justify-content: space-between;
     align-items: center;
     padding: 8px 12px;
-    background-color: #E6F1FB;
+    background-color: var(--lista-elemento-bg-color);
     border-radius: 12px;
+    transition: background-color .2s ease-in-out;
+}
+
+.especialidad__ingresada:hover {
+    background-color: var(--lista-elemento-bg-color-hover);
 }
 
 .especialidad__ingresada__nombre {
@@ -114,7 +119,6 @@
     font-size: .8rem;
     font-weight: 600;
     color: var(--primary-color);
-
 }
 
 @media screen and (max-width: 1050px) {

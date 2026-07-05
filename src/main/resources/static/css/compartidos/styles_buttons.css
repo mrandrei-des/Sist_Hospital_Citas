@@ -9,6 +9,45 @@
                 color .2s ease-in-out;
 }
 
+.btn__accion__elemento {
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 16px;
+    transition: background-color .2s ease-in-out,
+                color .2s ease-in-out;
+}
+
+.btn__modificar {
+    background-color: var(--secondary-color-bg-color);
+    color: var(--secondary-color);
+    outline: 2px solid var(--secondary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+}
+
+.btn__modificar:hover {
+    background-color: #F0997B;
+}
+
+.btn__eliminar {
+    background-color: rgb(228, 190, 190);
+    color: rgb(202, 16, 16);
+    outline: 2px solid var(--secondary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+}
+
+.btn__eliminar:hover {
+    background-color: rgb(228, 156, 156);
+}
+
 .btn__primary {
     width: 100%;
     background-color: var(--primary-color);

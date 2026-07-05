@@ -6,12 +6,12 @@ import java.time.format.DateTimeFormatter;
 public class UltimaEspecialidadRegistradaDTO {
     private Long id;
     private String descripcion;
-    private LocalDateTime fechaRegistro;
+    private String fechaRegistro;
 
     public UltimaEspecialidadRegistradaDTO() {
     }
 
-    public UltimaEspecialidadRegistradaDTO(Long id, String descripcion, LocalDateTime fechaRegistro) {
+    public UltimaEspecialidadRegistradaDTO(Long id, String descripcion, String fechaRegistro) {
         this.id = id;
         this.descripcion = descripcion;
         this.fechaRegistro = fechaRegistro;
@@ -33,15 +33,10 @@ public class UltimaEspecialidadRegistradaDTO {
         this.descripcion = descripcion;
     }
 
-    public LocalDateTime getFechaRegistro() {
+    public String getFechaRegistro() {
         return fechaRegistro;
     }
-    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+    public void setFechaRegistro(String fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
-    }
-
-    public String getFechaFormateada() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        return this.fechaRegistro.format(formatter);
     }
 }

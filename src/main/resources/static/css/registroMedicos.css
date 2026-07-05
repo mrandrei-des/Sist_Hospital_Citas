@@ -1,0 +1,134 @@
+.contenedor__principal__medicos {
+}
+
+.contenedor__medicos__section__registro {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.contenedor__section {
+    padding: 2rem;
+    box-shadow: 0 0 3px 0 var(--box-shadow-color);
+    border-radius: 8px;
+    height: fit-content;
+    flex-grow: 1;
+}
+
+.contenedor__medicos__section__registro .contenedor__section:first-child {
+    max-width: 600px;
+}
+
+
+.contenedor__titulo__principal {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
+
+.titulo__principal {
+    font-size: clamp(1.25rem, 1.5vw, 1.5rem);
+    font-weight: 800;
+}
+
+.descripcion__principal {
+    font-size: .9rem;
+    color: var(--text-neutro-color);
+}
+
+.contenedor__formulario__medicos {
+    max-width: 600px;
+}
+
+.formulario__registro {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.section__input__main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.contenedor__input__sp2 {
+    grid-column: span 2;
+}
+
+.contenedor__listado {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.lista__elemento {
+    height: 60px;
+    padding: 8px 12px;
+    background-color: var(--lista-elemento-bg-color);
+    border-radius: 12px;
+    transition: background-color .2s ease-in-out;
+    display: flex;
+}
+
+.lista__elemento :is(.lista__elemento__info, .lista__elemento__acciones) {
+    flex: 1;
+    display: flex;
+}
+
+.lista__elemento:hover {
+    background-color: var(--lista-elemento-bg-color-hover);
+}
+
+.lista__elemento__info {
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.elemento__info__nombre {
+    font-size: clamp(.8rem, .9vw, .9rem);    font-size: clamp(.8rem, .9vw, .9rem);
+    font-weight: 900;
+    color: var(--primary-hover-color);
+}
+
+.elemento__info__especialidad {
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.lista__elemento__acciones {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: .5rem;
+    margin-right: .5rem;
+}
+
+
+
+.btn__lista__elemento:hover {
+    background-color: var(--secondary-color);
+    color: var(--secondary-bg-color);
+}
+
+@media screen and (max-width: 1050px) {
+
+    .contenedor__medicos__section__registro  {
+        grid-template-columns: 1fr;
+    }
+    .contenedor__formulario__medicos {
+        min-width: none;
+    }
+
+    .section__input__main {
+        grid-template-columns: 1fr;
+    }
+
+    .contenedor__input__sp2 {
+        grid-column: 1;
+    }
+}
