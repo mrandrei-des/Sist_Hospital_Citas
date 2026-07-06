@@ -1,8 +1,5 @@
 package com.hospital.citas.model.dto;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 public class UltimaEspecialidadRegistradaDTO {
     private Long id;
     private String descripcion;

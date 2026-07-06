@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
 import com.hospital.citas.security.LoginSuccessHandler;
 
 @Configuration
@@ -47,10 +46,10 @@ public class SecurityConfig {
                 // .requestMatchers().hasAnyRole("1")
                 
                 // GET MAPPING PRIVADO ADMIN
-                .requestMatchers("/registroUsuario", "/mostrarPanel", "/especialidades", "/buscar-especialidad/{id}").hasAnyRole("2")
+                .requestMatchers("/registroUsuario", "/mostrarPanel", "/especialidades", "/buscar-especialidad/{id}", "/medicos", "/buscar-medico/{id}", "/deshabilitar-medico/{id}").hasAnyRole("2")
 
                 // POST MAPPING PRIVADO ADMIN
-                .requestMatchers("/registro-especialidad").hasAnyRole("2")
+                .requestMatchers("/registro-especialidad", "/registro-medico").hasAnyRole("2")
 
                 .requestMatchers("/inicio").hasAnyRole("1")
                 //Todo lo demas, exige que sea ADMIN 

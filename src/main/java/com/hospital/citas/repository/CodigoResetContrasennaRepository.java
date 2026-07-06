@@ -1,6 +1,5 @@
 package com.hospital.citas.repository;
 
-import java.lang.StackWalker.Option;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
