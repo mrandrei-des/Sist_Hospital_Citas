@@ -31,8 +31,7 @@
     <link rel="stylesheet" th:href="@{/css/inicioSesion.css}">
 </head>
 <body>    
-    <div th:replace="~{fragments::header(mostrarOpcionesMenu=${false})}"></div>
-    
+    <div th:replace="~{fragments::header(mostrarOpcionesMenu=${false}, nombreUsuario=${''})}"></div>
     <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${mensaje})}"></div>
 
     <div class="contenedor__mensaje--error" id="contenedorMensaje" th:if="${mostrarError}">

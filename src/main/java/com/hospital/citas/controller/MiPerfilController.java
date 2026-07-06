@@ -36,17 +36,29 @@ public class MiPerfilController {
     @GetMapping("/mi-perfil/{id}")
     public String mostrarPerfil(@PathVariable("id") Long id, HttpSession session, Model model) {
 
-        // Long idUsuarioLoggeado = (Long)session.getAttribute("idUsuarioLoggeado");
+        Long idUsuarioLoggeado = (Long)session.getAttribute("idUsuarioLoggeado");
         boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        String nombreCompletoUsuarioLoggeado = (String)session.getAttribute("nombreUsuarioLoggeado") + " " + (String)session.getAttribute("primerApellidoUsuarioLoggeado") + " " + (String)session.getAttribute("segundoApellidoUsuarioLoggeado");
+
         model.addAttribute("usuarioEsAdmin", esAdmin);
+        model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
+
+        if(!esAdmin) {
+            model.addAttribute("esAdminMant", false);
+            model.addAttribute("esAdmin", false);
+        }else {
+            model.addAttribute("esAdmin", true);
+            if(idUsuarioLoggeado.compareTo(id) != 0) 
+                model.addAttribute("esAdminMant", true);
+            else 
+                model.addAttribute("esAdminMant", false);
+        }
+
         model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
-
         model.addAttribute("usuario", miPerfilService.buscarPorId(id));
-
         model.addAttribute("listaTipoIdentificacion", tipoIdentificacionService.consultarTiposDeIdentificacion());
         model.addAttribute("listaRoles", rolService.consultarRolesDTO());
         model.addAttribute("listaEstados", estadoService.consultarEstadosUsuarios());
-        model.addAttribute("esAdminMant", false);
         return "miPerfil";
     }
 
@@ -55,6 +67,23 @@ public class MiPerfilController {
         
         Long idUsuarioLoggeado = (Long)session.getAttribute("idUsuarioLoggeado");
         boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+
+        String nombreCompletoUsuarioLoggeado = (String)session.getAttribute("nombreUsuarioLoggeado") + " " + (String)session.getAttribute("primerApellidoUsuarioLoggeado") + " " + (String)session.getAttribute("segundoApellidoUsuarioLoggeado");
+
+        model.addAttribute("usuarioEsAdmin", esAdmin);
+        model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
+
+        if(!esAdmin) {
+            model.addAttribute("esAdminMant", false);
+            model.addAttribute("esAdmin", false);
+        }else {
+            model.addAttribute("esAdmin", true);
+            if(idUsuarioLoggeado.compareTo(usuario.getId()) != 0) 
+                model.addAttribute("esAdminMant", true);
+            else 
+                model.addAttribute("esAdminMant", false);
+        }
+
         model.addAttribute("usuarioEsAdmin", esAdmin);
         model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
         model.addAttribute("esAdminMant", false);

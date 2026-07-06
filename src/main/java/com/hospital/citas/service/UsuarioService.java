@@ -150,7 +150,6 @@ public class UsuarioService {
         return usuarioSessionDTO;
     }
 
-    // --------------
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id).orElse(null);
     }

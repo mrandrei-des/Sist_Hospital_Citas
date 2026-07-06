@@ -29,7 +29,7 @@
     <link rel="stylesheet" th:href="@{/css/miPerfil.css}">
 </head>
 <body>
-    <div th:replace="~{fragments::header(mostrarOpcionesMenu=${false})}"></div>    
+    <div th:replace="~{fragments::header(mostrarOpcionesMenu=${true}, nombreUsuario=${nombreCompletoUsuario})}"></div>
     <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${mensajeNotificacion})}"></div>
 
     <div class="contenedor__wrapper">
@@ -47,10 +47,10 @@
                                 </div>
                             </div>
                             <div class="contenedor__titulo__principal">
-                                <h2 class="titulo__principal">
+                                <h2 class="titulo__principal" th:text="${!esAdminMant} ? 'Mi Perfil' : |Perfil de ${nombreCompletoUsuario}|">
                                     Mi Perfil
                                 </h2>
-                                <p class="descripcion__principal">
+                                <p class="descripcion__principal" th:text="${!esAdminMant} ? 'Puede actualizar la información de su cuenta' : 'Puede actualizar la información de la cuenta'">
                                     Actualice la información de su cuenta
                                 </p>
                             </div>
@@ -157,7 +157,7 @@
                         </section>
                     </div>
 
-                    <div class="contenedor__section">
+                    <div class="contenedor__section" th:if="${!esAdmin}">
                         <section class="contenedor__titulo__principal">
                             <h2 class="titulo__principal">
                                 Mi historial médico

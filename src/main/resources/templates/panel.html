@@ -29,7 +29,7 @@
     <link rel="stylesheet" th:href="@{/css/panel.css}">
 </head>
 <body>
-    <div th:replace="~{fragments::header(mostrarOpcionesMenu=${false})}"></div>
+    <div th:replace="~{fragments::header(mostrarOpcionesMenu=${true}, nombreUsuario=${nombreCompletoUsuario})}"></div>
     
     <div class="contenedor__wrapper">
         <div th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></div>

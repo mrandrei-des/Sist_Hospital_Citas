@@ -25,6 +25,9 @@ public class MedicoController {
     public String getMethodName(HttpSession session, Model model) {
 
         boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        String nombreCompletoUsuarioLoggeado = (String)session.getAttribute("nombreUsuarioLoggeado") + " " + (String)session.getAttribute("primerApellidoUsuarioLoggeado") + " " + (String)session.getAttribute("segundoApellidoUsuarioLoggeado");
+
+        model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
         model.addAttribute("usuarioEsAdmin", esAdmin);
         model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
 
@@ -39,6 +42,9 @@ public class MedicoController {
         
         Long idUsuarioLoggeado = (Long)session.getAttribute("idUsuarioLoggeado");
         boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        String nombreCompletoUsuarioLoggeado = (String)session.getAttribute("nombreUsuarioLoggeado") + " " + (String)session.getAttribute("primerApellidoUsuarioLoggeado") + " " + (String)session.getAttribute("segundoApellidoUsuarioLoggeado");
+
+        model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
         model.addAttribute("usuarioEsAdmin", esAdmin);
         model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
 

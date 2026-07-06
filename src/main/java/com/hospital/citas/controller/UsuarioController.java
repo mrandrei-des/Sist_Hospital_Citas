@@ -139,7 +139,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/procesarCambioContrasenna")
-    public String postMethodName(@Valid @ModelAttribute("usuario") UsuarioInicioSesionDTO usuarioDTO, BindingResult bindingResult, HttpSession session, Model model) {
+    public String procesarCambioContrasenna(@Valid @ModelAttribute("usuario") UsuarioInicioSesionDTO usuarioDTO, BindingResult bindingResult, HttpSession session, Model model) {
         
         boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
         model.addAttribute("usuarioEsAdmin", esAdmin);

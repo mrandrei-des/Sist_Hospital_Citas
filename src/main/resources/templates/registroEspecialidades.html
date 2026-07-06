@@ -32,7 +32,7 @@
 
 </head>
 <body>
-    <div th:replace="~{fragments::header(mostrarOpcionesMenu=${false})}"></div>    
+    <div th:replace="~{fragments::header(mostrarOpcionesMenu=${true}, nombreUsuario=${nombreCompletoUsuario})}"></div>
     <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${mensajeNotificacion})}"></div>
 
     <div class="contenedor__wrapper">

@@ -38,7 +38,7 @@ public class MiPerfilService {
             Usuario usuarioActualizado;
             String descripcionBitacora;
 
-            if(idUsuarioLoggeado == usuario.getId()) {
+            if(idUsuarioLoggeado.compareTo(usuario.getId()) == 0) {
                 descripcionBitacora = "El usuario ha actualizado su perfil.";
                 if(!usuario.getContrasenna().isEmpty()) {
                     usuarioEncontrado.setContrasennaHash(passwordEncoder.encode(usuario.getContrasenna()));

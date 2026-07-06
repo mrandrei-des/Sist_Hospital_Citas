@@ -29,7 +29,7 @@
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_menu_lateral.css}">
 </head>
 <body>
-    <header class="header__principal" th:fragment="header (mostrarOpcionesMenu)">
+    <header class="header__principal" th:fragment="header (mostrarOpcionesMenu, nombreUsuario)">
         <div class="contenedor__menu__logo">
             <img src="../static/img/hospital.png" th:src="@{/img/hospital.png}" alt="Sticker de un hospital estilo animado" class="menu__logo">
             <span class="menu__logo__nombre">Hospital MR</span>
@@ -38,11 +38,11 @@
             <nav class="menu__principal">
                 <ul class="menu__lista">
                     <li class="menu__elemento menu__elemento__usuario">
-                        <p class="menu__nombre__usuario">Bienvenido </p>
+                        <p class="menu__nombre__usuario">Bienvenido, </p>
                         <span class="menu__avatar__usuario">
                             <i class="fa-solid fa-circle-user"></i>
                         </span>
-                        <p class="menu__nombre__usuario">
+                        <p class="menu__nombre__usuario" th:text="${nombreUsuario}">
                             John Doe
                         </p>
                     </li>
