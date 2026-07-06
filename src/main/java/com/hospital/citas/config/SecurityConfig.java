@@ -46,7 +46,7 @@ public class SecurityConfig {
                 // .requestMatchers().hasAnyRole("1")
                 
                 // GET MAPPING PRIVADO ADMIN
-                .requestMatchers("/registroUsuario", "/mostrarPanel", "/especialidades", "/buscar-especialidad/{id}", "/medicos", "/buscar-medico/{id}", "/deshabilitar-medico/{id}").hasAnyRole("2")
+                .requestMatchers("/registroUsuario", "/mostrarPanel", "/especialidades", "/buscar-especialidad/{id}", "/medicos", "/buscar-medico/{id}", "/deshabilitar-medico/{id}", "/mostrar-panel-pacientes").hasAnyRole("2")
 
                 // POST MAPPING PRIVADO ADMIN
                 .requestMatchers("/registro-especialidad", "/registro-medico").hasAnyRole("2")

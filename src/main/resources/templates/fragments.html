@@ -1,32 +1,21 @@
 <!DOCTYPE html>
-<html lang="es">
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fragments</title>
 
-    <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_header.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_footer.css">
-
-    <link rel="stylesheet" href="../static/css/compartidos/styles_main_wrapper.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css">
-    <!-- <link rel="stylesheet" href="../static/css/miPerfil.css"> -->
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_fonts.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_resetElements.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_colors.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_inputs.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_buttons.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_notificaciones.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_header.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_footer.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_main_wrapper.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_menu_lateral.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css" th:href="@{/css/compartidos/styles_fonts.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css" th:href="@{/css/compartidos/styles_inputs.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css" th:href="@{/css/compartidos/styles_buttons.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css" th:href="@{/css/compartidos/styles_notificaciones.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_header.css" th:href="@{/css/compartidos/styles_header.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_footer.css" th:href="@{/css/compartidos/styles_footer.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_main_wrapper.css" th:href="@{/css/compartidos/styles_main_wrapper.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css" th:href="@{/css/compartidos/styles_menu_lateral.css}">
+    <link rel="stylesheet" href="../static/css/panelPacientes.css" th:href="@{/css/panelPacientes.css}">
 </head>
 <body>
     <header class="header__principal" th:fragment="header (mostrarOpcionesMenu, nombreUsuario)">
@@ -185,7 +174,7 @@
                                     </a>
                                 </li>
                                 <li class="lista__elemento" th:if="${esAdmin}">
-                                    <a href="#" th:href="@{/pacientes}" class="menu__lateral__enlace">
+                                    <a href="#" th:href="@{/mostrar-panel-pacientes}" class="menu__lateral__enlace">
                                         <span class="menu__lateral__contenedor__icono">
                                             <i class="fa-solid fa-users"></i>
                                         </span>
@@ -209,8 +198,83 @@
             </nav>
         </div>
 
+        <!-- 
         <main class="contenedor__principal">
+            <div class="contenedor__principal__panelPacientes">
+
+                <div class="contenedor__sections">
+
+                    <div class="contenedor__section">
+                        <section class="contenedor__titulo__pefil">
+                            <div class="contenedor__titulo__principal">
+                                <h2 class="titulo__principal">
+                                    Panel de administración / Pacientes
+                                </h2>
+                                <p class="descripcion__principal">
+                                    Gestiona las cuentas de los pacientes del hospital
+                                </p>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="contenedor__section contenedor__section__tabla">
+                        <div class="contenedor__tabla__registros">
+                            <table class="tabla__registros">
+                                <thead>
+                                    <tr>
+                                        <th>Identificación</th>
+                                        <th>Paciente</th>
+                                        <th>Registro</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>305310569</td>
+                                        <td>Andrei Mesén Romero</td>
+                                        <td>02/07/2026</td>
+                                        <td>
+                                            <span class="tabla__registros__estado registros__estado--activo">
+                                                Activo
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a href="/" th:href="@{/buscar-medico/{id}(id=${medico.getId()})}" class="btn__accion__elemento btn__modificar" title="Modificar Paciente">
+                                                <span class="lista__elemento__icono">
+                                                    <i class="fa-solid fa-pencil"></i>
+                                                </span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>101110111</td>
+                                        <td>Juana Vargas Durán</td>
+                                        <td>15/04/2006</td>
+                                        <td>
+                                            <span class="tabla__registros__estado registros__estado--inactivo">
+                                                Inactivo
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a href="/" th:href="@{/buscar-medico/{id}(id=${medico.getId()})}" class="btn__accion__elemento btn__modificar" title="Modificar Paciente">
+                                                <span class="lista__elemento__icono">
+                                                    <i class="fa-solid fa-pencil"></i>
+                                                </span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot></tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
         </main>
+        -->
     </div>
 
     <footer class="footer__principal" th:fragment="footer">

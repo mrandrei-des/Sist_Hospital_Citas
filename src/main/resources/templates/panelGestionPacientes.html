@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Pacientes</title>
+    <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css" th:href="@{/css/compartidos/styles_fonts.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css" th:href="@{/css/compartidos/styles_inputs.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css" th:href="@{/css/compartidos/styles_buttons.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css" th:href="@{/css/compartidos/styles_notificaciones.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_header.css" th:href="@{/css/compartidos/styles_header.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_footer.css" th:href="@{/css/compartidos/styles_footer.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_main_wrapper.css" th:href="@{/css/compartidos/styles_main_wrapper.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css" th:href="@{/css/compartidos/styles_menu_lateral.css}">
+    <link rel="stylesheet" href="../static/css/panelPacientes.css" th:href="@{/css/panelPacientes.css}">
+</head>
+<body>
+    <div th:replace="~{fragments::header(mostrarOpcionesMenu=${true}, nombreUsuario=${nombreCompletoUsuario})}"></div>
+
+    <div class="contenedor__wrapper">
+        <div th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></div>
+
+        <main class="contenedor__principal">
+            <div class="contenedor__principal__panelPacientes">
+                <div class="contenedor__sections">
+                    <div class="contenedor__section">
+                        <section class="contenedor__titulo__pefil">
+                            <div class="contenedor__titulo__principal">
+                                <h2 class="titulo__principal">
+                                    Panel de administración / Pacientes
+                                </h2>
+                                <p class="descripcion__principal">
+                                    Gestiona las cuentas de los pacientes del hospital
+                                </p>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="contenedor__section contenedor__section__tabla">
+                        <div class="contenedor__tabla__registros">
+                            <table class="tabla__registros">
+                                <thead>
+                                    <tr>
+                                        <th>Identificación</th>
+                                        <th>Paciente</th>
+                                        <th>Registro</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="paciente : ${listaPacientes}">
+                                        <td th:text="${paciente.getIdentificacion()}">305310569</td>
+                                        <td th:text="${paciente.getNombreCompleto()}">Andrei Mesén Romero</td>
+                                        <td th:text="${paciente.getFechaRegistro()}">02/07/2026</td>
+                                        <td>
+                                            <span th:if="${paciente.getEstado() == 4}" class="tabla__registros__estado registros__estado--activo">Activo</span>
+                                            <span th:unless="${paciente.getEstado() == 4}" class="tabla__registros__estado registros__estado--inactivo">Inactivo</span>
+                                        </td>
+                                        <td>
+                                            <a href="/" th:href="@{/mi-perfil/{id}(id=${paciente.getId()})}" class="btn__accion__elemento btn__modificar" title="Modificar Paciente">
+                                                <span class="lista__elemento__icono">
+                                                    <i class="fa-solid fa-pencil"></i>
+                                                </span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot></tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div th:replace="~{fragments::footer}"></div>
+
+    <script src="../static/js/menuLateral.js" th:src="@{/js/menuLateral.js}"></script>
+    <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
+</body>
+</html>

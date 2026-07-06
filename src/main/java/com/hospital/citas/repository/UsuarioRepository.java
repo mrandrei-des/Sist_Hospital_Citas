@@ -1,5 +1,6 @@
 package com.hospital.citas.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,6 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.hospital.citas.model.dto.MedicoRegistradoDTO;
+import com.hospital.citas.model.dto.PanelGestionPacienteDTO;
 import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.model.entity.Usuario;
 import jakarta.transaction.Transactional;
@@ -33,4 +36,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
         @Param("idUsuario") Long idAccion,
         @Param("contrasennaNueva") String descripcionAccion
     );
+
+    @Query(value = "{call sp_listaUsuariosPaciente()}", nativeQuery = true)
+    List<PanelGestionPacienteDTO> listaUsuarPacienteDTOs();
 }

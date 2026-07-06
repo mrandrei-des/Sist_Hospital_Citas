@@ -21,13 +21,13 @@
 }
 
 .btn__modificar {
-    background-color: var(--secondary-color-bg-color);
-    color: var(--secondary-color);
-    outline: 2px solid var(--secondary-color);
-    display: flex;
-    justify-content: center;
+    background-color: var(--secondary-color);
+    color: var(--secondary-bg-color);
+    outline: 2px solid var(--secondary-color-hover-color);
+    /* display: flex; */
+    /* justify-content: center;
     align-items: center;
-    gap: .5rem;
+    gap: .5rem; */
 }
 
 .btn__modificar:hover {

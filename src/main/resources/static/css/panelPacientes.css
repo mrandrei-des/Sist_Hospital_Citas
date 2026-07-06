@@ -1,0 +1,150 @@
+.contenedor__principal__panelPacientes {
+    min-height: calc(100vh - 100px - 115px);
+    min-width: 0;
+}
+
+.contenedor__sections {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    width: 100%;
+    min-width: 0;
+}
+
+.contenedor__section {
+    padding: 2rem;
+    box-shadow: 0 0 3px 0 var(--box-shadow-color);
+    border-radius: 8px;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.contenedor__section {
+    max-width: 1000px;
+}
+
+.contenedor__titulo__pefil {
+    display: flex;
+    flex-direction: column;
+}
+
+.contenedor__titulo__principal {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
+
+.titulo__principal {
+    font-size: clamp(1.25rem, 1.5vw, 1.5rem);
+    font-weight: 800;
+}
+
+.descripcion__principal {
+    font-size: .9rem;
+    color: var(--text-neutro-color);
+}
+
+.contenedor__section__tabla {
+    width: 100%;
+    max-width: 1000px;
+}
+
+.contenedor__tabla__registros {
+    width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+}
+
+.tabla__registros {
+    width: 100%;
+    min-width: 800px;
+    border-spacing: 0;
+    border-collapse: collapse;
+    white-space: nowrap;
+}
+
+.tabla__registros thead tr {
+    background-color: var(--primary-hover-color);
+    color: var(--lista-elemento-bg-color-hover);
+    font-size: clamp(.9rem, 2vw, 1rem);
+}
+
+.tabla__registros thead tr th:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+.tabla__registros thead tr th:last-child {
+    border-radius: 0 8px 8px 0;
+}
+
+.tabla__registros th, td {
+    border: none;
+    text-align: center;
+    padding: 10px 8px;
+}
+
+.tabla__registros tbody tr {
+    transition: background-color .2s ease-in-out;
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+.tabla__registros tbody tr:nth-child(odd) {
+    background-color: var(--tabla-fila-bg-color1);
+}
+
+.tabla__registros tbody tr:nth-child(odd):hover {
+    background-color: var(--tabla-fila-bg-color2-hover);
+}
+
+.tabla__registros tbody tr td:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+.tabla__registros tbody tr td:last-child {
+    border-radius: 0 8px 8px 0;
+}
+
+.tabla__registros tbody tr:nth-child(even) {
+    background-color: var(--tabla-fila-bg-color2);
+}
+
+.tabla__registros tbody tr:nth-child(even):hover {
+    background-color: var(--tabla-fila-bg-color2-hover);
+}
+
+.tabla__registros__estado {
+    display: inline-block;
+    padding: 4px 8px;
+    background-color: #ccc;
+    color: #fff;
+    border-radius: 4px;
+    font-weight: 600;
+    outline: 2px solid transparent;
+}
+
+.registros__estado--activo {
+    background-color: #097;
+    outline-color: #0976;
+}
+
+.registros__estado--inactivo {
+    background-color: #999;
+    outline-color: #9996;
+}
+
+@media screen and (max-width: 950px) {
+    .contenedor__section__metricas {
+        grid-template-columns: 1fr;
+    }
+
+    .tabla__registros th, td {
+        border: none;
+        text-align: center;
+        padding: 6px 4px;
+    }
+}

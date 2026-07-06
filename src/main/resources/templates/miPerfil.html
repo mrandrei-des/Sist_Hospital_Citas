@@ -128,7 +128,7 @@
                                         </p>
                                     </div>
                                     <div class="section__input__main">
-                                        <div class="contenedor__input contenedor__input__sp2">
+                                        <div class="contenedor__input contenedor__input__sp2" th:if="${!esAdminMant}">
                                             <input type="password" class="input" id="password" placeholder="" th:field="*{contrasenna}">
                                             <label for="password" class="input__label">Contraseña</label>
                                             <!-- <p class="input__error" th:if="${#fields.hasErrors('contrasennaHash')}" th:errors="*{contrasennaHash}"></p> -->
@@ -145,7 +145,7 @@
                                                 <option th:each="estado : ${listaEstados}" th:value="${estado.getId()}" th:text="${estado.getDescripcion()}">Activo</option>
                                             </select>
                                             <label for="estadoUsuario" class="input__label">Estado Usuario</label>
-                                            <p class="input__error" th:if="${#fields.hasErrors('estado.id')}" th:errors="*{estado.id}"></p>
+                                            <!-- <p class="input__error" th:if="${#fields.hasErrors('idEstado')}" th:errors="*{idEstado}"></p> -->
                                         </div>
                                     </div>
                                 </div>

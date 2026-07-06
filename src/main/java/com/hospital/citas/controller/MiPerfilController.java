@@ -5,12 +5,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import com.hospital.citas.model.dto.UsuarioMiPerfilDTO;
-import com.hospital.citas.model.entity.Usuario;
 import com.hospital.citas.service.EstadoService;
 import com.hospital.citas.service.MiPerfilService;
 import com.hospital.citas.service.RolService;
 import com.hospital.citas.service.TipoIdentificacionService;
-import com.hospital.citas.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,6 +65,7 @@ public class MiPerfilController {
         
         Long idUsuarioLoggeado = (Long)session.getAttribute("idUsuarioLoggeado");
         boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        boolean esAdminMant = false;
 
         String nombreCompletoUsuarioLoggeado = (String)session.getAttribute("nombreUsuarioLoggeado") + " " + (String)session.getAttribute("primerApellidoUsuarioLoggeado") + " " + (String)session.getAttribute("segundoApellidoUsuarioLoggeado");
 
@@ -78,8 +77,10 @@ public class MiPerfilController {
             model.addAttribute("esAdmin", false);
         }else {
             model.addAttribute("esAdmin", true);
-            if(idUsuarioLoggeado.compareTo(usuario.getId()) != 0) 
+            if(idUsuarioLoggeado.compareTo(usuario.getId()) != 0)  {
                 model.addAttribute("esAdminMant", true);
+                esAdminMant = true;
+            }
             else 
                 model.addAttribute("esAdminMant", false);
         }
@@ -107,7 +108,10 @@ public class MiPerfilController {
         model.addAttribute("listaTipoIdentificacion", tipoIdentificacionService.consultarTiposDeIdentificacion());
         model.addAttribute("listaRoles", rolService.consultarRolesDTO());
         model.addAttribute("listaEstados", estadoService.consultarEstadosUsuarios());
+
+        // MOSTRAR NOTIFICACION
+        if(esAdminMant) return "redirect:/mostrar-panel-pacientes";
+
         return "miPerfil";
     }
-    
 }
