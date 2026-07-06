@@ -1,4 +1,5 @@
 .contenedor__principal__medicos {
+    min-height: calc(100vh - 100px - 115px);
 }
 
 .contenedor__medicos__section__registro {

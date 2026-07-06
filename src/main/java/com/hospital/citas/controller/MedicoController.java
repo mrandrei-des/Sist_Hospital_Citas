@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import com.hospital.citas.model.dto.MedicoDTO;
 import com.hospital.citas.service.MedicoService;
+
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,7 +22,12 @@ public class MedicoController {
     }
 
     @GetMapping("/medicos")
-    public String getMethodName(Model model) {
+    public String getMethodName(HttpSession session, Model model) {
+
+        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        model.addAttribute("usuarioEsAdmin", esAdmin);
+        model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
+
         model.addAttribute("medico", new MedicoDTO());
         model.addAttribute("listaMedicos", medicoService.listaMedicoRegistradoDTOs());
         model.addAttribute("listaEspecialidades", medicoService.listaEspecialidadesDTO());
@@ -28,7 +35,13 @@ public class MedicoController {
     }
 
     @PostMapping("/registro-medico")
-    public String registroMedico(@Valid @ModelAttribute("medico") MedicoDTO medico, BindingResult bindingResult, Model model) {
+    public String registroMedico(@Valid @ModelAttribute("medico") MedicoDTO medico, BindingResult bindingResult, HttpSession session, Model model) {
+        
+        Long idUsuarioLoggeado = (Long)session.getAttribute("idUsuarioLoggeado");
+        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        model.addAttribute("usuarioEsAdmin", esAdmin);
+        model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
+
         if(bindingResult.hasErrors()) {
             model.addAttribute("medico", medico);
             model.addAttribute("listaMedicos", medicoService.listaMedicoRegistradoDTOs());
@@ -37,7 +50,7 @@ public class MedicoController {
         }
 
         model.addAttribute("mostrarNotificacion", true);
-        if(medicoService.procesarMedico(medico)) {
+        if(medicoService.procesarMedico(medico, idUsuarioLoggeado)) {
             model.addAttribute("medico", new MedicoDTO());
             model.addAttribute("mensajeNotificacion", "¡Médico procesado!");
         }else {
@@ -50,7 +63,12 @@ public class MedicoController {
     }
 
     @GetMapping("/buscar-medico/{id}")
-    public String buscarMedicoPorId(@PathVariable("id") Long idMedico, Model model) {
+    public String buscarMedicoPorId(@PathVariable("id") Long idMedico, HttpSession session, Model model) {
+
+        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        model.addAttribute("usuarioEsAdmin", esAdmin);
+        model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
+
         model.addAttribute("medico", medicoService.buscarPorId(idMedico));
         model.addAttribute("listaMedicos", medicoService.listaMedicoRegistradoDTOs());
         model.addAttribute("listaEspecialidades", medicoService.listaEspecialidadesDTO());
@@ -58,8 +76,14 @@ public class MedicoController {
     }
     
     @GetMapping("/deshabilitar-medico/{id}")
-    public String deshabilitarMedico(@PathVariable("id") Long idMedico, Model model) {
-        medicoService.eliminarPorId(idMedico);
+    public String deshabilitarMedico(@PathVariable("id") Long idMedico, HttpSession session, Model model) {
+        
+        Long idUsuarioLoggeado = (Long)session.getAttribute("idUsuarioLoggeado");
+        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        model.addAttribute("usuarioEsAdmin", esAdmin);
+        model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
+
+        medicoService.eliminarPorId(idMedico, idUsuarioLoggeado);
         model.addAttribute("medico", new MedicoDTO());
         model.addAttribute("listaMedicos", medicoService.listaMedicoRegistradoDTOs());
         model.addAttribute("listaEspecialidades", medicoService.listaEspecialidadesDTO());
@@ -68,5 +92,3 @@ public class MedicoController {
         return "registroMedicos";
     }
 }
-
-//mostrarNotificacion - mensajeNotificacion

@@ -36,7 +36,7 @@
     <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${mensajeNotificacion})}"></div>
 
     <div class="contenedor__wrapper">
-        <div th:replace="~{fragments::menuLateral}"></div>
+        <div th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></div>
 
         <main class="contenedor__principal">
 

@@ -32,7 +32,7 @@ public class MedicoService {
         return especialidadService.listarEspecialidades(4L);
     }
 
-    public boolean procesarMedico(MedicoDTO medicoDTO) {
+    public boolean procesarMedico(MedicoDTO medicoDTO, Long idUsuarioLoggeado) {
         Medico medico = new Medico();
         Especialidad especialidad = new Especialidad();
         Estado estado = new Estado();
@@ -56,7 +56,7 @@ public class MedicoService {
 
         Medico medicoRegistrado = medicoRepository.save(medico);
         if (medicoRegistrado != null) {
-            medicoRepository.insertaRegistroBitacoraCambios(idAccion, medicoRegistrado.getId(), mensajeBitacora, 1L);
+            medicoRepository.insertaRegistroBitacoraCambios(idAccion, medicoRegistrado.getId(), mensajeBitacora, idUsuarioLoggeado);
             return true;
         }
         return false;
@@ -80,8 +80,8 @@ public class MedicoService {
         return dto;
     }
 
-    public void eliminarPorId(Long id) {
+    public void eliminarPorId(Long id, Long idUsuarioLoggeado) {
         medicoRepository.eliminarMedico(id);
-        medicoRepository.insertaRegistroBitacoraCambios(3L, id, "El médico ha sido eliminado.", 1L);
+        medicoRepository.insertaRegistroBitacoraCambios(3L, id, "El médico ha sido eliminado.", idUsuarioLoggeado);
     }
 }

@@ -14,6 +14,8 @@ import com.hospital.citas.service.EstadoService;
 import com.hospital.citas.service.RolService;
 import com.hospital.citas.service.TipoIdentificacionService;
 import com.hospital.citas.service.UsuarioService;
+
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,7 +39,11 @@ public class UsuarioController {
     }
 
     @PostMapping("/cuentaNueva")
-    public String crearCuenta(@Valid @ModelAttribute("cuentaNueva") Usuario usuario, BindingResult bindingResult,  @RequestParam("origenPeticion") String origenPeticion, Model model) {
+    public String crearCuenta(@Valid @ModelAttribute("cuentaNueva") Usuario usuario, BindingResult bindingResult,  @RequestParam("origenPeticion") String origenPeticion, HttpSession session, Model model) {
+
+        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        model.addAttribute("usuarioEsAdmin", esAdmin);
+        model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("cuentaNueva", usuario);
@@ -68,8 +74,12 @@ public class UsuarioController {
     }
 
     @PostMapping("/procesarRecuperacion")
-    public String mostrarFormularioRecuperacionContrasenna(@Valid @ModelAttribute("usuario") UsuarioInicioSesionDTO usuario, BindingResult bindingResult, Model model) {       
+    public String mostrarFormularioRecuperacionContrasenna(@Valid @ModelAttribute("usuario") UsuarioInicioSesionDTO usuario, BindingResult bindingResult, HttpSession session, Model model) {       
         
+        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        model.addAttribute("usuarioEsAdmin", esAdmin);
+        model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
+
         if(bindingResult.hasErrors()) {
             model.addAttribute("usuario", usuario);
             return "solicitudCambioContrasena";
@@ -87,7 +97,12 @@ public class UsuarioController {
     }
 
     @PostMapping("/procesarVerificacion")
-    public String procesarVerificacionCodigo(@Valid @ModelAttribute("codigoOTP") CodigoResetContrasenna codigoOTP, BindingResult bindingResult, @RequestParam("correo") String correoUsuario, Model model) {
+    public String procesarVerificacionCodigo(@Valid @ModelAttribute("codigoOTP") CodigoResetContrasenna codigoOTP, BindingResult bindingResult, @RequestParam("correo") String correoUsuario, HttpSession session, Model model) {
+
+        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        model.addAttribute("usuarioEsAdmin", esAdmin);
+        model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
+
         if(bindingResult.hasErrors()) {
             model.addAttribute("correo", correoUsuario);
             model.addAttribute("codigoOTP", codigoOTP);
@@ -124,7 +139,12 @@ public class UsuarioController {
     }
 
     @PostMapping("/procesarCambioContrasenna")
-    public String postMethodName(@Valid @ModelAttribute("usuario") UsuarioInicioSesionDTO usuarioDTO, BindingResult bindingResult, Model model) {
+    public String postMethodName(@Valid @ModelAttribute("usuario") UsuarioInicioSesionDTO usuarioDTO, BindingResult bindingResult, HttpSession session, Model model) {
+        
+        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        model.addAttribute("usuarioEsAdmin", esAdmin);
+        model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
+
         if(bindingResult.hasErrors()) {
             model.addAttribute("usuario", usuarioDTO);
             return "cambioContrasenna";
@@ -138,7 +158,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/reenviarCodigoReset")
-    public String reenviarCodigoCambioContrasenna(@ModelAttribute("codigoOTP") CodigoResetContrasenna codigoOTP, @RequestParam("correo") String correoUsuario, Model model) {
+    public String reenviarCodigoCambioContrasenna(@ModelAttribute("codigoOTP") CodigoResetContrasenna codigoOTP, @RequestParam("correo") String correoUsuario, HttpSession session, Model model) {
         usuarioService.reenviarCodigoResetContrasenna(correoUsuario);
         model.addAttribute("correo", correoUsuario);
         model.addAttribute("codigoOTP", codigoOTP);
@@ -150,8 +170,12 @@ public class UsuarioController {
     }
 
     @GetMapping("/registroUsuario")
-    public String getMethodName(Model model) {
+    public String registrarUsuario(HttpSession session, Model model) {
         
+        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        model.addAttribute("usuarioEsAdmin", esAdmin);
+        model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
+
         Usuario usuarioNuevo = new Usuario();
         Rol rolUsuario = new Rol();
         TipoIdentificacion tipoIdentificacionUsuario = new TipoIdentificacion();
@@ -164,7 +188,6 @@ public class UsuarioController {
         
         model.addAttribute("cuentaNueva", usuarioNuevo);
         model.addAttribute("listaTipoIdentificacion", tipoIdentificacionService.consultarTiposDeIdentificacion());
-        // EN EL ADMIN SE DEBE ENVIAR EL PARÁMETRO PERO CON VALOR N
         model.addAttribute("esUnPaciente", "N");
         model.addAttribute("listaRoles", rolService.consultarRolesDTO());
         model.addAttribute("listaEstados", estadoService.consultarEstadosUsuarios());

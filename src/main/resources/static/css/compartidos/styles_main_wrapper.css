@@ -1,6 +1,5 @@
 .contenedor__wrapper {
     width: 100%;
-    height: calc(100vh - 100px - 115px);
     display: grid;
     grid-template-areas: "menuLateral principal";
     grid-template-columns: auto 1fr;

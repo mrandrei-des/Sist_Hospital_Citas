@@ -1,12 +1,19 @@
 package com.hospital.citas.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class InicioController {
     @GetMapping("/inicio")
-    public String inicio(){
+    public String inicio(HttpSession session, Model model){
+
+        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        model.addAttribute("usuarioEsAdmin", esAdmin);
+        model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
         return "inicio";
     }
 

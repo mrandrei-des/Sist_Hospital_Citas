@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .requestMatchers("/cuentaNueva", "/procesarRecuperacion", "/procesarVerificacion", "/procesarCambioContrasenna", "/reenviarCodigoReset").permitAll()
 
                 // GET MAPPING PRIVADO PACIENTE Y ADMIN
-                .requestMatchers("/acceso-denegado", "/logout").hasAnyRole("1", "2")
+                .requestMatchers("/acceso-denegado", "/logout", "/mi-perfil/{id}", "/actualizar-mi-cuenta").hasAnyRole("1", "2")
 
                 // GET MAPPING PRIVADO PACIENTE
                 .requestMatchers("/inicio").hasAnyRole("1")

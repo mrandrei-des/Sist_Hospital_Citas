@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.hospital.citas.model.dto.EspecialidadDTO;
 import com.hospital.citas.service.EspecialidadService;
+
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -22,16 +24,25 @@ public class EspecialidadController {
     }
     
     @GetMapping("/especialidades")
-    public String mostrarPaginaEspecialidades(Model model) {
+    public String mostrarPaginaEspecialidades(HttpSession session, Model model) {
+
+        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        model.addAttribute("usuarioEsAdmin", esAdmin);
+        model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
         model.addAttribute("especialidad", new EspecialidadDTO());
         model.addAttribute("listaEspecialidades", especialidadService.listarEspecialidades(4L));
         model.addAttribute("listaUltEspecialidades", especialidadService.listarUltimaEspecialidadRegistradaDTOs());
-        // Cargar las especialidades registradas y las últimas
         return "registroEspecialidades";
     }
 
     @PostMapping("/registro-especialidad")
-    public String registroEspecialidad(@Valid @ModelAttribute("especialidad") EspecialidadDTO especialidad, BindingResult bindingResult,  Model model) {
+    public String registroEspecialidad(@Valid @ModelAttribute("especialidad") EspecialidadDTO especialidad, BindingResult bindingResult, HttpSession session,  Model model) {
+        
+        Long idUsuarioLoggeado = (Long)session.getAttribute("idUsuarioLoggeado");
+        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        model.addAttribute("usuarioEsAdmin", esAdmin);
+        model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
+
         if(bindingResult.hasErrors()) {
             model.addAttribute("especialidad", especialidad);
             model.addAttribute("listaEspecialidades", especialidadService.listarEspecialidades(4L));
@@ -40,7 +51,7 @@ public class EspecialidadController {
         }
         
         model.addAttribute("mostrarNotificacion", true);
-        if(especialidadService.registrarEspecialidad(especialidad)) {
+        if(especialidadService.registrarEspecialidad(especialidad, idUsuarioLoggeado)) {
             model.addAttribute("especialidad", new EspecialidadDTO());
             model.addAttribute("mensajeNotificacion", "¡Especialidad procesada!");
         }else {
@@ -54,7 +65,12 @@ public class EspecialidadController {
     }
 
     @GetMapping("/buscar-especialidad/{id}")
-    public String buscarEspecialidadPorId(@PathVariable("id") Long idEspecialidad, Model model) {
+    public String buscarEspecialidadPorId(@PathVariable("id") Long idEspecialidad, HttpSession session, Model model) {
+
+        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        model.addAttribute("usuarioEsAdmin", esAdmin);
+        model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
+
         if (idEspecialidad > 0) {
             model.addAttribute("especialidad", especialidadService.buscarPorId(idEspecialidad));
         }else {

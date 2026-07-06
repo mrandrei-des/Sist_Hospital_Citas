@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.hospital.citas.model.dto.UsuarioInicioSesionDTO;
+import com.hospital.citas.model.dto.UsuarioSessionDTO;
 import com.hospital.citas.model.entity.CodigoResetContrasenna;
 import com.hospital.citas.model.entity.Usuario;
 import com.hospital.citas.repository.CodigoResetContrasennaRepository;
@@ -31,12 +32,11 @@ public class UsuarioService {
     private PasswordEncoder passwordEncoder;
 
     public Usuario crearCuenta(Usuario usuarioNuevo) {
-        // FALTA ENCRIPTAR LA CONTRASEÑA
+
         usuarioNuevo.setContrasennaHash(passwordEncoder.encode(usuarioNuevo.getContrasennaHash()));
         Usuario usuarioRegistrado = usuarioRepository.save(usuarioNuevo);
         if(usuarioRegistrado != null) {
-            Long idUsuarioRealizoAccion = 1L;
-            usuarioRepository.insertaRegistroBitacoraCambiosUsuario(1L, usuarioRegistrado.getId(), "El usuario ha sido registrado en el sistema.", idUsuarioRealizoAccion);
+            usuarioRepository.insertaRegistroBitacoraCambiosUsuario(1L, usuarioRegistrado.getId(), "El usuario ha sido registrado en el sistema.", usuarioRegistrado.getId());
         }
         return usuarioRegistrado;
     }
@@ -135,5 +135,23 @@ public class UsuarioService {
                 correoService.enviarCorreoCodigo(usuarioEncontrado.getCorreoElectronico(), codigoOTP);
             }
         }
+    }
+
+    public UsuarioSessionDTO construirUsuarioSessionDTO(String correoUsuario) {
+        Usuario usuario =  usuarioRepository.findByCorreoElectronico(correoUsuario).orElse(null);
+        UsuarioSessionDTO usuarioSessionDTO = new UsuarioSessionDTO();
+
+        if (usuario != null) {
+            usuarioSessionDTO.setId(usuario.getId());
+            usuarioSessionDTO.setNombre(usuario.getNombre());
+            usuarioSessionDTO.setPrimerApellido(usuario.getPrimerApellido());
+            usuarioSessionDTO.setSegundoApellido(usuario.getSegundoApellido());
+        }
+        return usuarioSessionDTO;
+    }
+
+    // --------------
+    public Usuario buscarPorId(Long id) {
+        return usuarioRepository.findById(id).orElse(null);
     }
 }

@@ -19,7 +19,7 @@ public class EspecialidadService {
         this.especialidadRepository = especialidadRepository;
     }
 
-    public boolean registrarEspecialidad(EspecialidadDTO especialidadDTO) {
+    public boolean registrarEspecialidad(EspecialidadDTO especialidadDTO, Long idUsuarioLoggeado) {
         Especialidad especialidad = new Especialidad();
         Estado estado = new Estado();
         String mensajeBitacora = "La especialidad ha sido registrada en el sistema.";
@@ -37,7 +37,7 @@ public class EspecialidadService {
 
         Especialidad especialidadRegistrada = especialidadRepository.save(especialidad);
         if (especialidadRegistrada != null) {
-            especialidadRepository.insertaRegistroBitacoraCambios(idAccion, especialidadRegistrada.getId(), mensajeBitacora, 1L);
+            especialidadRepository.insertaRegistroBitacoraCambios(idAccion, especialidadRegistrada.getId(), mensajeBitacora, idUsuarioLoggeado);
             return true;
         }
         return false;

@@ -1,4 +1,6 @@
 .contenedor__principal__especialidades {
+    min-height: calc(100vh - 100px - 115px);
+
     display: grid;
     grid-template-columns: 1fr minmax(min-content, auto);
     gap: 2rem;

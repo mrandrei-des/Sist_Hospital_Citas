@@ -16,8 +16,7 @@
 
     <link rel="stylesheet" href="../static/css/compartidos/styles_main_wrapper.css">
     <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css">
-    <link rel="stylesheet" href="../static/css/registroMedicos.css">
-    
+    <!-- <link rel="stylesheet" href="../static/css/miPerfil.css"> -->
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_fonts.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_resetElements.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_colors.css}">
@@ -26,7 +25,6 @@
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_notificaciones.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_header.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_footer.css}">
-
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_main_wrapper.css}">
     <link rel="stylesheet" th:href="@{/css/compartidos/styles_menu_lateral.css}">
 </head>
@@ -40,17 +38,13 @@
             <nav class="menu__principal">
                 <ul class="menu__lista">
                     <li class="menu__elemento menu__elemento__usuario">
+                        <p class="menu__nombre__usuario">Bienvenido </p>
                         <span class="menu__avatar__usuario">
                             <i class="fa-solid fa-circle-user"></i>
                         </span>
-                        <p class="menu__nombre__usuario">John Doe</p>
-                    </li>
-
-                    <li class="menu__elemento">
-                        <span class="menu__icono">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                        </span>
-                        <a th:href="@{/}" class="menu__enlace">Cerrar Sesión</a>
+                        <p class="menu__nombre__usuario">
+                            John Doe
+                        </p>
                     </li>
                 </ul>
             </nav>
@@ -71,8 +65,7 @@
     </div>
 
     <div class="contenedor__wrapper">
-        
-        <div class="contenedor__menu__lateral" id="contenedorMenuLateral" th:fragment="menuLateral">
+        <div class="contenedor__menu__lateral" id="contenedorMenuLateral" th:fragment="menuLateral (esAdmin, idUsuario)">
             <div class="contenedor__toggle__menu toggle__menu__close" id="toggleMenuClose">
                 <button type="button" class="btn__toggle__menu" id="btnToggleMenuClose">
                     <i class="fa-solid fa-minimize"></i>
@@ -85,7 +78,7 @@
             </div>
             <nav class="menu__lateral" id="menuLateral">
                 <div class="contenedor__secciones__menu__lateral">
-                    <section class="section__menu__lateral">
+                    <section class="section__menu__lateral" th:if="${esAdmin}">
                         <div class="section__menu__contenedor__titulo">
                             <h2 class="section__menu__titulo">Medicina</h2>
                         </div>
@@ -127,7 +120,7 @@
                         </div>
                         <div class="section__menu__contenedor__lista__enlaces">
                             <ul class="menu__lateral__lista">
-                                <li class="lista__elemento">
+                                <li class="lista__elemento" th:if="${!esAdmin}">
                                     <a href="#" th:href="@{/reservar}" class="menu__lateral__enlace">
                                         <span class="menu__lateral__contenedor__icono">
                                             <i class="fa-solid fa-hand-holding-medical"></i>
@@ -149,7 +142,7 @@
                     
                     <div class="separador__section__menu"></div>
                     
-                    <section class="section__menu__lateral">
+                    <section class="section__menu__lateral" th:if="${esAdmin}">
                         <div class="section__menu__contenedor__titulo">
                             <h2 class="section__menu__titulo">Reportes</h2>
                         </div>
@@ -184,14 +177,14 @@
                         <div class="section__menu__contenedor__lista__enlaces">
                             <ul class="menu__lateral__lista">
                                 <li class="lista__elemento">
-                                    <a href="#" th:href="@{/mi-perfil}" class="menu__lateral__enlace">
+                                    <a href="#" th:href="@{/mi-perfil/{id}(id=${idUsuario})}" class="menu__lateral__enlace">
                                         <span class="menu__lateral__contenedor__icono">
                                             <i class="fa-solid fa-circle-user"></i>
                                         </span>
                                         Mi Perfil
                                     </a>
                                 </li>
-                                <li class="lista__elemento">
+                                <li class="lista__elemento" th:if="${esAdmin}">
                                     <a href="#" th:href="@{/pacientes}" class="menu__lateral__enlace">
                                         <span class="menu__lateral__contenedor__icono">
                                             <i class="fa-solid fa-users"></i>
@@ -216,162 +209,10 @@
             </nav>
         </div>
 
-        <!-- 
         <main class="contenedor__principal">
-            <div class="contenedor__principal__medicos">
-                <div class="contenedor__medicos__section contenedor__medicos__section__registro">
-                    <div class="contenedor__section">
-                        <section class="contenedor__titulo__principal">
-                            <h2 class="titulo__principal">
-                                Registro de médicos
-                            </h2>
-                            <p class="descripcion__principal">
-                                Agregue una nuevo médico al sistema
-                            </p>
-                        </section>
-            
-                        <section class="contenedor__formulario__medicos">
-                            <form th:action="@{/registro-medico}" method="post" class="formulario__registro" th:object="${medico}" novalidate>
-                                <input type="hidden" th:field="*{id}">
-                                <div class="formulario__section__input">
-                                    <div class="section__input__main">
-                                        <div class="contenedor__input contenedor__input__sp2">
-                                            <input type="text" class="input" id="nombre" placeholder="" th:field="*{nombre}">
-                                            <label for="nombre" class="input__label">Nombre</label>
-                                            <p class="input__error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Debe indicar el nombre.</p>
-                                        </div>
-                                        <div class="contenedor__input">
-                                            <input type="text" class="input" id="primerApellido" placeholder="" th:field="*{primerApellido}">
-                                            <label for="primerApellido" class="input__label">Primer Apellido</label>
-                                            <p class="input__error" th:if="${#fields.hasErrors('primerApellido')}" th:errors="*{primerApellido}">Debe indicar el primer apellido.</p>
-                                        </div>
-                                        <div class="contenedor__input">
-                                            <input type="text" class="input" id="segundoApellido" placeholder="" th:field="*{segundoApellido}">
-                                            <label for="segundoApellido" class="input__label">Segundo Apellido</label>
-                                            <p class="input__error" th:if="${#fields.hasErrors('segundoApellido')}" th:errors="*{segundoApellido}">Debe indicar el segundo apellido.</p>
-                                        </div>
-                                        <div class="contenedor__input contenedor__input__sp2">
-                                            <select name="especialidad" id="especialidad" class="input" placeholder="" th:field="*{especialidad.id}">
-                                                <option value="0">Psicología</option>
-                                                <option value="1">Geriatría</option>
-                                                <option value="2">Dermatología</option>
-                                            </select>
-                                            <label for="especialidad" class="input__label">Especialidad</label>
-                                            <p class="input__error" th:if="${#fields.hasErrors('especialidad.id')}" th:errors="*{especialidad.id}">Debe seleccionar la especialidad.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="formulario__section__button">
-                                    <button type="submit" class="btn btn__primary">Agregar</button>
-                                </div>
-                            </form>
-                        </section>
-                    </div>
-
-                    <div class="contenedor__section">
-                        <section class="contenedor__titulo__principal">
-                            <h2 class="titulo__principal">
-                                Listado de médicos
-                            </h2>
-                            <p class="descripcion__principal">
-                                Estos son los médicos que han sido registrados
-                            </p>
-                        </section>
-    
-                        <section class="contenedor__listado__registros">
-                            <div class="contenedor__listado">
-
-                                <div class="lista__elemento" th:each="medico : ${listaMedicos}">
-                                    <div class="lista__elemento__info">
-                                        <h2 class="elemento__info__nombre" th:text="${medico.getNombreCompleto()}">Luisa Viquez Chan</h2>
-                                        <p class="elemento__info__especialidad" th:text="${medico.getNombreEspecialidad()}">Cardiología</p>
-                                    </div>
-                                    <div class="lista__elemento__acciones">
-                                        <a href="/" th:href="@{/modificar-medico/{id}(id=${medico.getId()})}" class="btn__accion__elemento btn__modificar" title="Modificar Médico">
-                                            <span class="lista__elemento__icono">
-                                                <i class="fa-solid fa-pencil"></i>
-                                            </span>
-                                        </a>
-    
-                                        <a href="/" th:href="@{/eliminar-medico/{id}(id=${medico.getId()})}" class="btn__accion__elemento btn__eliminar" title="Eliminar Médico">
-                                            <span class="lista__elemento__icono">
-                                                <i class="fa-solid fa-times"></i>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-    
-                                <div class="lista__elemento" th:each="medico : ${listaMedicos}">
-                                    <div class="lista__elemento__info">
-                                        <h2 class="elemento__info__nombre" th:text="${medico.getNombreCompleto()}">Gabriela Diaz Fonseca</h2>
-                                        <p class="elemento__info__especialidad" th:text="${medico.getNombreEspecialidad()}">Pediatra</p>
-                                    </div>
-                                    <div class="lista__elemento__acciones">
-                                        <a href="/" th:href="@{/modificar-medico/{id}(id=${medico.getId()})}" class="btn__accion__elemento btn__modificar" title="Modificar Médico">
-                                            <span class="lista__elemento__icono">
-                                                <i class="fa-solid fa-pencil"></i>
-                                            </span>
-                                        </a>
-    
-                                        <a href="/" th:href="@{/eliminar-medico/{id}(id=${medico.getId()})}" class="btn__accion__elemento btn__eliminar" title="Eliminar Médico">
-                                            <span class="lista__elemento__icono">
-                                                <i class="fa-solid fa-times"></i>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-    
-                                <div class="lista__elemento" th:each="medico : ${listaMedicos}">
-                                    <div class="lista__elemento__info">
-                                        <h2 class="elemento__info__nombre" th:text="${medico.getNombreCompleto()}">Luis Barquero Mora</h2>
-                                        <p class="elemento__info__especialidad" th:text="${medico.getNombreEspecialidad()}">Cardiología</p>
-                                    </div>
-                                    <div class="lista__elemento__acciones">
-                                        <a href="/" th:href="@{/modificar-medico/{id}(id=${medico.getId()})}" class="btn__accion__elemento btn__modificar" title="Modificar Médico">
-                                            <span class="lista__elemento__icono">
-                                                <i class="fa-solid fa-pencil"></i>
-                                            </span>
-                                        </a>
-    
-                                        <a href="/" th:href="@{/eliminar-medico/{id}(id=${medico.getId()})}" class="btn__accion__elemento btn__eliminar" title="Eliminar Médico">
-                                            <span class="lista__elemento__icono">
-                                                <i class="fa-solid fa-times"></i>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-    
-                                <div class="lista__elemento" th:each="medico : ${listaMedicos}">
-                                    <div class="lista__elemento__info">
-                                        <h2 class="elemento__info__nombre" th:text="${medico.getNombreCompleto()}">María Cartín Valverde</h2>
-                                        <p class="elemento__info__especialidad" th:text="${medico.getNombreEspecialidad()}">Ortodoncia</p>
-                                    </div>
-                                    <div class="lista__elemento__acciones">
-                                        <a href="/" th:href="@{/modificar-medico/{id}(id=${medico.getId()})}" class="btn__accion__elemento btn__modificar" title="Modificar Médico">
-                                            <span class="lista__elemento__icono">
-                                                <i class="fa-solid fa-pencil"></i>
-                                            </span>
-                                        </a>
-    
-                                        <a href="/" th:href="@{/eliminar-medico/{id}(id=${medico.getId()})}" class="btn__accion__elemento btn__eliminar" title="Eliminar Médico">
-                                            <span class="lista__elemento__icono">
-                                                <i class="fa-solid fa-times"></i>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </section>
-                    </div>
-                </div>
-            </div>
         </main>
-        -->
-        
     </div>
 
-    
     <footer class="footer__principal" th:fragment="footer">
         <div class="footer__elemento">
             <p class="footer__leyenda">&copy; Todos los derechos reservados</p>
