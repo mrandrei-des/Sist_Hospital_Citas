@@ -36,4 +36,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     @Query(value = "{call sp_listaUsuariosPaciente()}", nativeQuery = true)
     List<PanelGestionPacienteDTO> listaUsuarPacienteDTOs();
+
+    boolean existsByCorreoElectronicoAndIdNot(String correo, Long id);
+    boolean existsByIdentificacionAndIdNot(String identificacion, Long id);
 }

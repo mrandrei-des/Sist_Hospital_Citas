@@ -35,6 +35,8 @@ public class UsuarioDetailsService implements UserDetailsService {
         session.setAttribute("primerApellidoUsuarioLoggeado", usuario.getPrimerApellido());
         session.setAttribute("segundoApellidoUsuarioLoggeado", usuario.getSegundoApellido());
         session.setAttribute("idRolUsuarioLoggeado", usuario.getRol().getId());
+        session.setAttribute("mostrarNotificacion", false);
+        session.setAttribute("mensajeNotificacion", "");
 
         return User.builder()
             .username(usuario.getCorreoElectronico())

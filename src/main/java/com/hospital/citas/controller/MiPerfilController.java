@@ -87,7 +87,7 @@ public class MiPerfilController {
 
         model.addAttribute("usuarioEsAdmin", esAdmin);
         model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
-        model.addAttribute("esAdminMant", false);
+        // model.addAttribute("esAdminMant", false);
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("usuario", usuario);

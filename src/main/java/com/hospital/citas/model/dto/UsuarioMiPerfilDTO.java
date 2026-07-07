@@ -1,11 +1,15 @@
 package com.hospital.citas.model.dto;
 
 import com.hospital.citas.validation.annotation.CorreoFormato;
+import com.hospital.citas.validation.annotation.CorreoUnicoEdit;
+import com.hospital.citas.validation.annotation.IdentificacionUnicaEdit;
 import com.hospital.citas.validation.annotation.SoloLetras;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+@CorreoUnicoEdit
+@IdentificacionUnicaEdit
 public class UsuarioMiPerfilDTO {
     private Long id;
 

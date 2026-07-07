@@ -22,6 +22,14 @@ public class DisponibilidadMedicoController {
 
     @GetMapping("/configuracion-horario")
     public String configurarHorarioMedico(HttpSession session, Model model) {
+
+        boolean mostrarNotificacion  = (boolean)session.getAttribute("mostrarNotificacion");
+        if(mostrarNotificacion) {
+            String mensajeNotificacion = (String)session.getAttribute("mensajeNotificacion");
+            model.addAttribute("mostrarNotificacion", true);
+            model.addAttribute("mensajeNotificacion", mensajeNotificacion);
+        }
+        
         boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
         String nombreCompletoUsuarioLoggeado = (String)session.getAttribute("nombreUsuarioLoggeado") + " " + (String)session.getAttribute("primerApellidoUsuarioLoggeado") + " " + (String)session.getAttribute("segundoApellidoUsuarioLoggeado");
 
@@ -50,8 +58,8 @@ public class DisponibilidadMedicoController {
         }
 
         if(disponibilidadMedicoService.procesarHorarioMedico(horario, idUsuarioLoggeado)) {
-            model.addAttribute("mostrarNotificacion", true);
-            model.addAttribute("mensajeNotificacion", "¡Horario procesado!");
+            session.setAttribute("mostrarNotificacion", true);
+            session.setAttribute("mensajeNotificacion", "¡Horario procesado!");
         }
         // se procesa el horario
         // model.addAttribute("horario", new HorarioMedicoDTO());

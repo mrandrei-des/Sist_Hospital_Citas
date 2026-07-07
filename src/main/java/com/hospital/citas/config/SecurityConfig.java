@@ -51,7 +51,6 @@ public class SecurityConfig {
                 // POST MAPPING PRIVADO ADMIN
                 .requestMatchers("/registro-especialidad", "/registro-medico", "/procesar-horario-medico", "/api/medicos/consulta/por-especialidad/{id}").hasAnyRole("2")
 
-                .requestMatchers("/inicio").hasAnyRole("1")
                 //Todo lo demas, exige que sea ADMIN 
                 .anyRequest().hasRole("2") 
             )

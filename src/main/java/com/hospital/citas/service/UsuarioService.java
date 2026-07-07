@@ -153,4 +153,12 @@ public class UsuarioService {
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id).orElse(null);
     }
+
+    public boolean existePorCorreoYNoId(Long id, String correo) {
+        return usuarioRepository.existsByCorreoElectronicoAndIdNot(correo, id);
+    }
+
+    public boolean existePorCorreoYNoIdentificacion(Long id, String identificacion) {
+        return usuarioRepository.existsByIdentificacionAndIdNot(identificacion, id);
+    }
 }

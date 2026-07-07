@@ -21,9 +21,9 @@ public class PacienteController {
     @GetMapping("/registrarPaciente")
     public String mostrarFormularioRegistroPaciente(HttpSession session, Model model) {
 
-        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
-        model.addAttribute("usuarioEsAdmin", esAdmin);
-        model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
+        // boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        // model.addAttribute("usuarioEsAdmin", esAdmin);
+        // model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
 
         Usuario pacienteNuevo = new Usuario();
         Rol rolPaciente = new Rol();

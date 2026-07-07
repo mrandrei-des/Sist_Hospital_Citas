@@ -41,10 +41,6 @@ public class UsuarioController {
     @PostMapping("/cuentaNueva")
     public String crearCuenta(@Valid @ModelAttribute("cuentaNueva") Usuario usuario, BindingResult bindingResult,  @RequestParam("origenPeticion") String origenPeticion, HttpSession session, Model model) {
 
-        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
-        model.addAttribute("usuarioEsAdmin", esAdmin);
-        model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
-
         if(bindingResult.hasErrors()) {
             model.addAttribute("cuentaNueva", usuario);
             model.addAttribute("listaTipoIdentificacion", tipoIdentificacionService.consultarTiposDeIdentificacion());
@@ -67,7 +63,7 @@ public class UsuarioController {
         model.addAttribute("mensaje", "¡Usuario Creado!");
 
         if(origenPeticion.equals("S")) {
-            return "redirect:/";
+            return "redirect:/inicio";
         }else {
             return "redirect:/panel";
         }
@@ -76,9 +72,9 @@ public class UsuarioController {
     @PostMapping("/procesarRecuperacion")
     public String mostrarFormularioRecuperacionContrasenna(@Valid @ModelAttribute("usuario") UsuarioInicioSesionDTO usuario, BindingResult bindingResult, HttpSession session, Model model) {       
         
-        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
-        model.addAttribute("usuarioEsAdmin", esAdmin);
-        model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
+        // boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        // model.addAttribute("usuarioEsAdmin", esAdmin);
+        // model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("usuario", usuario);
@@ -99,9 +95,9 @@ public class UsuarioController {
     @PostMapping("/procesarVerificacion")
     public String procesarVerificacionCodigo(@Valid @ModelAttribute("codigoOTP") CodigoResetContrasenna codigoOTP, BindingResult bindingResult, @RequestParam("correo") String correoUsuario, HttpSession session, Model model) {
 
-        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
-        model.addAttribute("usuarioEsAdmin", esAdmin);
-        model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
+        // boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        // model.addAttribute("usuarioEsAdmin", esAdmin);
+        // model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("correo", correoUsuario);
@@ -141,9 +137,9 @@ public class UsuarioController {
     @PostMapping("/procesarCambioContrasenna")
     public String procesarCambioContrasenna(@Valid @ModelAttribute("usuario") UsuarioInicioSesionDTO usuarioDTO, BindingResult bindingResult, HttpSession session, Model model) {
         
-        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
-        model.addAttribute("usuarioEsAdmin", esAdmin);
-        model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
+        // boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        // model.addAttribute("usuarioEsAdmin", esAdmin);
+        // model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("usuario", usuarioDTO);

@@ -18,7 +18,7 @@ public class CorreoService {
         mensaje.setSubject("Código de Recuperación - Sistema Hospitalario MR");
         mensaje.setText("Estimado usuario,\n\n"
                 + "Su código de seguridad para restablecer la contraseña es: " + codigo + "\n"
-                + "Este código es válido por 5 minutos.\n\n"
+                + "Este código es válido por 15 minutos.\n\n"
                 + "Si usted no solicitó este cambio, ignore este correo.");
         mailSender.send(mensaje);
     }
