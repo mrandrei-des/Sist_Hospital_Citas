@@ -10,12 +10,11 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css" th:href="@{/css/compartidos/styles_inputs.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css" th:href="@{/css/compartidos/styles_buttons.css}">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css" th:href="@{/css/compartidos/styles_notificaciones.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_header.css" th:href="@{/css/compartidos/styles_header.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_footer.css" th:href="@{/css/compartidos/styles_footer.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_main_wrapper.css" th:href="@{/css/compartidos/styles_main_wrapper.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css" th:href="@{/css/compartidos/styles_menu_lateral.css}">
-    <link rel="stylesheet" href="../static/css/configuracionHorario.css" th:href="@{/css/panelPacientes.css}">
+    <link rel="stylesheet" href="../static/css/horariosMedicos.css" th:href="@{/css/horariosMedicos.css}">
 </head>
 <body>
     <header class="header__principal" th:fragment="header (mostrarOpcionesMenu, nombreUsuario)">
@@ -118,7 +117,7 @@
                                     </a>
                                 </li>
                                 <li class="lista__elemento">
-                                    <a href="#" th:href="@{/disponibilidad-horarios}" class="menu__lateral__enlace">
+                                    <a href="#" th:href="@{/mostrar-horario}" class="menu__lateral__enlace">
                                     <span class="menu__lateral__contenedor__icono">
                                         <i class="fa-regular fa-calendar-days"></i>
                                     </span>
@@ -197,6 +196,115 @@
                 </div>
             </nav>
         </div>
+
+        <!-- 
+        <div class="contenedor__principal contenedor__principal__horario">
+            <section class="contenedor__horario__section contenedor__principal__titulo">
+                <h2 class="titulo__principal">
+                    Horarios disponibles para esta semana
+                </h2>
+                <p class="descripcion__principal">
+                    Aquí puede visualizar los horarios de atención de los médicos
+                </p>
+            </section>
+
+            <section class="contenedor__horario__section contenedor__horario__section__medicos">
+                <form action="/" method="get">
+                    <div class="horario__section__medicos__filtros">
+                        <h3 class="section__medicos__filtros__titulo">Médicos con horarios registrados</h3>
+                        <div class="contenedor__input contenedor__input__sp2" th:if="${esAdminMant}">
+                            <select id="idMedicos" name="idMedicos" class="input">
+                                <option th:each="rol : ${listaRoles}" th:value="${rol.getId()}" th:text="${rol.getDescripcion()}">Paciente</option>
+                                <option value="0">John Doe</option>
+                            </select>
+                            <label for="idMedicos" class="input__label">Médico</label>
+                        </div>
+                    </div>
+                    <div class="horario__section__medicos__carga">
+                        <button type="submit" class="btn btn__busqueda">
+                            <span class="btn__busqueda__icono">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="contenedor__horario__section contenedor__horario">
+                <div class="horario__contenedor__titulo">
+                    <p class="horario___titulo">Espacios semana del 06-07-2026 al 10-07-2026</p>
+                </div>
+                <div class="horario__contenedor__horario">
+                    Se renderiza el día
+                    <div class="horario__dia">
+                        <div class="dia__informacion">
+                            <p class="dia__informacion__dia">Lunes</p>
+                            <p class="dia__informacion__fecha">06-07-2026</p>
+                        </div>
+                        <div class="dia__opciones">
+                            Se renderiza cada hora de atención
+                            <button type="button" class="btn btn__opcion__horario espacio__seleccionado">08:00</button>
+                            <button type="button" class="btn btn__opcion__horario">08:30</button>
+                            <button type="button" class="btn btn__opcion__horario espacio__reservado">09:00</button>
+                            <button type="button" class="btn btn__opcion__horario">09:30</button>
+                        </div>
+                    </div>
+                    <div class="horario__dia">
+                        <div class="dia__informacion">
+                            <p class="dia__informacion__dia">Martes</p>
+                            <p class="dia__informacion__fecha">07-07-2026</p>
+                        </div>
+                        <div class="dia__opciones">
+                            Se renderiza cada hora de atención de cada día
+                            <button type="button" class="btn btn__opcion__horario">08:00</button>
+                            <button type="button" class="btn btn__opcion__horario">08:30</button>
+                            <button type="button" class="btn btn__opcion__horario">09:00</button>
+                            <button type="button" class="btn btn__opcion__horario">09:30</button>
+                        </div>
+                    </div>
+                    <div class="horario__dia">
+                        <div class="dia__informacion">
+                            <p class="dia__informacion__dia">Miércoles</p>
+                            <p class="dia__informacion__fecha">08-07-2026</p>
+                        </div>
+                        <div class="dia__opciones">
+                            Se renderiza cada hora de atención
+                            <button type="button" class="btn btn__opcion__horario">08:00</button>
+                            <button type="button" class="btn btn__opcion__horario">08:30</button>
+                            <button type="button" class="btn btn__opcion__horario">09:00</button>
+                            <button type="button" class="btn btn__opcion__horario espacio__reservado">09:30</button>
+                        </div>
+                    </div>
+                    <div class="horario__dia">
+                        <div class="dia__informacion">
+                            <p class="dia__informacion__dia">Jueves</p>
+                            <p class="dia__informacion__fecha">09-07-2026</p>
+                        </div>
+                        <div class="dia__opciones">
+                            Se renderiza cada hora de atención
+                            <button type="button" class="btn btn__opcion__horario">08:00</button>
+                            <button type="button" class="btn btn__opcion__horario espacio__reservado">08:30</button>
+                            <button type="button" class="btn btn__opcion__horario espacio__reservado">09:00</button>
+                            <button type="button" class="btn btn__opcion__horario">09:30</button>
+                        </div>
+                    </div>
+                    <div class="horario__dia">
+                        <div class="dia__informacion">
+                            <p class="dia__informacion__dia">Viernes</p>
+                            <p class="dia__informacion__fecha">10-07-2026</p>
+                        </div>
+                        <div class="dia__opciones">
+                            Se renderiza cada hora de atención
+                            <button type="button" class="btn btn__opcion__horario espacio__reservado">08:00</button>
+                            <button type="button" class="btn btn__opcion__horario">08:30</button>
+                            <button type="button" class="btn btn__opcion__horario espacio__reservado">09:00</button>
+                            <button type="button" class="btn btn__opcion__horario">09:30</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        -->
     </div>
 
     <footer class="footer__principal" th:fragment="footer">

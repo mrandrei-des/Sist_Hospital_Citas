@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horarios Médicos</title>
+    <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css" th:href="@{/css/compartidos/styles_fonts.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css" th:href="@{/css/compartidos/styles_inputs.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css" th:href="@{/css/compartidos/styles_buttons.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_header.css" th:href="@{/css/compartidos/styles_header.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_footer.css" th:href="@{/css/compartidos/styles_footer.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_main_wrapper.css" th:href="@{/css/compartidos/styles_main_wrapper.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css" th:href="@{/css/compartidos/styles_menu_lateral.css}">
+    <link rel="stylesheet" href="../static/css/horariosMedicos.css" th:href="@{/css/horariosMedicos.css}">
+</head>
+<body>
+    <div th:replace="~{fragments::header(mostrarOpcionesMenu=${true}, nombreUsuario=${nombreCompletoUsuario})}"></div>
+
+    <div class="contenedor__wrapper">
+        <div th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></div>
+        <main class="contenedor__principal">
+            <div class="contenedor__principal contenedor__principal__horario">
+                <section class="contenedor__horario__section contenedor__principal__titulo">
+                    <h2 class="titulo__principal">
+                        Horarios disponibles para esta semana
+                    </h2>
+                    <p class="descripcion__principal">
+                        Aquí puede visualizar los horarios de atención de los médicos
+                    </p>
+                </section>
+
+                <section class="contenedor__horario__section contenedor__horario__section__medicos">
+                    <form th:action="@{/cargar-horario}" method="get" th:object="${medico}">
+                        <div class="horario__section__medicos__filtros">
+                            <h3 class="section__medicos__filtros__titulo">Médicos con horarios registrados</h3>
+                            <div class="contenedor__input">
+                                <select id="idMedicos" name="idMedicos" class="input" th:field="*{id}">
+                                    <option th:each="medico : ${listaMedicos}" th:value="${medico.getId()}" th:text="${medico.getNombre()} + ' ' + ${medico.getPrimerApellido()} + ' ' + ${medico.getSegundoApellido()}">John Doe</option>
+                                </select>
+                                <label for="idMedicos" class="input__label">Médico</label>
+                            </div>
+                        </div>
+                        <div class="horario__section__medicos__carga">
+                            <button type="submit" class="btn btn__busqueda">
+                                <span class="btn__busqueda__icono">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="contenedor__horario__section contenedor__horario">
+                    <div class="horario__contenedor__titulo">
+                        <p class="horario___titulo">Espacios semana del 06-07-2026 al 10-07-2026</p>
+                    </div>
+                    <div class="horario__contenedor__horario">
+                        <!-- Se renderiza el día -->
+                        <div class="horario__dia" th:each="dia : ${horarioMedico}">
+                            <div class="dia__informacion">
+                                <p class="dia__informacion__dia" th:text="${dia.getNombreDia()}">Lunes</p>
+                                <p class="dia__informacion__fecha" th:text="${dia.getFecha()}">06-07-2026</p>
+                            </div>
+
+                            <div class="dia__opciones">
+                                <!-- Se renderiza cada hora de atención -->
+                                <button 
+                                    type="button" 
+                                    th:each="espacioHora : ${dia.listaEspacios}" 
+                                    class="btn btn__opcion__horario"
+                                    th:classappend="${espacioHora == '08:00'} ? 'espacio__reservado'" 
+                                    th:text="${espacioHora}"
+                                    th:data-fecha="${dia.getFecha()}"
+                                    th:data-hora="${espacioHora}"
+                                    onclick="seleccionarEspacio(this)"
+                                    >05:00</button>
+                            </div>
+                        </div>                        
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <div th:replace="~{fragments::footer}"></div>
+
+    <script src="../static/js/menuLateral.js" th:src="@{/js/menuLateral.js}"></script>
+    <script src="../static/js/reservaHorario.js" th:src="@{/js/reservaHorario.js}"></script>
+    <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
+</body>
+</html>

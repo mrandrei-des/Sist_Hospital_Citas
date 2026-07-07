@@ -73,3 +73,34 @@
 .btn--enlace:hover {
     color: var(--primary-hover-color);
 }
+
+.btn__busqueda {
+    /* background-color: var(--primary-hover-color); */
+    font-size: 1rem;
+}
+
+.btn__busqueda:hover {
+    background-color: var(--primary--border-color);
+}
+
+.btn__opcion__horario {
+    padding: 8px 12px;
+    color: #fff;
+    border-radius: 4px;
+    font-weight: 600;
+    outline: 2px solid transparent;
+    background-color: #097;
+    outline-color: #0976;
+}
+
+.btn__opcion__horario.espacio__reservado {
+    text-decoration: dashed;
+    background-color: #ccc;
+    outline-color: #ccc;
+}
+
+.btn__opcion__horario.espacio__seleccionado {
+    text-decoration: dashed;
+    background-color: var(--secondary-color);
+    outline-color: var(--secondary-color);
+}

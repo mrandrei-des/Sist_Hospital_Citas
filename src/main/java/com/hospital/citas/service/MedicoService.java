@@ -106,4 +106,8 @@ public class MedicoService {
         }
         return listaMedicosDtos;
     }
+
+    public List<MedicoDTO> listaMedicosConHorario() {
+        return medicoRepository.listaMedicosConHorarioCreado();
+    }
 }

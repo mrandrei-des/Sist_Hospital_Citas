@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.hospital.citas.model.dto.MedicoDTO;
 import com.hospital.citas.model.dto.MedicoRegistradoDTO;
 import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.model.entity.Medico;
@@ -36,4 +37,7 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
     void eliminarMedico(
         @Param("idMedico") Long idAccion
     );
+
+    @Query(value = "{call sp_ConsultaMedicosConHorarioCreado()}", nativeQuery = true)
+    List<MedicoDTO> listaMedicosConHorarioCreado();
 }

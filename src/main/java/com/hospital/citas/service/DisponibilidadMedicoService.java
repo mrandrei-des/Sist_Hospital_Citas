@@ -5,13 +5,12 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import com.hospital.citas.model.dto.EspecialidadDTO;
 import com.hospital.citas.model.dto.HorarioMedicoDTO;
+import com.hospital.citas.model.dto.HorarioMedicoVistaDTO;
 import com.hospital.citas.model.entity.DiaDeLaSemana;
 import com.hospital.citas.model.entity.DisponibilidadMedico;
 import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.model.entity.Medico;
 import com.hospital.citas.repository.DisponibilidadMedicoRepository;
-
-import jakarta.validation.constraints.NotEmpty;
 
 @Service
 public class DisponibilidadMedicoService {
@@ -71,5 +70,9 @@ public class DisponibilidadMedicoService {
             }
         }
         return procesoExitoso;
+    }
+
+    public List<HorarioMedicoVistaDTO> consultarHorarioMedicoPorId(Long idMedico){
+        return disponibilidadMedicoRepository.consultarHorarioMedicoPorId(idMedico);
     }
 }
