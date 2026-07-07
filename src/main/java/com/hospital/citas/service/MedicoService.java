@@ -1,5 +1,6 @@
 package com.hospital.citas.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -83,5 +84,26 @@ public class MedicoService {
     public void eliminarPorId(Long id, Long idUsuarioLoggeado) {
         medicoRepository.eliminarMedico(id);
         medicoRepository.insertaRegistroBitacoraCambios(3L, id, "El médico ha sido eliminado.", idUsuarioLoggeado);
+    }
+
+    public String consultaNombreMedicoPorId(Long idMedico) {
+        MedicoDTO dto = buscarPorId(idMedico);
+        return dto.getNombre() + " " + dto.getPrimerApellido() + " " + dto.getSegundoApellido();
+    }
+
+    public List<MedicoDTO> listarMedicosPorEspecialidad(Long idEspecialidad) {
+        List<Medico> medicos = medicoRepository.findAllByEspecialidadId(idEspecialidad);
+        List<MedicoDTO> listaMedicosDtos = new ArrayList<>();
+        MedicoDTO dto;
+
+        for (Medico medico : medicos) {
+            dto = new MedicoDTO();
+            dto.setId(medico.getId());
+            dto.setNombre(medico.getNombre());
+            dto.setPrimerApellido(medico.getPrimerApellido());
+            dto.setSegundoApellido(medico.getSegundoApellido());
+            listaMedicosDtos.add(dto);
+        }
+        return listaMedicosDtos;
     }
 }

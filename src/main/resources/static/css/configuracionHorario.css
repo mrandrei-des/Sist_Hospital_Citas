@@ -1,0 +1,149 @@
+.contenedor__principal__configuracionHorarios {
+    min-height: calc(100vh - 100px - 115px);
+    min-width: 0;
+}
+
+.contenedor__sections {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    width: 100%;
+    min-width: 0;
+}
+
+.contenedor__section {
+    padding: 2rem;
+    box-shadow: 0 0 3px 0 var(--box-shadow-color);
+    border-radius: 8px;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 0;
+    max-width: 800px;
+}
+
+.contenedor__titulo__horario {
+    display: flex;
+    flex-direction: column;
+}
+
+.contenedor__titulo__principal {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
+
+.titulo__principal {
+    font-size: clamp(1.25rem, 1.5vw, 1.5rem);
+    font-weight: 800;
+}
+
+.descripcion__principal {
+    font-size: .9rem;
+    color: var(--text-neutro-color);
+}
+
+.formulario__registro__horarios {
+    display: grid;
+    grid-template-rows: repeat(4, auto);
+    min-width: 0;
+    gap: 1rem;
+}
+
+.section__input__encabezado {
+    padding: 12px;
+    min-width: 0;
+}
+
+.section__input__encabezado:not(:has(.section__input__encabezado__titulo)) {
+    display: flex;
+    justify-content: space-between;
+}
+
+.section__input__encabezado__titulo {
+    display: flex;
+    justify-content: space-between;
+    min-width: 0;
+}
+
+.section__input__parrafo {
+    font-size: 1rem;
+}
+
+.section__input__parrafo strong {
+    color: var(--secondary-color);
+    font-weight: 800;
+}
+
+.section__input__descripcion {
+    font-size: .8rem;
+    font-style: italic;
+    font-weight: 700;
+    color: var(--text-neutro-color);
+}
+
+.section__input__main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.contenedor__input__sp2 {
+    grid-column: span 2;
+}
+
+.contenedor__input__inputs {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: .5rem;
+    justify-content: space-evenly;
+}
+
+.input__checkbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    padding: 4px 8px;
+    background-color: var(--lista-elemento-bg-color);
+    border-radius: 8px;
+}
+
+.input__checkbox:hover {
+    background-color: var(--lista-elemento-bg-color-hover);
+}
+
+.input__checkbox input[type="checkbox"] {
+    border: none;
+    outline: none;
+}
+
+.input__checkbox label {
+    font-size: .9rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--primary-hover-color);
+}
+
+label {
+    cursor: pointer;
+}
+
+label::selection {
+    background-color: transparent;
+}
+
+@media screen and (max-width: 950px) {
+    .section__input__main {
+        grid-template-columns: 1fr;
+    }
+
+    .contenedor__input__sp2 {
+        grid-column: span 1;
+    }
+}

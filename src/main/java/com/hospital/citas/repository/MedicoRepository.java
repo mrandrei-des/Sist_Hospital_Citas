@@ -15,6 +15,7 @@ import jakarta.transaction.Transactional;
 
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
     List<Medico> findAllByEstado(Estado estado);
+    List<Medico> findAllByEspecialidadId(Long idEspecialidad);
 
     @Transactional
     @Modifying

@@ -46,10 +46,10 @@ public class SecurityConfig {
                 // .requestMatchers().hasAnyRole("1")
                 
                 // GET MAPPING PRIVADO ADMIN
-                .requestMatchers("/registroUsuario", "/mostrarPanel", "/especialidades", "/buscar-especialidad/{id}", "/medicos", "/buscar-medico/{id}", "/deshabilitar-medico/{id}", "/mostrar-panel-pacientes").hasAnyRole("2")
+                .requestMatchers("/registroUsuario", "/mostrarPanel", "/especialidades", "/buscar-especialidad/{id}", "/medicos", "/buscar-medico/{id}", "/deshabilitar-medico/{id}", "/mostrar-panel-pacientes", "/configuracion-horario").hasAnyRole("2")
 
                 // POST MAPPING PRIVADO ADMIN
-                .requestMatchers("/registro-especialidad", "/registro-medico").hasAnyRole("2")
+                .requestMatchers("/registro-especialidad", "/registro-medico", "/procesar-horario-medico", "/api/medicos/consulta/por-especialidad/{id}").hasAnyRole("2")
 
                 .requestMatchers("/inicio").hasAnyRole("1")
                 //Todo lo demas, exige que sea ADMIN 

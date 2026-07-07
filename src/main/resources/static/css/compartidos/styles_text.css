@@ -18,3 +18,7 @@
 .formulario__parrafo--center {
     text-align: center;
 }
+
+label::selection {
+    background-color: transparent;
+}
