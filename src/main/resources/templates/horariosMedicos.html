@@ -52,9 +52,9 @@
                     </form>
                 </section>
 
-                <section class="contenedor__horario__section contenedor__horario">
+                <section class="contenedor__horario__section contenedor__horario" th:if="${mostrarComponente}">
                     <div class="horario__contenedor__titulo">
-                        <p class="horario___titulo">Espacios semana del 06-07-2026 al 10-07-2026</p>
+                        <p class="horario___titulo" th:text="'Espacios semana del ' + ${fechaInicialSemana} + ' al ' + ${fechaFinalSemana}">Espacios semana del 06-07-2026 al 10-07-2026</p>
                     </div>
                     <div class="horario__contenedor__horario">
                         <!-- Se renderiza el día -->
@@ -70,12 +70,9 @@
                                     type="button" 
                                     th:each="espacioHora : ${dia.listaEspacios}" 
                                     class="btn btn__opcion__horario"
-                                    th:classappend="${espacioHora == '08:00'} ? 'espacio__reservado'" 
                                     th:text="${espacioHora}"
-                                    th:data-fecha="${dia.getFecha()}"
-                                    th:data-hora="${espacioHora}"
-                                    onclick="seleccionarEspacio(this)"
                                     >05:00</button>
+                                    <!-- th:classappend="${espacioHora == '08:00'} ? 'espacio__reservado'" th:data-fecha="${dia.getFecha()}" th:data-hora="${espacioHora}" onclick="seleccionarEspacio(this)" -->
                             </div>
                         </div>                        
                     </div>

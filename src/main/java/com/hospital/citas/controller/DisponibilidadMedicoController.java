@@ -24,10 +24,15 @@ public class DisponibilidadMedicoController {
     public String configurarHorarioMedico(HttpSession session, Model model) {
 
         boolean mostrarNotificacion  = (boolean)session.getAttribute("mostrarNotificacion");
-        if(mostrarNotificacion) {
+        String origenNotificacion = (String)session.getAttribute(("origen"));
+        if(mostrarNotificacion && origenNotificacion == "configHorarios") {
             String mensajeNotificacion = (String)session.getAttribute("mensajeNotificacion");
             model.addAttribute("mostrarNotificacion", true);
             model.addAttribute("mensajeNotificacion", mensajeNotificacion);
+
+            session.setAttribute("mostrarNotificacion", false);
+            session.setAttribute("mensajeNotificacion", "");
+            session.setAttribute("origen", "");
         }
         
         boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
@@ -60,9 +65,8 @@ public class DisponibilidadMedicoController {
         if(disponibilidadMedicoService.procesarHorarioMedico(horario, idUsuarioLoggeado)) {
             session.setAttribute("mostrarNotificacion", true);
             session.setAttribute("mensajeNotificacion", "¡Horario procesado!");
+            session.setAttribute("origen", "configHorarios");
         }
-        // se procesa el horario
-        // model.addAttribute("horario", new HorarioMedicoDTO());
         return "redirect:/configuracion-horario";
     }
 }

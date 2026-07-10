@@ -20,6 +20,9 @@ public interface DisponibilidadMedicoRepository extends JpaRepository<Disponibil
         @Param("idUsuarioRealizoAccion") Long idUsuarioRealizoAccion
     );
 
-    @Query(value = "{call sp_ConsultaHorarioMedicoPorId(:idMedico)}", nativeQuery = true)
-    List<HorarioMedicoVistaDTO> consultarHorarioMedicoPorId(@Param("idMedico") Long id);
+    @Query(value = "{call sp_ConsultaHorarioMedicoPorIdDia(:idMedico, :idDia)}", nativeQuery = true)
+    List<HorarioMedicoVistaDTO> consultarHorarioMedicoPorIdDia(
+        @Param("idMedico") Long idMedico, 
+        @Param("idDia") Long idDia
+    );
 }

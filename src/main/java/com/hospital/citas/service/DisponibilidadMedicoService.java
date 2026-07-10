@@ -72,7 +72,7 @@ public class DisponibilidadMedicoService {
         return procesoExitoso;
     }
 
-    public List<HorarioMedicoVistaDTO> consultarHorarioMedicoPorId(Long idMedico){
-        return disponibilidadMedicoRepository.consultarHorarioMedicoPorId(idMedico);
+    public List<HorarioMedicoVistaDTO> consultarHorarioMedicoPorIdDia(Long idMedico, Long idDia){
+        return disponibilidadMedicoRepository.consultarHorarioMedicoPorIdDia(idMedico, idDia);
     }
 }

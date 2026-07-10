@@ -29,6 +29,7 @@ public class VistaHorarioMedicoController {
         model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
         model.addAttribute("listaMedicos", horarioMedicoService.listaMedicosConHorario());
         model.addAttribute("medico", new MedicoDTO());
+        model.addAttribute("mostrarComponente", false);
         return "horariosMedicos";
     }
 
@@ -43,6 +44,9 @@ public class VistaHorarioMedicoController {
         model.addAttribute("listaMedicos", horarioMedicoService.listaMedicosConHorario());
         model.addAttribute("medico", new MedicoDTO());
         model.addAttribute("horarioMedico", horarioMedicoService.consultarHorarioMedicoPorId(idMedico));
+        model.addAttribute("fechaInicialSemana", horarioMedicoService.consultarFechaInicioSemana());
+        model.addAttribute("fechaFinalSemana", horarioMedicoService.consultarFechaFinSemana());
+        model.addAttribute("mostrarComponente", true);
         return "horariosMedicos";
     }
     
