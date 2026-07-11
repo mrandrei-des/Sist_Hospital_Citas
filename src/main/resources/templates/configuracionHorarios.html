@@ -136,16 +136,20 @@
                                             <input type="time" class="input" id="horaInicio" name="horaInicio" placeholder="" th:field="*{horaInicio}">
                                             <label for="password" class="input__label">Hora Inicio</label>
                                             <p class="input__error" th:if="${#fields.hasErrors('horaInicio')}" th:errors="*{horaInicio}"></p>
+                                            <div class="input__contenedor__mensajes" id="contenedorMensajeHoraInicio">
+                                            </div>
                                         </div>
                                         <div class="contenedor__input">
                                             <input type="time" class="input" id="horaFin" name="horaFin" placeholder="" th:field="*{horaFin}">
                                             <label for="rolUsuario" class="input__label">Hora Fin</label>
                                             <p class="input__error" th:if="${#fields.hasErrors('horaFin')}" th:errors="*{horaFin}"></p>
+                                            <div class="input__contenedor__mensajes" id="contenedorMensajeHoraFin">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="formulario__section__input formulario__section__button">
-                                    <button type="submit" class="btn btn__primary">Guardar horario</button>
+                                    <button type="submit" class="btn btn__primary" id="btnGuardarHorario">Guardar horario</button>
                                 </div>
                             </form>
                         </section>

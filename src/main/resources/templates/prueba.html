@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<body>
+    <label for="horaInicio">Hora Inicio:</label>
+    <input type="time" id="horaInicio">
+
+    <label for="horaFin">Hora Fin:</label>
+    <input type="time" id="horaFin">
+
+    <label for="horaInicioProcess">Hora Inicio Procesada:</label>
+    <input type="time" id="horaInicioProcess">
+    <div class="contenedor__mensajes" id="contenedorMensajes"></div>
+    <button id="btnEnviar">Enviar</button>
+    <script>
+        const inpHoraInicio = document.getElementById('horaInicio');
+        const inpHoraFin = document.getElementById('horaFin');
+        const inpHoraInicioProcess = document.getElementById('horaInicioProcess');
+        const contenedorMensajes = document.getElementById('contenedorMensajes');
+
+        inpHoraInicio.addEventListener('change', ()=> {
+            const btnEnviar = document.getElementById('btnEnviar');
+            var horaInicioValue = inpHoraInicio.value;
+            var horaFinValue = inpHoraFin.value;
+
+            horaInicioValue = redondearHora(horaInicioValue);
+            if(horaInicioValue != '' && horaFinValue != '') {
+                horaFinValue = redondearHora(horaFinValue);
+                var [horaInicio, minutosInicio] = horaInicioValue.split(':');
+                var [horaFin, minutosFin] = horaFinValue.split(':');
+                var mostrarMensaje = false, tipoMensaje = 'superior';
+
+                if(parseInt(horaInicio) > parseInt(horaFin)) mostrarMensaje = true;
+                if(parseInt(horaInicio) == parseInt(horaFin)) {
+                    if(parseInt(minutosInicio) > parseInt(minutosFin)) {
+                        mostrarMensaje = true;
+                    }else if(parseInt(minutosInicio) == parseInt(minutosFin)) {
+                        mostrarMensaje = true;
+                        tipoMensaje = 'igualdad';
+                    }
+                }
+
+                contenedorMensajes.innerHTML = '';
+                btnEnviar.removeAttribute('disabled');
+
+                if(mostrarMensaje) {
+                    const parrafo = document.createElement('p');
+                    parrafo.style.color = "#f00";
+                    parrafo.style.fontWeight = "bold";
+                    parrafo.textContent = tipoMensaje == 'superior' ? '¡La hora de inicio no pueder ser mayor a la hora fin!' : '¡La hora de fin debe ser superior a la hora de inicio!';
+                    contenedorMensajes.appendChild(parrafo);
+                    btnEnviar.setAttribute('disabled', true);
+                }
+            }
+
+            inpHoraInicio.value = horaInicioValue;
+            inpHoraFin.value = horaFinValue;
+        });
+
+        function redondearHora(horaSelected) {
+            let [hora, minutos] = horaSelected.split(':');
+            if(minutos >= '00' && minutos <= '15') minutos = '00';
+            if(minutos >= '16' && minutos <= '30') minutos = '30';
+            if(minutos >= '31' && minutos <= '45') minutos = '30';
+            if(minutos >= '46' && minutos <= '59') {
+                minutos = '00';
+                hora = parseInt(hora) + 1;
+            }
+            hora = String(hora).padStart(2, '0');
+            return `${hora}:${minutos}`;
+        }
+    </script>
+</body>
+</html>

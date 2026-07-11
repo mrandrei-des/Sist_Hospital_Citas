@@ -58,9 +58,12 @@ public class DisponibilidadMedicoController {
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("horario", horario);
-            model.addAttribute("nombreMedicoSeleccionado", disponibilidadMedicoService.consultaNombreMedicoPorId(horario.getIdMedico()));
+            if(horario.getIdMedico() != null) model.addAttribute("nombreMedicoSeleccionado", disponibilidadMedicoService.consultaNombreMedicoPorId(horario.getIdMedico()));
             return "configuracionHorarios";
         }
+
+        // VALIDAR HORAS Y EN CASO DE PROBLEMA NO CONTINUAR Y REVISAR SI LOS MENSAJES DE JAVASCRIPT FUNCIONAN
+        // CREAR VALIDACIONES PARA CADA CASO, VALIDATOR Y ANOTATION
 
         if(disponibilidadMedicoService.procesarHorarioMedico(horario, idUsuarioLoggeado)) {
             session.setAttribute("mostrarNotificacion", true);

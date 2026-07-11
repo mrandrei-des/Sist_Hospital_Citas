@@ -3,18 +3,25 @@ package com.hospital.citas.model.dto;
 import java.time.LocalTime;
 import java.util.List;
 
+import com.hospital.citas.validation.annotation.HoraInicioValida;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
+@HoraInicioValida
 public class HorarioMedicoDTO {
     private Long id;
     private Long idMedico;
+
     @NotEmpty(message = "Debe seleccionar al menos un día de atención.")
     private List<Long> diasSemana;
+
     @NotNull(message = "Debe seleccionar la hora de inicio.")
     private LocalTime horaInicio;
+
     @NotNull(message = "Debe seleccionar la hora de fin.")
     private LocalTime horaFin;
+    
     public HorarioMedicoDTO() {
     }
     public HorarioMedicoDTO(Long id, Long idMedico, List<Long> diasSemana, LocalTime horaInicio, LocalTime horaFin) {
