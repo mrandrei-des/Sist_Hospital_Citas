@@ -14,11 +14,21 @@ public class HoraInicioValidator implements ConstraintValidator<HoraInicioValida
         }
 
         boolean horaInicioCorrecta = true;
-        if(horario.getHoraInicio().isAfter(horario.getHoraFin())) horaInicioCorrecta = false;
+        String mensajeValidacion = "";
+
+        if(horario.getHoraInicio().isAfter(horario.getHoraFin())) {
+            horaInicioCorrecta = false;
+            mensajeValidacion = "¡La hora de inicio no pueder ser mayor a la hora fin!";
+        }
+        
+        if(horario.getHoraFin().equals(horario.getHoraInicio())) {
+            horaInicioCorrecta = false;
+            mensajeValidacion = "¡La hora de inicio debe ser inferior a la hora de fin!";
+        }
 
         if(!horaInicioCorrecta) {
             context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate(context.getDefaultConstraintMessageTemplate())
+                context.buildConstraintViolationWithTemplate(mensajeValidacion)
                     .addPropertyNode("horaInicio")
                     .addConstraintViolation();
         }

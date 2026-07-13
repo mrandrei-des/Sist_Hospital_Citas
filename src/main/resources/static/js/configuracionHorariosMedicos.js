@@ -48,10 +48,10 @@ inpHoraInicio.addEventListener('change', ()=> {
             }
         }
 
-        contenedorMensajes.innerHTML = '';
         document.getElementById('contenedorMensajeHoraFin').innerHTML = '';
         btnGuardar.removeAttribute('disabled');
-
+        contenedorMensajes.innerHTML = '';
+        
         if(mostrarMensaje) {
             const parrafo = document.createElement('p');
             parrafo.classList.add('input__error');
@@ -88,10 +88,10 @@ inpHoraFin.addEventListener('change', ()=> {
             }
         }
 
-        contenedorMensajes.innerHTML = '';    
         btnGuardar.removeAttribute('disabled');
         document.getElementById('contenedorMensajeHoraInicio').innerHTML = '';
-
+        contenedorMensajes.innerHTML = '';
+        
         if(mostrarMensaje) {
             const parrafo = document.createElement('p');
             parrafo.classList.add('input__error');

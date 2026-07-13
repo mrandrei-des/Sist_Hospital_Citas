@@ -3,12 +3,14 @@ package com.hospital.citas.model.dto;
 import java.time.LocalTime;
 import java.util.List;
 
+import com.hospital.citas.validation.annotation.HoraFinValida;
 import com.hospital.citas.validation.annotation.HoraInicioValida;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 @HoraInicioValida
+@HoraFinValida
 public class HorarioMedicoDTO {
     private Long id;
     private Long idMedico;
