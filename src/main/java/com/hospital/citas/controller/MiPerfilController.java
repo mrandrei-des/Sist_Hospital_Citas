@@ -110,7 +110,8 @@ public class MiPerfilController {
         }
 
         session.setAttribute("mostrarNotificacion", true);
-        if(miPerfilService.actualizarPerfil(usuario, idUsuarioLoggeado)) {
+        boolean perfilProcesado = miPerfilService.actualizarPerfil(usuario, idUsuarioLoggeado);
+        if(perfilProcesado) {
             model.addAttribute("usuario", miPerfilService.buscarPorId(usuario.getId()));
             session.setAttribute("tipoNotificacion", "success");
             session.setAttribute("titulo", "¡Perfil actualizado!");
@@ -131,6 +132,6 @@ public class MiPerfilController {
         // MOSTRAR NOTIFICACION
         if(esAdminMant) return "redirect:/mostrar-panel-pacientes";
 
-        return "miPerfil";
+        return "redirect:/mi-perfil/" + usuario.getId();
     }
 }

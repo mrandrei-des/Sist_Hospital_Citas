@@ -13,11 +13,11 @@
     animation: trasladarHaciaIzquierda .5s ease-in-out 1 both;
 }
 
-.contenedor__notificacion__success {
+.contenedor-notificacion--success {
     background-color: #097;
 }
 
-.contenedor__notificacion__warning {
+.contenedor-notificacion--warning {
     background-color: #f76;
 }
 
@@ -32,10 +32,10 @@
     animation: retrocederProgreso 3.5s .5s linear both;
 }
 
-.contenedor__notificacion.contenedor__notificacion__success::before {
+.contenedor__notificacion.contenedor-notificacion--success::before {
     background-color: #0b74;
 }
-.contenedor__notificacion.contenedor__notificacion__warning::before {
+.contenedor__notificacion.contenedor-notificacion--warning::before {
     background-color: #d534;
 }
 

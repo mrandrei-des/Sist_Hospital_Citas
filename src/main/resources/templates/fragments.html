@@ -41,7 +41,7 @@
     </header>
 
     <!-- contenedor__notificacion--success contenedor__notificacion--warning -->
-    <div class="contenedor__notificacion" id="contenedorNotificacion" th:fragment="notificacion (mostrarNotificacion, tipoNotificacion, titulo, detalle)" th:if="${mostrarNotificacion}" th:classappend="${tipoNotificacion == 'success'} ? 'contenedor__notificacion__success' : 'contenedor__notificacion__warning'">
+    <div class="contenedor__notificacion" id="contenedorNotificacion" th:fragment="notificacion (mostrarNotificacion, tipoNotificacion, titulo, detalle)" th:if="${mostrarNotificacion}" th:classappend="${tipoNotificacion == 'success'} ? ' contenedor-notificacion--success' : ' contenedor-notificacion--warning'">
         <div class="notificacion__items">
             <div class="item__icon">
                 <span class="item__contenedor__icon">

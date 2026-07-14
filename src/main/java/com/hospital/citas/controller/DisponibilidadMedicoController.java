@@ -73,11 +73,20 @@ public class DisponibilidadMedicoController {
             session.setAttribute("detalle", "Las horas ya se encuentran cubiertas completa o parcialmente por otro registro.");
         }
 
-        if(disponibilidadMedicoService.procesarHorarioMedico(horario, idUsuarioLoggeado)) {
+        boolean horarioProcesado = disponibilidadMedicoService.procesarHorarioMedico(horario, idUsuarioLoggeado);
+        if(horarioProcesado) {
             session.setAttribute("tipoNotificacion", "success");
             session.setAttribute("titulo", "¡Horario procesado!");
             session.setAttribute("detalle", "El horario ha sido registrado correctamente.");
+        }else {
+            model.addAttribute("horario", horario);
+            model.addAttribute("nombreMedicoSeleccionado", disponibilidadMedicoService.consultaNombreMedicoPorId(horario.getIdMedico()));
+
+            session.setAttribute("tipoNotificacion", "warning");
+            session.setAttribute("titulo", "¡Horario no procesado!");
+            session.setAttribute("detalle", "Ocurrió un problema, el horario no fue procesado. Inténtelo nuevamente.");
         }
-        return "redirect:/configuracion-horario";
+
+        return horarioProcesado ? "redirect:/configuracion-horario" : "configuracionHorarios";
     }
 }

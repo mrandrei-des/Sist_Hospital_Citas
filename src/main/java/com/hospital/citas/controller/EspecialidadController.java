@@ -69,7 +69,8 @@ public class EspecialidadController {
             return "registroEspecialidades";
         }
         
-        if(especialidadService.registrarEspecialidad(especialidad, idUsuarioLoggeado)) {
+        boolean especialidadProcesada = especialidadService.registrarEspecialidad(especialidad, idUsuarioLoggeado);
+        if(especialidadProcesada) {
             model.addAttribute("especialidad", new EspecialidadDTO());
             session.setAttribute("mostrarNotificacion", true);
             session.setAttribute("tipoNotificacion", "success");
@@ -78,15 +79,15 @@ public class EspecialidadController {
             session.setAttribute("origen", "especialidades");
         }else {
             model.addAttribute("especialidad", especialidad);
-            session.setAttribute("tipoNotificacion", "warning");
-            session.setAttribute("titulo", "¡Especialidad no procesada!");
-            session.setAttribute("detalle", "Ocurrió un problema, la especialida no se procesó. Inténtelo nuevamente.");
-            session.setAttribute("origen", "especialidades");
+            model.addAttribute("tipoNotificacion", "warning");
+            model.addAttribute("titulo", "¡Especialidad no procesada!");
+            model.addAttribute("detalle", "Ocurrió un problema, la especialida no se procesó. Inténtelo nuevamente.");
+            model.addAttribute("origen", "especialidades");
         }
         
         model.addAttribute("listaEspecialidades", especialidadService.listarEspecialidades(4L));
         model.addAttribute("listaUltEspecialidades", especialidadService.listarUltimaEspecialidadRegistradaDTOs());
-        return "registroEspecialidades";
+        return especialidadProcesada ? "redirect:/especialidades" : "registroEspecialidades";
     }
 
     @GetMapping("/buscar-especialidad/{id}")

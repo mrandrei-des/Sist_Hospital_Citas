@@ -28,6 +28,9 @@ public class PanelGestionPacienteController {
             model.addAttribute("tipoNotificacion", (String)session.getAttribute("tipoNotificacion"));
             model.addAttribute("titulo", (String)session.getAttribute("titulo"));
             model.addAttribute("detalle", (String)session.getAttribute("detalle"));
+
+            session.setAttribute("mostrarNotificacion", false);
+            session.setAttribute("origen", "");
         }
 
         model.addAttribute("usuarioEsAdmin", esAdmin);

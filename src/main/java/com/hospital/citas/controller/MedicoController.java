@@ -69,8 +69,9 @@ public class MedicoController {
             return "registroMedicos";
         }
 
+        boolean medicoProcesado = medicoService.procesarMedico(medico, idUsuarioLoggeado);
         session.setAttribute("mostrarNotificacion", true);
-        if(medicoService.procesarMedico(medico, idUsuarioLoggeado)) {
+        if(medicoProcesado) {
             model.addAttribute("medico", new MedicoDTO());            
             session.setAttribute("tipoNotificacion", "success");
             session.setAttribute("titulo", "¡Médico procesado!");
@@ -86,7 +87,7 @@ public class MedicoController {
 
         model.addAttribute("listaMedicos", medicoService.listaMedicoRegistradoDTOs());
         model.addAttribute("listaEspecialidades", medicoService.listaEspecialidadesDTO());
-        return "registroMedicos";
+        return medicoProcesado ? "redirect:/medicos" : "registroMedicos";
     }
 
     @GetMapping("/buscar-medico/{id}")
@@ -112,9 +113,9 @@ public class MedicoController {
 
         boolean eliminacionCompletada = medicoService.eliminarPorId(idMedico, idUsuarioLoggeado);
         model.addAttribute("medico", new MedicoDTO());
-        model.addAttribute("mostrarNotificacion", true);
         model.addAttribute("listaMedicos", medicoService.listaMedicoRegistradoDTOs());
         model.addAttribute("listaEspecialidades", medicoService.listaEspecialidadesDTO());
+        session.setAttribute("mostrarNotificacion", true);
 
         if(eliminacionCompletada) {      
             session.setAttribute("tipoNotificacion", "success");
@@ -127,7 +128,8 @@ public class MedicoController {
             session.setAttribute("detalle", "Ocurrió un problema, el médico no ha sido eliminado. Inténtelo nuevamente.");
             session.setAttribute("origen", "medicos");
         }
-        return "registroMedicos";
+
+        return "redirect:/medicos";
     }
 
     @GetMapping("/api/medicos/consulta/por-especialidad/{id}")
