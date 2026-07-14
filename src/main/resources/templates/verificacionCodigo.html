@@ -1,28 +1,22 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" lang="es" xmlns="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verificación de código</title>
-    <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css">
-    <link rel="stylesheet" href="../static/css/verificacionCodigo.css">
 
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_fonts.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_resetElements.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_colors.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_inputs.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_buttons.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_notificaciones.css}">
-    <link rel="stylesheet" th:href="@{/css/verificacionCodigo.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css" th:href="@{/css/compartidos/styles_fonts.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css" th:href="@{/css/compartidos/styles_inputs.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css" th:href="@{/css/compartidos/styles_buttons.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css" th:href="@{/css/compartidos/styles_notificaciones.css}">
+
+    <link rel="stylesheet" href="../static/css/verificacionCodigo.css" th:href="@{/css/verificacionCodigo.css}">
 </head>
 <body>
     <!-- NOTIFICACIÓN DE CÓDIGO ENVIADO -->
-    <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${mensaje})}"></div>
+    <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${tipoNotificacion}, ${titulo}, ${detalle})}"></div>
     
     <main class="main__wrapper">
         <div class="contenedor__principal__formulario">

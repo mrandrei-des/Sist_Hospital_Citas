@@ -18,7 +18,8 @@
 </head>
 <body>
     <div th:replace="~{fragments::header(mostrarOpcionesMenu=${true}, nombreUsuario=${nombreCompletoUsuario})}"></div>
-    <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${mensajeNotificacion})}"></div>
+
+    <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${tipoNotificacion}, ${titulo}, ${detalle})}"></div>
 
     <div class="contenedor__wrapper">
         <div th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></div>

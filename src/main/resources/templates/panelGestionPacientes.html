@@ -14,10 +14,12 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_footer.css" th:href="@{/css/compartidos/styles_footer.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_main_wrapper.css" th:href="@{/css/compartidos/styles_main_wrapper.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css" th:href="@{/css/compartidos/styles_menu_lateral.css}">
+    
     <link rel="stylesheet" href="../static/css/panelPacientes.css" th:href="@{/css/panelPacientes.css}">
 </head>
 <body>
     <div th:replace="~{fragments::header(mostrarOpcionesMenu=${true}, nombreUsuario=${nombreCompletoUsuario})}"></div>
+    <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${tipoNotificacion}, ${titulo}, ${detalle})}"></div>
 
     <div class="contenedor__wrapper">
         <div th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></div>

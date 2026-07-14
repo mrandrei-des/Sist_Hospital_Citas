@@ -29,6 +29,19 @@ public class EspecialidadController {
         boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
         String nombreCompletoUsuarioLoggeado = (String)session.getAttribute("nombreUsuarioLoggeado") + " " + (String)session.getAttribute("primerApellidoUsuarioLoggeado") + " " + (String)session.getAttribute("segundoApellidoUsuarioLoggeado");
 
+        boolean mostrarMensaje = (boolean)session.getAttribute("mostrarNotificacion");
+        String origenNotificacion = (String)session.getAttribute("origen");
+        
+        if(mostrarMensaje && origenNotificacion.equals("especialidades")) {
+            model.addAttribute("mostrarNotificacion", true);
+            model.addAttribute("tipoNotificacion", (String)session.getAttribute("tipoNotificacion"));
+            model.addAttribute("titulo", (String)session.getAttribute("titulo"));
+            model.addAttribute("detalle", (String)session.getAttribute("detalle"));
+
+            session.setAttribute("mostrarNotificacion", false);
+            session.setAttribute("origen", "");
+        }
+
         model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
         model.addAttribute("usuarioEsAdmin", esAdmin);
         model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
@@ -56,13 +69,19 @@ public class EspecialidadController {
             return "registroEspecialidades";
         }
         
-        model.addAttribute("mostrarNotificacion", true);
         if(especialidadService.registrarEspecialidad(especialidad, idUsuarioLoggeado)) {
             model.addAttribute("especialidad", new EspecialidadDTO());
-            model.addAttribute("mensajeNotificacion", "¡Especialidad procesada!");
+            session.setAttribute("mostrarNotificacion", true);
+            session.setAttribute("tipoNotificacion", "success");
+            session.setAttribute("titulo", "¡Especialidad procesada!");
+            session.setAttribute("detalle", "La especialidad ha sido procesada correctamente");
+            session.setAttribute("origen", "especialidades");
         }else {
             model.addAttribute("especialidad", especialidad);
-            model.addAttribute("mensajeNotificacion", "¡Ocurrió un problema!");
+            session.setAttribute("tipoNotificacion", "warning");
+            session.setAttribute("titulo", "¡Especialidad no procesada!");
+            session.setAttribute("detalle", "Ocurrió un problema, la especialida no se procesó. Inténtelo nuevamente.");
+            session.setAttribute("origen", "especialidades");
         }
         
         model.addAttribute("listaEspecialidades", especialidadService.listarEspecialidades(4L));

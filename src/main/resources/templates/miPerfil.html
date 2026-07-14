@@ -4,33 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Perfil</title>
-    <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_header.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_footer.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_main_wrapper.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css">
-    <link rel="stylesheet" href="../static/css/miPerfil.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css" th:href="@{/css/compartidos/styles_fonts.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css" th:href="@{/css/compartidos/styles_inputs.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css" th:href="@{/css/compartidos/styles_buttons.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_header.css" th:href="@{/css/compartidos/styles_header.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_footer.css" th:href="@{/css/compartidos/styles_footer.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_main_wrapper.css" th:href="@{/css/compartidos/styles_main_wrapper.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css" th:href="@{/css/compartidos/styles_menu_lateral.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css" th:href="@{/css/compartidos/styles_notificaciones.css}">
     
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_fonts.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_resetElements.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_colors.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_inputs.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_buttons.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_notificaciones.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_header.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_main_wrapper.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_menu_lateral.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_footer.css}">
-    <link rel="stylesheet" th:href="@{/css/miPerfil.css}">
+    <link rel="stylesheet" href="../static/css/miPerfil.css" th:href="@{/css/miPerfil.css}">
 </head>
 <body>
     <div th:replace="~{fragments::header(mostrarOpcionesMenu=${true}, nombreUsuario=${nombreCompletoUsuario})}"></div>
-    <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${mensajeNotificacion})}"></div>
+    <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${tipoNotificacion}, ${titulo}, ${detalle})}"></div>
 
     <div class="contenedor__wrapper">
         <div th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></div>

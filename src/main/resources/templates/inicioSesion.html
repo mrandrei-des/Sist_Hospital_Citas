@@ -4,35 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesión</title>
+    <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css" th:href="@{/css/compartidos/styles_fonts.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css" th:href="@{/css/compartidos/styles_inputs.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css" th:href="@{/css/compartidos/styles_buttons.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_header.css" th:href="@{/css/compartidos/styles_header.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_footer.css" th:href="@{/css/compartidos/styles_footer.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_text.css" th:href="@{/css/compartidos/styles_text.css}">
 
-    <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_text.css">
-
-
-    <link rel="stylesheet" href="../static/css/compartidos/styles_mensajes_notificaciones.css">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css">
-    <link rel="stylesheet" href="../static/css/inicioSesion.css">
-
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_fonts.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_resetElements.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_colors.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_inputs.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_buttons.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_text.css}">
-
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_header.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_footer.css}">
-    <link rel="stylesheet" th:href="@{/css/compatidos/styles_mensajes_notificaciones.css}">
-    <link rel="stylesheet" th:href="@{/css/compartidos/styles_notificaciones.css}">
-    <link rel="stylesheet" th:href="@{/css/inicioSesion.css}">
+    <link rel="stylesheet" href="../static/css/inicioSesion.css" th:href="@{/css/inicioSesion.css}">
 </head>
 <body>    
     <div th:replace="~{fragments::header(mostrarOpcionesMenu=${false}, nombreUsuario=${''})}"></div>
-    <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${mensaje})}"></div>
+    <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${tipoNotificacion}, ${titulo}, ${detalle})}"></div>
 
     <div class="contenedor__mensaje--error" id="contenedorMensaje" th:if="${mostrarError}">
         <div class="contenedor__mensaje__img">

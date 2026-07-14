@@ -3,7 +3,6 @@ package com.hospital.citas.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-
 import com.hospital.citas.model.dto.UsuarioInicioSesionDTO;
 import com.hospital.citas.model.entity.CodigoResetContrasenna;
 import com.hospital.citas.model.entity.Estado;
@@ -14,15 +13,12 @@ import com.hospital.citas.service.EstadoService;
 import com.hospital.citas.service.RolService;
 import com.hospital.citas.service.TipoIdentificacionService;
 import com.hospital.citas.service.UsuarioService;
-
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
-
 
 @Controller
 public class UsuarioController {
@@ -50,17 +46,15 @@ public class UsuarioController {
             return "formularioCuenta";
         }
 
-        // SI EL REGISTRO VIENE DEL REGISTRO DE UN PACIENTE, AHÍ NO SE ESCOGE ESTADO POR LO QUE SE ESTABLECE COMO ACTIVO, SI EL REGISTRO VIENE DE UN ADMIN ÉL SÍ PUEDE SELECCIONAR EL ESTADO
         if(origenPeticion.equals("S")) {
             Estado estado = new Estado();
             estado.setId(4L);
             usuario.setEstado(estado);
         }
 
-        usuarioService.crearCuenta(usuario);
-        
-        model.addAttribute("mostrarNotificacion", true);
-        model.addAttribute("mensaje", "¡Usuario Creado!");
+        usuarioService.crearCuenta(usuario);        
+        // model.addAttribute("mostrarNotificacion", true);
+        // model.addAttribute("mensaje", "¡Usuario Creado!");
 
         if(origenPeticion.equals("S")) {
             return "redirect:/inicio";
@@ -70,11 +64,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/procesarRecuperacion")
-    public String mostrarFormularioRecuperacionContrasenna(@Valid @ModelAttribute("usuario") UsuarioInicioSesionDTO usuario, BindingResult bindingResult, HttpSession session, Model model) {       
-        
-        // boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
-        // model.addAttribute("usuarioEsAdmin", esAdmin);
-        // model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
+    public String mostrarFormularioRecuperacionContrasenna(@Valid @ModelAttribute("usuario") UsuarioInicioSesionDTO usuario, BindingResult bindingResult, HttpSession session, Model model) {
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("usuario", usuario);
@@ -88,16 +78,15 @@ public class UsuarioController {
         model.addAttribute("mostrarMensajeDeExpirado", false);
 
         model.addAttribute("mostrarNotificacion", true);
-        model.addAttribute("mensaje", "¡Correo enviado!");
+        model.addAttribute("tipoNotificacion", "success");
+        model.addAttribute("titulo", "¡Correo enviado!");
+        model.addAttribute("detalle", "Correo de recuperación enviado");
+
         return "verificacionCodigo";
     }
 
     @PostMapping("/procesarVerificacion")
     public String procesarVerificacionCodigo(@Valid @ModelAttribute("codigoOTP") CodigoResetContrasenna codigoOTP, BindingResult bindingResult, @RequestParam("correo") String correoUsuario, HttpSession session, Model model) {
-
-        // boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
-        // model.addAttribute("usuarioEsAdmin", esAdmin);
-        // model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("correo", correoUsuario);
@@ -136,10 +125,6 @@ public class UsuarioController {
 
     @PostMapping("/procesarCambioContrasenna")
     public String procesarCambioContrasenna(@Valid @ModelAttribute("usuario") UsuarioInicioSesionDTO usuarioDTO, BindingResult bindingResult, HttpSession session, Model model) {
-        
-        // boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
-        // model.addAttribute("usuarioEsAdmin", esAdmin);
-        // model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("usuario", usuarioDTO);
@@ -148,8 +133,16 @@ public class UsuarioController {
 
         //  PROCESAR EL CAMBIO DE LA CONTRASEÑA
         boolean respuestaCambioContrasenna = usuarioService.procesarCambioContrasenna(usuarioDTO);
-        model.addAttribute("mostrarNotificacion", respuestaCambioContrasenna);
-        model.addAttribute("mensaje", "¡Contraseña cambiada!");
+        model.addAttribute("mostrarNotificacion", true);
+        if(respuestaCambioContrasenna) {
+            model.addAttribute("tipoNotificacion", "success");
+            model.addAttribute("titulo", "¡Contraseña actualizada!");
+            model.addAttribute("detalle", "La contraseña ha sido actualizada correctamente");
+        }else {
+            model.addAttribute("tipoNotificacion", "warning");
+            model.addAttribute("titulo", "¡Contraseña no procesada!");
+            model.addAttribute("detalle", "Ocurrió un problema al procesar la contraseña. Inténtelo nuevamente.");
+        }
         return "inicioSesion";
     }
 
@@ -160,8 +153,12 @@ public class UsuarioController {
         model.addAttribute("codigoOTP", codigoOTP);
         model.addAttribute("mostrarMensajeDeIncorrecto", false);
         model.addAttribute("mostrarMensajeDeExpirado", false);
+
         model.addAttribute("mostrarNotificacion", true);
-        model.addAttribute("mensaje", "¡Correo reenviado!");        
+        model.addAttribute("tipoNotificacion", "success");
+        model.addAttribute("titulo", "¡Correo reenviado!");
+        model.addAttribute("detalle", "El correo de recuperación ha sido reenviado");
+
         return "verificacionCodigo";
     }
 

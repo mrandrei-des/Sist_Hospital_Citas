@@ -24,14 +24,15 @@ public class DisponibilidadMedicoController {
     public String configurarHorarioMedico(HttpSession session, Model model) {
 
         boolean mostrarNotificacion  = (boolean)session.getAttribute("mostrarNotificacion");
-        String origenNotificacion = (String)session.getAttribute(("origen"));
-        if(mostrarNotificacion && origenNotificacion == "configHorarios") {
-            String mensajeNotificacion = (String)session.getAttribute("mensajeNotificacion");
+        String origenNotificacion = (String)session.getAttribute("origen");
+
+        if(mostrarNotificacion && origenNotificacion.equals("configHorarios")) {
             model.addAttribute("mostrarNotificacion", true);
-            model.addAttribute("mensajeNotificacion", mensajeNotificacion);
+            model.addAttribute("tipoNotificacion", (String)session.getAttribute("tipoNotificacion"));
+            model.addAttribute("titulo", (String)session.getAttribute("titulo"));
+            model.addAttribute("detalle", (String)session.getAttribute("detalle"));
 
             session.setAttribute("mostrarNotificacion", false);
-            session.setAttribute("mensajeNotificacion", "");
             session.setAttribute("origen", "");
         }
         
@@ -41,6 +42,7 @@ public class DisponibilidadMedicoController {
         model.addAttribute("usuarioEsAdmin", esAdmin);
         model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
         model.addAttribute("horario", new HorarioMedicoDTO());
+        // ESPECIALIDADES CON DOCTORES
         model.addAttribute("listaEspecialidades", disponibilidadMedicoService.listaEspecialidades(4L));
         return "configuracionHorarios";
     }
@@ -62,13 +64,19 @@ public class DisponibilidadMedicoController {
             return "configuracionHorarios";
         }
 
-        // VALIDAR HORAS Y EN CASO DE PROBLEMA NO CONTINUAR Y REVISAR SI LOS MENSAJES DE JAVASCRIPT FUNCIONAN
-        // CREAR VALIDACIONES PARA CADA CASO, VALIDATOR Y ANOTATION
+        // SE VALIDAN LAS HORAS
+        session.setAttribute("mostrarNotificacion", true);
+        session.setAttribute("origen", "configHorarios");
+        if(true) {
+            session.setAttribute("tipoNotificacion", "warning");
+            session.setAttribute("titulo", "¡Horario no válido!");
+            session.setAttribute("detalle", "Las horas ya se encuentran cubiertas completa o parcialmente por otro registro.");
+        }
 
         if(disponibilidadMedicoService.procesarHorarioMedico(horario, idUsuarioLoggeado)) {
-            session.setAttribute("mostrarNotificacion", true);
-            session.setAttribute("mensajeNotificacion", "¡Horario procesado!");
-            session.setAttribute("origen", "configHorarios");
+            session.setAttribute("tipoNotificacion", "success");
+            session.setAttribute("titulo", "¡Horario procesado!");
+            session.setAttribute("detalle", "El horario ha sido registrado correctamente.");
         }
         return "redirect:/configuracion-horario";
     }

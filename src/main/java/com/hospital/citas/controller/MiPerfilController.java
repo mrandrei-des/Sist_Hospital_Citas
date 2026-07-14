@@ -3,7 +3,6 @@ package com.hospital.citas.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-
 import com.hospital.citas.model.dto.UsuarioMiPerfilDTO;
 import com.hospital.citas.service.EstadoService;
 import com.hospital.citas.service.MiPerfilService;
@@ -37,6 +36,19 @@ public class MiPerfilController {
         Long idUsuarioLoggeado = (Long)session.getAttribute("idUsuarioLoggeado");
         boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
         String nombreCompletoUsuarioLoggeado = (String)session.getAttribute("nombreUsuarioLoggeado") + " " + (String)session.getAttribute("primerApellidoUsuarioLoggeado") + " " + (String)session.getAttribute("segundoApellidoUsuarioLoggeado");
+
+        boolean mostrarMensaje = (boolean)session.getAttribute("mostrarNotificacion");
+        String origenNotificacion = (String)session.getAttribute("origen");
+        
+        if(mostrarMensaje && origenNotificacion.equals("miPerfil")) {
+            model.addAttribute("mostrarNotificacion", true);
+            model.addAttribute("tipoNotificacion", (String)session.getAttribute("tipoNotificacion"));
+            model.addAttribute("titulo", (String)session.getAttribute("titulo"));
+            model.addAttribute("detalle", (String)session.getAttribute("detalle"));
+
+            session.setAttribute("mostrarNotificacion", false);
+            session.setAttribute("origen", "");
+        }
 
         model.addAttribute("usuarioEsAdmin", esAdmin);
         model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
@@ -97,12 +109,19 @@ public class MiPerfilController {
             return "miPerfil";
         }
 
+        session.setAttribute("mostrarNotificacion", true);
         if(miPerfilService.actualizarPerfil(usuario, idUsuarioLoggeado)) {
             model.addAttribute("usuario", miPerfilService.buscarPorId(usuario.getId()));
-            model.addAttribute("mostrarNotificacion", true);
-            model.addAttribute("mensajeNotificacion", "¡Perfil actualizado!");
+            session.setAttribute("tipoNotificacion", "success");
+            session.setAttribute("titulo", "¡Perfil actualizado!");
+            session.setAttribute("detalle", "Perfil actualizado correctamente");
+            session.setAttribute("origen", "miPerfil");
         }else {
             model.addAttribute("usuario", usuario);
+            session.setAttribute("tipoNotificacion", "warning");
+            session.setAttribute("titulo", "¡Perfil no procesado!");
+            session.setAttribute("detalle", "Ocurrió un problema, perfil no fue actualizado. Inténtelo nuevamente.");
+            session.setAttribute("origen", "miPerfil");
         }
 
         model.addAttribute("listaTipoIdentificacion", tipoIdentificacionService.consultarTiposDeIdentificacion());

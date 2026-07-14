@@ -19,6 +19,16 @@ public class PanelGestionPacienteController {
     public String getMethodName(HttpSession session, Model model) {        
         boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
         String nombreCompletoUsuarioLoggeado = (String)session.getAttribute("nombreUsuarioLoggeado") + " " + (String)session.getAttribute("primerApellidoUsuarioLoggeado") + " " + (String)session.getAttribute("segundoApellidoUsuarioLoggeado");
+        
+        boolean mostrarMensaje = (boolean)session.getAttribute("mostrarNotificacion");
+        String origenNotificacion = (String)session.getAttribute("origen");
+        
+        if(mostrarMensaje && origenNotificacion.equals("miPerfil")) {
+            model.addAttribute("mostrarNotificacion", true);
+            model.addAttribute("tipoNotificacion", (String)session.getAttribute("tipoNotificacion"));
+            model.addAttribute("titulo", (String)session.getAttribute("titulo"));
+            model.addAttribute("detalle", (String)session.getAttribute("detalle"));
+        }
 
         model.addAttribute("usuarioEsAdmin", esAdmin);
         model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);

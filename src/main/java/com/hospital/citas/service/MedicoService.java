@@ -81,9 +81,14 @@ public class MedicoService {
         return dto;
     }
 
-    public void eliminarPorId(Long id, Long idUsuarioLoggeado) {
-        medicoRepository.eliminarMedico(id);
-        medicoRepository.insertaRegistroBitacoraCambios(3L, id, "El médico ha sido eliminado.", idUsuarioLoggeado);
+    public boolean eliminarPorId(Long id, Long idUsuarioLoggeado) {
+        try {
+            medicoRepository.eliminarMedico(id);
+            medicoRepository.insertaRegistroBitacoraCambios(3L, id, "El médico ha sido eliminado.", idUsuarioLoggeado);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public String consultaNombreMedicoPorId(Long idMedico) {
