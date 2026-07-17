@@ -35,7 +35,7 @@ public class DisponibilidadMedicoController {
             session.setAttribute("mostrarNotificacion", false);
             session.setAttribute("origen", "");
         }
-        
+
         boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
         String nombreCompletoUsuarioLoggeado = (String)session.getAttribute("nombreUsuarioLoggeado") + " " + (String)session.getAttribute("primerApellidoUsuarioLoggeado") + " " + (String)session.getAttribute("segundoApellidoUsuarioLoggeado");
 
@@ -65,26 +65,31 @@ public class DisponibilidadMedicoController {
         }
 
         // SE VALIDAN LAS HORAS
-        session.setAttribute("mostrarNotificacion", true);
-        session.setAttribute("origen", "configHorarios");
-        if(true) {
-            session.setAttribute("tipoNotificacion", "warning");
-            session.setAttribute("titulo", "¡Horario no válido!");
-            session.setAttribute("detalle", "Las horas ya se encuentran cubiertas completa o parcialmente por otro registro.");
+        boolean horasValidas = disponibilidadMedicoService.horasAtencionSonValidas(horario);
+        if(!horasValidas) {
+            model.addAttribute("horario", horario);
+            if(horario.getIdMedico() != null) model.addAttribute("nombreMedicoSeleccionado", disponibilidadMedicoService.consultaNombreMedicoPorId(horario.getIdMedico()));
+            model.addAttribute("mostrarNotificacion", true);
+            model.addAttribute("tipoNotificacion", "warning");
+            model.addAttribute("titulo", "¡Horario no válido!");
+            model.addAttribute("detalle", "Las horas ya se encuentran cubiertas completa o parcialmente por otro registro.");
+            return "configuracionHorarios";
         }
-
+        
         boolean horarioProcesado = disponibilidadMedicoService.procesarHorarioMedico(horario, idUsuarioLoggeado);
         if(horarioProcesado) {
+            session.setAttribute("mostrarNotificacion", true);
+            session.setAttribute("origen", "configHorarios");
             session.setAttribute("tipoNotificacion", "success");
             session.setAttribute("titulo", "¡Horario procesado!");
             session.setAttribute("detalle", "El horario ha sido registrado correctamente.");
         }else {
             model.addAttribute("horario", horario);
             model.addAttribute("nombreMedicoSeleccionado", disponibilidadMedicoService.consultaNombreMedicoPorId(horario.getIdMedico()));
-
-            session.setAttribute("tipoNotificacion", "warning");
-            session.setAttribute("titulo", "¡Horario no procesado!");
-            session.setAttribute("detalle", "Ocurrió un problema, el horario no fue procesado. Inténtelo nuevamente.");
+            model.addAttribute("mostrarNotificacion", true);
+            model.addAttribute("tipoNotificacion", "warning");
+            model.addAttribute("titulo", "¡Horario no procesado!");
+            model.addAttribute("detalle", "Ocurrió un problema, el horario no fue procesado. Inténtelo nuevamente.");
         }
 
         return horarioProcesado ? "redirect:/configuracion-horario" : "configuracionHorarios";

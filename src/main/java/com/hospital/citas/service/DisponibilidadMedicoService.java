@@ -75,4 +75,38 @@ public class DisponibilidadMedicoService {
     public List<HorarioMedicoVistaDTO> consultarHorarioMedicoPorIdDia(Long idMedico, Long idDia){
         return disponibilidadMedicoRepository.consultarHorarioMedicoPorIdDia(idMedico, idDia);
     }
+
+    public boolean horasAtencionSonValidas(HorarioMedicoDTO horario) {
+        if(!validaHorasDentroRegistro(horario)) return false;
+        if(!validaHorasAfueraRegistro(horario)) return false;
+        return true;
+    }
+
+    private boolean validaHorasDentroRegistro(HorarioMedicoDTO horario) {
+        List<Long> diasSeleccionados = horario.getDiasSemana();
+        List<DisponibilidadMedico> listaRegistros;
+
+        for (Long dia : diasSeleccionados) {
+            listaRegistros = disponibilidadMedicoRepository.consultaRegistrosHorarioMedico_HorasDentroRegistro(horario.getIdMedico(), dia, horario.getHoraInicio(), horario.getHoraFin());
+
+            if (listaRegistros.size() > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean validaHorasAfueraRegistro(HorarioMedicoDTO horario) {
+        List<Long> diasSeleccionados = horario.getDiasSemana();
+        List<DisponibilidadMedico> listaRegistros;
+
+        for (Long dia : diasSeleccionados) {
+            listaRegistros = disponibilidadMedicoRepository.consultaRegistrosHorarioMedico_HorasAfueraRegistro(horario.getIdMedico(), dia, horario.getHoraInicio(), horario.getHoraFin());
+
+            if (listaRegistros.size() > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
