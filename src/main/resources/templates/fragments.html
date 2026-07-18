@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_main_wrapper.css" th:href="@{/css/compartidos/styles_main_wrapper.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css" th:href="@{/css/compartidos/styles_menu_lateral.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css" th:href="@{/css/compartidos/styles_notificaciones.css}">
-    <link rel="stylesheet" href="../static/css/horariosMedicos.css" th:href="@{/css/horariosMedicos.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_tabla_registros.css" th:href="@{/css/compartidos/styles_tabla_registros.css}">
+    <link rel="stylesheet" href="../static/css/configuracionHorario.css" th:href="@{/css/configuracionHorario.css}">
 </head>
 <body>
     <header class="header__principal" th:fragment="header (mostrarOpcionesMenu, nombreUsuario)">
@@ -40,7 +41,6 @@
         </div>
     </header>
 
-    <!-- contenedor__notificacion--success contenedor__notificacion--warning -->
     <div class="contenedor__notificacion" id="contenedorNotificacion" th:fragment="notificacion (mostrarNotificacion, tipoNotificacion, titulo, detalle)" th:if="${mostrarNotificacion}" th:classappend="${tipoNotificacion == 'success'} ? ' contenedor-notificacion--success' : ' contenedor-notificacion--warning'">
         <div class="notificacion__items">
             <div class="item__icon">
@@ -200,6 +200,131 @@
                 </div>
             </nav>
         </div>
+
+        <div class="contenedor__section">
+            <section class="contenedor__titulo__horario">
+                <div class="contenedor__titulo__principal">
+                    <h2 class="titulo__principal">
+                        Horario encontrado
+                    </h2>
+                    <p class="descripcion__principal">
+                        Ajuste el horario del médico
+                    </p>
+                </div>
+            </section>
+
+            <button id="btnCrear">Crear</button>
+            <div class="contenedor__section__tabla">
+                <div class="contenedor__tabla__registros">
+                    <form action="/" method="post">
+                        <table class="tabla__registros">
+                            <thead>
+                                <tr>
+                                    <th>idRegistro</th>
+                                    <th>idDia</th>
+                                    <th>Día</th>
+                                    <th>Hora Inicio</th>
+                                    <th>Hora Fin</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" id="id" name="id">
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="idDia" name="idDia">
+                                    </td>
+                                    <td>
+                                        Lunes
+                                    </td>
+                                    <td>
+                                        <input type="time" id="horaInicio" name="horaInicio">
+                                    </td>
+                                    <td>
+                                        <input type="time" id="horaFin" name="horaFin">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" id="id" name="id">
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        Martes
+                                    </td>
+                                    <td>
+                                        <input type="time" id="horaInicio" name="horaInicio">
+                                    </td>
+                                    <td>
+                                        <input type="time" id="horaFin" name="horaFin">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" id="id" name="id">
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="idDia" name="idDia">
+                                    </td>
+                                    <td>
+                                        Miércoles
+                                    </td>
+                                    <td>
+                                        <input type="time" id="horaInicio" name="horaInicio">
+                                    </td>
+                                    <td>
+                                        <input type="time" id="horaFin" name="horaFin">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" id="id" name="id">
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="idDia" name="idDia">
+                                    </td>
+                                    <td>
+                                        Jueves
+                                    </td>
+                                    <td>
+                                        <input type="time" id="horaInicio" name="horaInicio">
+                                    </td>
+                                    <td>
+                                        <input type="time" id="horaFin" name="horaFin">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" id="id" name="id">
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="idDia" name="idDia">
+                                    </td>
+                                    <td>
+                                        Viernes
+                                    </td>
+                                    <td>
+                                        <input type="time" id="horaInicio" name="horaInicio">
+                                    </td>
+                                    <td>
+                                        <input type="time" id="horaFin" name="horaFin">
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <button type="submit">Guardar Cambios</button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer class="footer__principal" th:fragment="footer">
@@ -218,7 +343,6 @@
         </div>
     </footer>
 
-    <!-- <script src="../static/js/notificaciones.js" th:src="@{/js/notificaciones.js}"></script> -->
     <script src="../static/js/menuLateral.js" th:src="@{/js/menuLateral.js}"></script>
     <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
 </body>

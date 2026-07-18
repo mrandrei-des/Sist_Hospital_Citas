@@ -25,8 +25,8 @@ public class DisponibilidadMedicoService {
         this.medicoService = medicoService;
     }
 
-    public List<EspecialidadDTO> listaEspecialidades(Long idEstadoEspecialidad){
-        return especialidadService.listarEspecialidades(idEstadoEspecialidad);
+    public List<EspecialidadDTO> listaEspecialidadesConMedico(Long idEstadoEspecialidad){
+        return especialidadService.listarEspecialidadesConMedicos(idEstadoEspecialidad);
     }
 
     public String consultaNombreMedicoPorId(Long idMedico) {

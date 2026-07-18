@@ -42,8 +42,8 @@ public class DisponibilidadMedicoController {
         model.addAttribute("usuarioEsAdmin", esAdmin);
         model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
         model.addAttribute("horario", new HorarioMedicoDTO());
-        // ESPECIALIDADES CON DOCTORES
-        model.addAttribute("listaEspecialidades", disponibilidadMedicoService.listaEspecialidades(4L));
+        // CARGAR ESPECIALIDADES CON DOCTORES
+        model.addAttribute("listaEspecialidades", disponibilidadMedicoService.listaEspecialidadesConMedico(4L));
         return "configuracionHorarios";
     }
 
@@ -56,7 +56,7 @@ public class DisponibilidadMedicoController {
 
         model.addAttribute("usuarioEsAdmin", esAdmin);
         model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
-        model.addAttribute("listaEspecialidades", disponibilidadMedicoService.listaEspecialidades(4L));
+        model.addAttribute("listaEspecialidades", disponibilidadMedicoService.listaEspecialidadesConMedico(4L));
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("horario", horario);
@@ -94,4 +94,6 @@ public class DisponibilidadMedicoController {
 
         return horarioProcesado ? "redirect:/configuracion-horario" : "configuracionHorarios";
     }
+
+
 }

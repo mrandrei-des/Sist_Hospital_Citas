@@ -60,6 +60,20 @@ public class EspecialidadService {
         return listaDTO;
     }
 
+    public List<EspecialidadDTO> listarEspecialidadesConMedicos(Long estadoEspecialidades) {
+        List<Especialidad> listaEspecialidades = especialidadRepository.consultarEspecialidadesConMedico(estadoEspecialidades);
+        List<EspecialidadDTO> listaDTO = new ArrayList<>();
+        EspecialidadDTO dto;
+
+        for (Especialidad especialidad : listaEspecialidades) {
+            dto = new EspecialidadDTO();
+            dto.setId(especialidad.getId());
+            dto.setDescripcion(especialidad.getDescripcion());
+            listaDTO.add(dto);
+        }
+        return listaDTO;
+    }
+
     public EspecialidadDTO buscarPorId(Long id) {
         Especialidad especialidad = especialidadRepository.findById(id).orElse(null);
         EspecialidadDTO dto = new EspecialidadDTO();

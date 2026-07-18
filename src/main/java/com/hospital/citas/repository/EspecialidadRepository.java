@@ -28,4 +28,7 @@ public interface EspecialidadRepository extends JpaRepository<Especialidad, Long
 
     @Query(value = "{call sp_listarUltimasEspecialidadesRegistradas()}", nativeQuery = true)
     List<UltimaEspecialidadRegistradaDTO> listaUltimasEspecialidadRegistradasDtos();
+
+    @Query(value = "{call sp_ConsultaEspecialidadesConMedicos(:p_estado)}", nativeQuery = true)
+    List<Especialidad> consultarEspecialidadesConMedico(@Param("p_estado") Long idEstado);
 }
