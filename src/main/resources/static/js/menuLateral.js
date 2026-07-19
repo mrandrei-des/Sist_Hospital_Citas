@@ -1,17 +1,17 @@
 const btnToggleMenuClose = document.getElementById('btnToggleMenuClose');
-const toggleMenuClose = document.getElementById('toggleMenuOpen');
+// const toggleMenuClose = document.getElementById('toggleMenuOpen');
 
 const btnToggleMenuOpen = document.getElementById('btnToggleMenuOpen');
 const toggleMenuOpen = document.getElementById('toggleMenuOpen');
 
-const contenedorMenuLateral = document.getElementById('contenedorMenuLateral');
+const contenedorMenuLateral = document.getElementById('sidebarMenu');
 
 btnToggleMenuClose.addEventListener('click', (e) => {
-    contenedorMenuLateral.classList.add('ocultar__menu');
-    toggleMenuOpen.classList.add('mostrar');
+    contenedorMenuLateral.classList.add('sidebar-menu--hidden');
+    toggleMenuOpen.classList.add('sidebar-menu__toggle-container--show');
 });
 
 btnToggleMenuOpen.addEventListener('click', (e) => {
-    contenedorMenuLateral.classList.remove('ocultar__menu');
-    toggleMenuOpen.classList.remove('mostrar');
+    contenedorMenuLateral.classList.remove('sidebar-menu--hidden');
+    toggleMenuOpen.classList.remove('sidebar-menu__toggle-container--show');
 });

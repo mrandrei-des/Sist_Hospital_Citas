@@ -19,14 +19,14 @@
 <body>
     <div th:replace="~{fragments::header(mostrarOpcionesMenu=${true}, nombreUsuario=${nombreCompletoUsuario})}"></div>
     
-    <div class="contenedor__wrapper">
-        <div th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></div>
+    <main class="main">
+        <aside th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></aside>
 
-        <main class="contenedor__principal">
+        <div class="main__content">
             <div class="contenedor__principal__panel">
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
 
     <div th:replace="~{fragments::footer}"></div>
     <script src="../static/js/menuLateral.js" th:src="@{/js/menuLateral.js}"></script>

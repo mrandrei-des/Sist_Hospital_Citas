@@ -21,10 +21,10 @@
 
     <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${tipoNotificacion}, ${titulo}, ${detalle})}"></div>
 
-    <div class="contenedor__wrapper">
-        <div th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></div>
+    <main class="main">
+        <aside th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></aside>
 
-        <main class="contenedor__principal">
+        <div class="main__content">
             <div class="contenedor__principal__configuracionHorarios">
                 <section class="contenedor__sections">
                     <div class="contenedor__section">
@@ -157,8 +157,8 @@
                     </div>
                 </section>
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
 
     <div th:replace="~{fragments::footer}"></div>
 

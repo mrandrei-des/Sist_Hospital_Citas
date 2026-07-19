@@ -1,55 +1,36 @@
-body {
-    background-color: var(--primary-bg-color);
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
-
-.contenedor__menu__lateral {
+.sidebar-menu {
     width: 250px;
     position: relative;
-}
-
-/*
-    INICIO MENÚ LATERAL
-*/
-.contenedor__menu__lateral {
     transition: transform .2s ease-in-out;
 }
 
-.contenedor__menu__lateral.ocultar__menu {
+.sidebar-menu.sidebar-menu--hidden {
     transform: translateX(-100%);
 }
 
-.contenedor__toggle__menu {
+.sidebar-menu__toggle-container {
     position: absolute;
     top: 0;
     right: 0;
 }
 
-.toggle__menu__open {
+.sidebar-menu__toggle-container:nth-child(2) {
     display: none;
     transform: translate(110%);
 }
 
-.toggle__menu__open .btn__toggle__menu {
-    background: linear-gradient(to top right, var(--secondary-bg-color), var(--shadow-color) 50%);
-    border-radius: 50%;
-}
-
-.toggle__menu__open.mostrar {
+.sidebar-menu__toggle-container.sidebar-menu__toggle-container--show {
     display: block;
 }
 
-.btn__toggle__menu {
+.sidebar-menu__btn {
     width: 30px;
     height: 30px;
     padding: 20px;
-    border-bottom-left-radius: 8px;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-
     border: none;
     background-color: transparent;
     color: var(--primary-hover-color);
@@ -57,51 +38,47 @@ body {
     cursor: pointer;
 }
 
-.btn__toggle__menu:hover {
+.sidebar-menu__btn:hover {
     background: linear-gradient(to top right, var(--secondary-bg-color), var(--shadow-color) 50%);
 }
 
-.toggle__menu__open .btn__toggle__menu:hover {
-    background-color: transparent;
-}
-
-.menu__lateral {
+.sidebar-menu__nav {
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.contenedor__secciones__menu__lateral {
+.sidebar-menu__container {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-.section__menu__contenedor__titulo {
+.sidebar-menu__title {
     padding-left: .5rem;
     position: relative;
     margin-bottom: .5rem;
 }
 
-.section__menu__titulo {
+.sidebar-menu__category {
     font-size: .85rem;
     font-weight: 700;
     color: var(--text-neutro-color);
     transition: text-decoration .2s ease-in-out;
 }
 
-.section__menu__lateral:hover .section__menu__titulo {
+.sidebar-menu__section:hover .sidebar-menu__category {
     text-decoration: underline;
 }
 
-.menu__lateral__lista {
+.sidebar-menu__list {
     display: flex;
     flex-direction: column;
     gap: .5rem;
 }
 
-.menu__lateral__enlace {
+.sidebar-menu__link {
     display: flex;
     align-items: center;
     gap: .5rem;
@@ -112,40 +89,36 @@ body {
     font-size: .8rem;
     font-weight: bold;
     color: #333;
-    transition: background-color .2s ease-in-out,
-                gap .2s ease-in-out;
+    transition: background-color .2s ease-in-out, gap .2s ease-in-out;
     cursor: pointer;
 }
 
-.menu__lateral__enlace span i {
+.sidebar-menu__icon-box {
     font-size: 1.1rem;
     color: var(--primary-hover-color);
 }
 
-.menu__lateral__enlace:hover {
+.sidebar-menu__link:not(.sidebar-menu__link--logout):hover {
     background-color: var(--shadow-color);
     gap: 1rem;
 }
 
-.contenedor__cerrarSesion__menu__lateral .menu__lateral__enlace {
+.sidebar-menu__link.sidebar-menu__link--logout {
+    width: 100%;
     color: var(--secondary-color);
     font-weight: 800;
 }
 
-.contenedor__cerrarSesion__menu__lateral .menu__lateral__enlace:hover {
+.sidebar-menu__link.sidebar-menu__link--logout:hover {
     background-color: var(--secondary-color-bg-color);
 }
 
-.contenedor__cerrarSesion__menu__lateral .menu__lateral__enlace span i {
+.sidebar-menu__logout-icon-box {
     color: var(--secondary-color);
 }
 
-/*
-    FIN MENÚ LATERAL
-*/
-
 @media screen and (max-width: 925px) {
-    .contenedor__menu__lateral {
+    .sidebar-menu {
         grid-area: none;
         position: fixed;
         top: 96px;

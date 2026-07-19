@@ -19,20 +19,20 @@
     <link rel="stylesheet" href="../static/css/configuracionHorario.css" th:href="@{/css/configuracionHorario.css}">
 </head>
 <body>
-    <header class="header__principal" th:fragment="header (mostrarOpcionesMenu, nombreUsuario)">
-        <div class="contenedor__menu__logo">
-            <img src="../static/img/hospital.png" th:src="@{/img/hospital.png}" alt="Sticker de un hospital estilo animado" class="menu__logo">
-            <span class="menu__logo__nombre">Hospital MR</span>
+    <header class="header" th:fragment="header (mostrarOpcionesMenu, nombreUsuario)">
+        <div class="header__container">
+            <img src="../static/img/hospital.png" th:src="@{/img/hospital.png}" alt="Sticker de un hospital estilo animado" class="header__img">
+            <span class="header__title">Hospital MR</span>
         </div>
-        <div class="contenedor__menu" th:if="${mostrarOpcionesMenu}">
-            <nav class="menu__principal">
-                <ul class="menu__lista">
-                    <li class="menu__elemento menu__elemento__usuario">
-                        <p class="menu__nombre__usuario">Bienvenido, </p>
-                        <span class="menu__avatar__usuario">
+        <div class="header__container" th:if="${mostrarOpcionesMenu}">
+            <nav class="header__nav">
+                <ul class="header__list">
+                    <li class="header__item header__item--user">
+                        <p class="header__paragraph">Bienvenido, </p>
+                        <span class="header__icon">
                             <i class="fa-solid fa-circle-user"></i>
                         </span>
-                        <p class="menu__nombre__usuario" th:text="${nombreUsuario}">
+                        <p class="header__paragraph" th:text="${nombreUsuario}">
                             John Doe
                         </p>
                     </li>
@@ -41,60 +41,62 @@
         </div>
     </header>
 
-    <div class="contenedor__notificacion" id="contenedorNotificacion" th:fragment="notificacion (mostrarNotificacion, tipoNotificacion, titulo, detalle)" th:if="${mostrarNotificacion}" th:classappend="${tipoNotificacion == 'success'} ? ' contenedor-notificacion--success' : ' contenedor-notificacion--warning'">
-        <div class="notificacion__items">
-            <div class="item__icon">
-                <span class="item__contenedor__icon">
+    <div class="notification notification--warning" id="contenedorNotificacion" th:fragment="notificacion (mostrarNotificacion, tipoNotificacion, titulo, detalle)" th:if="${mostrarNotificacion}" th:classappend="${tipoNotificacion == 'success'} ? ' notification--success' : ' notification--warning'">
+        <div class="notification__container">
+            <div class="notification__icon-box">
+                <span class="notification__icon">
                     <i th:if="${tipoNotificacion == 'success'}" class="fa-solid fa-circle-check"></i>
                     <i th:unless="${tipoNotificacion == 'success'}" class="fa-solid fa-triangle-exclamation"></i>
                 </span>
             </div>
-            <div class="item__titulo">
-                <h3 class="notificacion__titulo" th:text="${titulo}">¡Horario no válido!</h3>
-                <p class="notificacion__detalle" th:text="${detalle}">El rango horario ya se encuentra definido</p>
+            <div class="notification__content">
+                <h3 class="notification__title" th:text="${titulo}">¡Horario no válido!</h3>
+                <p class="notification__paragraph" th:text="${detalle}">El rango horario ya se encuentra definido</p>
             </div>
         </div>
     </div>
 
-    <div class="contenedor__wrapper">
-        <div class="contenedor__menu__lateral" id="contenedorMenuLateral" th:fragment="menuLateral (esAdmin, idUsuario)">
-            <div class="contenedor__toggle__menu toggle__menu__close" id="toggleMenuClose">
-                <button type="button" class="btn__toggle__menu" id="btnToggleMenuClose">
+    <main class="main">
+
+        <aside class="sidebar-menu" id="sidebarMenu" th:fragment="menuLateral (esAdmin, idUsuario)">
+            <div class="sidebar-menu__toggle-container" id="toggleMenuClose">
+                <button type="button" class="sidebar-menu__btn" id="btnToggleMenuClose">
                     <i class="fa-solid fa-minimize"></i>
                 </button>
             </div>
-            <div class="contenedor__toggle__menu toggle__menu__open" id="toggleMenuOpen">
-                <button type="button" class="btn__toggle__menu" id="btnToggleMenuOpen">
+            <div class="sidebar-menu__toggle-container" id="toggleMenuOpen">
+                <button type="button" class="sidebar-menu__btn" id="btnToggleMenuOpen">
                     <i class="fa-solid fa-maximize"></i>
                 </button>
             </div>
-            <nav class="menu__lateral" id="menuLateral">
-                <div class="contenedor__secciones__menu__lateral">
-                    <section class="section__menu__lateral" th:if="${esAdmin}">
-                        <div class="section__menu__contenedor__titulo">
-                            <h2 class="section__menu__titulo">Medicina</h2>
+
+            <nav class="sidebar-menu__nav" id="menuLateral">
+                <div class="sidebar-menu__container">
+                    <section class="sidebar-menu__section" th:if="${esAdmin}">
+                        <div class="sidebar-menu__title">
+                            <h2 class="sidebar-menu__category">Medicina</h2>
                         </div>
-                        <div class="section__menu__contenedor__lista__enlaces">
-                            <ul class="menu__lateral__lista">
-                                <li class="lista__elemento">
-                                    <a href="#" th:href="@{/especialidades}" class="menu__lateral__enlace">
-                                        <span class="menu__lateral__contenedor__icono">
+                        <div class="sidebar-menu__links-container">
+                            <ul class="sidebar-menu__list">
+                                <li class="sidebar-menu__item">
+                                    <a href="#" th:href="@{/especialidades}" class="sidebar-menu__link">
+                                        <span class="sidebar-menu__icon-box">
                                             <i class="fa-solid fa-shapes"></i>
                                         </span>
                                         Especialidades
                                     </a>
                                 </li>
-                                <li class="lista__elemento">
-                                    <a href="#" th:href="@{/medicos}" class="menu__lateral__enlace">
-                                        <span class="menu__lateral__contenedor__icono">
+                                <li class="sidebar-menu__item">
+                                    <a href="#" th:href="@{/medicos}" class="sidebar-menu__link">
+                                        <span class="sidebar-menu__icon-box">
                                             <i class="fa-solid fa-user-doctor"></i>
                                         </span>
                                         Médicos
                                     </a>
                                 </li>
-                                <li class="lista__elemento">
-                                    <a href="#" th:href="@{/configuracion-horario}" class="menu__lateral__enlace">
-                                        <span class="menu__lateral__contenedor__icono">
+                                <li class="sidebar-menu__item">
+                                    <a href="#" th:href="@{/configuracion-horario}" class="sidebar-menu__link">
+                                        <span class="sidebar-menu__icon-box">
                                             <i class="fa-regular fa-calendar"></i>
                                         </span>
                                         Horarios
@@ -104,25 +106,23 @@
                         </div>
                     </section>
 
-                    <div class="separador__section__menu"></div>
-
-                    <section class="section__menu__lateral">
-                        <div class="section__menu__contenedor__titulo">
-                            <h2 class="section__menu__titulo">Reservas</h2>
+                    <section class="sidebar-menu__section">
+                        <div class="sidebar-menu__title">
+                            <h2 class="sidebar-menu__category">Reservas</h2>
                         </div>
-                        <div class="section__menu__contenedor__lista__enlaces">
-                            <ul class="menu__lateral__lista">
-                                <li class="lista__elemento" th:if="${!esAdmin}">
-                                    <a href="#" th:href="@{/reservar}" class="menu__lateral__enlace">
-                                        <span class="menu__lateral__contenedor__icono">
+                        <div class="sidebar-menu__links-container">
+                            <ul class="sidebar-menu__list">
+                                <li class="sidebar-menu__item" th:if="${!esAdmin}">
+                                    <a href="#" th:href="@{/reservar}" class="sidebar-menu__link">
+                                        <span class="sidebar-menu__icon-box">
                                             <i class="fa-solid fa-hand-holding-medical"></i>
                                         </span>
                                         Reservar
                                     </a>
                                 </li>
-                                <li class="lista__elemento">
-                                    <a href="#" th:href="@{/mostrar-horario}" class="menu__lateral__enlace">
-                                    <span class="menu__lateral__contenedor__icono">
+                                <li class="sidebar-menu__item">
+                                    <a href="#" th:href="@{/mostrar-horario}" class="sidebar-menu__link">
+                                    <span class="sidebar-menu__icon-box">
                                         <i class="fa-regular fa-calendar-days"></i>
                                     </span>
                                         Horarios Disponibles
@@ -131,26 +131,24 @@
                             </ul>
                         </div>
                     </section>
-                    
-                    <div class="separador__section__menu"></div>
-                    
-                    <section class="section__menu__lateral" th:if="${esAdmin}">
-                        <div class="section__menu__contenedor__titulo">
-                            <h2 class="section__menu__titulo">Reportes</h2>
+
+                    <section class="sidebar-menu__section" th:if="${esAdmin}">
+                        <div class="sidebar-menu__title">
+                            <h2 class="sidebar-menu__category">Reportes</h2>
                         </div>
-                        <div class="section__menu__contenedor__lista__enlaces">
-                            <ul class="menu__lateral__lista">
-                                <li class="lista__elemento">
-                                    <a href="#" th:href="@{/reporte-especialidades}" class="menu__lateral__enlace">
-                                        <span class="menu__lateral__contenedor__icono">
+                        <div class="sidebar-menu__links-container">
+                            <ul class="sidebar-menu__list">
+                                <li class="sidebar-menu__item">
+                                    <a href="#" th:href="@{/reporte-especialidades}" class="sidebar-menu__link">
+                                        <span class="sidebar-menu__icon-box">
                                             <i class="fa-solid fa-clipboard-user"></i>
                                         </span>
                                         Especialidades
                                     </a>
                                 </li>
-                                <li class="lista__elemento">
-                                    <a href="#" th:href="@{/reporte-citas}" class="menu__lateral__enlace">
-                                        <span class="menu__lateral__contenedor__icono">
+                                <li class="sidebar-menu__item">
+                                    <a href="#" th:href="@{/reporte-citas}" class="sidebar-menu__link">
+                                        <span class="sidebar-menu__icon-box">
                                             <i class="fa-solid fa-clipboard-check"></i>
                                         </span>
                                         Citas
@@ -159,26 +157,24 @@
                             </ul>
                         </div>
                     </section>
-                    
-                    <div class="separador__section__menu"></div>
-                    
-                    <section class="section__menu__lateral">
-                        <div class="section__menu__contenedor__titulo">
-                            <h2 class="section__menu__titulo">Usuarios</h2>
+
+                    <section class="sidebar-menu__section">
+                        <div class="sidebar-menu__title">
+                            <h2 class="sidebar-menu__category">Usuarios</h2>
                         </div>
-                        <div class="section__menu__contenedor__lista__enlaces">
-                            <ul class="menu__lateral__lista">
-                                <li class="lista__elemento">
-                                    <a href="#" th:href="@{/mi-perfil/{id}(id=${idUsuario})}" class="menu__lateral__enlace">
-                                        <span class="menu__lateral__contenedor__icono">
+                        <div class="sidebar-menu__links-container">
+                            <ul class="sidebar-menu__list">
+                                <li class="sidebar-menu__item">
+                                    <a href="#" th:href="@{/mi-perfil/{id}(id=${idUsuario})}" class="sidebar-menu__link">
+                                        <span class="sidebar-menu__icon-box">
                                             <i class="fa-solid fa-circle-user"></i>
                                         </span>
                                         Mi Perfil
                                     </a>
                                 </li>
-                                <li class="lista__elemento" th:if="${esAdmin}">
-                                    <a href="#" th:href="@{/mostrar-panel-pacientes}" class="menu__lateral__enlace">
-                                        <span class="menu__lateral__contenedor__icono">
+                                <li class="sidebar-menu__item" th:if="${esAdmin}">
+                                    <a href="#" th:href="@{/mostrar-panel-pacientes}" class="sidebar-menu__link">
+                                        <span class="sidebar-menu__icon-box">
                                             <i class="fa-solid fa-users"></i>
                                         </span>
                                         Pacientes
@@ -188,10 +184,11 @@
                         </div>
                     </section>
                 </div>
-                <div class="contenedor__cerrarSesion__menu__lateral">
+
+                <div class="sidebar-menu__logout-container">
                     <form th:action="@{/logout}" method="post">
-                        <button type="submit" class="menu__lateral__enlace">
-                            <span class="menu__lateral__contenedor__icono">
+                        <button type="submit" class="sidebar-menu__link sidebar-menu__link--logout">
+                            <span class="sidebar-menu__logout-icon-box">
                                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                             </span>
                             Cerrar Sesión
@@ -199,9 +196,9 @@
                     </form>
                 </div>
             </nav>
-        </div>
+        </aside>
 
-        <div class="contenedor__section">
+        <div class="main__content">
             <section class="contenedor__titulo__horario">
                 <div class="contenedor__titulo__principal">
                     <h2 class="titulo__principal">
@@ -325,22 +322,14 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <footer class="footer__principal" th:fragment="footer">
-        <div class="footer__elemento">
-            <p class="footer__leyenda">&copy; Todos los derechos reservados</p>
-        </div>
-        <div class="footer__elemento">
-            <p class="footer__leyenda">Desarrollado por: 
-                <strong>
-                    <a href="/" target="_blank" class="footer__enlace">Andrei Mesén Romero</a>
-                </strong>
-            </p>
-        </div>
-        <div class="footer__elemento">
-            <p class="footer__leyenda">2026 - Costa Rica</p>
-        </div>
+    </main>
+
+    <footer class="footer" th:fragment="footer">
+        <p class="footer__paragraph">&copy; Todos los derechos reservados</p>
+        <p class="footer__paragraph">Desarrollado por: <strong><a href="/" target="_blank" class="footer__link">Andrei Mesén Romero</a></strong>
+        </p>
+        <p class="footer__paragraph">2026 - Costa Rica</p>
     </footer>
 
     <script src="../static/js/menuLateral.js" th:src="@{/js/menuLateral.js}"></script>

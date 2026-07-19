@@ -28,4 +28,7 @@ body {
     height: 100dvh;
     position: relative;
     background-color: var(--primary-bg-color);
+
+    display: flex;
+    flex-direction: column;
 }

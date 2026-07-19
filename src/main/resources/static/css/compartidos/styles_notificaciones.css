@@ -1,9 +1,7 @@
-/* NOTIFICACIÓN */
-.contenedor__notificacion {
+.notification {
     display: inline-block;
     max-width: 275px;
     border-radius: 8px;
-    /* background-color: #097; */
     position: fixed;
     top: 120px;
     right: 15px;
@@ -13,15 +11,15 @@
     animation: trasladarHaciaIzquierda .5s ease-in-out 1 both;
 }
 
-.contenedor-notificacion--success {
+.notification--success {
     background-color: #097;
 }
 
-.contenedor-notificacion--warning {
+.notification--warning {
     background-color: #f76;
 }
 
-.contenedor__notificacion::before {
+.notification::before {
     content: '';
     position: absolute;
     width: 100%;
@@ -32,10 +30,11 @@
     animation: retrocederProgreso 3.5s .5s linear both;
 }
 
-.contenedor__notificacion.contenedor-notificacion--success::before {
+.notification.notification--success::before {
     background-color: #0b74;
 }
-.contenedor__notificacion.contenedor-notificacion--warning::before {
+
+.notification.notification--warning::before {
     background-color: #d534;
 }
 
@@ -51,7 +50,7 @@
     }
 }
 
-.notificacion__items {
+.notification__container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -61,42 +60,39 @@
     border-left: 5px solid #057;
 }
 
-.item__icon {
+.notification__icon-box {
     display: flex;
     align-items: center;
 }
 
-.item__contenedor__icon {
+.notification__icon {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.item__contenedor__icon i {
     font-size: 1.3rem;
     color: #057;
 }
 
-.item__titulo {
+.notification__content {
     display: flex;
     flex-direction: column;
 }
 
-.notificacion__titulo {
+.notification__title {
     font-size: .9rem;
     font-weight: 700;
     text-wrap: pretty;
     color: #057;
 }
 
-.notificacion__detalle {
+.notification__paragraph {
     font-size: .8rem;
     color: #fff;
     font-weight: 600;
 }
 
 @media screen and (max-width: 925px) { 
-    .contenedor__notificacion {
+    .notification {
         top: auto;
         bottom: 140px;
         right: 50%;

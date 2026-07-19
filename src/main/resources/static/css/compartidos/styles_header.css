@@ -1,4 +1,4 @@
-.header__principal {
+.header {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -9,43 +9,42 @@
     box-shadow: 0 0 3px 0 var(--box-shadow-color);
 }
 
-.contenedor__menu__logo {
+.header__container {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
-.menu__logo__nombre {
+.header__title {
     font-size: 1rem;
     font-weight: 800;
     color: var(--primary-hover-color);
 }
 
-.menu__lista {
+.header__list {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
 }
 
-.menu__elemento {
+.header__item {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: .5rem;
 }
 
-.menu__avatar__usuario {
+.header__icon {
     font-size: 1.5rem;
     color: var(--text-neutro-color);
 }
 
 @media screen and (max-width: 600px) {
-
-    .header__principal {
+    .header {
         padding: 1rem 2rem;
     }
-    .menu__elemento__usuario {
+    .header__item--user {
         display: none;
     }
 }

@@ -21,10 +21,10 @@
     <div th:replace="~{fragments::header(mostrarOpcionesMenu=${true}, nombreUsuario=${nombreCompletoUsuario})}"></div>
     <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${tipoNotificacion}, ${titulo}, ${detalle})}"></div>
 
-    <div class="contenedor__wrapper">
-        <div th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></div>
+    <main class="main">
+        <aside th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></aside>
 
-        <main class="contenedor__principal">
+        <div class="main__content">
             <div class="contenedor__principal__cuenta">
                 <div class="contenedor__cuenta__section">
 
@@ -162,8 +162,8 @@
 
                 </div>
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
 
     <div th:replace="~{fragments::footer}"></div>
 

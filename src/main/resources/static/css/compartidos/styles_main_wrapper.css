@@ -1,4 +1,4 @@
-.contenedor__wrapper {
+.main {
     width: 100%;
     display: grid;
     grid-template-areas: "menuLateral principal";
@@ -6,26 +6,25 @@
     position: relative;
 }
 
-.contenedor__menu__lateral {
+.sidebar-menu {
     grid-area: menuLateral;
     z-index: 10;
 }
 
-.contenedor__principal {
+.main__content {
     grid-area: principal;
     z-index: 5;
     min-width: 0;
-
 }
 
-.contenedor__wrapper :is(.contenedor__menu__lateral, .contenedor__principal){
+.main :is(.sidebar-menu, .main__content){
     background-color: var(--secondary-bg-color);
     box-shadow: 0 0 3px 0 var(--box-shadow-color);
     padding: 2rem;
 }
 
 @media screen and (max-width: 925px) {
-    .contenedor__wrapper {
+    .main {
         height: auto;
         position: relative;
     }

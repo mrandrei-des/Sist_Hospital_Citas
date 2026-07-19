@@ -1,4 +1,4 @@
-.footer__principal {
+.footer {
     width: 100%;
     padding: 1rem;
     display: flex;
@@ -8,15 +8,15 @@
     background-color: var(--primary-hover-color);
 }
 
-.footer__elemento {
+.footer__paragraph {
     color: var(--primary-color);
     font-weight: 600;
 }
 
-.footer__enlace {
+.footer__link {
     color: var(--secondary-color);
 }
 
-.footer__enlace:hover {
+.footer__link:hover {
     text-decoration: underline;
 }
