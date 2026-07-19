@@ -70,6 +70,8 @@
     transition: color .2s ease-in-out;
 }
 
+
+
 .btn--enlace:hover {
     color: var(--primary-hover-color);
 }
@@ -103,4 +105,19 @@
     text-decoration: dashed;
     background-color: var(--secondary-color);
     outline-color: var(--secondary-color);
+}
+
+.btn__lista__elemento {
+    background-color: var(--secondary-color-bg-color);
+    color: var(--secondary-color);
+    outline: 2px solid var(--secondary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+}
+
+.btn__lista__elemento:hover {
+    background-color: var(--secondary-color);
+    color: var(--secondary-bg-color);
 }

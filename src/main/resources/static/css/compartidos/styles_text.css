@@ -4,6 +4,18 @@
     color: var(--primary-hover-color);
 }
 
+.aside__title {
+    font-size: clamp(.8rem, 1vw, 1.1rem);
+    font-weight: 600;
+    color: var(--text-neutro-color);
+    text-decoration: underline;
+}
+
+.main__subtitle {
+    font-size: .9rem;
+    color: var(--text-neutro-color);
+}
+
 .main__link-paragraph {
     font-size: .8rem;
     font-weight: 600;

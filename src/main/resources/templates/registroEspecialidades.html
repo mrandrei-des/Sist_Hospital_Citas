@@ -8,8 +8,10 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css" th:href="@{/css/compartidos/styles_buttons.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_text.css" th:href="@{/css/compartidos/styles_text.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_header.css" th:href="@{/css/compartidos/styles_header.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_footer.css" th:href="@{/css/compartidos/styles_footer.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_form.css" th:href="@{/css/compartidos/styles_form.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_main_wrapper.css" th:href="@{/css/compartidos/styles_main_wrapper.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css" th:href="@{/css/compartidos/styles_menu_lateral.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css" th:href="@{/css/compartidos/styles_notificaciones.css}">
@@ -24,73 +26,84 @@
         <aside th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></aside>
 
         <div class="main__content">
-            <div class="contenedor__principal__especialidades">
-                <div class="contenedor__especialidades__section contenedor__especialidades__section__registro">
-                    <section class="contenedor__titulo__principal">
-                        <h2 class="titulo__principal">
+            
+            <div class="main__container main__container--spc-5">
+                <div class="main__section">
+                    <section class="main__section-title">
+                        <h2 class="main__title">
                             Registro especialidad médica
                         </h2>
-                        <p class="descripcion__principal">
+                        <p class="main__subtitle">
                             Agregue una nueva especialidad al sistema
                         </p>
                     </section>
-        
-                    <section class="contenedor__formulario__especialidades">
-                        <form th:action="@{/registro-especialidad}" method="post" class="formulario__registro" th:object="${especialidad}" novalidate>
+
+                    <section class="main__section-form">
+                        <form th:action="@{/registro-especialidad}" method="post" class="form" th:object="${especialidad}" novalidate>
                             <input type="hidden" th:field="*{id}">
-                            <div class="formulario__section__input">
-                                <div class="section__input__main">
-                                    <div class="contenedor__input contenedor__input__sp2">
-                                        <input type="text" class="input" id="nombreEspecialidad" placeholder="" th:field="*{descripcion}">
-                                        <label for="nombreEspecialidad" class="input__label">Especialidad</label>
-                                        <p class="input__error" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></p>
+
+                            <div class="form__section">
+                                <div class="form__inputs-section">
+                                    <div class="form__group form__group--spc-2">
+                                        <input type="text" class="form__input" id="nombreEspecialidad" placeholder="" th:field="*{descripcion}">
+                                        <label for="nombreEspecialidad" class="form__label">Especialidad</label>
+                                        <p class="form__paragraph--error" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="formulario__section__button">
+
+                            <div class="form__actions">
                                 <button type="submit" class="btn btn__primary">Agregar</button>
                             </div>
+
                         </form>
                     </section>
+                </div>
 
-                    <section class="contenedor__titulo__principal">
-                        <h2 class="titulo__principal">
+                <div class="main__section">
+                    <section class="main__section__title">
+                        <h2 class="main__title">
                             Especialidades registradas
                         </h2>
-                        <p class="descripcion__principal">
+                        <p class="main__subtitle">
                             Estas son las especialidades que han sido registradas
                         </p>
                     </section>
-
-                    <section class="contenedor__listado__registros">
-                        <div class="contenedor__listado">
-                            <div class="lista__elemento" th:each="especialidad : ${listaEspecialidades}">
+    
+                    <section class="main__section-list">
+                        <div class="main__list">
+                            <div class="list__item" th:each="especialidad : ${listaEspecialidades}">
                                 <input type="hidden" th:value="${especialidad.getId()}" name="idEspecialidad">
+
                                 <a href="/" th:href="@{/buscar-especialidad/{id}(id=${especialidad.getId()})}" class="btn btn__lista__elemento">
-                                    <span class="lista__elemento__icono">
+
+                                    <span class="list__icon-box">
                                         <i class="fa-solid fa-pencil"></i>
                                     </span>
+
                                     <span th:text="${especialidad.getDescripcion()}"></span>
                                 </a>
+
                             </div>
                         </div>
                     </section>
                 </div>
-
-                <div class="contenedor__especialidades__section">
-                    <aside class="aside__ultimos__registros">
-                        <h2 class="ultimas__especialidades__titulo">
-                            Últimas especialidades ingresadas
-                        </h2>
-                        <div class="contenedor__especialidades__ingresadas">
-                            <div class="especialidad__ingresada" th:each="ultEspecialidad : ${listaUltEspecialidades}">
-                                <p class="especialidad__ingresada__nombre" th:text="${ultEspecialidad.getDescripcion()}">ABCDEF</p>
-                                <p class="especialidad__ingresada__fechaRegistro" th:text="${ultEspecialidad.getFechaRegistro()}">01-01-1990</p>
-                            </div>
-                        </div>
-                    </aside>
-                </div>
             </div>
+
+            <div class="main__container">
+                <aside class="main__aside">
+                    <h2 class="aside__title">
+                        Últimas especialidades ingresadas
+                    </h2>
+                    <div class="aside__list">
+                        <div class="aside__item" th:each="ultEspecialidad : ${listaUltEspecialidades}">
+                            <p class="aside__item-name" th:text="${ultEspecialidad.getDescripcion()}">ABCDEF</p>
+                            <p class="aside__item-date" th:text="${ultEspecialidad.getFechaRegistro()}">01-01-1990</p>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
         </div>
     </main>
 

@@ -1,6 +1,6 @@
-.contenedor__principal__configuracionHorarios {
-    min-height: calc(100vh - 100px - 115px);
-    min-width: 0;
+.main__section-form {
+    --width: 100%;
+    --max-width: 800px;
 }
 
 .contenedor__sections {
@@ -132,10 +132,6 @@
 
 label {
     cursor: pointer;
-}
-
-label::selection {
-    background-color: transparent;
 }
 
 @media screen and (max-width: 950px) {
