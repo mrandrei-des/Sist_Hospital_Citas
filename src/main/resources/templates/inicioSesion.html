@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css" th:href="@{/css/compartidos/styles_fonts.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css" th:href="@{/css/compartidos/styles_inputs.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css" th:href="@{/css/compartidos/styles_buttons.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_header.css" th:href="@{/css/compartidos/styles_header.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_footer.css" th:href="@{/css/compartidos/styles_footer.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_text.css" th:href="@{/css/compartidos/styles_text.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_main_logout.css" th:href="@{/css/compartidos/styles_main_logout.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_form.css" th:href="@{/css/compartidos/styles_form.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css" th:href="@{/css/compartidos/styles_notificaciones.css}">
 
     <link rel="stylesheet" href="../static/css/inicioSesion.css" th:href="@{/css/inicioSesion.css}">
 </head>
@@ -19,68 +21,62 @@
     <div th:replace="~{fragments::header(mostrarOpcionesMenu=${false}, nombreUsuario=${''})}"></div>
     <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${tipoNotificacion}, ${titulo}, ${detalle})}"></div>
 
-    <div class="contenedor__mensaje--error" id="contenedorMensaje" th:if="${mostrarError}">
-        <div class="contenedor__mensaje__img">
-            <img src="../static/img/errorUsuario.png" th:src="@{/img/errorUsuario.png}" alt="Ilustración guarda seguridad" class="mensaje__img">
-        </div>
-        <div class="contenedor__mensaje__texto">
-            <p class="parrafo">¡El usuario y/o la contraseña no son válidos!</p>
-        </div>
-    </div>
-
-    <main class="main__wrapper">
-        <div class="contenedor__formulario__login">
-            <div class="contenedor__formulario__input__area">
-                <form th:action="@{/login}" method="post" class="formulario__login">
-                    <div class="formulario__logo">
-                        <img th:src="@{/img/hospital.png}" src="../static/img/hospital.png" alt="Sticker de un hospital" class="img__logo">
-                        <p class="nombre__sistema">Hospital MR</p>
+    <main class="main">
+        <div class="main__content">
+            <div class="main__login-content">
+                <section class="main__section-content">
+                    <div class="main__img">
+                        <img th:src="@{/img/hospital.png}" src="../static/img/hospital.png" alt="Sticker de un hospital" class="form__img">
+                        <p class="form__brand-name">Hospital MR</p>
                     </div>
-
-                    <div class="formulario__login__titulo">
-                        <h2 class="formulario__titulo">
-                            Hola, 
-                        </h2>
-                        <h2 class="formulario__titulo">
-                            Bienvenido de nuevo
-                        </h2>
-                    </div>
-
-                    <div class="formulario__inputs">
-                        <div class="contenedor__input">
-                            <input type="email" class="input" id="username" name="username" placeholder="">
-                            <label for="username" class="input__label">Usuario</label>
-                            <!-- <p class="input__error" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></p> -->
+                </section>
+    
+                <section class="main__section-content">
+                    <h2 class="main__title">
+                        Hola, 
+                    </h2>
+                    <h2 class="main__title">
+                        Bienvenido de nuevo
+                    </h2>
+                </section>
+    
+                <section class="main__section-content">
+                    <form th:action="@{/login}" method="post" class="form">
+                        <div class="form__inputs-section">
+                            <div class="form__group form__group--spc-2">
+                                <input type="email" class="form__input" id="username" name="username" placeholder="">
+                                <label for="username" class="form__label">Usuario</label>
+                                <!-- <p class="input__error" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></p> -->
+                            </div>
+                            <div class="form__group form__group--spc-2">
+                                <input type="password" class="form__input" id="password" name="password" placeholder="">
+                                <label for="password" class="form__label">Contraseña</label>
+                                <!-- <p class="input__error" th:if="${#fields.hasErrors('contrasenna')}" th:errors="*{contrasenna}"></p> -->
+                            </div>
+                            <div class="contenedor__olvido__contrasenna">
+                                <a th:href="@{/recuperarContrasenna}"  class="main__link">¿Olvidó su contraseña?</a>
+                            </div>
                         </div>
-                        <div class="contenedor__input">
-                            <input type="password" class="input" id="password" name="password" placeholder="">
-                            <label for="password" class="input__label">Contraseña</label>
-                            <!-- <p class="input__error" th:if="${#fields.hasErrors('contrasenna')}" th:errors="*{contrasenna}"></p> -->
+    
+                        <div class="form__actions">
+                            <button type="submit" class="btn btn__primary">Ingresar</button>
                         </div>
-                        <div class="contenedor__olvido__contrasenna">
-                            <a th:href="@{/recuperarContrasenna}"  class="enlace enlace__cambio__contrasenna">¿Olvidó su contraseña?</a>
-                        </div>
-                    </div>
+                    </form>
+                </section>
 
-                    <div class="formulario__botones">
-                        <button type="submit" class="btn btn__primary">Ingresar</button>
-                    </div>
-
-                    <div class="contenedor__crear__cuenta">
-                        <p class="formulario__parrafo formulario__parrafo--center">¿Aún no tiene una cuenta? <a th:href="@{/registrarPaciente}"  class="enlace">Registrarme</a></p>
-                    </div>
-                </form>
+                <section class="main__section-content">
+                    <p class="main__link-paragraph">¿Aún no tiene una cuenta? <a th:href="@{/registrarPaciente}"  class="main__link">Registrarme</a></p>
+                </section>
             </div>
 
-            <div class="contenedor__formulario__img__area">
-                <img th:src="@{/img/doctor_login.jpg}" src="../static/img/doctor_login.jpg" alt="Ilustración de un doctor" class="formulario__img">
+            <div class="main__banner-container">
+                <img th:src="@{/img/doctor_login.jpg}" src="../static/img/doctor_login.jpg" alt="Ilustración de un doctor" class="main__banner">
             </div>
         </div>        
     </main>
 
     <div th:replace="~{fragments::footer}"></div>
 
-    <script src="../static/js/mensajesNotificaciones.js" th:src="@{/js/mensajesNotificaciones.js}"></script>
     <script src="../static/js/notificaciones.js" th:src="@{/js/notificaciones.js}"></script>
     <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
 </body>

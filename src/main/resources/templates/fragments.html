@@ -41,7 +41,7 @@
         </div>
     </header>
 
-    <div class="notification notification--warning" id="contenedorNotificacion" th:fragment="notificacion (mostrarNotificacion, tipoNotificacion, titulo, detalle)" th:if="${mostrarNotificacion}" th:classappend="${tipoNotificacion == 'success'} ? ' notification--success' : ' notification--warning'">
+    <div class="notification" id="contenedorNotificacion" th:fragment="notificacion (mostrarNotificacion, tipoNotificacion, titulo, detalle)" th:if="${mostrarNotificacion}" th:classappend="${tipoNotificacion == 'success'} ? ' notification--success' : ' notification--warning'">
         <div class="notification__container">
             <div class="notification__icon-box">
                 <span class="notification__icon">

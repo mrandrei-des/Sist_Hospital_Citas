@@ -128,7 +128,7 @@ public class UsuarioController {
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("usuario", usuarioDTO);
-            return "cambioContrasenna";
+            return "cambioContrasena";
         }
 
         //  PROCESAR EL CAMBIO DE LA CONTRASEÑA

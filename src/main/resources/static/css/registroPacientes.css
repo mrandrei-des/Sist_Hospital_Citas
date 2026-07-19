@@ -1,32 +1,6 @@
-body {
-    background-color: var(--primary-bg-color);
-    display: flex;
-    flex-direction: column;
-}
-
-.main__wrapper {
-    flex-grow: 2;
-    width: 100%;
-    background-color: var(--primary-bg-color);
-
-    padding: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.contenedor__principal__formulario {
-    width: 700px;
-    max-width: 1000px;
-    padding: 2rem;
-    border-radius: 8px;
-    background-color: var(--secondary-bg-color);
-
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    gap: 2rem;
-
+.main__content {
+    --width: 100%;
+    --max-width: 700px;
     animation: aparecer_abajo 1s ease-in-out 1 forwards;
 }
 
@@ -42,78 +16,7 @@ body {
     }
 }
 
-/*** INICIO formulario__row__section TÍTULO ***/
-
-.formulario__titulo {
-    font-size: clamp(1.25rem, 1.5vw, 1.5rem);
-    font-weight: 800;
-}
-
-/*** FIN formulario__row__section TÍTULO ***/
-
-/*** INICIO Formulario ***/
-
-.formulario {
-    display: grid;
-    grid-template-rows: repeat(3, auto);
-    gap: 1rem;
-}
-
-.section__input__encabezado {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px;
-}
-
-.section__input__parrafo {
-    font-size: 1rem;
-}
-
-.section__input__parrafo strong {
-    color: var(--secondary-color);
-    font-weight: 800;
-}
-
-.section__input__main {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-}
-
-.contenedor__input__sp2 {
-    grid-column: span 2;
-}
-
-/*** FIN Formulario ***/
-
-/*** INICIO formulario__row__section Inicio Sesión ***/
-.formulario__row__section .parrafo__inicioSesion {
+.main__section-content:last-child {
+    margin-top: 1.5rem;
     text-align: center;
-}
-
-.formulario__enlace {
-    font-size: .8rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    transition: color .2s ease-in-out;
-}
-
-.formulario__enlace:hover {
-    color: var(--primary-hover-color);
-}
-
-/*** FIN formulario__row__section Inicio Sesión ***/
-
-@media screen and (max-width: 600px) {
-    .main__wrapper {
-        padding: 2rem 1rem;
-    }
-
-    .section__input__main {
-        grid-template-columns: 1fr;
-    }
-
-    .contenedor__input__sp2 {
-        grid-column: span 1;
-    }
 }

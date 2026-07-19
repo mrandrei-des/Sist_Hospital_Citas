@@ -1,24 +1,23 @@
-/* .parrafo {
-    font-size: .8rem;
+.main__title {
+    font-size: clamp(1.25rem, 1.3vw, 1.4rem);
+    font-weight: 700;
+    color: var(--primary-hover-color);
 }
 
-.parrafo__formulario {
-    font-weight: 600;
-    color: var(--text-neutro-color);
-    text-wrap: wrap;
-} */
-
-.formulario__parrafo {
+.main__link-paragraph {
     font-size: .8rem;
     font-weight: 600;
     color: var(--text-neutro-color);
     text-wrap: wrap;
 }
 
-.formulario__parrafo--center {
-    text-align: center;
+.main__link {
+    font-size: .8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    transition: color .2s ease-in-out;
 }
 
-label::selection {
-    background-color: transparent;
+.main__link:hover {
+    color: var(--primary-hover-color);
 }

@@ -7,136 +7,139 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css" th:href="@{/css/compartidos/styles_fonts.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css" th:href="@{/css/compartidos/styles_inputs.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css" th:href="@{/css/compartidos/styles_buttons.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_text.css" th:href="@{/css/compartidos/styles_text.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_header.css" th:href="@{/css/compartidos/styles_header.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_main_logout.css" th:href="@{/css/compartidos/styles_main_logout.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_footer.css" th:href="@{/css/compartidos/styles_footer.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_form.css" th:href="@{/css/compartidos/styles_form.css}">
 
     <link rel="stylesheet" href="../static/css/registroPacientes.css" th:href="@{/css/registroPacientes.css}">
 </head>
 <body>
-
     <div th:replace="~{fragments::header(mostrarOpcionesMenu=${false}, nombreUsuario=${''})}"></div>
 
-    <main class="main__wrapper">
-        <div class="contenedor__principal__formulario">
-            <section class="formulario__row__section">
-                <h2 class="formulario__titulo" th:text="${cuentaNueva.getId() == null} ? 'Crear una cuenta' : 'Modificar datos'">
+    <main class="main">
+        <div class="main__content">
+            <section class="main__section-content">
+                <h2 class="main__title" th:text="${cuentaNueva.getId() == null} ? 'Crear una cuenta' : 'Modificar datos'">
                     Crear una cuenta
                 </h2>
             </section>
-            <section class="formulario__row__section">
-                <form th:action="@{/cuentaNueva}" method="post" class="formulario" th:object="${cuentaNueva}" novalidate>
+
+            <section class="main__section-content">
+                <form th:action="@{/cuentaNueva}" method="post" class="form" th:object="${cuentaNueva}" novalidate>
                     <input type="hidden" th:if="${esUnPaciente == 'S'}" th:field="*{rol.id}">
                     <input type="hidden" name="origenPeticion" th:value="${esUnPaciente}">
 
-                    <div class="formulario__section__input">
-                        <div class="section__input__encabezado">
-                            <p class="section__input__parrafo">
-                                <span class="section__input__icon">
+                    <div class="form__section">
+                        <div class="form__legend-section">
+                            <p class="form__legend">
+                                <span class="form__icon-box">
                                     <i class="fa-solid fa-user-injured"></i>
                                 </span>
-                                Datos Personales Titular
+                                Datos Personales Paciente
                             </p>
-                            <p class="section__input__parrafo">
-                                Paso <strong>1</strong> de 3
+                            <p class="form__legend">
+                                Paso <strong class="form__step-counter">1</strong> de 3
                             </p>
                         </div>
-                        <div class="section__input__main">
-                            <div class="contenedor__input">
-                                <select id="tipoIdentificacion" class="input" th:field="*{tipoIdentificacion.id}">
+                        <div class="form__inputs-section">
+                            <div class="form__group">
+                                <select id="tipoIdentificacion" class="form__input" th:field="*{tipoIdentificacion.id}">
                                     <option th:each="tipoIdentificacion : ${listaTipoIdentificacion}" th:value="${tipoIdentificacion.getId()}" th:text="${tipoIdentificacion.getDescripcion()}">Rol</option>
                                 </select>
-                                <label for="tipoIdentificacion" class="input__label">Tipo Identificación</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('tipoIdentificacion.id')}" th:errors="*{tipoIdentificacion.id}"></p>
+                                <label for="tipoIdentificacion" class="form__label">Tipo Identificación</label>
+                                <p class="form__paragraph--error" th:if="${#fields.hasErrors('tipoIdentificacion.id')}" th:errors="*{tipoIdentificacion.id}"></p>
                             </div>
-                            <div class="contenedor__input">
-                                <input type="text" class="input" id="identificacion" placeholder="" th:field="*{identificacion}">
-                                <label for="identificacion" class="input__label">Identificación</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('identificacion')}" th:errors="*{identificacion}"></p>
+                            <div class="form__group">
+                                <input type="text" class="form__input" id="identificacion" placeholder="" th:field="*{identificacion}">
+                                <label for="identificacion" class="form__label">Identificación</label>
+                                <p class="form__paragraph--error" th:if="${#fields.hasErrors('identificacion')}" th:errors="*{identificacion}"></p>
                             </div>
-                            <div class="contenedor__input contenedor__input__sp2">
-                                <input type="text" class="input" id="nombre" placeholder="" th:field="*{nombre}">
-                                <label for="nombre" class="input__label">Nombre</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
+                            <div class="form__group form__group--spc-2">
+                                <input type="text" class="form__input" id="nombre" placeholder="" th:field="*{nombre}">
+                                <label for="nombre" class="form__label">Nombre</label>
+                                <p class="form__paragraph--error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
                             </div>
-                            <div class="contenedor__input">
-                                <input type="text" class="input" id="primerApellido" placeholder="" th:field="*{primerApellido}">
-                                <label for="primerApellido" class="input__label">Primer Apellido</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('primerApellido')}" th:errors="*{primerApellido}"></p>
+                            <div class="form__group">
+                                <input type="text" class="form__input" id="primerApellido" placeholder="" th:field="*{primerApellido}">
+                                <label for="primerApellido" class="form__label">Primer Apellido</label>
+                                <p class="form__paragraph--error" th:if="${#fields.hasErrors('primerApellido')}" th:errors="*{primerApellido}"></p>
                             </div>
-                            <div class="contenedor__input">
-                                <input type="text" class="input" id="segundoApellido" placeholder="" th:field="*{segundoApellido}">
-                                <label for="segundoApellido" class="input__label">Segundo Apellido</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('segundoApellido')}" th:errors="*{segundoApellido}"></p>
+                            <div class="form__group">
+                                <input type="text" class="form__input" id="segundoApellido" placeholder="" th:field="*{segundoApellido}">
+                                <label for="segundoApellido" class="form__label">Segundo Apellido</label>
+                                <p class="form__paragraph--error" th:if="${#fields.hasErrors('segundoApellido')}" th:errors="*{segundoApellido}"></p>
                             </div>
                         </div>
                     </div>
-                    <div class="formulario__section__input">
-                        <div class="section__input__encabezado">
-                            <p class="section__input__parrafo">
-                                <span class="section__input__icon">
+
+                    <div class="form__section">
+                        <div class="form__legend-section">
+                            <p class="form__legend">
+                                <span class="form__icon-box">
                                     <i class="fa-solid fa-phone-flip"></i>
                                 </span>
                                 Datos para Contacto
                             </p>
-                            <p class="section__input__parrafo">
-                                Paso <strong>2</strong> de 3
+                            <p class="form__legend">
+                                Paso <strong class="form__step-counter">2</strong> de 3
                             </p>
                         </div>
-                        <div class="section__input__main">
-                            <div class="contenedor__input contenedor__input__sp2">
-                                <input type="email" class="input" id="correo" placeholder="" th:field="*{correoElectronico}">
-                                <label for="correo" class="input__label">Correo</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('correoElectronico')}" th:errors="*{correoElectronico}"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="formulario__section__input">
-                        <div class="section__input__encabezado">
-                            <p class="section__input__parrafo">
-                                <span class="section__input__icon">
-                                    <i class="fa-solid fa-lock"></i>
-                                </span>
-                                Datos para Acceso
-                            </p>
-                            <p class="section__input__parrafo">
-                                Paso <strong>3</strong> de 3
-                            </p>
-                        </div>
-                        <div class="section__input__main">
-                            <div class="contenedor__input contenedor__input__sp2">
-                                <input type="password" class="input" id="password" placeholder="" th:field="*{contrasennaHash}">
-                                <label for="password" class="input__label">Contraseña</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('contrasennaHash')}" th:errors="*{contrasennaHash}"></p>
-                            </div>
-                            <div class="contenedor__input contenedor__input__sp2" th:if="${esUnPaciente == 'N'}">
-                                <select id="rolUsuario" class="input" th:field="*{rol.id}">
-                                    <option th:each="rol : ${listaRoles}" th:value="${rol.getId()}" th:text="${rol.getDescripcion()}">Paciente</option>
-                                </select>
-                                <label for="rolUsuario" class="input__label">Rol Usuario</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('rol.id')}" th:errors="*{rol.id}"></p>
-                            </div>
-                            <div class="contenedor__input contenedor__input__sp2" th:if="${esUnPaciente == 'N'}">
-                                <select id="estadoUsuario" class="input" th:field="*{estado.id}">
-                                    <option th:each="estado : ${listaEstados}" th:value="${estado.getId()}" th:text="${estado.getDescripcion()}">Activo</option>
-                                </select>
-                                <label for="estadoUsuario" class="input__label">Estado Usuario</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('estado.id')}" th:errors="*{estado.id}"></p>
+                        <div class="form__inputs-section">
+                            <div class="form__group form__group--spc-2">
+                                <input type="email" class="form__input" id="correo" placeholder="" th:field="*{correoElectronico}">
+                                <label for="correo" class="form__label">Correo</label>
+                                <p class="form__paragraph--error" th:if="${#fields.hasErrors('correoElectronico')}" th:errors="*{correoElectronico}"></p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="formulario__section__input formulario__section__button">
+                    <div class="form__section">
+                        <div class="form__legend-section">
+                            <p class="form__legend">
+                                <span class="form__icon-box">
+                                    <i class="fa-solid fa-lock"></i>
+                                </span>
+                                Datos para Acceso
+                            </p>
+                            <p class="form__legend">
+                                Paso <strong class="form__step-counter">3</strong> de 3
+                            </p>
+                        </div>
+                        <div class="form__inputs-section">
+                            <div class="form__group form__group--spc-2">
+                                <input type="password" class="form__input" id="password" placeholder="" th:field="*{contrasennaHash}">
+                                <label for="password" class="form__label">Contraseña</label>
+                                <p class="form__paragraph--error" th:if="${#fields.hasErrors('contrasennaHash')}" th:errors="*{contrasennaHash}"></p>
+                            </div>
+                            <div class="form__group form__group--spc-2" th:if="${esUnPaciente == 'N'}">
+                                <select id="rolUsuario" class="form__input" th:field="*{rol.id}">
+                                    <option th:each="rol : ${listaRoles}" th:value="${rol.getId()}" th:text="${rol.getDescripcion()}">Paciente</option>
+                                </select>
+                                <label for="rolUsuario" class="form__label">Rol Usuario</label>
+                                <p class="form__paragraph--error" th:if="${#fields.hasErrors('rol.id')}" th:errors="*{rol.id}"></p>
+                            </div>
+                            <div class="form__group form__group--spc-2" th:if="${esUnPaciente == 'N'}">
+                                <select id="estadoUsuario" class="form__input" th:field="*{estado.id}">
+                                    <option th:each="estado : ${listaEstados}" th:value="${estado.getId()}" th:text="${estado.getDescripcion()}">Activo</option>
+                                </select>
+                                <label for="estadoUsuario" class="form__label">Estado Usuario</label>
+                                <p class="form__paragraph--error" th:if="${#fields.hasErrors('estado.id')}" th:errors="*{estado.id}"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form__actions">
                         <button type="submit" class="btn btn__primary">Crear cuenta</button>
                     </div>
-                    
                 </form>
             </section>
-            <section class="formulario__row__section" th:if="${esUnPaciente == 'S'}">
-                <p class="formulario__parrafo formulario__parrafo--center">
-                    ¿Ya tienes una cuenta? <a th:href="@{/}" class="formulario__enlace">Inicia Sesión</a>
+
+            <section class="main__section-content" th:if="${esUnPaciente == 'S'}">
+                <p class="main__link-paragraph">
+                    ¿Ya tienes una cuenta? <a th:href="@{/}" class="main__link">Inicia Sesión</a>
                 </p>
             </section>
         </div>

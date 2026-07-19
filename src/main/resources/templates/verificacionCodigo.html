@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" lang="es" xmlns="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,53 +10,62 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css" th:href="@{/css/compartidos/styles_inputs.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css" th:href="@{/css/compartidos/styles_buttons.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_text.css" th:href="@{/css/compartidos/styles_text.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_main_logout.css" th:href="@{/css/compartidos/styles_main_logout.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_form.css" th:href="@{/css/compartidos/styles_form.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css" th:href="@{/css/compartidos/styles_notificaciones.css}">
 
     <link rel="stylesheet" href="../static/css/verificacionCodigo.css" th:href="@{/css/verificacionCodigo.css}">
 </head>
 <body>
-    <!-- NOTIFICACIÓN DE CÓDIGO ENVIADO -->
+
     <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${tipoNotificacion}, ${titulo}, ${detalle})}"></div>
     
-    <main class="main__wrapper">
-        <div class="contenedor__principal__formulario">
-            <form th:action="@{/procesarVerificacion}" method="post" class="formulario__reset" th:object="${codigoOTP}" novalidate>
-                <input type="hidden" name="correo" th:value="${correo}">
-                <section class="formulario__row__section">
-                    <h2 class="formulario__titulo">
-                        Verificación de Código
-                    </h2>
-                </section>
-                <section class="formulario__row__section">
-                    <div class="formulario__section__input">
-                        <div class="section__input__encabezado">
-                            <p class="section__input__parrafo">
+    <main class="main">
+        <div class="main__content">
+            <section class="main__section-content">
+                <h2 class="main__title">
+                    Verificación de Código
+                </h2>
+            </section>
+
+            <section class="main__section-content">
+                <form th:action="@{/procesarVerificacion}" method="post" class="form" th:object="${codigoOTP}" novalidate>
+                    <input type="hidden" name="correo" th:value="${correo}">
+
+                    <section class="form__section">
+                        <div class="form__subtitle-section">
+                            <p class="form__legend">
                                 Ingrese el código recibido
                             </p>
                         </div>
-                        <div class="section__input__main">
-                            <div class="contenedor__input">
-                                <input type="text" class="input" id="codigo" placeholder="" th:field="*{codigoGenerado}" maxlength="6">
-                                <label for="codigo" class="input__label">Código</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('codigoGenerado')}" th:errors="*{codigoGenerado}"></p>
-                                <p class="input__error" th:if="${mostrarMensajeDeIncorrecto}">El código no es correcto. Inténtelo nuevamente.</p>
-                                <p class="input__error" th:if="${mostrarMensajeDeExpirado}">El código ha expirado.
-                                    <a th:href="@{/recuperarContrasenna}"  class="enlace enlace__cambio__contrasenna">Solicitar nuevo</a>
+                        <div class="form__inputs-section">
+                            <div class="form__group form__group--spc-2">
+                                <input type="text" class="form__input" id="codigo" placeholder="" th:field="*{codigoGenerado}" maxlength="6">
+                                <label for="codigo" class="form__label">Código</label>
+                                <p class="form__paragraph--error" th:if="${#fields.hasErrors('codigoGenerado')}" th:errors="*{codigoGenerado}"></p>
+                                <p class="form__paragraph--error" th:if="${mostrarMensajeDeIncorrecto}">El código no es correcto. Inténtelo nuevamente.</p>
+                                <p class="form__paragraph--error" th:if="${mostrarMensajeDeExpirado}">El código ha expirado.
+                                    <a th:href="@{/recuperarContrasenna}"  class="main__link">Solicitar nuevo</a>
                                 </p>
                             </div>
                         </div>
-                    </div>
-                </section>
-                <section class="formulario__row__section" th:if="${!mostrarMensajeDeExpirado}">
-                    <button type="submit" class="btn btn__primary">Verificar</button>
-                </section>
-                <section class="formulario__row__section formulario__row__section--mensaje" th:if="${!mostrarMensajeDeExpirado}">
-                    <p class="parrafo parrafo__formulario parrafo__formulario--mensaje">
-                        ¿No recibió el código de seguridad?
-                    </p>
-                    <button type="submit" class="btn--enlace" th:formaction="@{/reenviarCodigoReset}">Reenviar código</button>
-                </section>
-            </form>
+                    </section>
+
+                    <section class="form__actions" th:if="${!mostrarMensajeDeExpirado}">
+                        <button type="submit" class="btn btn__primary">Verificar</button>
+                    </section>
+
+                    <section class="form__footer" th:if="${!mostrarMensajeDeExpirado}">
+                        <p class="form__paragraph">
+                            ¿No recibió el código de seguridad?
+                        </p>
+                        <button type="submit" class="btn--enlace" th:formaction="@{/reenviarCodigoReset}">Reenviar código</button>
+                    </section>
+
+                </form>
+            </section>
+
         </div>
     </main>
     <script src="../static/js/notificaciones.js" th:src="@{/js/notificaciones.js}"></script>

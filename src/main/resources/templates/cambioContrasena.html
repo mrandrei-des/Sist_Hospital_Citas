@@ -9,39 +9,46 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css" th:href="@{/css/compartidos/styles_inputs.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css" th:href="@{/css/compartidos/styles_buttons.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_text.css" th:href="@{/css/compartidos/styles_text.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_main_logout.css" th:href="@{/css/compartidos/styles_main_logout.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_form.css" th:href="@{/css/compartidos/styles_form.css}">
 
     <link rel="stylesheet" href="../static/css/cambioContrasenna.css" th:href="@{/css/cambioContrasenna.css}">
 </head>
 <body>
-    <main class="main__wrapper">
-        <div class="contenedor__principal__formulario">
-            <form th:action="@{/procesarCambioContrasenna}" method="post" class="formulario__reset" th:object="${usuario}" novalidate>
-                <input type="hidden" th:field="*{correo}">
-                <section class="formulario__row__section">
-                    <h2 class="formulario__titulo">
-                        Cambio de Contraseña
-                    </h2>
-                </section>
-                <section class="formulario__row__section">
-                    <div class="formulario__section__input">
-                        <div class="section__input__encabezado">
-                            <p class="section__input__parrafo">
+    <main class="main">
+        <div class="main__content">
+            <section class="main__section-content">
+                <h2 class="main__title">
+                    Cambio de Contraseña
+                </h2>
+            </section>
+
+            <section class="main__section-content">
+                <form th:action="@{/procesarCambioContrasenna}" method="post" class="form" th:object="${usuario}" novalidate>
+                    <input type="hidden" th:field="*{correo}">
+
+                    <section class="form__section">
+                        <div class="form__subtitle-section">
+                            <p class="form__legend">
                                 Ingrese la nueva contraseña
                             </p>
                         </div>
-                        <div class="section__input__main">
-                            <div class="contenedor__input">
-                                <input type="password" class="input" id="contrasenna" placeholder="" th:field="*{contrasenna}">
-                                <label for="contrasenna" class="input__label">Contraseña Nueva</label>
-                                <p class="input__error" th:if="${#fields.hasErrors('contrasenna')}" th:errors="*{contrasenna}"></p>
+                        <div class="form__inputs-section">
+                            <div class="form__group form__group--spc-2">
+                                <input type="password" class="form__input" id="contrasenna" placeholder="" th:field="*{contrasenna}">
+                                <label for="contrasenna" class="form__label">Contraseña Nueva</label>
+                                <p class="form__paragraph--error" th:if="${#fields.hasErrors('contrasenna')}" th:errors="*{contrasenna}"></p>
                             </div>
                         </div>
-                    </div>
-                </section>
-                <section class="formulario__row__section">
-                    <button type="submit" class="btn btn__primary">Cambiar Contraseña</button>
-                </section>
-            </form>
+                    </section>
+
+                    <section class="form__actions">
+                        <button type="submit" class="btn btn__primary">Cambiar Contraseña</button>
+                    </section>
+                </form>
+
+            </section>
         </div>
     </main>
 </body>
