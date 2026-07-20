@@ -15,7 +15,7 @@
 .main__content {
     grid-area: principal;
     z-index: 5;
-    min-width: 0;
+    min-width: fit-content;
     min-height: calc(100vh - 100px - 115px);
 
     display: grid;
@@ -35,6 +35,19 @@
     border-radius: 8px;
     height: fit-content;
     min-width: 0;
+    animation: aparecer_abajo 1s ease-in-out 1 forwards;
+}
+
+@keyframes aparecer_abajo {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .main__container--spc-5 {
@@ -64,7 +77,11 @@
     min-width: 0;
 }
 
-.main__section:nth-child(odd) {
+.main__section-table {
+    overflow-x: auto;
+}
+
+.main__section:nth-child(odd):has(+.main__section) {
     margin-bottom: 1.5rem;
 }
 

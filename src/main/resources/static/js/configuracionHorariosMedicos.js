@@ -54,7 +54,7 @@ inpHoraInicio.addEventListener('change', ()=> {
         
         if(mostrarMensaje) {
             const parrafo = document.createElement('p');
-            parrafo.classList.add('input__error');
+            parrafo.classList.add('form__paragraph--error');
             parrafo.textContent = tipoMensaje == 'superior' ? '¡La hora de inicio no pueder ser mayor a la hora fin!' : '¡La hora de inicio debe ser inferior a la hora de fin!';
             btnGuardar.setAttribute('disabled', true);
             contenedorMensajes.appendChild(parrafo);
@@ -94,7 +94,7 @@ inpHoraFin.addEventListener('change', ()=> {
         
         if(mostrarMensaje) {
             const parrafo = document.createElement('p');
-            parrafo.classList.add('input__error');
+            parrafo.classList.add('form__paragraph--error');
             parrafo.textContent = tipoMensaje == 'superior' ? '¡La hora de fin no pueder ser menor a la hora de inicio!' : '¡La hora de fin debe ser superior a la hora de inicio!';
             btnGuardar.setAttribute('disabled', true);
             contenedorMensajes.appendChild(parrafo);

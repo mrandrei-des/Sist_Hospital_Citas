@@ -1,109 +1,29 @@
-.contenedor__principal__cuenta {
-    min-height: calc(100vh - 100px - 115px);
-}
-
-.contenedor__cuenta__section {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
-
-.contenedor__section {
-    padding: 2rem;
-    box-shadow: 0 0 3px 0 var(--box-shadow-color);
-    border-radius: 8px;
-    height: fit-content;
-    flex-grow: 1;
-
-    display: flex;
-    flex-direction: column;
-}
-
-.contenedor__section:first-child {
-    max-width: 700px;
-}
-
-.contenedor__titulo__pefil {
-    padding: .5rem;
+.section__profile-picture-container {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
-.imagen__perfil {
+/* .profile__picture-container */
+
+/* .profile__picture */
+
+.profile__img {
     width: 70px;
     height: 70px;
-    border-radius: 50%;
-}
-
-.imagen__perfil img {
     object-fit: cover;
     object-position: center;
 }
 
-.contenedor__titulo__principal {
-    display: flex;
-    flex-direction: column;
-    gap: .25rem;
-}
-
-.titulo__principal {
-    font-size: clamp(1.25rem, 1.5vw, 1.5rem);
-    font-weight: 800;
-}
-
-.descripcion__principal {
-    font-size: .9rem;
-    color: var(--text-neutro-color);
-}
-
-.contenedor__formulario__medicos {
-    max-width: 600px;
-}
-
-.formulario__registro {
-    display: grid;
-    grid-template-rows: repeat(4, auto);
-    gap: 1rem;
-}
-
-.formulario__section__input {
-    display: flex;
-    flex-direction: column;
-}
-
-.section__input__encabezado {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px;
-}
-
-.section__input__parrafo {
-    font-size: 1rem;
-}
-
-.section__input__main {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-}
-
-.contenedor__input__sp2 {
-    grid-column: span 2;
-}
+/* .profile-info-container */
 
 @media screen and (max-width: 1050px) {
-    .contenedor__formulario__cuenta {
-        min-width: none;
-    }
-
-    .section__input__main {
+    .main__content {
         grid-template-columns: 1fr;
     }
 
-    .contenedor__input__sp2 {
+    .form__group--spc-2 {
         grid-column: span 1;
     }
 }

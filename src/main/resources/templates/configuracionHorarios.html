@@ -27,138 +27,140 @@
         <aside th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></aside>
 
         <div class="main__content">
-            <div class="contenedor__principal__configuracionHorarios">
-                <section class="contenedor__sections">
-                    <div class="contenedor__section">
 
-                        <section class="contenedor__titulo__horario">
-                            <div class="contenedor__titulo__principal">
-                                <h2 class="titulo__principal">
-                                    Configuración de horario médico
-                                </h2>
-                                <p class="descripcion__principal">
-                                    Establezca el horario de atención del médico
-                                </p>
+            <div class="main__container main__container--spc-3">
+                <div class="main__section">
+                    <section class="main__section-title">
+                        <h2 class="main__title">
+                            Configuración de horario médico
+                        </h2>
+                        <p class="main__subtitle">
+                            Establezca el horario de atención del médico
+                        </p>
+                    </section>
+
+                    <section class="main__section-form">
+                        <form th:action="@{/procesar-horario-medico}" method="post" class="form" th:object="${horario}" novalidate>
+                            <input type="hidden" th:field="*{id}">
+    
+                            <div class="form__section">
+                                <div class="form__legend-section">
+                                    <p class="form__legend">
+                                        <span class="form__icon-box">
+                                            <i class="fa-solid fa-user-doctor"></i>
+                                        </span>
+                                        Datos del Médico
+                                    </p>
+                                    <p class="form__legend">
+                                        Paso <strong class="form__step-counter">1</strong> de 3
+                                    </p>
+                                </div>
+                                <div class="form__inputs-section">
+                                    <div class="form__group">
+                                        <select id="especialidades" class="form__input">
+                                            <option th:each="especialidad : ${listaEspecialidades}" th:value="${especialidad.getId()}" th:text="${especialidad.getDescripcion()}">Ortodoncia</option>
+                                        </select>
+                                        <label for="especialidad" class="form__label">Especialidad</label>
+                                    </div>
+                                    <div class="form__group">
+                                        <select id="idMedico" name="idMedico" class="form__input">
+                                            <option value="">Seleccione una especialidad</option>
+                                            <option th:if="${horario.getIdMedico() != null}" th:value="${horario.getIdMedico()}" th:text="${nombreMedicoSeleccionado}" selected></option>
+                                        </select>
+                                        <label for="idMedico" class="form__label">Médico</label>
+                                    </div>
+                                </div>
                             </div>
-                        </section>
-
-                        <section class="contenedor__section__formulario">
-                            <form th:action="@{/procesar-horario-medico}" method="post" class="formulario__registro__horarios" th:object="${horario}" novalidate>
-                                <input type="hidden" th:field="*{id}">
-                                <div class="formulario__section__input">
-                                    <div class="section__input__encabezado">
-                                        <p class="section__input__parrafo">
-                                            <span class="section__input__icon">
-                                                <i class="fa-solid fa-user-doctor"></i>
-                                            </span>
-                                            Datos del Médico
-                                        </p>
-                                        <p class="section__input__parrafo">
-                                            Paso <strong>1</strong> de 3
-                                        </p>
-                                    </div>
-                                    <div class="section__input__main">
-                                        <div class="contenedor__input">
-                                            <select id="especialidades" class="input">
-                                                <option th:each="especialidad : ${listaEspecialidades}" th:value="${especialidad.getId()}" th:text="${especialidad.getDescripcion()}">Ortodoncia</option>
-                                            </select>
-                                            <label for="especialidad" class="input__label">Especialidad</label>
-                                        </div>
-                                        <div class="contenedor__input">
-                                            <select id="idMedico" name="idMedico" class="input">
-                                                <option value="">Seleccione una especialidad</option>
-                                                <option th:if="${horario.getIdMedico() != null}" th:value="${horario.getIdMedico()}" th:text="${nombreMedicoSeleccionado}" selected></option>
-                                            </select>
-                                            <label for="idMedico" class="input__label">Médico</label>
-                                        </div>
-                                    </div>
+    
+                            <div class="form__section">
+                                <div class="form__legend-section">
+                                    <p class="form__legend">
+                                        <span class="form__icon-box">
+                                            <i class="fa-solid fa-calendar-days"></i>
+                                        </span>
+                                        Días de atención
+                                    </p>
+                                    <p class="form__legend">
+                                        Paso <strong class="form__step-counter">2</strong> de 3
+                                    </p>
                                 </div>
-                                <div class="formulario__section__input">
-                                    <div class="section__input__encabezado">
-                                        <div class="section__input__encabezado__titulo">
-                                            <p class="section__input__parrafo">
-                                                <span class="section__input__icon">
-                                                    <i class="fa-solid fa-calendar-days"></i>
-                                                </span>
-                                                Días de atención
-                                            </p>
-                                            <p class="section__input__parrafo">
-                                                Paso <strong>2</strong> de 3
-                                            </p>
-                                        </div>
-                                        <div class="section__input__encabezado__descripcion">
-                                            <p class="section__input__descripcion">Seleccione los días que comparten este horario</p>
-                                        </div>
-                                    </div>
-                                    <div class="section__input__main">
-                                        <div class="contenedor__input contenedor__input__sp2">
-                                            <div class="contenedor__input__inputs">
-                                                <div class="input__checkbox">
-                                                    <input type="checkbox" name="diasSemana" id="diaSemanaLunes" value="1" th:field="*{diasSemana}">
-                                                    <label for="diaSemanaLunes">Lunes</label>
-                                                </div>
-                                                
-                                                <div class="input__checkbox">
-                                                    <input type="checkbox" name="diasSemana" id="diaSemanaMartes" value="2" th:field="*{diasSemana}">
-                                                    <label for="diaSemanaMartes">Martes</label>
-                                                </div>
-                                                
-                                                <div class="input__checkbox">
-                                                    <input type="checkbox" name="diasSemana" id="diaSemanaMiercoles" value="3" th:field="*{diasSemana}">
-                                                    <label for="diaSemanaMiercoles">Miércoles</label>
-                                                </div>
-                                                
-                                                <div class="input__checkbox">
-                                                    <input type="checkbox" name="diasSemana" id="diaSemanaJueves" value="4" th:field="*{diasSemana}">
-                                                    <label for="diaSemanaJueves">Jueves</label>
-                                                </div>
-                                                
-                                                <div class="input__checkbox">
-                                                    <input type="checkbox" name="diasSemana" id="diaSemanaViernes" value="5" th:field="*{diasSemana}">
-                                                    <label for="diaSemanaViernes">Viernes</label>
-                                                </div>
+    
+                                <div class="form__help-container">
+                                    <p class="form__paragraph">Seleccione los días que comparten este horario</p>
+                                </div>
+    
+                                <div class="form__inputs-section">
+                                    <div class="form__group form__group--spc-2">
+                                        <div class="form__checkboxes-container">
+                                            <div class="form__group-checkbox">
+                                                <input type="checkbox" class="form__input-checkbox" name="diasSemana" id="diaSemanaLunes" value="1" th:field="*{diasSemana}">
+                                                <label for="diaSemanaLunes" class="form__label-checkbox">Lunes</label>
                                             </div>
-                                            <p class="input__error" th:if="${#fields.hasErrors('diasSemana')}" th:errors="*{diasSemana}"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="formulario__section__input">
-                                    <div class="section__input__encabezado">
-                                        <p class="section__input__parrafo">
-                                            <span class="section__input__icon">
-                                                <i class="fa-regular fa-clock"></i>
-                                            </span>
-                                            Horario de atención
-                                        </p>
-                                        <p class="section__input__parrafo">
-                                            Paso <strong>3</strong> de 3
-                                        </p>
-                                    </div>
-                                    <div class="section__input__main">
-                                        <div class="contenedor__input">
-                                            <input type="time" class="input" id="horaInicio" name="horaInicio" placeholder="" th:field="*{horaInicio}">
-                                            <label for="horaInicio" class="input__label">Hora Inicio</label>
-                                            <div class="input__contenedor__mensajes" id="contenedorMensajeHoraInicio">
-                                                <p class="input__error" th:if="${#fields.hasErrors('horaInicio')}" th:errors="*{horaInicio}"></p>
+                                            
+                                            <div class="form__group-checkbox">
+                                                <input type="checkbox" class="form__input-checkbox" name="diasSemana" id="diaSemanaMartes" value="2" th:field="*{diasSemana}">
+                                                <label for="diaSemanaMartes" class="form__label-checkbox">Martes</label>
+                                            </div>
+                                            
+                                            <div class="form__group-checkbox">
+                                                <input type="checkbox" class="form__input-checkbox" name="diasSemana" id="diaSemanaMiercoles" value="3" th:field="*{diasSemana}">
+                                                <label for="diaSemanaMiercoles" class="form__label-checkbox">Miércoles</label>
+                                            </div>
+                                            
+                                            <div class="form__group-checkbox">
+                                                <input type="checkbox" class="form__input-checkbox" name="diasSemana" id="diaSemanaJueves" value="4" th:field="*{diasSemana}">
+                                                <label for="diaSemanaJueves" class="form__label-checkbox">Jueves</label>
+                                            </div>
+                                            
+                                            <div class="form__group-checkbox">
+                                                <input type="checkbox" class="form__input-checkbox" name="diasSemana" id="diaSemanaViernes" value="5" th:field="*{diasSemana}">
+                                                <label for="diaSemanaViernes" class="form__label-checkbox">Viernes</label>
                                             </div>
                                         </div>
-                                        <div class="contenedor__input">
-                                            <input type="time" class="input" id="horaFin" name="horaFin" placeholder="" th:field="*{horaFin}">
-                                            <label for="horaFin" class="input__label">Hora Fin</label>
-                                            <div class="input__contenedor__mensajes" id="contenedorMensajeHoraFin">
-                                                <p class="input__error" th:if="${#fields.hasErrors('horaFin')}" th:errors="*{horaFin}"></p>
-                                            </div>
+                                        <p class="form__paragraph--error" th:if="${#fields.hasErrors('diasSemana')}" th:errors="*{diasSemana}"></p>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="form__section">
+                                <div class="form__legend-section">
+                                    <p class="form__legend">
+                                        <span class="form__icon-box">
+                                            <i class="fa-regular fa-clock"></i>
+                                        </span>
+                                        Horario de atención
+                                    </p>
+                                    <p class="form__legend">
+                                        Paso <strong class="form__step-counter">3</strong> de 3
+                                    </p>
+                                </div>
+                                <div class="form__inputs-section">
+                                    <div class="form__group">
+                                        <input type="time" class="form__input" id="horaInicio" name="horaInicio" placeholder="" th:field="*{horaInicio}">
+                                        <label for="horaInicio" class="form__label">Hora Inicio</label>
+                                        <div class="input__contenedor__mensajes" id="contenedorMensajeHoraInicio">
+                                            <p class="form__paragraph--error" th:if="${#fields.hasErrors('horaInicio')}" th:errors="*{horaInicio}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="form__group">
+                                        <input type="time" class="form__input" id="horaFin" name="horaFin" placeholder="" th:field="*{horaFin}">
+                                        <label for="horaFin" class="form__label">Hora Fin</label>
+                                        <div class="input__contenedor__mensajes" id="contenedorMensajeHoraFin">
+                                            <p class="form__paragraph--error" th:if="${#fields.hasErrors('horaFin')}" th:errors="*{horaFin}"></p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formulario__section__input formulario__section__button">
-                                    <button type="submit" class="btn btn__primary" id="btnGuardarHorario">Guardar horario</button>
-                                </div>
-                            </form>
-                        </section>
-                    </div>
-                </section>
+                            </div>
+    
+                            <div class="form__actions">
+                                <button type="submit" class="btn btn__primary" id="btnGuardarHorario">Guardar horario</button>
+                            </div>
+    
+                        </form>
+                    </section>
+                </div>
             </div>
+
         </div>
     </main>
 
