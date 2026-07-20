@@ -1,4 +1,3 @@
-
 /* .schedule */
 
 .schedule__title-container {
@@ -72,10 +71,5 @@
         flex-direction: column;
     }
 
-    .schedule__details {
-        /* grid-template-columns: repeat(5, 1fr); */
-    }
-}
-
-@media screen and (max-width: 660px) {
+    /* .schedule__details */
 }
