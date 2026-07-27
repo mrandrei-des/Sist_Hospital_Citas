@@ -13,9 +13,10 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_header.css" th:href="@{/css/compartidos/styles_header.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_footer.css" th:href="@{/css/compartidos/styles_footer.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_main_wrapper.css" th:href="@{/css/compartidos/styles_main_wrapper.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_form.css" th:href="@{/css/compartidos/styles_form.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css" th:href="@{/css/compartidos/styles_menu_lateral.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css" th:href="@{/css/compartidos/styles_notificaciones.css}">
-    <link rel="stylesheet" href="../static/css/compartidos/styles_tabla_registros.css" th:href="@{/css/compartidos/styles_tabla_registros.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_tabla.css" th:href="@{/css/compartidos/styles_tabla.css}">
     <link rel="stylesheet" href="../static/css/configuracionHorario.css" th:href="@{/css/configuracionHorario.css}">
 </head>
 <body>
@@ -198,7 +199,7 @@
             </nav>
         </aside>
 
-        <div class="main__content">
+        <div class="main__content" id="mainContent">
             <section class="contenedor__titulo__horario">
                 <div class="contenedor__titulo__principal">
                     <h2 class="titulo__principal">
@@ -209,12 +210,11 @@
                     </p>
                 </div>
             </section>
-
             <button id="btnCrear">Crear</button>
             <div class="contenedor__section__tabla">
                 <div class="contenedor__tabla__registros">
                     <form action="/" method="post">
-                        <table class="tabla__registros">
+                        <table class="table" id="tablaHorarios">
                             <thead>
                                 <tr>
                                     <th>idRegistro</th>
@@ -222,10 +222,11 @@
                                     <th>Día</th>
                                     <th>Hora Inicio</th>
                                     <th>Hora Fin</th>
+                                    <th>Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <!-- <tr>
                                     <td>
                                         <input type="hidden" id="id" name="id">
                                     </td>
@@ -308,12 +309,12 @@
                                     <td>
                                         <input type="time" id="horaFin" name="horaFin">
                                     </td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="5">
-                                        <button type="submit">Guardar Cambios</button>
+                                    <td colspan="6">
+                                        <button type="submit" class="btn btn__primary">Guardar Cambios</button>
                                     </td>
                                 </tr>
                             </tfoot>
@@ -334,5 +335,58 @@
 
     <script src="../static/js/menuLateral.js" th:src="@{/js/menuLateral.js}"></script>
     <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
+
+    <script>
+        // Cuando el usuario envia el form y el form regresa, capturar el evento del dom on loaded tomar el select del médico y revisar si tiene un valor procede a cargar
+
+        // Al seleccionar un médico, se busca la información, si procede se renderiza
+        const btnCrear = document.getElementById('btnCrear');
+        btnCrear.addEventListener('click', ()=> {
+            const mainContent = document.getElementById('mainContent');
+            const tablaRegistros = document.getElementById('tablaHorarios');
+            const tableBody = tablaRegistros.querySelector('tbody');
+
+            const selectEstado = document.createElement('select');
+            selectEstado.classList.add('form__input');
+            selectEstado.setAttribute('id', 'estadoHorario');
+            selectEstado.setAttribute('name', 'estadoHorario');
+            selectEstado.innerHTML = '<option value="4">Activo</option> <option value="3">Inactivo</option>'
+
+            if(tableBody.children.length > 0) tableBody.innerHTML = ''
+    
+            for (let index = 0; index < 5; index++) {
+                const trBody = document.createElement('tr');
+                let tdTr = document.createElement('td');
+                let selectEstadoClonado = selectEstado.cloneNode(true);
+                tdTr.innerHTML = '<input type="hidden" id="id" name="id">'
+                trBody.appendChild(tdTr);
+    
+                tdTr = document.createElement('td');
+                tdTr.innerHTML = '<input type="hidden" id="idDia" name="idDia">'
+                trBody.appendChild(tdTr);
+                
+                tdTr = document.createElement('td');
+                tdTr.innerHTML = 'Lunes ' + index;
+                trBody.appendChild(tdTr);
+                
+                // AGREGARLES UN EVENTO QUE AL CAMBIARSE QUE HAGAN LA VALIDACIÓN DE LAS HORAS
+                tdTr = document.createElement('td');
+                tdTr.innerHTML = '<input type="time" id="horaInicio" name="horaInicio" class="form__input">'
+                trBody.appendChild(tdTr);
+                
+                tdTr = document.createElement('td');
+                tdTr.innerHTML = '<input type="time" id="horaFin" name="horaFin" class="form__input">'
+                trBody.appendChild(tdTr);
+                
+                tdTr = document.createElement('td');
+                tdTr.append(selectEstadoClonado);
+
+                trBody.appendChild(tdTr);
+                tableBody.appendChild(trBody);
+            }
+
+            tablaRegistros.style.display = 'inline-block';
+        });
+    </script>
 </body>
 </html>

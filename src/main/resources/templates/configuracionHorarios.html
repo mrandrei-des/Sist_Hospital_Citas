@@ -25,9 +25,7 @@
 
     <main class="main">
         <aside th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></aside>
-
         <div class="main__content">
-
             <div class="main__container main__container--spc-3">
                 <div class="main__section">
                     <section class="main__section-title">
@@ -60,7 +58,7 @@
                                         <select id="especialidades" class="form__input">
                                             <option th:each="especialidad : ${listaEspecialidades}" th:value="${especialidad.getId()}" th:text="${especialidad.getDescripcion()}">Ortodoncia</option>
                                         </select>
-                                        <label for="especialidad" class="form__label">Especialidad</label>
+                                        <label for="especialidades" class="form__label">Especialidad</label>
                                     </div>
                                     <div class="form__group">
                                         <select id="idMedico" name="idMedico" class="form__input">

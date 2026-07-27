@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template de creación de componentes</title>
+    <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css" th:href="@{/css/compartidos/styles_fonts.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_text.css" th:href="@{/css/compartidos/styles_text.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css" th:href="@{/css/compartidos/styles_buttons.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles__stepper.css" th:href="@{/css/compartidos/styles__stepper.css}">
+</head>
+<body>
+    <div class="stepper__container">
+        <input type="hidden" id="stepperActive" name="stepperActive" value="1">
+        <div class="stepper__step">
+            <div class="stepper__icon-section stepper__icon-section--active">
+                <span class="stepper__icon-container stepper__icon-container--active">
+                    <i class="fa-solid fa-spinner"></i>
+                    <!-- <i class="fa-solid fa-shapes"></i> -->
+                    <!-- <i class="fa-solid fa-check"></i> -->
+                </span>
+            </div>
+            <div class="stepper__text-section">
+                <p class="stepper__step-counter">Paso 1</p>
+                <p class="stepper__step-title stepper__step-title--active">Especialidades</p>
+                <p class="stepper__step-status stepper__step-status--active">
+                    En proceso
+                </p>
+            </div>
+        </div>
+        <div class="stepper__step">
+            <div class="stepper__icon-section">
+                <span class="stepper__icon-container">
+                    <!-- <i class="fa-solid fa-spinner"></i> -->
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <!-- <i class="fa-solid fa-check"></i> -->
+                </span>
+            </div>
+            <div class="stepper__text-section">
+                <p class="stepper__step-counter">Paso 2</p>
+                <p class="stepper__step-title">Medicos</p>
+                <p class="stepper__step-status">
+                    Completado
+                </p>
+            </div>
+        </div>
+        <div class="stepper__step">
+            <div class="stepper__icon-section">
+                <span class="stepper__icon-container">
+                    <i class="fa-regular fa-calendar"></i>
+                    <!-- <i class="fa-solid fa-spinner"></i> -->
+                    <!-- <i class="fa-solid fa-check"></i> -->
+                </span>
+
+            </div>
+            <div class="stepper__text-section">
+                <p class="stepper__step-counter">Paso 3</p>
+                <p class="stepper__step-title">Horarios</p>
+                <p class="stepper__step-status">
+                    Pendiente
+                </p>
+            </div>
+        </div>
+        <div class="stepper__step">
+            <div class="stepper__icon-section">
+                <span class="stepper__icon-container">
+                    <i class="fa-solid fa-list-ul"></i>
+                    <!-- <i class="fa-solid fa-spinner"></i> -->
+                    <!-- <i class="fa-solid fa-check"></i> -->
+                </span>
+            </div>
+            <div class="stepper__text-section">
+                <p class="stepper__step-counter">Paso 4</p>
+                <p class="stepper__step-title">Resumen</p>
+                <p class="stepper__step-status">
+                    Pendiente
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="buttons__area">
+        <button type="button" id="btnAnterior">Anterior</button>
+        <button type="button" id="btnSiguiente">Siguiente</button>
+    </div>
+
+    <script src="../static/js/stepperHorario.js" th:src="@{/js/stepperHorario.js}"></script>
+    <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+body {
+    width: 100vw;
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: hsl(210deg, 100%, 95%);
+}
+
+.stepper__container {
+    width: 100%;
+    max-width: 800px;
+    padding: 1.5rem;
+    border-radius: 8px;
+    background-color: hsl(0, 0%, 100%);
+    box-shadow: 0 0 15px 0 #2221;
+    display: flex;
+    align-items: center;
+}
+
+.stepper__step {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+}
+
+.stepper__step:not(:last-child) {
+    flex-grow: 1;
+}
+
+.stepper__icon-section {
+    position: relative;
+    z-index: 10;
+}
+
+.stepper__step:not(:last-child) .stepper__icon-section::after,
+.stepper__step:not(:last-child) .stepper__icon-section::before {
+    content: '';
+    height: 4px;
+    margin: 0 .75rem;
+    border-radius: 4px;
+    position: absolute;
+    top: 50%;
+    left: 35px;
+}
+
+.stepper__step:not(:last-child) .stepper__icon-section::after {
+    width: calc(100% - 35px - 24px);
+    background-color: hsl(0deg, 0%, 70%);
+    z-index: 20;
+}
+
+.stepper__step:not(:last-child) .stepper__icon-section::before {
+    width: 0;
+    background-color: hsl(166deg, 100%, 30%);
+    z-index: 30;
+    transition: width .25s ease-in-out;
+}
+
+.stepper__step:not(:last-child) .stepper__icon-section.stepper__icon-section--active::before {
+    background-color: hsl(210deg, 100%, 50%);
+}
+
+.stepper__step:not(:last-child) .stepper__icon-section.stepper__icon-section--completed::before ,
+.stepper__step:not(:last-child) .stepper__icon-section.stepper__icon-section--active::before {
+    width: calc(100% - 35px - 24px);
+}
+
+/* .stepper__icon-section.stepper__icon-section--completed | .stepper__icon-section.stepper__icon-section--active */
+
+.stepper__icon-container {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    padding: .25rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25rem;
+    color: hsl(0deg, 0%, 70%);
+    background-color: hsla(0deg, 0%, 70%, .2);
+
+    transition: color .25s ease-in-out, background-color .25s ease-in-out;
+}
+
+.stepper__icon-container.stepper__icon-container--completed {
+    color: hsl(0deg, 0%, 100%);
+    background-color: hsla(166deg, 100%, 30%, 1);
+}
+
+.stepper__icon-container.stepper__icon-container--active {
+    color: hsl(0deg, 0%, 100%);
+    background-color: hsl(210deg, 100%, 50%);
+    animation: girarIcon 3s ease-in-out infinite forwards;
+}
+
+@keyframes girarIcon {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* .stepper__icon-container .stepper__icon-container--completed | stepper__icon-container--active */
+
+.stepper__text-section {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.stepper__step-counter {
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: hsl(0deg, 0%, 70%);
+}
+
+.stepper__step-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: hsl(0deg, 0%, 70%);
+
+    transition: color .25s ease-in-out, background-color .25s ease-in-out;
+}
+
+.stepper__step-title.stepper__step-title--active {
+    color: hsl(0deg, 0%, 10%);
+}
+
+/* .stepper__step-title .stepper__step-title--active */
+
+.stepper__step-status {
+    margin-top: .5rem;
+    display: block;
+    padding: .25rem .5rem;
+    border-radius: 4px;
+    font-size: .7rem;
+    font-weight: 700;
+    color: hsl(0deg, 0%, 70%);
+    background-color: hsla(0deg, 0%, 70%, .2);
+
+    transition: color .25s ease-in-out, background-color .25s ease-in-out;
+}
+
+.stepper__step-status.stepper__step-status--completed {
+    color: hsl(166deg, 100%, 30%);
+    background-color: hsla(166deg, 100%, 30%, .2);
+}
+
+.stepper__step-status.stepper__step-status--active {
+    color: hsl(210deg, 100%, 50%);
+    background-color: hsla(210deg, 100%, 50%, .2);
+}
+
+/* .stepper__step-status .stepper__step-status--completed | .stepper__step-status--active */
