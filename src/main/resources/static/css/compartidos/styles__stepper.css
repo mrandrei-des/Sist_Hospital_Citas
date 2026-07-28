@@ -62,12 +62,10 @@ body {
     background-color: hsl(210deg, 100%, 50%);
 }
 
-.stepper__step:not(:last-child) .stepper__icon-section.stepper__icon-section--completed::before ,
+.stepper__step:not(:last-child) .stepper__icon-section.stepper__icon-section--completed::before,
 .stepper__step:not(:last-child) .stepper__icon-section.stepper__icon-section--active::before {
     width: calc(100% - 35px - 24px);
 }
-
-/* .stepper__icon-section.stepper__icon-section--completed | .stepper__icon-section.stepper__icon-section--active */
 
 .stepper__icon-container {
     display: inline-block;
@@ -103,8 +101,6 @@ body {
     }
 }
 
-/* .stepper__icon-container .stepper__icon-container--completed | stepper__icon-container--active */
-
 .stepper__text-section {
     display: flex;
     flex-direction: column;
@@ -130,8 +126,6 @@ body {
     color: hsl(0deg, 0%, 10%);
 }
 
-/* .stepper__step-title .stepper__step-title--active */
-
 .stepper__step-status {
     margin-top: .5rem;
     display: block;
@@ -155,37 +149,44 @@ body {
     background-color: hsla(210deg, 100%, 50%, .2);
 }
 
-/* .stepper__step-status .stepper__step-status--completed | .stepper__step-status--active */
-
 @media screen and (max-width: 550px) {
+
     .stepper__container {
-        width: fit-content;
         height: 100%;
         max-height: 500px;
+        width: fit-content;
         flex-direction: column;
-        align-items: start;
-        gap: .75rem;
+        align-items: stretch;
     }
 
     .stepper__step {
         flex-direction: row;
+        align-items: start;
+        position: relative;
     }
 
     .stepper__icon-section {
-        display: flex;
-        align-items: center;
+        position: static;
     }
 
     .stepper__step:not(:last-child) .stepper__icon-section::after,
     .stepper__step:not(:last-child) .stepper__icon-section::before {
-        width: 4px;
-        /* width: calc(100% - 35px - 24px); */
-        height: calc(100% - 35px - 24px);
-        top: auto;
-        left: 50%;
-        bottom: -35px;
+        top: 35px;
+        left: 17.5px;
 
+        width: 4px;
+        height: calc(100% - 35px - 16px);
         margin: 0;
-        margin: .75rem 0;
+        margin-top: .5rem;
+    }
+
+    .stepper__step:not(:last-child) .stepper__icon-section::before {
+        height: 0;
+    }
+
+    .stepper__step:not(:last-child) .stepper__icon-section.stepper__icon-section--completed::before,
+    .stepper__step:not(:last-child) .stepper__icon-section.stepper__icon-section--active::before {
+        width: 4px;
+        height: calc(100% - 35px - 16px);
     }
 }

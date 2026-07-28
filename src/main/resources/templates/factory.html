@@ -9,9 +9,11 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_text.css" th:href="@{/css/compartidos/styles_text.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css" th:href="@{/css/compartidos/styles_buttons.css}">
-    <link rel="stylesheet" href="../static/css/compartidos/styles__stepper.css" th:href="@{/css/compartidos/styles__stepper.css}">
+    <!-- <link rel="stylesheet" href="../static/css/compartidos/styles__stepper.css" th:href="@{/css/compartidos/styles__stepper.css}"> -->
+    <link rel="stylesheet" href="../static/css/compartidos/styles__stepperContent.css" th:href="@{/css/compartidos/styles__stepperContent.css}">
 </head>
 <body>
+    <!-- 
     <div class="stepper__container">
         <input type="hidden" id="stepperActive" name="stepperActive" value="1">
         <div class="stepper__step">
@@ -72,13 +74,65 @@
             </div>
         </div>
     </div>
+    -->
+
+    <div class="stepper-content">
+        <input type="hidden" id="stepperActive" name="stepperActive" value="1">
+        <div class="stepper__panel stepper__panel--active">
+            Especialidades
+        </div>
+        <div class="stepper__panel">
+            Medicos
+        </div>
+        <div class="stepper__panel">
+            Horarios
+        </div>
+        <div class="stepper__panel">
+            Resumen
+        </div>
+    </div>
 
     <div class="buttons__area">
         <button type="button" id="btnAnterior">Anterior</button>
         <button type="button" id="btnSiguiente">Siguiente</button>
     </div>
 
-    <script src="../static/js/stepperHorario.js" th:src="@{/js/stepperHorario.js}"></script>
+    <!-- <script src="../static/js/stepperHorario.js" th:src="@{/js/stepperHorario.js}"></script> -->
     <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
+
+    <script>
+
+        const btnAnterior = document.getElementById('btnAnterior');
+        btnAnterior.addEventListener('click', (e)=> {
+            const stepperActive = document.getElementById('stepperActive');
+            if(stepperActive.value < 1) stepperActive.value = 1;
+            if(stepperActive.value > 4) stepperActive.value = 4;
+            if(stepperActive.value > 1) {
+                stepperActive.value = parseInt(stepperActive.value) - 1;
+                moverStepperContent(stepperActive.value, 'prev');
+            }
+        });
+
+        const btnSiguiente = document.getElementById('btnSiguiente')
+        btnSiguiente.addEventListener('click', (e)=> {
+            const stepperActive = document.getElementById('stepperActive');
+            if(stepperActive.value < 1) stepperActive.value = 1;
+            if(stepperActive.value > 4) stepperActive.value = 4;
+            if(stepperActive.value < 4) {
+                stepperActive.value = parseInt(stepperActive.value) + 1;
+                moverStepperContent(stepperActive.value, 'next');
+            }
+        });
+
+        function moverStepperContent(stepperActive, typeMove) {
+            const stepperPanelList = document.querySelectorAll('.stepper-content .stepper__panel');
+            const stepperPanelToMove = stepperPanelList[stepperActive - 1];
+            const currentStepperPanelNumber = typeMove === 'next' ? stepperActive - 2 : stepperActive;
+
+            const currentStepperPanel = stepperPanelList[currentStepperPanelNumber];
+            stepperPanelToMove.classList.add('stepper__panel--active');
+            currentStepperPanel.classList.remove('stepper__panel--active');
+        }
+    </script>
 </body>
 </html>
