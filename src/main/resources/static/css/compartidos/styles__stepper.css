@@ -156,3 +156,36 @@ body {
 }
 
 /* .stepper__step-status .stepper__step-status--completed | .stepper__step-status--active */
+
+@media screen and (max-width: 550px) {
+    .stepper__container {
+        width: fit-content;
+        height: 100%;
+        max-height: 500px;
+        flex-direction: column;
+        align-items: start;
+        gap: .75rem;
+    }
+
+    .stepper__step {
+        flex-direction: row;
+    }
+
+    .stepper__icon-section {
+        display: flex;
+        align-items: center;
+    }
+
+    .stepper__step:not(:last-child) .stepper__icon-section::after,
+    .stepper__step:not(:last-child) .stepper__icon-section::before {
+        width: 4px;
+        /* width: calc(100% - 35px - 24px); */
+        height: calc(100% - 35px - 24px);
+        top: auto;
+        left: 50%;
+        bottom: -35px;
+
+        margin: 0;
+        margin: .75rem 0;
+    }
+}

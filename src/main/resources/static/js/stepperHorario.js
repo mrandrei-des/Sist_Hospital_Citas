@@ -15,26 +15,69 @@ document.getElementById('btnSiguiente').addEventListener('click', (e)=> {
 });
 
 function moverStepper(stepperActive, typeMove) {
+    const iconList = {
+        spinner: '<i class="fa-solid fa-spinner"></i>',
+        check: '<i class="fa-solid fa-check"></i>',
+        shapes: '<i class="fa-solid fa-shapes"></i>',
+        doctor: '<i class="fa-solid fa-user-doctor"></i>',
+        calendar: '<i class="fa-regular fa-calendar"></i>',
+        list: '<i class="fa-solid fa-list-ul"></i>'
+    }
+
     const stepperList = document.querySelectorAll('.stepper__container .stepper__step');
     const stepperToMove = stepperList[stepperActive - 1];
     
     if(typeMove === 'next') {
         const stepBefore = stepperList[stepperActive - 2];
-        // el anterior marcarlo como completo
-
+        // de donde viene
         const stepBeforeIconSection = stepBefore.querySelector('.stepper__icon-section');
         const stepBeforeIconContainer = stepBefore.querySelector('.stepper__icon-container');
 
+        const stepBeforeStatus = stepBefore.querySelector('.stepper__step-status');
+
         stepBeforeIconSection.classList.replace('stepper__icon-section--active', 'stepper__icon-section--completed');
-
         stepBeforeIconContainer.classList.replace('stepper__icon-container--active', 'stepper__icon-container--completed');
+        stepBeforeIconContainer.innerHTML = iconList['check'];
+        stepBeforeStatus.classList.replace('stepper__step-status--active', 'stepper__step-status--completed');
+        stepBeforeStatus.textContent = 'Completado';
 
-        stepBeforeIconContainer.innerHTML = '<i class="fa-solid fa-check"></i>';
+        // hacia donde va
+        const stepNextIconSection = stepperToMove.querySelector('.stepper__icon-section');
+        const stepNextIconContainer = stepperToMove.querySelector('.stepper__icon-container');
+        const stepNextStatus = stepperToMove.querySelector('.stepper__step-status');
+        const stepNextTitle = stepperToMove.querySelector('.stepper__step-title');
+        
+        stepNextIconSection.classList.add('stepper__icon-section--active');
+        stepNextIconContainer.classList.add('stepper__icon-container--active');
+        stepNextIconContainer.innerHTML = iconList['spinner'];
+        stepNextTitle.classList.add('stepper__step-title--active');
+        stepNextStatus.classList.add('stepper__step-status--active');
+        stepNextStatus.textContent = 'En proceso';
     }else {
         const stepBefore = stepperList[stepperActive];
-        // el siguiente marcarlo como pendiente
+
+        // de donde viene
+        const stepBeforeIconSection = stepBefore.querySelector('.stepper__icon-section');
+        const stepBeforeIconContainer = stepBefore.querySelector('.stepper__icon-container');
+        const stepBeforeTitle = stepBefore.querySelector('.stepper__step-title');
+        const stepBeforeStatus = stepBefore.querySelector('.stepper__step-status');
+
+        stepBeforeIconSection.classList.remove('stepper__icon-section--active', 'stepper__icon-section--completed');
+        stepBeforeIconContainer.classList.remove('stepper__icon-container--active', 'stepper__icon-container--completed');
+        stepBeforeIconContainer.innerHTML = iconList[stepBeforeIconContainer.getAttribute('data-icon')];
+        stepBeforeTitle.classList.remove('stepper__step-title--active');
+        stepBeforeStatus.classList.remove('stepper__step-status--active', 'stepper__step-status--completed');
+        stepBeforeStatus.textContent = 'Pendiente';
+
+        // hacia donde va
+        const stepPrevIconSection = stepperToMove.querySelector('.stepper__icon-section');
+        const stepPrevIconContainer = stepperToMove.querySelector('.stepper__icon-container');
+        const stepPrevStatus = stepperToMove.querySelector('.stepper__step-status');
+
+        stepPrevIconSection.classList.replace('stepper__icon-section--completed', 'stepper__icon-section--active');
+        stepPrevIconContainer.classList.replace('stepper__icon-container--completed', 'stepper__icon-container--active');
+        stepPrevIconContainer.innerHTML = iconList['spinner'];
+        stepPrevStatus.classList.replace('stepper__step-status--completed', 'stepper__step-status--active');
+        stepPrevStatus.textContent = 'En proceso';
     }
-
-
-    // stepperToMove siempre es active en proceso
 }
