@@ -3,6 +3,7 @@ document.getElementById('btnAnterior').addEventListener('click', (e)=> {
     if(stepperActive.value < 1) stepperActive.value = 1;
     if(stepperActive.value > 4) stepperActive.value = 4;
     if(stepperActive.value > 1) stepperActive.value = parseInt(stepperActive.value) - 1;
+    moverStepperContent(stepperActive.value, 'prev');
     moverStepper(stepperActive.value, 'prev');
 });
 
@@ -12,6 +13,7 @@ document.getElementById('btnSiguiente').addEventListener('click', (e)=> {
     if(stepperActive.value > 4) stepperActive.value = 4;
     if(stepperActive.value < 4) stepperActive.value = parseInt(stepperActive.value) + 1;
     moverStepper(stepperActive.value, 'next');
+    moverStepperContent(stepperActive.value, 'next');
 });
 
 function moverStepper(stepperActive, typeMove) {
@@ -80,4 +82,15 @@ function moverStepper(stepperActive, typeMove) {
         stepPrevStatus.classList.replace('stepper__step-status--completed', 'stepper__step-status--active');
         stepPrevStatus.textContent = 'En proceso';
     }
+}
+
+function moverStepperContent(stepperActive, typeMove) {
+    const stepperPanelList = document.querySelectorAll('.stepper__content .stepper__panel');
+    
+    const stepperPanelToMove = stepperPanelList[stepperActive - 1];
+    const currentStepperPanelNumber = typeMove === 'next' ? stepperActive - 2 : stepperActive;
+
+    const currentStepperPanel = stepperPanelList[currentStepperPanelNumber];
+    stepperPanelToMove.classList.add('stepper__panel--active');
+    currentStepperPanel.classList.remove('stepper__panel--active');
 }

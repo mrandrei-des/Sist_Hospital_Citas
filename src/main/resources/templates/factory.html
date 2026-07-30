@@ -8,98 +8,479 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_text.css" th:href="@{/css/compartidos/styles_text.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css" th:href="@{/css/compartidos/styles_inputs.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css" th:href="@{/css/compartidos/styles_buttons.css}">
-    <!-- <link rel="stylesheet" href="../static/css/compartidos/styles__stepper.css" th:href="@{/css/compartidos/styles__stepper.css}"> -->
-    <link rel="stylesheet" href="../static/css/compartidos/styles__stepperContent.css" th:href="@{/css/compartidos/styles__stepperContent.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_stepper.css" th:href="@{/css/compartidos/styles_stepper.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_schedule.css" th:href="@{/css/compartidos/styles_schedule.css}">
 </head>
 <body>
-    <!-- 
     <div class="stepper__container">
-        <input type="hidden" id="stepperActive" name="stepperActive" value="1">
-        <div class="stepper__step">
-            <div class="stepper__icon-section stepper__icon-section--active">
-                <span class="stepper__icon-container stepper__icon-container--active" data-icon="shapes">
-                    <i class="fa-solid fa-spinner"></i>
-                </span>
-            </div>
-            <div class="stepper__text-section">
-                <p class="stepper__step-counter">Paso 1</p>
-                <p class="stepper__step-title stepper__step-title--active">Especialidades</p>
-                <p class="stepper__step-status stepper__step-status--active">
-                    En proceso
-                </p>
-            </div>
-        </div>
-        <div class="stepper__step">
-            <div class="stepper__icon-section">
-                <span class="stepper__icon-container" data-icon="doctor">
-                    <i class="fa-solid fa-user-doctor"></i>
-                </span>
-            </div>
-            <div class="stepper__text-section">
-                <p class="stepper__step-counter">Paso 2</p>
-                <p class="stepper__step-title">Medicos</p>
-                <p class="stepper__step-status">
-                    Pendiente
-                </p>
-            </div>
-        </div>
-        <div class="stepper__step">
-            <div class="stepper__icon-section">
-                <span class="stepper__icon-container"data-icon="calendar">
-                    <i class="fa-regular fa-calendar"></i>
-                </span>
 
+        <div class="stepper__header">
+            <input type="hidden" id="stepperActive" name="stepperActive" value="1">
+            <div class="stepper__step">
+                <div class="stepper__icon-section stepper__icon-section--active">
+                    <span class="stepper__icon-container stepper__icon-container--active" data-icon="shapes">
+                        <i class="fa-solid fa-spinner"></i>
+                    </span>
+                </div>
+                <div class="stepper__text-section">
+                    <p class="stepper__step-counter">Paso 1</p>
+                    <p class="stepper__step-title stepper__step-title--active">Especialidades</p>
+                    <p class="stepper__step-status stepper__step-status--active">
+                        En proceso
+                    </p>
+                </div>
             </div>
-            <div class="stepper__text-section">
-                <p class="stepper__step-counter">Paso 3</p>
-                <p class="stepper__step-title">Horarios</p>
-                <p class="stepper__step-status">
-                    Pendiente
-                </p>
+            <div class="stepper__step">
+                <div class="stepper__icon-section">
+                    <span class="stepper__icon-container" data-icon="doctor">
+                        <i class="fa-solid fa-user-doctor"></i>
+                    </span>
+                </div>
+                <div class="stepper__text-section">
+                    <p class="stepper__step-counter">Paso 2</p>
+                    <p class="stepper__step-title">Medicos</p>
+                    <p class="stepper__step-status">
+                        Pendiente
+                    </p>
+                </div>
+            </div>
+            <div class="stepper__step">
+                <div class="stepper__icon-section">
+                    <span class="stepper__icon-container"data-icon="calendar">
+                        <i class="fa-regular fa-calendar"></i>
+                    </span>
+
+                </div>
+                <div class="stepper__text-section">
+                    <p class="stepper__step-counter">Paso 3</p>
+                    <p class="stepper__step-title">Horarios</p>
+                    <p class="stepper__step-status">
+                        Pendiente
+                    </p>
+                </div>
+            </div>
+            <div class="stepper__step">
+                <div class="stepper__icon-section">
+                    <span class="stepper__icon-container" data-icon="list">
+                        <i class="fa-solid fa-list-ul"></i>
+                    </span>
+                </div>
+                <div class="stepper__text-section">
+                    <p class="stepper__step-counter">Paso 4</p>
+                    <p class="stepper__step-title">Resumen</p>
+                    <p class="stepper__step-status">
+                        Pendiente
+                    </p>
+                </div>
             </div>
         </div>
-        <div class="stepper__step">
-            <div class="stepper__icon-section">
-                <span class="stepper__icon-container" data-icon="list">
-                    <i class="fa-solid fa-list-ul"></i>
-                </span>
+
+        <div class="stepper__content">
+            <div class="stepper__panel stepper__panel--active">
+                <div class="stepper__panel-title-section">
+                    <h2 class="stepper__panel-title">Especialidades</h2>
+                    <p class="stepper__panel-paragraph">Seleccione una especialidad médica</p>
+                </div>
+
+                <div class="stepper__panel-search-section">
+                    <div class="search-container">
+                        <label for="searchInp" class="icon__search-container">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </label>
+                        <input type="text" id="searchInp" class="input-search" placeholder="Buscar especialidad" data-type-search="especialidad">
+                    </div>
+                </div>
+
+                <div class="stepper__panel-main-section">
+                    <div class="card-container">
+                        <!-- hover, focus -->
+                        <div class="card__item" tabindex="0-1-2" data-especialidad="1">
+                            <span class="card__icon-container card__icon-container--selected">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                            <h3 class="card__title">Nutrición</h3>
+                            <p class="card__paragraph">Cantidad de médicos: <strong>5</strong></p>
+                        </div>
+                        <div class="card__item" data-especialidad="2">
+                            <span class="card__icon-container ">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                            <h3 class="card__title">Cardiología</h3>
+                            <p class="card__paragraph">Cantidad de médicos: <strong>3</strong></p>
+                        </div>
+                        <div class="card__item" data-especialidad="3">
+                            <span class="card__icon-container ">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                            <h3 class="card__title">General</h3>
+                            <p class="card__paragraph">Cantidad de médicos: <strong>4</strong></p>
+                        </div>
+                        <div class="card__item" data-especialidad="4">
+                            <span class="card__icon-container ">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                            <h3 class="card__title">Neurología</h3>
+                            <p class="card__paragraph">Cantidad de médicos: <strong>1</strong></p>
+                        </div>
+                        <div class="card__item" data-especialidad="5">
+                            <span class="card__icon-container ">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                            <h3 class="card__title">Psicología</h3>
+                            <p class="card__paragraph">Cantidad de médicos: <strong>2</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stepper__panel-footer-container">
+                    <p class="stepper__panel-footer-message">Debe seleccionar una especialidad para continuar.</p>
+                </div>
             </div>
-            <div class="stepper__text-section">
-                <p class="stepper__step-counter">Paso 4</p>
-                <p class="stepper__step-title">Resumen</p>
-                <p class="stepper__step-status">
-                    Pendiente
-                </p>
+
+            <div class="stepper__panel">
+                <div class="stepper__panel-title-section">
+                    <h2>Médicos de - <strong>Nutrición</strong></h2>
+                    <p>Seleccione un médico</p>
+                </div>
+
+                <div class="stepper__panel-search-section">
+                    <div class="search-container">
+                        <button type="button" class="btn btn__search">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                        <input type="text" id="searchInp" class="input" placeholder="Buscar especialidad" data-type-search="medico">
+                    </div>
+                </div>
+
+                <div class="stepper__panel-main-section">
+                    <div class="card-container">
+                        <div class="card__item" data-medico="1">
+                            <span class="card__icon-container ">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                            <h3 class="card__title">John Doe</h3>
+                            <!-- <p class="card__paragraph">Cantidad de médicos: <strong>5</strong></p> -->
+                        </div>
+                        <div class="card__item" data-medico="2">
+                            <span class="card__icon-container ">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                            <h3 class="card__title">María Valles</h3>
+                        </div>
+                        <div class="card__item" data-medico="3">
+                            <span class="card__icon-container ">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                            <h3 class="card__title">Juan Pablo Díaz</h3>
+                        </div>
+                        <div class="card__item" data-medico="4">
+                            <span class="card__icon-container ">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                            <h3 class="card__title">Gabriela Solano Monge</h3>
+                        </div>
+                        <div class="card__item" data-medico="5">
+                            <span class="card__icon-container ">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                            <h3 class="card__title">Kendall Mora Delgado</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stepper__panel-footer-container">
+                    <p class="stepper__panel-footer-message">Debe seleccionar un médico para continuar.</p>
+                </div>
             </div>
+
+            <div class="stepper__panel">
+                <div class="stepper__panel-title-section">
+                    <h2>Horarios disponibles de - <strong>John Doe</strong></h2>
+                    <p>Seleccione un horario</p>
+                </div>
+
+                <div class="stepper__panel-main-section">
+
+                    <div class="schedule-container" th:if="${mostrarComponente}">
+                        <div class="schedule__days-container">
+                            <!-- Se renderiza el día -->
+                            <div class="schedule__day" th:each="dia : ${horarioMedico}">
+                                <div class="schedule__day-info">
+                                    <p class="schedule__day-name" th:text="${dia.getNombreDia()}">Lunes</p>
+                                    <p class="schedule__date" th:text="${dia.getFecha()}">06-07-2026</p>
+                                </div>
+
+                                <div class="schedule__details">
+                                    <!-- Se renderiza cada hora de atención -->
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                        <!-- th:classappend="${espacioHora == '08:00'} ? 'espacio__reservado'" th:data-fecha="${dia.getFecha()}" th:data-hora="${espacioHora}" onclick="seleccionarEspacio(this)" -->
+                                </div>
+                            </div>
+                            <div class="schedule__day" th:each="dia : ${horarioMedico}">
+                                <div class="schedule__day-info">
+                                    <p class="schedule__day-name" th:text="${dia.getNombreDia()}">Martes</p>
+                                    <p class="schedule__date" th:text="${dia.getFecha()}">06-07-2026</p>
+                                </div>
+
+                                <div class="schedule__details">
+                                    <!-- Se renderiza cada hora de atención -->
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                        <!-- th:classappend="${espacioHora == '08:00'} ? 'espacio__reservado'" th:data-fecha="${dia.getFecha()}" th:data-hora="${espacioHora}" onclick="seleccionarEspacio(this)" -->
+                                </div>
+                            </div>
+                            <div class="schedule__day" th:each="dia : ${horarioMedico}">
+                                <div class="schedule__day-info">
+                                    <p class="schedule__day-name" th:text="${dia.getNombreDia()}">Miercoles</p>
+                                    <p class="schedule__date" th:text="${dia.getFecha()}">06-07-2026</p>
+                                </div>
+
+                                <div class="schedule__details">
+                                    <!-- Se renderiza cada hora de atención -->
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                        <!-- th:classappend="${espacioHora == '08:00'} ? 'espacio__reservado'" th:data-fecha="${dia.getFecha()}" th:data-hora="${espacioHora}" onclick="seleccionarEspacio(this)" -->
+                                </div>
+                            </div>
+                            <div class="schedule__day" th:each="dia : ${horarioMedico}">
+                                <div class="schedule__day-info">
+                                    <p class="schedule__day-name" th:text="${dia.getNombreDia()}">Jueves</p>
+                                    <p class="schedule__date" th:text="${dia.getFecha()}">06-07-2026</p>
+                                </div>
+
+                                <div class="schedule__details">
+                                    <!-- Se renderiza cada hora de atención -->
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                        <!-- th:classappend="${espacioHora == '08:00'} ? 'espacio__reservado'" th:data-fecha="${dia.getFecha()}" th:data-hora="${espacioHora}" onclick="seleccionarEspacio(this)" -->
+                                </div>
+                            </div>
+                            <div class="schedule__day" th:each="dia : ${horarioMedico}">
+                                <div class="schedule__day-info">
+                                    <p class="schedule__day-name" th:text="${dia.getNombreDia()}">Viernes</p>
+                                    <p class="schedule__date" th:text="${dia.getFecha()}">06-07-2026</p>
+                                </div>
+
+                                <div class="schedule__details">
+                                    <!-- Se renderiza cada hora de atención -->
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                    <button 
+                                        type="button" 
+                                        th:each="espacioHora : ${dia.listaEspacios}" 
+                                        class="btn btn__opcion__horario"
+                                        th:text="${espacioHora}"
+                                        >05:00</button>
+                                        <!-- th:classappend="${espacioHora == '08:00'} ? 'espacio__reservado'" th:data-fecha="${dia.getFecha()}" th:data-hora="${espacioHora}" onclick="seleccionarEspacio(this)" -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="stepper__panel-footer-container">
+                    <p class="stepper__panel-footer-message">Debe seleccionar un médico para continuar.</p>
+                </div>
+            </div>
+
+            <div class="stepper__panel">
+                <div class="stepper__panel-title-section">
+                    <h2>Resumen de la selección</h2>
+                </div>
+                <div class="stepper__panel-main-section">
+                    <!-- CARGAR UN RESUMEN DE LA SELECCIÓN ANTERIOR Y PROCESAR LA SELECCIÓN -->
+
+
+                    <form action="/" method="post">
+                        <input type="hidden" data-especialidad="0">
+                        <input type="hidden" data-medico="1">
+                        <input type="hidden" data-fecha="2026-07-30">
+                        <input type="hidden" data-hora="08:00">
+
+                        <button type="submit">Procesar Reserva</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="stepper__footer">
+            <button type="button" id="btnAnterior">Anterior</button>
+            <button type="button" id="btnSiguiente">Siguiente</button>
         </div>
     </div>
-    -->
 
-    <div class="stepper-content">
-        <input type="hidden" id="stepperActive" name="stepperActive" value="1">
-        <div class="stepper__panel stepper__panel--active">
-            Especialidades
-        </div>
-        <div class="stepper__panel">
-            Medicos
-        </div>
-        <div class="stepper__panel">
-            Horarios
-        </div>
-        <div class="stepper__panel">
-            Resumen
-        </div>
-    </div>
 
-    <div class="buttons__area">
-        <button type="button" id="btnAnterior">Anterior</button>
-        <button type="button" id="btnSiguiente">Siguiente</button>
-    </div>
-
-    <!-- <script src="../static/js/stepperHorario.js" th:src="@{/js/stepperHorario.js}"></script> -->
+    <script src="../static/js/stepperHorario.js" th:src="@{/js/stepperHorario.js}"></script>
     <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
-
+    <!--  
     <script>
 
         const btnAnterior = document.getElementById('btnAnterior');
@@ -134,5 +515,6 @@
             currentStepperPanel.classList.remove('stepper__panel--active');
         }
     </script>
+    -->
 </body>
 </html>

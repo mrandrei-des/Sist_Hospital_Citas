@@ -1,0 +1,17 @@
+.input {
+    outline: none;
+    padding: 10px 12px;
+    border: 2px solid var(--primary--border-color);
+    border-radius: 8px;
+    font-size: .8rem;
+    transition: box-shadow .2s ease-in-out, border-color .2s ease-in-out;
+}
+
+.input:hover {
+    box-shadow: 0 0 3px 2px var(--shadow-color), 
+    0 0 10px 2px var(--shadow-color);
+}
+
+.input:focus {
+    border-color: var(--primary-color);
+}

@@ -1,12 +1,4 @@
-body {
-    width: 100vw;
-    min-height: 100dvh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    background-color: hsl(210deg, 100%, 95%);
-}
 
 .stepper-content {
     width: 100%;
@@ -16,12 +8,11 @@ body {
     border-radius: 8px;
     background-color: hsl(0, 0%, 100%);
     box-shadow: 0 0 15px 0 #2221;
-    overflow: hidden;
 }
 
 .stepper__panel {
     flex-grow: 1;
-    height: 200px;
+    height: fit-content;
     background-color: aquamarine;
     border-radius: 6px;
     display: none;
