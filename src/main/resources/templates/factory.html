@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_inputs.css" th:href="@{/css/compartidos/styles_inputs.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css" th:href="@{/css/compartidos/styles_buttons.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_stepper.css" th:href="@{/css/compartidos/styles_stepper.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_cards.css" th:href="@{/css/compartidos/styles_cards.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_schedule.css" th:href="@{/css/compartidos/styles_schedule.css}">
 </head>
 <body>
@@ -78,7 +79,7 @@
         </div>
 
         <div class="stepper__content">
-            <div class="stepper__panel stepper__panel--active">
+            <div class="stepper__panel stepper__panel--active" data-valid="false">
                 <div class="stepper__panel-title-section">
                     <h2 class="stepper__panel-title">Especialidades</h2>
                     <p class="stepper__panel-paragraph">Seleccione una especialidad médica</p>
@@ -94,37 +95,36 @@
                 </div>
 
                 <div class="stepper__panel-main-section">
-                    <div class="card-container">
-                        <!-- hover, focus -->
-                        <div class="card__item" tabindex="0-1-2" data-especialidad="1">
-                            <span class="card__icon-container card__icon-container--selected">
+                    <div class="card-container" id="containerEspecialidades">
+                        <div class="card__item" data-type-card="especialidad" data-especialidad="1">
+                            <span class="card__icon-container">
                                 <i class="fa-solid fa-check"></i>
                             </span>
                             <h3 class="card__title">Nutrición</h3>
                             <p class="card__paragraph">Cantidad de médicos: <strong>5</strong></p>
                         </div>
-                        <div class="card__item" data-especialidad="2">
+                        <div class="card__item" data-type-card="especialidad" data-especialidad="2">
                             <span class="card__icon-container ">
                                 <i class="fa-solid fa-check"></i>
                             </span>
                             <h3 class="card__title">Cardiología</h3>
                             <p class="card__paragraph">Cantidad de médicos: <strong>3</strong></p>
                         </div>
-                        <div class="card__item" data-especialidad="3">
+                        <div class="card__item" data-type-card="especialidad" data-especialidad="3">
                             <span class="card__icon-container ">
                                 <i class="fa-solid fa-check"></i>
                             </span>
                             <h3 class="card__title">General</h3>
                             <p class="card__paragraph">Cantidad de médicos: <strong>4</strong></p>
                         </div>
-                        <div class="card__item" data-especialidad="4">
+                        <div class="card__item" data-type-card="especialidad" data-especialidad="4">
                             <span class="card__icon-container ">
                                 <i class="fa-solid fa-check"></i>
                             </span>
                             <h3 class="card__title">Neurología</h3>
                             <p class="card__paragraph">Cantidad de médicos: <strong>1</strong></p>
                         </div>
-                        <div class="card__item" data-especialidad="5">
+                        <div class="card__item" data-type-card="especialidad" data-especialidad="5">
                             <span class="card__icon-container ">
                                 <i class="fa-solid fa-check"></i>
                             </span>
@@ -134,54 +134,64 @@
                     </div>
                 </div>
 
+<!-- 
+    PENDIENTES:
+        REVISAR LOS ESTILOS DEL HORARIO, SERÍA AGRADABLE QUE SEAN EN UNA SOLA COLUMNA HACIA ABAJO
+        FALTA HACER QUE AL PRESIONAR EL BOTÓN DE SIGUIENTE, SI NO HA COMPLETADO QUE LE MUESTRE EL MENSAJE DE ERROR
+        FALTA CONSTRUIR EL STEPPER DE RESUMEN
+        FALTA CARGAR LA INFORMACIÓN DESDE EL BACKEND
+        FALTA HABILITAR LOS SEARCH BOX
+        FALTA PROCESAR LA RESERVA COMO TAL
+-->
+
                 <div class="stepper__panel-footer-container">
                     <p class="stepper__panel-footer-message">Debe seleccionar una especialidad para continuar.</p>
                 </div>
             </div>
 
-            <div class="stepper__panel">
+            <div class="stepper__panel" data-valid="false">
                 <div class="stepper__panel-title-section">
-                    <h2>Médicos de - <strong>Nutrición</strong></h2>
-                    <p>Seleccione un médico</p>
+                    <h2 class="stepper__panel-title">Médicos de: <strong>Nutrición</strong></h2>
+                    <p class="stepper__panel-paragraph">Seleccione un médico</p>
                 </div>
 
                 <div class="stepper__panel-search-section">
                     <div class="search-container">
-                        <button type="button" class="btn btn__search">
+                        <label for="searchInp" class="icon__search-container">
                             <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                        <input type="text" id="searchInp" class="input" placeholder="Buscar especialidad" data-type-search="medico">
+                        </label>
+                        <input type="text" id="searchInp" class="input-search" placeholder="Buscar especialidad" data-type-search="medico">
                     </div>
                 </div>
 
                 <div class="stepper__panel-main-section">
-                    <div class="card-container">
-                        <div class="card__item" data-medico="1">
+                    <div class="card-container" id="containerMedicos">
+                        <div class="card__item" data-type-card="medico" data-medico="1">
                             <span class="card__icon-container ">
                                 <i class="fa-solid fa-check"></i>
                             </span>
                             <h3 class="card__title">John Doe</h3>
                             <!-- <p class="card__paragraph">Cantidad de médicos: <strong>5</strong></p> -->
                         </div>
-                        <div class="card__item" data-medico="2">
+                        <div class="card__item" data-type-card="medico" data-medico="2">
                             <span class="card__icon-container ">
                                 <i class="fa-solid fa-check"></i>
                             </span>
                             <h3 class="card__title">María Valles</h3>
                         </div>
-                        <div class="card__item" data-medico="3">
+                        <div class="card__item" data-type-card="medico" data-medico="3">
                             <span class="card__icon-container ">
                                 <i class="fa-solid fa-check"></i>
                             </span>
                             <h3 class="card__title">Juan Pablo Díaz</h3>
                         </div>
-                        <div class="card__item" data-medico="4">
+                        <div class="card__item" data-type-card="medico" data-medico="4">
                             <span class="card__icon-container ">
                                 <i class="fa-solid fa-check"></i>
                             </span>
                             <h3 class="card__title">Gabriela Solano Monge</h3>
                         </div>
-                        <div class="card__item" data-medico="5">
+                        <div class="card__item" data-type-card="medico" data-medico="5">
                             <span class="card__icon-container ">
                                 <i class="fa-solid fa-check"></i>
                             </span>
@@ -195,14 +205,13 @@
                 </div>
             </div>
 
-            <div class="stepper__panel">
+            <div class="stepper__panel" data-valid="false">
                 <div class="stepper__panel-title-section">
-                    <h2>Horarios disponibles de - <strong>John Doe</strong></h2>
-                    <p>Seleccione un horario</p>
+                    <h2 class="stepper__panel-title">Horarios disponibles de: <strong>John Doe</strong></h2>
+                    <p class="stepper__panel-paragraph">Seleccione un horario</p>
                 </div>
 
                 <div class="stepper__panel-main-section">
-
                     <div class="schedule-container" th:if="${mostrarComponente}">
                         <div class="schedule__days-container">
                             <!-- Se renderiza el día -->
@@ -443,7 +452,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="stepper__panel-footer-container">
@@ -453,17 +461,16 @@
 
             <div class="stepper__panel">
                 <div class="stepper__panel-title-section">
-                    <h2>Resumen de la selección</h2>
+                    <h2 class="stepper__panel-title">Resumen de la selección</h2>
                 </div>
                 <div class="stepper__panel-main-section">
                     <!-- CARGAR UN RESUMEN DE LA SELECCIÓN ANTERIOR Y PROCESAR LA SELECCIÓN -->
 
-
                     <form action="/" method="post">
-                        <input type="hidden" data-especialidad="0">
-                        <input type="hidden" data-medico="1">
-                        <input type="hidden" data-fecha="2026-07-30">
-                        <input type="hidden" data-hora="08:00">
+                        <input type="hidden" id="idEspecialidad" data-especialidad="0">
+                        <input type="hidden" id="idMedico" data-medico="1">
+                        <input type="hidden" id="fecha" data-fecha="2026-07-30">
+                        <input type="hidden" id="hora" data-hora="08:00">
 
                         <button type="submit">Procesar Reserva</button>
                     </form>
@@ -472,8 +479,8 @@
         </div>
 
         <div class="stepper__footer">
-            <button type="button" id="btnAnterior">Anterior</button>
-            <button type="button" id="btnSiguiente">Siguiente</button>
+            <button type="button" class="btn btn__step" id="btnAnterior">Anterior</button>
+            <button type="button" class="btn btn__step" id="btnSiguiente">Siguiente</button>
         </div>
     </div>
 

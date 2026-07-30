@@ -15,3 +15,10 @@
 .input:focus {
     border-color: var(--primary-color);
 }
+
+.input-search {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    font-size: .8rem;
+}

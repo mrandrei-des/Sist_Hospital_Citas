@@ -193,13 +193,16 @@ body {
     color: hsl(0deg, 0%, 10%);
 }
 
+.stepper__panel-title strong {
+    font-weight: 700;
+    color: hsl(0deg, 0%, 70%);
+}
+
 .stepper__panel-paragraph {
     font-size: .85rem;
     font-weight: 600;
     color: hsl(0deg, 0%, 70%);
 }
-
-
 
 /* stepper panel search section */
 .stepper__panel-search-section {
@@ -223,13 +226,6 @@ body {
     color: hsl(0deg, 0%, 70%);
 }
 
-.input-search {
-    border: none;
-    outline: none;
-    flex-grow: 1;
-    font-size: .8rem;
-}
-
 .search-container:hover {
     box-shadow: 0 0 3px 2px var(--shadow-color), 
     0 0 10px 2px var(--shadow-color);
@@ -245,45 +241,32 @@ body {
     overflow-y: auto;
 }
 
-.card-container {
-    padding: .5rem;
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: .75rem;
+/* stepper  footer */
+
+.stepper__panel-footer-message {
+    display: none;
+    font-size: .75rem;
+    font-weight: 800;
+    color: #d00;
 }
 
-.card__item {
-    grid-column: span 4;
-    padding: .5rem;
-    background-color: hsla(0deg, 0%, 70%, .2);
+.stepper__panel-footer-message.stepper__panel-footer-message--visible {
+    display: block;
+}
+
+.stepper__panel-footer-message::selection {
+    background-color: transparent;
+}
+
+.stepper__footer {
+    width: 100%;
+    margin-top: .5rem;
+    padding: 1.5rem;
     border-radius: 8px;
-
-    position: relative;
-    cursor: pointer;
-}
-
-.card__item:hover {
-    background-color: hsla(0deg, 0%, 70%, .5);
-}
-
-.card__icon-container {
-    position: absolute;
-    top: 4px;
-    right: 3px;
-
-    width: 25px;
-    height: 25px;
-    padding: .5rem;
-    border-radius: 50%;
-    background-color: hsl(0deg, 0%, 100%);
+    background-color: hsl(0, 0%, 100%);
+    box-shadow: 0 0 15px 0 #2221;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    color: hsl(0deg, 0%, 100%);
-}
-
-.card__icon-container.card__icon-container--selected {
-    background-color: hsl(0deg, 0%, 70%);
+    justify-content: space-between;
 }
 
 @keyframes aparecerPanel {
@@ -298,7 +281,6 @@ body {
 }
 
 @media screen and (max-width: 550px) {
-
     .stepper__container {
         height: 100%;
         max-height: 500px;

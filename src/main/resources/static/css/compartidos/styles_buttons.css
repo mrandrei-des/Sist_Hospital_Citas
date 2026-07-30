@@ -121,3 +121,13 @@
     background-color: var(--secondary-color);
     color: var(--secondary-bg-color);
 }
+
+.btn__step {
+    border: 2px solid var(--primary-color);
+    background-color: hsla(210deg, 72%, 72%, .3);
+    color: var(--primary-color);
+}
+
+.btn__step:hover {
+    background-color: hsla(210deg, 72%, 72%, .5);
+}
