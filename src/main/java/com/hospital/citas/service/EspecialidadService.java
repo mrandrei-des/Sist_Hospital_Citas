@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.hospital.citas.model.dto.EspecialidadDTO;
+import com.hospital.citas.model.dto.EspecialidadReservaDTO;
 import com.hospital.citas.model.dto.UltimaEspecialidadRegistradaDTO;
 import com.hospital.citas.model.entity.Especialidad;
 import com.hospital.citas.model.entity.Estado;
@@ -72,6 +73,12 @@ public class EspecialidadService {
             listaDTO.add(dto);
         }
         return listaDTO;
+    }
+
+    public List<EspecialidadReservaDTO> listaEspecialidadesReserva(String filtroBusqueda) {
+        String queryBusqueda = "%" + filtroBusqueda + "%";
+        List<EspecialidadReservaDTO> listaRegistros = especialidadRepository.consultarEspecialidadesReserva(queryBusqueda);
+        return listaRegistros != null ? listaRegistros : new ArrayList<EspecialidadReservaDTO>();
     }
 
     public EspecialidadDTO buscarPorId(Long id) {

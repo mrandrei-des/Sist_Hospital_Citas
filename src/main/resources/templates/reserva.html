@@ -107,7 +107,7 @@
                             </div>
     
                             <div class="stepper__content">
-                                <div class="stepper__panel stepper__panel--active" data-valid="false">
+                                <div class="stepper__panel stepper__panel--active" data-valid="false" id="panelEspecialidades">
                                     <div class="stepper__panel-title-section">
                                         <h2 class="stepper__panel-title">Especialidades</h2>
                                         <p class="stepper__panel-paragraph">Seleccione una especialidad médica</p>
@@ -124,13 +124,15 @@
     
                                     <div class="stepper__panel-main-section">
                                         <div class="card-container" id="containerEspecialidades">
-                                            <div class="card__item" data-type-card="especialidad" data-especialidad="1">
+
+                                            <div class="card__item" th:each="especialidad : ${listaEspecialidades}" th:data-type-card="especialidad" data-type-card="especialidad" th:data-especialidad="${especialidad.getId()}" data-especialidad="1">
                                                 <span class="card__icon-container">
                                                     <i class="fa-solid fa-check"></i>
                                                 </span>
-                                                <h3 class="card__title">Nutrición</h3>
-                                                <p class="card__paragraph">Cantidad de médicos: <strong>5</strong></p>
+                                                <h3 class="card__title" th:text="${especialidad.getDescripcion()}">Nutrición</h3>
+                                                <p class="card__paragraph">Cantidad de médicos: <strong th:text="${especialidad.getCantidad()}">5</strong></p>
                                             </div>
+<!-- 
                                             <div class="card__item" data-type-card="especialidad" data-especialidad="2">
                                                 <span class="card__icon-container ">
                                                     <i class="fa-solid fa-check"></i>
@@ -159,6 +161,7 @@
                                                 <h3 class="card__title">Psicología</h3>
                                                 <p class="card__paragraph">Cantidad de médicos: <strong>2</strong></p>
                                             </div>
+-->
                                         </div>
                                     </div>
     
@@ -167,7 +170,7 @@
                                     </div>
                                 </div>
     
-                                <div class="stepper__panel" data-valid="false">
+                                <div class="stepper__panel" data-valid="false" id="panelMedicos">
                                     <div class="stepper__panel-title-section">
                                         <h2 class="stepper__panel-title">Médicos de: <strong>Nutrición</strong></h2>
                                         <p class="stepper__panel-paragraph">Seleccione un médico</p>
@@ -223,7 +226,7 @@
                                     </div>
                                 </div>
     
-                                <div class="stepper__panel" data-valid="false">
+                                <div class="stepper__panel" data-valid="false"  id="panelHorario">
                                     <div class="stepper__panel-title-section">
                                         <h2 class="stepper__panel-title">Horarios disponibles de: <strong>John Doe</strong></h2>
                                         <p class="stepper__panel-paragraph">Seleccione un horario</p>
