@@ -27,10 +27,10 @@
         <aside th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></aside>
 
         <div class="main__content">
-            <div class="main__container main__container--spc-4">
+            <div class="main__container-pacientes">
 
-                <div class="main__section">
-                    <section class="main__section-title">
+                <div class="main__pacientes-section">
+                    <section class="main__section">
                         <h2 class="main__title">
                             Panel de administración / Pacientes
                         </h2>
@@ -38,43 +38,41 @@
                             Gestiona las cuentas de los pacientes del hospital
                         </p>
                     </section>
+                    <section class="main__section">
+                        <div class="table__container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Identificación</th>
+                                        <th>Paciente</th>
+                                        <th>Registro</th>
+                                        <th>Estado</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="paciente : ${listaPacientes}">
+                                        <td th:text="${paciente.getIdentificacion()}">305310569</td>
+                                        <td th:text="${paciente.getNombreCompleto()}">Andrei Mesén Romero</td>
+                                        <td th:text="${paciente.getFechaRegistro()}">02/07/2026</td>
+                                        <td>
+                                            <span th:if="${paciente.getEstado() == 4}" class="state__container state__container--active">Activo</span>
+                                            <span th:unless="${paciente.getEstado() == 4}" class="state__container state__container--inactive">Inactivo</span>
+                                        </td>
+                                        <td>
+                                            <a href="/" th:href="@{/mi-perfil/{id}(id=${paciente.getId()})}" class="btn__accion__elemento btn__modificar" title="Modificar Paciente">
+                                                <span class="lista__elemento__icono">
+                                                    <i class="fa-solid fa-pencil"></i>
+                                                </span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot></tfoot>
+                            </table>
+                        </div>
+                    </section>
                 </div>
-
-                <div class="main__section main__section-table">
-                    <div class="table__container">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Identificación</th>
-                                    <th>Paciente</th>
-                                    <th>Registro</th>
-                                    <th>Estado</th>
-                                    <th>Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="paciente : ${listaPacientes}">
-                                    <td th:text="${paciente.getIdentificacion()}">305310569</td>
-                                    <td th:text="${paciente.getNombreCompleto()}">Andrei Mesén Romero</td>
-                                    <td th:text="${paciente.getFechaRegistro()}">02/07/2026</td>
-                                    <td>
-                                        <span th:if="${paciente.getEstado() == 4}" class="state__container state__container--active">Activo</span>
-                                        <span th:unless="${paciente.getEstado() == 4}" class="state__container state__container--inactive">Inactivo</span>
-                                    </td>
-                                    <td>
-                                        <a href="/" th:href="@{/mi-perfil/{id}(id=${paciente.getId()})}" class="btn__accion__elemento btn__modificar" title="Modificar Paciente">
-                                            <span class="lista__elemento__icono">
-                                                <i class="fa-solid fa-pencil"></i>
-                                            </span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tfoot></tfoot>
-                        </table>
-                    </div>
-                </div>
-
             </div>
         </div>
     </main>

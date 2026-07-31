@@ -6,7 +6,6 @@
     padding: 1rem 3rem;
     background-color: var(--secondary-bg-color);
     border-radius: 0 0 6px 6px;
-    box-shadow: 0 0 3px 0 var(--box-shadow-color);
 }
 
 .header__container {

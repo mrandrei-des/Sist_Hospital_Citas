@@ -25,9 +25,9 @@
         <aside th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></aside>
 
         <div class="main__content">
-            <div class="main__container main__container--spc-3">
-                <div class="main__section">
-                    <section class="main__section-title">
+            <div class="main__container-horario">
+                <div class="main__horario-section">
+                    <section class="main__section">
                         <h2 class="main__title">
                             Horarios disponibles para esta semana
                         </h2>
@@ -37,8 +37,8 @@
                     </section>
                 </div>
 
-                <div class="main__section">
-                    <section class="main__section-form">
+                <div class="main__horario-section">
+                    <section class="main__section">
                         <form th:action="@{/cargar-horario}" method="get" th:object="${medico}" class="form__filters">
 
                             <div class="form__filters-container">
@@ -62,21 +62,14 @@
                         </form>
                     </section>
                 </div>
-            </div>
 
-            <div class="main__container main__container--spc-4" th:if="${mostrarComponente}">
-                <div class="schedule">
-                    <div class="main__section">
-                        <section class="main__section-title">
+                <div class="main__horario-section" th:if="${mostrarComponente}">
+                    <div class="schedule">
+                        <section class="main__section schedule-container">
                             <div class="schedule__title-container">
                                 <p class="schedule__title" th:text="'Espacios semana del ' + ${fechaInicialSemana} + ' al ' + ${fechaFinalSemana}">Espacios semana del 06-07-2026 al 10-07-2026</p>
                             </div>
-                        </section>
-                    </div>
 
-                    <div class="main__section">
-                        
-                        <section class="schedule-container" th:if="${mostrarComponente}">
                             <div class="schedule__days-container">
                                 <!-- Se renderiza el día -->
                                 <div class="schedule__day" th:each="dia : ${horarioMedico}">
@@ -98,11 +91,11 @@
                                 </div>                        
                             </div>
                         </section>
-
                     </div>
+    
                 </div>
-
             </div>
+
         </div>
     </main>
 

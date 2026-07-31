@@ -26,9 +26,9 @@
         <aside th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></aside>
 
         <div class="main__content">
-            <div class="main__container main__container--spc-2">
-                <div class="main__section">
-                    <section class="main__section-title">
+            <div class="main__container-medicos">
+                <div class="main__reserva-section">
+                    <section class="main__section">
                         <h2 class="main__title">
                             Registro de médicos
                         </h2>
@@ -36,10 +36,8 @@
                             Agregue una nuevo médico al sistema
                         </p>
                     </section>
-                </div>
 
-                <div class="main__section">
-                    <section class="main__section-form">
+                    <section class="main__section">
                         <form th:action="@{/registro-medico}" method="post" class="form" th:object="${medico}" novalidate>
                             <input type="hidden" th:field="*{id}">
 
@@ -76,11 +74,9 @@
                         </form>
                     </section>
                 </div>
-            </div>
-            
-            <div class="main__container main__container--spc-2">
-                <div class="main__section">
-                    <section class="main__section-title">
+                
+                <div class="main__reserva-section">
+                    <section class="main__section">
                         <h2 class="main__title">
                             Listado de médicos
                         </h2>
@@ -88,39 +84,34 @@
                             Estos son los médicos que han sido registrados
                         </p>
                     </section>
-                </div>
-
-                <div class="main__section">
-
-                    <section class="main__section-list">
+                    
+                    <section class="main__section">
                         <div class="main__list">
                             <div class="list__item" th:each="medico : ${listaMedicos}">
-
+                                
                                 <div class="list__info-container">
                                     <h2 class="list__info-title" th:text="${medico.getNombre()} + ' ' + ${medico.getPrimerApellido()} + ' ' + ${medico.getSegundoApellido()}">Luisa Viquez Chan</h2>
                                     <p class="list__info-subtitle" th:text="${medico.getNombreEspecialidad()}">Cardiología</p>
                                 </div>
-
+                                
                                 <div class="list__actions-container">
                                     <a href="/" th:href="@{/buscar-medico/{id}(id=${medico.getId()})}" class="btn__accion__elemento btn__modificar" title="Modificar Médico">
                                         <span class="lista__elemento__icono">
                                             <i class="fa-solid fa-pencil"></i>
                                         </span>
                                     </a>
-
+                                    
                                     <a href="/" th:href="@{/deshabilitar-medico/{id}(id=${medico.getId()})}" class="btn__accion__elemento btn__eliminar" title="Eliminar Médico">
                                         <span class="lista__elemento__icono">
                                             <i class="fa-solid fa-times"></i>
                                         </span>
                                     </a>
                                 </div>
-
+                                
                             </div>
                         </div>
                     </section>
-
                 </div>
-
             </div>
         </div>
     </main>

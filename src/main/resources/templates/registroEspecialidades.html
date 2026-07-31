@@ -26,10 +26,9 @@
         <aside th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></aside>
 
         <div class="main__content">
-            
-            <div class="main__container main__container--spc-5">
-                <div class="main__section">
-                    <section class="main__section-title">
+            <div class="main__container-especialidad">
+                <div class="main__especialidad-section">
+                    <section class="main__section">
                         <h2 class="main__title">
                             Registro especialidad médica
                         </h2>
@@ -38,7 +37,7 @@
                         </p>
                     </section>
 
-                    <section class="main__section-form">
+                    <section class="main__section">
                         <form th:action="@{/registro-especialidad}" method="post" class="form" th:object="${especialidad}" novalidate>
                             <input type="hidden" th:field="*{id}">
 
@@ -60,8 +59,8 @@
                     </section>
                 </div>
 
-                <div class="main__section">
-                    <section class="main__section__title">
+                <div class="main__especialidad-section">
+                    <section class="main__section">
                         <h2 class="main__title">
                             Especialidades registradas
                         </h2>
@@ -69,8 +68,7 @@
                             Estas son las especialidades que han sido registradas
                         </p>
                     </section>
-    
-                    <section class="main__section-list">
+                    <section class="main__section">
                         <div class="main__list">
                             <div class="list__item" th:each="especialidad : ${listaEspecialidades}">
                                 <input type="hidden" th:value="${especialidad.getId()}" name="idEspecialidad">
@@ -89,21 +87,6 @@
                     </section>
                 </div>
             </div>
-
-            <div class="main__container">
-                <aside class="main__aside">
-                    <h2 class="aside__title">
-                        Últimas especialidades ingresadas
-                    </h2>
-                    <div class="aside__list">
-                        <div class="aside__item" th:each="ultEspecialidad : ${listaUltEspecialidades}">
-                            <p class="aside__item-name" th:text="${ultEspecialidad.getDescripcion()}">ABCDEF</p>
-                            <p class="aside__item-date" th:text="${ultEspecialidad.getFechaRegistro()}">01-01-1990</p>
-                        </div>
-                    </div>
-                </aside>
-            </div>
-
         </div>
     </main>
 

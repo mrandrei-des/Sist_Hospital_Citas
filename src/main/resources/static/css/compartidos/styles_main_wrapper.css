@@ -5,6 +5,7 @@
     grid-template-areas: "menuLateral principal";
     grid-template-columns: auto 1fr;
     position: relative;
+    background-color: hsl(210deg, 82%, 98%);
 }
 
 .sidebar-menu {
@@ -17,23 +18,19 @@
     z-index: 5;
     min-width: fit-content;
     min-height: calc(100vh - 100px - 115px);
-
-    display: grid;
-    grid-template-columns: repeat(5, 1fr) auto;
-    gap: 2rem;
+    width: 100%;
 }
 
 .main :is(.sidebar-menu, .main__content){
-    box-shadow: 0 0 3px 0 var(--box-shadow-color);
     padding: 2rem;
+}
+
+.main .sidebar-menu{
+    box-shadow: 0 0 15px 0 #2221;
 }
 
 .sidebar-menu {
     background-color: var(--secondary-bg-color);
-}
-
-.main__content {
-    background-color: hsl(210deg, 82%, 98%);
 }
 
 .main__container {
@@ -83,6 +80,12 @@
     flex-direction: column;
     gap: 1rem;
     min-width: 0;
+
+    padding: 1.5rem;
+    border-radius: 8px;
+    gap: .25rem;
+    background-color: hsl(0, 0%, 100%);
+    box-shadow: 0 0 15px 0 #2221;
 }
 
 .main__section-table {
@@ -94,9 +97,13 @@
 }
 
 .main__section-title {
+    padding: 1.5rem;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     gap: .25rem;
+    background-color: hsl(0, 0%, 100%);
+    box-shadow: 0 0 15px 0 #2221;
 }
 
 .main__section-form {
@@ -124,5 +131,9 @@
     .main {
         height: auto;
         position: relative;
+    }
+
+    .main :is(.main__content) {
+        padding: 1rem;
     }
 }

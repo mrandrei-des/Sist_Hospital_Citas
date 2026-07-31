@@ -26,9 +26,9 @@
     <main class="main">
         <aside th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></aside>
         <div class="main__content">
-            <div class="main__container main__container--spc-3">
-                <div class="main__section">
-                    <section class="main__section-title">
+            <div class="main__container-config-horario">
+                <div class="main__config-horario">
+                    <section class="main__section">
                         <h2 class="main__title">
                             Configuración de horario médico
                         </h2>
@@ -37,7 +37,7 @@
                         </p>
                     </section>
 
-                    <section class="main__section-form">
+                    <section class="main__section">
                         <form th:action="@{/procesar-horario-medico}" method="post" class="form" th:object="${horario}" novalidate>
                             <input type="hidden" th:field="*{id}">
     

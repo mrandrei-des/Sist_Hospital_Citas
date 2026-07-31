@@ -26,9 +26,9 @@
         <aside th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></aside>
 
         <div class="main__content">
-            <div class="main__container main__container--spc-2">
-                <div class="main__section">
-                    <section class="main__section-title section__profile-picture-container">
+            <div class="main__container-perfil">
+                <div class="main__perfil-section">
+                    <section class="main__section section__profile-picture-container">
                         <div class="profile__picture-container">
                             <div class="profile__picture">
                                 <img src="../static/img/pic_profile.svg" th:src="@{/img/pic_profile.svg}" alt="Silueta de un hombre" class="profile__img">
@@ -43,11 +43,13 @@
                             </p>
                         </div>
                     </section>
-
-                    <section class="contenedor__formulario__cuenta">
+                </div>
+                
+                <div class="main__perfil-section">
+                    <section class="main__section contenedor__formulario__cuenta">
                         <form th:action="@{/actualizar-mi-cuenta}" method="post" class="form" th:object="${usuario}" novalidate>
                             <input type="hidden" th:field="*{id}">
-
+    
                             <div class="form__section">
                                 <div class="form__legend-section">
                                     <p class="form__legend">
@@ -87,7 +89,7 @@
                                     </div>
                                 </div>
                             </div>
-
+    
                             <div class="form__section">
                                 <div class="form__legend-section">
                                     <p class="form__legend">
@@ -105,7 +107,7 @@
                                     </div>
                                 </div>
                             </div>
-
+    
                             <div class="form__section">
                                 <div class="form__legend-section">
                                     <p class="form__legend">
@@ -137,14 +139,14 @@
                                     </div>
                                 </div>
                             </div>
-
+    
                             <div class="form__actions">
                                 <button type="submit" class="btn btn__primary">Guardar Cambios</button>
                             </div>
                         </form>
                     </section>
                 </div>
-
+<!-- 
                 <div class="main__section" th:if="${!esAdmin}">
                     <section class="main__section-title">
                         <h2 class="main__title">
@@ -158,6 +160,7 @@
                     <section class="main__section-list">
                     </section>
                 </div>
+-->
             </div>
         </div>
     </main>
