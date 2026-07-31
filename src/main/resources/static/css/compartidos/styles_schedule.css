@@ -1,5 +1,11 @@
 /* .schedule */
 
+
+
+.schedule-container {
+    width: 100%;
+}
+
 .schedule__title-container {
     text-align: center;
     padding: 12px 6px;
@@ -16,30 +22,28 @@
 }
 
 .schedule__days-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
     gap: 1rem;
 }
 
 .schedule__day {
-    padding: 1rem 2rem;
-    border-radius: 8px;
+    grid-column: span 3;
+
     font-size: clamp(.8rem, .95vw, 1rem);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: .5rem;
     height: fit-content;
-    max-width: 350px;
-    min-width: 225px;
-    box-shadow: 0 0 3px 0 var(--box-shadow-color);
     transition: background-color .2s ease-in-out;
 }
 
 .schedule__day-info {
     text-align: center;
+    position: sticky;
+    top: 0;
 }
 
 .schedule__day-name {
@@ -53,23 +57,21 @@
 }
 
 .schedule__date {
-    font-size: .9rem;
+    font-size: clamp(.75rem, 2vw, .85rem);
     font-weight: 600;
+    padding: 4px 12px;
+    white-space: nowrap;
+    background: linear-gradient(to bottom, transparent, hsl(0deg, 0%, 100%), transparent);
 }
 
 .schedule__details {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    flex-direction: column;
     gap: .5rem;
 }
 
-
-@media screen and (max-width: 1100px) {
-    .schedule__days-container {
-        flex-direction: column;
+@media screen and (max-width: 600px) {
+    .schedule__day {
+        grid-column: span 5;
     }
-
-    /* .schedule__details */
 }

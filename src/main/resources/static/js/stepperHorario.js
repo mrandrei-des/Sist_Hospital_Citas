@@ -2,8 +2,11 @@ document.getElementById('btnAnterior').addEventListener('click', (e)=> {
     const stepperActive = document.getElementById('stepperActive');
     if(stepperActive.value < 1) stepperActive.value = 1;
     if(stepperActive.value > 4) stepperActive.value = 4;
+    const stepperPanelList = document.querySelectorAll('.stepper__content .stepper__panel');
+    const currentPanel = stepperPanelList[parseInt(stepperActive.value) - 1];
+
     if(stepperActive.value > 1) stepperActive.value = parseInt(stepperActive.value) - 1;
-    moverStepperContent(stepperActive.value, 'prev');
+    moverStepperContent(stepperActive.value, 'prev', stepperPanelList);
     moverStepper(stepperActive.value, 'prev');
 });
 
@@ -13,24 +16,53 @@ document.getElementById('btnSiguiente').addEventListener('click', (e)=> {
     if(stepperActive.value > 4) stepperActive.value = 4;
     if(stepperActive.value == 4) return;
     
-    if(currentStepValid(stepperActive.value) || stepperActive.value == 3) {
-        if(stepperActive.value < 4) stepperActive.value = parseInt(stepperActive.value) + 1;
-        moverStepper(stepperActive.value, 'next');
-        moverStepperContent(stepperActive.value, 'next');
-    }else {
-        // usar el contenedor padre para buscar el párrado de mensaje para que este proceso sea más dinámico
-        const stepperPanelFooterMessage = document.querySelector('.stepper__panel-footer-message');
-        stepperPanelFooterMessage.classList.add('stepper__panel-footer-message--visible');
+    const stepperPanelList = document.querySelectorAll('.stepper__content .stepper__panel');
+    const currentPanel = stepperPanelList[parseInt(stepperActive.value) - 1];
+    const parentStepperPanel = currentPanel.closest('.stepper__panel');
+    const stepperPanelFooterMessage = parentStepperPanel.querySelector('.stepper__panel-footer-message');
 
-        // const stepperPanelFooterMessage = document.querySelector('.stepper__panel-footer-message');
-        // stepperPanelFooterMessage.classList.remove('stepper__panel-footer-message--visible');
+    if(currentStepValid(stepperActive.value, parentStepperPanel)) {
+        if(stepperActive.value < 4) stepperActive.value = parseInt(stepperActive.value) + 1;
+
+        if(stepperActive.value == 4) {
+            // se debe preparar el nombre de la especialidad y el médico, tomar el id del data-
+        }
+
+        moverStepperContent(stepperActive.value, 'next', stepperPanelList);
+        moverStepper(stepperActive.value, 'next');
+        
+        // cargar lo que se necesita
+        stepperPanelFooterMessage.classList.remove('stepper__panel-footer-message--visible');
+    }else {
+        stepperPanelFooterMessage.classList.add('stepper__panel-footer-message--visible');
     }
 });
 
-function currentStepValid(stepperActive) {
-    const stepperPanelList = document.querySelectorAll('.stepper__content .stepper__panel');
-    const currentStepper = stepperPanelList[stepperActive - 1];
-    const parentStepperPanel = currentStepper.closest('.stepper__panel');
+const cardsContainerEspecialidades = document.getElementById('containerEspecialidades');
+const cardsEspecialidades = cardsContainerEspecialidades.querySelectorAll('.card__item');
+cardsEspecialidades.forEach(card => {
+    card.addEventListener('click', ()=> {
+        selectCard(cardsEspecialidades, card);
+        cardSelectedUpdateValue(card);
+        
+        const parentStepperPanel = cardsContainerEspecialidades.closest('.stepper__panel');
+        parentStepperPanel.setAttribute('data-valid', 'true');
+    })
+});
+
+const cardsContainerMedicos = document.getElementById('containerMedicos');
+const cardsMedicos = cardsContainerMedicos.querySelectorAll('.card__item');
+cardsMedicos.forEach(card => {
+    card.addEventListener('click', ()=> {
+        selectCard(cardsMedicos, card);
+        cardSelectedUpdateValue(card);
+
+        const paredStepperPanel = cardsContainerMedicos.closest('.stepper__panel');
+        paredStepperPanel.setAttribute('data-valid', 'true');
+    })
+});
+
+function currentStepValid(stepperActive, parentStepperPanel) {
     return parentStepperPanel.getAttribute('data-valid') == 'true';
 }
 
@@ -46,13 +78,12 @@ function moverStepper(stepperActive, typeMove) {
 
     const stepperList = document.querySelectorAll('.stepper__container .stepper__step');
     const stepperToMove = stepperList[stepperActive - 1];
-    
+
     if(typeMove === 'next') {
         const stepBefore = stepperList[stepperActive - 2];
         // de donde viene
         const stepBeforeIconSection = stepBefore.querySelector('.stepper__icon-section');
         const stepBeforeIconContainer = stepBefore.querySelector('.stepper__icon-container');
-
         const stepBeforeStatus = stepBefore.querySelector('.stepper__step-status');
 
         stepBeforeIconSection.classList.replace('stepper__icon-section--active', 'stepper__icon-section--completed');
@@ -75,7 +106,7 @@ function moverStepper(stepperActive, typeMove) {
         stepNextStatus.textContent = 'En proceso';
     }else {
         const stepBefore = stepperList[stepperActive];
-
+        
         // de donde viene
         const stepBeforeIconSection = stepBefore.querySelector('.stepper__icon-section');
         const stepBeforeIconContainer = stepBefore.querySelector('.stepper__icon-container');
@@ -102,40 +133,14 @@ function moverStepper(stepperActive, typeMove) {
     }
 }
 
-function moverStepperContent(stepperActive, typeMove) {
-    const stepperPanelList = document.querySelectorAll('.stepper__content .stepper__panel');
-    
-    const stepperPanelToMove = stepperPanelList[stepperActive - 1];
+function moverStepperContent(stepperActive, typeMove, panelList) {
+    const stepperPanelToMove = panelList[stepperActive - 1];
     const currentStepperPanelNumber = typeMove === 'next' ? stepperActive - 2 : stepperActive;
+    const currentStepperPanel = panelList[currentStepperPanelNumber];
 
-    const currentStepperPanel = stepperPanelList[currentStepperPanelNumber];
     stepperPanelToMove.classList.add('stepper__panel--active');
     currentStepperPanel.classList.remove('stepper__panel--active');
 }
-
-const cardsContainerEspecialidades = document.getElementById('containerEspecialidades');
-const cardsEspecialidades = cardsContainerEspecialidades.querySelectorAll('.card__item');
-cardsEspecialidades.forEach(card => {
-    card.addEventListener('click', ()=> {
-        selectCard(cardsEspecialidades, card);
-        cardSelectedUpdateValue(card);
-        
-        const paredStepperPanel = cardsContainerEspecialidades.closest('.stepper__panel');
-        paredStepperPanel.setAttribute('data-valid', 'true');
-    })
-});
-
-const cardsContainerMedicos = document.getElementById('containerMedicos');
-const cardsMedicos = cardsContainerMedicos.querySelectorAll('.card__item');
-cardsMedicos.forEach(card => {
-    card.addEventListener('click', ()=> {
-        selectCard(cardsMedicos, card);
-        cardSelectedUpdateValue(card);
-
-        const paredStepperPanel = cardsContainerMedicos.closest('.stepper__panel');
-        paredStepperPanel.setAttribute('data-valid', 'true');
-    })
-});
 
 // Esta función se llama al momento de renderizar los cards
 function selectCard(listCard, cardSelected) {
@@ -148,19 +153,33 @@ function selectCard(listCard, cardSelected) {
 
 function cardSelectedUpdateValue(card) {
     const dataTypeCard = card.getAttribute('data-type-card');
+    const summaryContainer = document.getElementById('summaryContainer');
+    const summaryParagraphs = summaryContainer.querySelectorAll('.summary__item-paragraph');
+    let paragraphValue = null;
     let cardValue = 0;
+
+    for (let index = 0; index < summaryParagraphs.length; index++) {
+        if(summaryParagraphs[index].getAttribute('data-type-item') == dataTypeCard) {
+            paragraphValue = summaryParagraphs[index];
+            break;
+        }
+    }
 
     switch (dataTypeCard) {
         case 'especialidad':
             cardValue = parseInt(card.getAttribute('data-especialidad'));
             document.getElementById('idEspecialidad').value = cardValue;
-            document.getElementById('idEspecialidad').setAttribute('data-especialidad', cardValue)
+            document.getElementById('idEspecialidad').setAttribute('data-especialidad', cardValue);
+            paragraphValue.textContent = cardValue;
+            paragraphValue.setAttribute('data-value', cardValue);
             break;
-            
+
         case 'medico':
             cardValue = parseInt(card.getAttribute('data-medico'));
             document.getElementById('idMedico').value = cardValue;
-            document.getElementById('idMedico').setAttribute('data-medico', cardValue)
+            document.getElementById('idMedico').setAttribute('data-medico', cardValue);
+            paragraphValue.textContent = cardValue;
+            paragraphValue.setAttribute('data-value', cardValue);
             break;
 
         default:
@@ -168,3 +187,83 @@ function cardSelectedUpdateValue(card) {
             break;
     }
 }
+
+// EVENTO MANUAL PARA PROBAR EL FUNCIONAMIENTO, CUANDO YA SE CONECTE AL BACKEND SE LLAMA A UNA FUNCIÓN
+const daysContainer = document.getElementById('daysContainer');
+const listScheduleSpaces = daysContainer.querySelectorAll('.btn.btn__opcion__horario');
+listScheduleSpaces.forEach(space => {
+    space.addEventListener('click', ()=> {
+        selectScheduleSpace(daysContainer, space);
+        updateScheduleSpaceSelected(space);
+
+        const parentStepperPanel = daysContainer.closest('.stepper__panel');
+        parentStepperPanel.setAttribute('data-valid', 'true');
+    });
+});
+
+// se llama esta función al renderizar
+function selectScheduleSpace(daysContainer, spaceSelected) {
+    const spacesSelected = daysContainer.querySelectorAll('.btn.btn__opcion__horario.espacio__seleccionado');
+    
+    spacesSelected.forEach(space => {
+        space.classList.remove('espacio__seleccionado');
+    });
+
+    spaceSelected.classList.add('espacio__seleccionado');
+}
+
+function updateScheduleSpaceSelected(spaceSelected) {
+    const summaryContainer = document.getElementById('summaryContainer');
+    const summaryParagraphs = summaryContainer.querySelectorAll('.summary__item-paragraph');
+    let dataUpdated = false;
+
+    let dateSelected = spaceSelected.getAttribute('data-fecha');
+    let hourSelected = spaceSelected.getAttribute('data-hora');
+
+    document.getElementById('fecha').value = dateSelected;
+    document.getElementById('fecha').setAttribute('data-fecha', dateSelected);
+    document.getElementById('hora').value = hourSelected;
+    document.getElementById('hora').setAttribute('data-hora', hourSelected);
+
+    for (let index = 0; index < summaryParagraphs.length; index++) {
+        if(summaryParagraphs[index].getAttribute('data-type-item') == 'fecha') {
+            summaryParagraphs[index].textContent = dateSelected;
+        }else if(summaryParagraphs[index].getAttribute('data-type-item') == 'hora') {
+            summaryParagraphs[index].textContent = hourSelected;
+        }
+
+        if(dataUpdated) break;
+    }
+}
+
+const searchBoxEspecialidad = document.getElementById('searchInpEspecialidad');
+const searchBoxMedico = document.getElementById('searchInpMedico');
+
+function findEspecialidades(nameEspecialidad) {
+    console.log('Buscar en la API y procesar');
+}
+
+function findMedicos(nameMedico) {
+    console.log('Buscar en la API MEDICOS y procesar');
+}
+
+function debounce(func, delay) {
+    let timeoutId;
+    return function (...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
+    };
+}
+
+const buscarEspecialidades = debounce(findEspecialidades, 1000);
+const buscarMedicos = debounce(findMedicos, 500);
+
+searchBoxEspecialidad.addEventListener('input', (e)=> {
+    buscarEspecialidades(e.target.value);
+});
+
+searchBoxMedico.addEventListener('input', (e)=> {
+    buscarMedicos(e.target.value);
+});

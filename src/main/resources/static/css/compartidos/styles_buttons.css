@@ -87,24 +87,27 @@
 
 .btn__opcion__horario {
     padding: 8px 12px;
-    color: #fff;
+    color: #000;
     border-radius: 4px;
     font-weight: 600;
     outline: 2px solid transparent;
-    background-color: #097;
-    outline-color: #0976;
+    background-color: #0973;
+    background-color: hsla(0deg, 0%, 70%, .4);
+}
+
+.btn__opcion__horario:hover {
+    background-color: hsla(0deg, 0%, 70%, .6);
 }
 
 .btn__opcion__horario.espacio__reservado {
-    text-decoration: dashed;
     background-color: #ccc;
     outline-color: #ccc;
 }
 
 .btn__opcion__horario.espacio__seleccionado {
-    text-decoration: dashed;
-    background-color: var(--secondary-color);
-    outline-color: var(--secondary-color);
+    background-color: var(--primary-color);
+    color: #fff;
+    outline-color: var(--primary-color);
 }
 
 .btn__lista__elemento {
