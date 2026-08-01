@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.hospital.citas.model.dto.MedicoDTO;
 import com.hospital.citas.model.dto.MedicoRegistradoDTO;
+import com.hospital.citas.model.dto.MedicoReservaDTO;
 import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.model.entity.Medico;
 
@@ -40,4 +41,10 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
 
     @Query(value = "{call sp_ConsultaMedicosConHorarioCreado()}", nativeQuery = true)
     List<MedicoDTO> listaMedicosConHorarioCreado();
+
+    @Query(value = "{call sp_ConsultaMedicosPorEspecialidadReserva(:idEspecialidad, :filtoBusqueda)}", nativeQuery = true)
+    List<MedicoReservaDTO> consultarMedicosPorEspecialidadReserva(
+        @Param("idEspecialidad") Long idEspecialidad,
+        @Param("filtoBusqueda") String filtroBusqueda
+    );
 }

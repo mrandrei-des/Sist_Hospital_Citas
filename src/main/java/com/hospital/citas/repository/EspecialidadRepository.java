@@ -1,18 +1,14 @@
 package com.hospital.citas.repository;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import com.hospital.citas.model.dto.EspecialidadReservaDTO;
 import com.hospital.citas.model.dto.UltimaEspecialidadRegistradaDTO;
 import com.hospital.citas.model.entity.Especialidad;
 import com.hospital.citas.model.entity.Estado;
-
 import jakarta.transaction.Transactional;
 
 public interface EspecialidadRepository extends JpaRepository<Especialidad, Long> {

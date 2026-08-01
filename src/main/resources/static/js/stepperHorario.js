@@ -24,16 +24,22 @@ document.getElementById('btnSiguiente').addEventListener('click', (e)=> {
     if(currentStepValid(stepperActive.value, parentStepperPanel)) {
         if(stepperActive.value < 4) stepperActive.value = parseInt(stepperActive.value) + 1;
 
-        switch (stepperActive.value) {
-            case 2: // CARGAR MÉDICOS Y NOMBRE DE LA ESPECIALIDAD SELECCIONADA
-                
+        let especialidadSelected = null;
+        let medicoSelected = null;
+
+        switch (parseInt(stepperActive.value)) {
+            case 2: // CARGAR MÉDICOS (sp_ConsultaMedicosPorEspecialidadReserva) Y NOMBRE DE LA ESPECIALIDAD SELECCIONADA
+                    especialidadSelected = document.getElementById('idEspecialidad').getAttribute('data-especialidad');
+                    findMedicos(especialidadSelected, '');
                 break;
             case 3: // CARGAR HORARIOS DEL MÉDICO SELECCIONADO
-                
+                    especialidadSelected = document.getElementById('idEspecialidad').getAttribute('data-especialidad');
+                    medicoSelected = document.getElementById('idMedico').getAttribute('data-medico');
                 break;
             case 4: // CARGAR ESPECIALIDAD, MÉDICOS PARA DEJAR LISTO EL RESUMEN
                     // se debe preparar el nombre de la especialidad y el médico, tomar el id del data-
-                
+                    especialidadSelected = document.getElementById('idEspecialidad').getAttribute('data-especialidad');
+                    medicoSelected = document.getElementById('idMedico').getAttribute('data-medico');
                 break;
         
             default:
@@ -252,7 +258,7 @@ const searchBoxEspecialidad = document.getElementById('searchInpEspecialidad');
 const searchBoxMedico = document.getElementById('searchInpMedico');
 
 function findEspecialidades(nameEspecialidad) {
-    fetch(`/especialidades/search/${nameEspecialidad}`)
+    fetch(`/reserva/especialidades/search/${nameEspecialidad}`)
         .then(response => response.json())
         .then(listaEspecialidades => {
             if(listaEspecialidades.length > 0) {
@@ -272,6 +278,34 @@ function findEspecialidades(nameEspecialidad) {
                 alert("¡No se encontraron registros!")
             }
         }).catch(error => console.error('Error al cargar las especialidades:', error));
+}
+
+function findMedicos(idEspecialidad, nameMedico) {
+    let endPoint = `/reserva/medicos/search/${idEspecialidad}`;
+    endPoint += nameMedico != '' ? `/${nameMedico}` : '';
+
+    fetch(endPoint)
+        .then(response => response.json())
+        .then(listaMedicos => {
+            if(listaMedicos.length > 0) {
+                renderizarMedicos(listaMedicos);
+
+                // CREAR UNA FUNCIÓN PARA RESETEAR TODOS LOS CAMPOS Y QUE PUEDE INICIAR DE UNA POSICIÓN ESPECÍFICA
+                // // // SE RESETEA EL PANEL DE MEDICOS
+                // document.getElementById('panelMedicos').setAttribute('data-valid', 'false');
+                // // // SE RESETEA EL PÁRRAFO DEL RESUMEN
+                // const paragraphValue = getParagraphSummary('medico');
+                // paragraphValue.textContent = '-';
+                // paragraphValue.setAttribute('data-value', '');
+                // // // SE RESETEA EL INPUT DEL FORM DE RESUMEN
+                // const inpEspecialidad = document.getElementById('idEspecialidad');
+                // inpEspecialidad.value = 0;
+                // inpEspecialidad.setAttribute('data-especialidad', 0);
+
+            }else {
+                alert("¡No se encontraron registros!")
+            }
+        }).catch(error => console.error('Error al cargar los médicos:', error));
 }
 
 function getParagraphSummary(dataTypeCard) {
@@ -315,8 +349,33 @@ function renderizarEspecialidades(listaEspecialidades) {
     });
 }
 
-function findMedicos(nameMedico) {
-    console.log('Buscar en la API MEDICOS y procesar');
+function renderizarMedicos(listaMedicos) {
+    const containerMedicosCards = document.getElementById('containerMedicos');
+    containerMedicosCards.innerHTML = '';
+    
+    listaMedicos.forEach(medico => {
+        const divCardItem = document.createElement('div');
+        divCardItem.classList.add('card__item');
+        divCardItem.setAttribute('data-type-card', 'medico');
+        divCardItem.setAttribute('data-medico', medico.id);
+
+        divCardItem.innerHTML = 
+        `
+            <span class="card__icon-container">
+                <i class="fa-solid fa-check"></i>
+            </span>
+            <h3 class="card__title">${medico.nombre + ' ' + medico.primerApellido + ' ' + medico.segundoApellido}</h3>
+        `
+
+        divCardItem.addEventListener('click', ()=> {
+            const cardsMedicos = containerMedicosCards.querySelectorAll('.card__item');
+            selectCard(cardsMedicos, divCardItem);
+            cardSelectedUpdateValue(divCardItem);
+            const parentStepperPanel = containerMedicosCards.closest('.stepper__panel');
+            parentStepperPanel.setAttribute('data-valid', 'true');
+        })
+        containerMedicosCards.appendChild(divCardItem);
+    });
 }
 
 function debounce(func, delay) {
@@ -330,12 +389,13 @@ function debounce(func, delay) {
 }
 
 const buscarEspecialidades = debounce(findEspecialidades, 1000);
-const buscarMedicos = debounce(findMedicos, 500);
+const buscarMedicos = debounce(findMedicos, 1000);
 
 searchBoxEspecialidad.addEventListener('input', (e)=> {
     buscarEspecialidades(e.target.value);
 });
 
 searchBoxMedico.addEventListener('input', (e)=> {
-    buscarMedicos(e.target.value);
+    const idEspecialidad = document.getElementById('idEspecialidad').value;
+    buscarMedicos(idEspecialidad, e.target.value);
 });

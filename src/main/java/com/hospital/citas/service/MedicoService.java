@@ -2,12 +2,11 @@ package com.hospital.citas.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import com.hospital.citas.model.dto.EspecialidadDTO;
 import com.hospital.citas.model.dto.MedicoDTO;
 import com.hospital.citas.model.dto.MedicoRegistradoDTO;
+import com.hospital.citas.model.dto.MedicoReservaDTO;
 import com.hospital.citas.model.entity.Especialidad;
 import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.model.entity.Medico;
@@ -115,4 +114,13 @@ public class MedicoService {
     public List<MedicoDTO> listaMedicosConHorario() {
         return medicoRepository.listaMedicosConHorarioCreado();
     }
+
+    public List<MedicoReservaDTO> listaMedicosReservaPorEspecialidad(Long idEspecialidad, String filtroBusqueda) {
+        String queryBusqueda = "%" + filtroBusqueda + "%";
+        List<MedicoReservaDTO> listaRegistros = medicoRepository.consultarMedicosPorEspecialidadReserva(idEspecialidad, queryBusqueda);
+        return listaRegistros != null ? listaRegistros : new ArrayList<MedicoReservaDTO>();
+    }
 }
+
+/*
+*/
