@@ -28,6 +28,12 @@ public class MedicoService {
         return medicoRepository.findAllByEstado(estado);
     }
 
+    public Medico buscarPorIdYEstado(Long idMedico, Long idEstado) {
+        Estado estado = new Estado();
+        estado.setId(idEstado);
+        return medicoRepository.findByIdAndEstado(idEstado, estado).orElse(null);
+    }
+
     public List<EspecialidadDTO> listaEspecialidadesDTO() {
         return especialidadService.listarEspecialidades(4L);
     }

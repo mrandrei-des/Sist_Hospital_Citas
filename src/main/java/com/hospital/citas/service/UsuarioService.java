@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.hospital.citas.model.dto.UsuarioInicioSesionDTO;
 import com.hospital.citas.model.dto.UsuarioSessionDTO;
 import com.hospital.citas.model.entity.CodigoResetContrasenna;
+import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.model.entity.Usuario;
 import com.hospital.citas.repository.CodigoResetContrasennaRepository;
 import com.hospital.citas.repository.UsuarioRepository;
@@ -152,6 +153,11 @@ public class UsuarioService {
 
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id).orElse(null);
+    }
+    public Usuario buscarPorIdYEstado(Long id, Long idEstado) {
+        Estado estado = new Estado();
+        estado.setId(idEstado);
+        return usuarioRepository.findByIdAndEstado(id, estado).orElse(null);
     }
 
     public boolean existePorCorreoYNoId(Long id, String correo) {

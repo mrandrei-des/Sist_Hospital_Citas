@@ -30,8 +30,10 @@ public class HoraFinValidator implements ConstraintValidator<HoraFinValida, Hora
         if(!horaFinCorrecta) {
             context.disableDefaultConstraintViolation();
                 context.buildConstraintViolationWithTemplate(mensajeValidacion)
-                    .addPropertyNode("horaFin")
+                    
+                .addPropertyNode("horaFin")
                     .addConstraintViolation();
+                    
         }
         return horaFinCorrecta;
     }

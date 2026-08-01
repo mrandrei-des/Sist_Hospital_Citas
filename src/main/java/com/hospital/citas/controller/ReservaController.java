@@ -3,6 +3,8 @@ package com.hospital.citas.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.hospital.citas.model.dto.ReservaCitasReservaDTO;
 import com.hospital.citas.service.EspecialidadService;
 import jakarta.servlet.http.HttpSession;
 
@@ -24,6 +26,7 @@ public class ReservaController {
         model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
         model.addAttribute("usuarioEsAdmin", esAdmin);
         model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
+        model.addAttribute("reserva", new ReservaCitasReservaDTO());
         model.addAttribute("listaEspecialidades", especialidadService.listaEspecialidadesReserva(""));
         return "reserva";
     }

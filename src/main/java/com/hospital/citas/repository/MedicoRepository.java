@@ -1,6 +1,7 @@
 package com.hospital.citas.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -18,6 +19,7 @@ import jakarta.transaction.Transactional;
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
     List<Medico> findAllByEstado(Estado estado);
     List<Medico> findAllByEspecialidadId(Long idEspecialidad);
+    Optional<Medico> findByIdAndEstado(Long id, Estado estado);
 
     @Transactional
     @Modifying

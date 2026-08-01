@@ -2,8 +2,6 @@ package com.hospital.citas.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.hospital.citas.model.dto.EspecialidadDTO;
 import com.hospital.citas.model.dto.MedicoDTO;
 import com.hospital.citas.model.dto.MedicoReservaDTO;
 import com.hospital.citas.service.MedicoService;

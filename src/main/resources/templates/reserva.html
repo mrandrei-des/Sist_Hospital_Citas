@@ -263,15 +263,19 @@
                                             </div>
                                         </div>
                                         <div class="form__container">
-                                            <form action="/" method="post">
-                                                <input type="hidden" id="idEspecialidad" name="" data-especialidad="0">
-                                                <input type="hidden" id="idMedico" name="" data-medico="1">
-                                                <input type="hidden" id="fecha" name="" data-fecha="2026-07-30">
-                                                <input type="hidden" id="hora" name="" data-hora="08:00">
+                                            <form th:action="@{/reserva-citas/nueva}" method="post" th:object="${reserva}" novalidate>
+                                                <input type="hidden" id="idEspecialidad" th:field="*{idEspecialidad}" name="idEspecialidad" data-especialidad="0">
+                                                <input type="hidden" id="idMedico" th:field="*{idMedico}" name="idMedico" data-medico="1">
+                                                <input type="hidden" id="fecha" th:field="*{fecha}" name="fecha" data-fecha="2026-07-30">
+                                                <input type="hidden" id="hora" th:field="*{hora}" name="hora" data-hora="08:00">
                         
                                                 <button type="submit" class="btn btn__primary">Procesar Reserva</button>
                                             </form>
                                         </div>
+                                    </div>
+
+                                    <div class="stepper__panel-footer-container">
+                                        <p class="stepper__panel-footer-message" th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}"></p>
                                     </div>
                                 </div>
                             </div>
