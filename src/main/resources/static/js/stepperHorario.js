@@ -551,3 +551,51 @@ function resetStepperPanels(indexStart){
         }
     }
 }
+
+const btnProcesarReserva = document.getElementById('btnProcesarReserva'); 
+btnProcesarReserva.addEventListener('click', (e)=> {
+    e.preventDefault();
+    btnProcesarReserva.setAttribute('disabled', 'true');
+    procesarReserva();
+    btnProcesarReserva.removeAttribute('disabled');
+});
+
+async function procesarReserva() {
+    const token = document.querySelector("meta[name='_csrf']").getAttribute("content");
+    const header = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
+
+    const reservaCitasReservaDTO = {
+        "idEspecialidad": 0,
+        "idMedico": document.getElementById('idMedico').value,
+        "idUsuario": document.getElementById('idUsuario').value,
+        "fecha": document.getElementById('fecha').value,
+        "hora": document.getElementById('hora').value
+    };
+
+    const response = await fetch('/reserva/citas/reservar', {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            [header]: token
+        },
+        body: JSON.stringify(reservaCitasReservaDTO)
+    });
+    if(response.ok) {
+        alert("Cita reservada con éxito.")
+        window.location.href = '/mostrar-reserva'
+    }else {
+        const erroresEncontrados = await response.json();
+        mostrarErroresEnResumen(erroresEncontrados);
+    }
+}
+
+function mostrarErroresEnResumen(errores) {
+    if (errores !== null) {
+        const errorParagraph = document.getElementById('summaryErrorParagraph');
+        for (const key in errores) {
+            console.log(key);
+            errorParagraph.textContent = errores[key];
+        }
+        errorParagraph.classList.add('stepper__panel-footer-message--visible');
+    }
+}

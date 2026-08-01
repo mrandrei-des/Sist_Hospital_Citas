@@ -31,7 +31,10 @@ public class MedicoService {
     public Medico buscarPorIdYEstado(Long idMedico, Long idEstado) {
         Estado estado = new Estado();
         estado.setId(idEstado);
-        return medicoRepository.findByIdAndEstado(idEstado, estado).orElse(null);
+        
+        Medico medico = medicoRepository.findByIdAndEstado(idMedico, estado).orElse(null);
+        // medico = medicoRepository.findById(idEstado).orElse(null);
+        return medico;
     }
 
     public List<EspecialidadDTO> listaEspecialidadesDTO() {

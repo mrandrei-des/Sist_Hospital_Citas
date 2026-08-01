@@ -1,14 +1,14 @@
 package com.hospital.citas.validation.validator;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
+import com.hospital.citas.model.dto.HorarioMedicoVistaDTO;
 import com.hospital.citas.model.dto.ReservaCitasReservaDTO;
-import com.hospital.citas.repository.ConsultaDBServerRepository;
 import com.hospital.citas.service.ConsultaDBServerService;
 import com.hospital.citas.service.DisponibilidadMedicoService;
 import com.hospital.citas.service.MedicoService;
+import com.hospital.citas.service.ReservaCitasService;
 import com.hospital.citas.service.UsuarioService;
 import com.hospital.citas.validation.annotation.ReservaCitaValida;
 import jakarta.validation.ConstraintValidator;
@@ -20,17 +20,18 @@ public class ReservaCitaValidator implements ConstraintValidator<ReservaCitaVali
     private final UsuarioService usuarioService;
     private final ConsultaDBServerService consultaDBServerService;
     private final DisponibilidadMedicoService disponibilidadMedicoService;
+    private final ReservaCitasService reservaCitasService;
 
-    ReservaCitaValidator(MedicoService medicoService, UsuarioService usuarioService, ConsultaDBServerService consultaDBServerService, DisponibilidadMedicoService disponibilidadMedicoService) {
+    ReservaCitaValidator(MedicoService medicoService, UsuarioService usuarioService, ConsultaDBServerService consultaDBServerService, DisponibilidadMedicoService disponibilidadMedicoService, ReservaCitasService reservaCitasService) {
         this.medicoService = medicoService;
         this.usuarioService = usuarioService;
         this.consultaDBServerService = consultaDBServerService;
         this.disponibilidadMedicoService = disponibilidadMedicoService;
+        this.reservaCitasService = reservaCitasService;
     }
 
     @Override
     public boolean isValid(ReservaCitasReservaDTO reserva, ConstraintValidatorContext context) {
-        
         String mensajeValidacion = "";
         boolean reservaValida = true;
 
@@ -57,15 +58,36 @@ public class ReservaCitaValidator implements ConstraintValidator<ReservaCitaVali
                 reservaValida = false;
                 mensajeValidacion = "La fecha y hora de la cita ya ha transcurrido. Seleccione otra.";
             }
-            
+
             // EL DÍA Y HORA DE LA FECHA ESTÉ ENTRE LOS HORARIOS DISPONIBLES DEL MÉDICO
             if(reservaValida) {
+                // traer el día de la fecha para buscar el registro de disponibilidad del médico
+                int diaSemanaFecha = reserva.getFecha().getDayOfWeek().getValue();
+                Long dia = Long.valueOf(diaSemanaFecha);
 
+                List<HorarioMedicoVistaDTO> registrosHorarioDia = disponibilidadMedicoService.consultarHorarioMedicoPorIdDia(reserva.getIdMedico(), dia);
+                if(registrosHorarioDia.size() == 0 ) {
+                    reservaValida = false;
+                    mensajeValidacion = "El médico no tiene horario registrado para el día seleccionado.";
+                }else {
+                    for (HorarioMedicoVistaDTO registroHorario : registrosHorarioDia) {
+                        if((reserva.getHora().isBefore(registroHorario.getHoraInicio())) || (reserva.getHora().isAfter(registroHorario.getHoraFin()))) {
+                            reservaValida = false;
+                            mensajeValidacion = "El médico no tiene horario registrado para el día y hora seleccionado.";
+                            break;
+                        }
+                    }
+                }
             }
-            
+
             // LA FECHA Y HORA ESTÉN DISPONIBLES
             if (reservaValida) {
-
+                List<Long> listaEstados = List.of(1L, 2L);
+                List<ReservaCitasReservaDTO> listaReservasEncontradas = reservaCitasService.buscarCitasReservadasPorMedicoFechaHoraEstados(reserva.getIdMedico(), reserva.getFecha(), reserva.getHora(), listaEstados);
+                if(listaReservasEncontradas.size() > 0) {
+                    reservaValida = false;
+                    mensajeValidacion = "El espacio de cita seleccionado no se encuentra disponible.";
+                }
             }
         }
 

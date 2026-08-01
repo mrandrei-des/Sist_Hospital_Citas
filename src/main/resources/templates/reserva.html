@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reserva de Citas</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
     <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css" th:href="@{/css/compartidos/styles_fonts.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
@@ -106,184 +109,183 @@
                                 </div>
                             </div>
     
-                            <div class="stepper__content">
-                                <div class="stepper__panel stepper__panel--active" data-valid="false" id="panelEspecialidades">
-                                    <div class="stepper__panel-title-section">
-                                        <h2 class="stepper__panel-title">Especialidades</h2>
-                                        <p class="stepper__panel-paragraph">Seleccione una especialidad médica</p>
-                                    </div>
-    
-                                    <div class="stepper__panel-search-section">
-                                        <div class="search-container">
-                                            <label for="searchInp" class="icon__search-container">
-                                                <i class="fa-solid fa-magnifying-glass"></i>
-                                            </label>
-                                            <input type="text" id="searchInpEspecialidad" class="input-search" placeholder="Buscar especialidad" data-type-search="especialidad">
+                            <!-- <form th:action="@{/reserva/citas/nueva}" method="post" th:object="${reserva}" novalidate> -->
+                                <div class="stepper__content">
+                                    <input type="hidden" id="idUsuario" name="idUsuario" th:value="${idUsuario}">
+                                    <div class="stepper__panel stepper__panel--active" data-valid="false" id="panelEspecialidades">
+                                        <div class="stepper__panel-title-section">
+                                            <h2 class="stepper__panel-title">Especialidades</h2>
+                                            <p class="stepper__panel-paragraph">Seleccione una especialidad médica</p>
                                         </div>
-                                    </div>
-    
-                                    <div class="stepper__panel-main-section">
-                                        <div class="card-container" id="containerEspecialidades">
+        
+                                        <div class="stepper__panel-search-section">
+                                            <div class="search-container">
+                                                <label for="searchInp" class="icon__search-container">
+                                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                                </label>
+                                                <input type="text" id="searchInpEspecialidad" class="input-search" placeholder="Buscar especialidad" data-type-search="especialidad">
+                                            </div>
+                                        </div>
+        
+                                        <div class="stepper__panel-main-section">
+                                            <div class="card-container" id="containerEspecialidades">
 
-                                            <div class="card__item" th:each="especialidad : ${listaEspecialidades}" th:data-type-card="especialidad" data-type-card="especialidad" th:data-especialidad="${especialidad.getId()}" data-especialidad="1">
-                                                <span class="card__icon-container">
-                                                    <i class="fa-solid fa-check"></i>
-                                                </span>
-                                                <h3 class="card__title" th:text="${especialidad.getDescripcion()}">Nutrición</h3>
-                                                <p class="card__paragraph">Cantidad de médicos: <strong th:text="${especialidad.getCantidad()}">5</strong></p>
+                                                <div class="card__item" th:each="especialidad : ${listaEspecialidades}" th:data-type-card="especialidad" data-type-card="especialidad" th:data-especialidad="${especialidad.getId()}" data-especialidad="1">
+                                                    <span class="card__icon-container">
+                                                        <i class="fa-solid fa-check"></i>
+                                                    </span>
+                                                    <h3 class="card__title" th:text="${especialidad.getDescripcion()}">Nutrición</h3>
+                                                    <p class="card__paragraph">Cantidad de médicos: <strong th:text="${especialidad.getCantidad()}">5</strong></p>
+                                                </div>
+    <!-- 
+                                                <div class="card__item" data-type-card="especialidad" data-especialidad="2">
+                                                    <span class="card__icon-container ">
+                                                        <i class="fa-solid fa-check"></i>
+                                                    </span>
+                                                    <h3 class="card__title">Cardiología</h3>
+                                                    <p class="card__paragraph">Cantidad de médicos: <strong>3</strong></p>
+                                                </div>
+                                                <div class="card__item" data-type-card="especialidad" data-especialidad="3">
+                                                    <span class="card__icon-container ">
+                                                        <i class="fa-solid fa-check"></i>
+                                                    </span>
+                                                    <h3 class="card__title">General</h3>
+                                                    <p class="card__paragraph">Cantidad de médicos: <strong>4</strong></p>
+                                                </div>
+                                                <div class="card__item" data-type-card="especialidad" data-especialidad="4">
+                                                    <span class="card__icon-container ">
+                                                        <i class="fa-solid fa-check"></i>
+                                                    </span>
+                                                    <h3 class="card__title">Neurología</h3>
+                                                    <p class="card__paragraph">Cantidad de médicos: <strong>1</strong></p>
+                                                </div>
+                                                <div class="card__item" data-type-card="especialidad" data-especialidad="5">
+                                                    <span class="card__icon-container ">
+                                                        <i class="fa-solid fa-check"></i>
+                                                    </span>
+                                                    <h3 class="card__title">Psicología</h3>
+                                                    <p class="card__paragraph">Cantidad de médicos: <strong>2</strong></p>
+                                                </div>
+    -->
                                             </div>
-<!-- 
-                                            <div class="card__item" data-type-card="especialidad" data-especialidad="2">
-                                                <span class="card__icon-container ">
-                                                    <i class="fa-solid fa-check"></i>
-                                                </span>
-                                                <h3 class="card__title">Cardiología</h3>
-                                                <p class="card__paragraph">Cantidad de médicos: <strong>3</strong></p>
-                                            </div>
-                                            <div class="card__item" data-type-card="especialidad" data-especialidad="3">
-                                                <span class="card__icon-container ">
-                                                    <i class="fa-solid fa-check"></i>
-                                                </span>
-                                                <h3 class="card__title">General</h3>
-                                                <p class="card__paragraph">Cantidad de médicos: <strong>4</strong></p>
-                                            </div>
-                                            <div class="card__item" data-type-card="especialidad" data-especialidad="4">
-                                                <span class="card__icon-container ">
-                                                    <i class="fa-solid fa-check"></i>
-                                                </span>
-                                                <h3 class="card__title">Neurología</h3>
-                                                <p class="card__paragraph">Cantidad de médicos: <strong>1</strong></p>
-                                            </div>
-                                            <div class="card__item" data-type-card="especialidad" data-especialidad="5">
-                                                <span class="card__icon-container ">
-                                                    <i class="fa-solid fa-check"></i>
-                                                </span>
-                                                <h3 class="card__title">Psicología</h3>
-                                                <p class="card__paragraph">Cantidad de médicos: <strong>2</strong></p>
-                                            </div>
--->
+                                        </div>
+        
+                                        <div class="stepper__panel-footer-container">
+                                            <p class="stepper__panel-footer-message">Debe seleccionar una especialidad para continuar.</p>
                                         </div>
                                     </div>
-    
-                                    <div class="stepper__panel-footer-container">
-                                        <p class="stepper__panel-footer-message">Debe seleccionar una especialidad para continuar.</p>
+        
+                                    <div class="stepper__panel" data-valid="false" id="panelMedicos">
+                                        <div class="stepper__panel-title-section">
+                                            <h2 class="stepper__panel-title">Médicos de: <strong>Nutrición</strong></h2>
+                                            <p class="stepper__panel-paragraph">Seleccione un médico</p>
+                                        </div>
+        
+                                        <div class="stepper__panel-search-section">
+                                            <div class="search-container">
+                                                <label for="searchInp" class="icon__search-container">
+                                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                                </label>
+                                                <input type="text" id="searchInpMedico" class="input-search" placeholder="Buscar especialidad" data-type-search="medico">
+                                            </div>
+                                        </div>
+        
+                                        <div class="stepper__panel-main-section">
+                                            <div class="card-container" id="containerMedicos">
+                                            </div>
+                                        </div>
+        
+                                        <div class="stepper__panel-footer-container">
+                                            <p class="stepper__panel-footer-message">Debe seleccionar un médico para continuar.</p>
+                                        </div>
+                                    </div>
+        
+                                    <div class="stepper__panel" data-valid="false"  id="panelHorario">
+                                        <div class="stepper__panel-title-section">
+                                            <h2 class="stepper__panel-title">Horarios disponibles de: <strong>John Doe</strong></h2>
+                                            <p class="stepper__panel-paragraph">Seleccione un horario</p>
+                                        </div>
+
+                                        <div class="stepper__panel-main-section">
+                                            <div class="schedule-container">
+                                                <div class="schedule__title-container">
+                                                    <p class="schedule__title" th:text="'Espacios semana del ' + ${fechaInicialSemana} + ' al ' + ${fechaFinalSemana}">Espacios semana del 06-07-2026 al 10-07-2026</p>
+                                                </div>
+                                                <div class="schedule__days-container" id="daysContainer">
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                        <div class="stepper__panel-footer-container">
+                                            <p class="stepper__panel-footer-message">Debe seleccionar un espacio disponible para continuar.</p>
+                                        </div>
+                                    </div>
+        
+                                    <div class="stepper__panel">
+                                        <div class="stepper__panel-title-section">
+                                            <h2 class="stepper__panel-title">Resumen de la selección</h2>
+                                        </div>
+                                        <div class="stepper__panel-main-section">
+                                            <div class="summary-container" id="summaryContainer">
+                                                <div class="summary__item">
+                                                    <div class="summary__item-icon">
+                                                        <i class="fa-solid fa-shapes"></i>
+                                                    </div>
+                                                    <div class="summary__item-info">
+                                                        <p class="summary__item-title">Especialidad</p>
+                                                        <p class="summary__item-paragraph" data-type-item="especialidad" data-value=""></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="summary__item summary__item-right">
+                                                    <div class="summary__item-icon">
+                                                        <i class="fa-solid fa-user-doctor"></i>
+                                                    </div>
+                                                    <div class="summary__item-info">
+                                                        <p class="summary__item-title">Médico</p>
+                                                        <p class="summary__item-paragraph" data-type-item="medico" data-value=""></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="summary__item">
+                                                    <div class="summary__item-icon">
+                                                        <i class="fa-regular fa-calendar"></i>
+                                                    </div>
+                                                    <div class="summary__item-info">
+                                                        <p class="summary__item-title">Fecha</p>
+                                                        <p class="summary__item-paragraph" data-type-item="fecha" data-value=""></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="summary__item summary__item-right">
+                                                    <div class="summary__item-icon">
+                                                        <i class="fa-regular fa-clock"></i>
+                                                    </div>
+                                                    <div class="summary__item-info">
+                                                        <p class="summary__item-title">Hora</p>
+                                                        <p class="summary__item-paragraph" data-type-item="hora" data-value=""></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form__container">
+                                                <input type="hidden" id="idEspecialidad" name="idEspecialidad" data-especialidad="0">
+                                                <input type="hidden" id="idMedico" name="idMedico" data-medico="1">
+                                                <input type="hidden" id="fecha" name="fecha" data-fecha="2026-07-30">
+                                                <input type="hidden" id="hora" name="hora" data-hora="08:00">
+                                                <button type="button" class="btn btn__primary" id="btnProcesarReserva">Procesar Reserva</button>
+                                            </div>
+                                        </div>
+                                        <div class="stepper__panel-footer-container">
+                                            <p class="stepper__panel-footer-message" id="summaryErrorParagraph"></p>
+                                        </div>
                                     </div>
                                 </div>
-    
-                                <div class="stepper__panel" data-valid="false" id="panelMedicos">
-                                    <div class="stepper__panel-title-section">
-                                        <h2 class="stepper__panel-title">Médicos de: <strong>Nutrición</strong></h2>
-                                        <p class="stepper__panel-paragraph">Seleccione un médico</p>
-                                    </div>
-    
-                                    <div class="stepper__panel-search-section">
-                                        <div class="search-container">
-                                            <label for="searchInp" class="icon__search-container">
-                                                <i class="fa-solid fa-magnifying-glass"></i>
-                                            </label>
-                                            <input type="text" id="searchInpMedico" class="input-search" placeholder="Buscar especialidad" data-type-search="medico">
-                                        </div>
-                                    </div>
-    
-                                    <div class="stepper__panel-main-section">
-                                        <div class="card-container" id="containerMedicos">
-                                        </div>
-                                    </div>
-    
-                                    <div class="stepper__panel-footer-container">
-                                        <p class="stepper__panel-footer-message">Debe seleccionar un médico para continuar.</p>
-                                    </div>
+        
+                                <div class="stepper__footer">
+                                    <button type="button" class="btn btn__step" id="btnAnterior">Anterior</button>
+                                    <button type="button" class="btn btn__step" id="btnSiguiente">Siguiente</button>
                                 </div>
-    
-                                <div class="stepper__panel" data-valid="false"  id="panelHorario">
-                                    <div class="stepper__panel-title-section">
-                                        <h2 class="stepper__panel-title">Horarios disponibles de: <strong>John Doe</strong></h2>
-                                        <p class="stepper__panel-paragraph">Seleccione un horario</p>
-                                    </div>
-
-                                    <div class="stepper__panel-main-section">
-                                        <div class="schedule-container">
-                                            <div class="schedule__title-container">
-                                                <p class="schedule__title" th:text="'Espacios semana del ' + ${fechaInicialSemana} + ' al ' + ${fechaFinalSemana}">Espacios semana del 06-07-2026 al 10-07-2026</p>
-                                            </div>
-                                            <div class="schedule__days-container" id="daysContainer">
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="stepper__panel-footer-container">
-                                        <p class="stepper__panel-footer-message">Debe seleccionar un espacio disponible para continuar.</p>
-                                    </div>
-                                </div>
-    
-                                <div class="stepper__panel">
-                                    <div class="stepper__panel-title-section">
-                                        <h2 class="stepper__panel-title">Resumen de la selección</h2>
-                                    </div>
-                                    <div class="stepper__panel-main-section">
-                                        <div class="summary-container" id="summaryContainer">
-                                            <div class="summary__item">
-                                                <div class="summary__item-icon">
-                                                    <i class="fa-solid fa-shapes"></i>
-                                                </div>
-                                                <div class="summary__item-info">
-                                                    <p class="summary__item-title">Especialidad</p>
-                                                    <p class="summary__item-paragraph" data-type-item="especialidad" data-value=""></p>
-                                                </div>
-                                            </div>
-
-                                            <div class="summary__item summary__item-right">
-                                                <div class="summary__item-icon">
-                                                    <i class="fa-solid fa-user-doctor"></i>
-                                                </div>
-                                                <div class="summary__item-info">
-                                                    <p class="summary__item-title">Médico</p>
-                                                    <p class="summary__item-paragraph" data-type-item="medico" data-value=""></p>
-                                                </div>
-                                            </div>
-
-                                            <div class="summary__item">
-                                                <div class="summary__item-icon">
-                                                    <i class="fa-regular fa-calendar"></i>
-                                                </div>
-                                                <div class="summary__item-info">
-                                                    <p class="summary__item-title">Fecha</p>
-                                                    <p class="summary__item-paragraph" data-type-item="fecha" data-value=""></p>
-                                                </div>
-                                            </div>
-
-                                            <div class="summary__item summary__item-right">
-                                                <div class="summary__item-icon">
-                                                    <i class="fa-regular fa-clock"></i>
-                                                </div>
-                                                <div class="summary__item-info">
-                                                    <p class="summary__item-title">Hora</p>
-                                                    <p class="summary__item-paragraph" data-type-item="hora" data-value=""></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form__container">
-                                            <form th:action="@{/reserva-citas/nueva}" method="post" th:object="${reserva}" novalidate>
-                                                <input type="hidden" id="idEspecialidad" th:field="*{idEspecialidad}" name="idEspecialidad" data-especialidad="0">
-                                                <input type="hidden" id="idMedico" th:field="*{idMedico}" name="idMedico" data-medico="1">
-                                                <input type="hidden" id="fecha" th:field="*{fecha}" name="fecha" data-fecha="2026-07-30">
-                                                <input type="hidden" id="hora" th:field="*{hora}" name="hora" data-hora="08:00">
-                        
-                                                <button type="submit" class="btn btn__primary">Procesar Reserva</button>
-                                            </form>
-                                        </div>
-                                    </div>
-
-                                    <div class="stepper__panel-footer-container">
-                                        <p class="stepper__panel-footer-message" th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}"></p>
-                                    </div>
-                                </div>
-                            </div>
-    
-                            <div class="stepper__footer">
-                                <button type="button" class="btn btn__step" id="btnAnterior">Anterior</button>
-                                <button type="button" class="btn btn__step" id="btnSiguiente">Siguiente</button>
-                            </div>
+                            <!-- </form> -->
                         </div>
                     </section>
                 </div>

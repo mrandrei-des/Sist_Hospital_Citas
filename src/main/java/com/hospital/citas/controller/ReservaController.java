@@ -21,12 +21,16 @@ public class ReservaController {
     public String mostrarFormReserva(HttpSession session, Model model) {
 
         boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        Long idUsuarioLoggeado = (Long)session.getAttribute("idUsuarioLoggeado");
         String nombreCompletoUsuarioLoggeado = (String)session.getAttribute("nombreUsuarioLoggeado") + " " + (String)session.getAttribute("primerApellidoUsuarioLoggeado") + " " + (String)session.getAttribute("segundoApellidoUsuarioLoggeado");
+
+        ReservaCitasReservaDTO reserva = new ReservaCitasReservaDTO();
+        reserva.setIdUsuario(idUsuarioLoggeado);
 
         model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
         model.addAttribute("usuarioEsAdmin", esAdmin);
         model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
-        model.addAttribute("reserva", new ReservaCitasReservaDTO());
+        model.addAttribute("idUsuario", idUsuarioLoggeado);
         model.addAttribute("listaEspecialidades", especialidadService.listaEspecialidadesReserva(""));
         return "reserva";
     }

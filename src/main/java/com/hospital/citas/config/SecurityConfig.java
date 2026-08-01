@@ -39,12 +39,9 @@ public class SecurityConfig {
                 // GET MAPPING PRIVADO PACIENTE Y ADMIN
                 .requestMatchers("/acceso-denegado", "/logout", "/mi-perfil/{id}", "/actualizar-mi-cuenta", "/mostrar-horario", "/cargar-horario").hasAnyRole("1", "2")
 
-                // GET MAPPING PRIVADO PACIENTE
+                // GET Y POST MAPPING PRIVADO PACIENTE
                 .requestMatchers("/inicio", "/mostrar-reserva", "/reserva/**").hasAnyRole("1")
-                
-                // POST MAPPING PRIVADO PACIENTE
-                // .requestMatchers().hasAnyRole("1")
-                
+
                 // GET MAPPING PRIVADO ADMIN
                 .requestMatchers("/registroUsuario", "/mostrarPanel", "/especialidades", "/buscar-especialidad/{id}", "/medicos", "/buscar-medico/{id}", "/deshabilitar-medico/{id}", "/mostrar-panel-pacientes", "/configuracion-horario").hasAnyRole("2")
 
