@@ -34,7 +34,6 @@ public class DisponibilidadMedicoService {
     }
 
     public boolean procesarHorarioMedico(HorarioMedicoDTO horario, Long idUsuarioLoggeado) {
-
         DisponibilidadMedico horarioNuevo;
         DiaDeLaSemana diaSemana;
         Medico medico = new Medico();

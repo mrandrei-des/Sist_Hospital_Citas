@@ -61,7 +61,7 @@ public class EspecialidadService {
         return listaDTO;
     }
 
-    public List<EspecialidadDTO> listarEspecialidadesConMedicos(Long estadoEspecialidades) {
+    public List<EspecialidadDTO> listarEspecialidadesConMedicos(Long estadoEspecialidades){
         List<Especialidad> listaEspecialidades = especialidadRepository.consultarEspecialidadesConMedico(estadoEspecialidades);
         List<EspecialidadDTO> listaDTO = new ArrayList<>();
         EspecialidadDTO dto;
@@ -94,5 +94,10 @@ public class EspecialidadService {
 
     public List<UltimaEspecialidadRegistradaDTO> listarUltimaEspecialidadRegistradaDTOs (){
         return especialidadRepository.listaUltimasEspecialidadRegistradasDtos();
+    }
+
+    public String buscarNombrePorId(Long id) {
+        Especialidad especialidadEncontrada = especialidadRepository.findById(id).orElse(null);
+        return especialidadEncontrada == null ? "" : especialidadEncontrada.getDescripcion();
     }
 }

@@ -187,38 +187,6 @@
     
                                     <div class="stepper__panel-main-section">
                                         <div class="card-container" id="containerMedicos">
-<!--  
-                                            <div class="card__item" data-type-card="medico" data-medico="1">
-                                                <span class="card__icon-container ">
-                                                    <i class="fa-solid fa-check"></i>
-                                                </span>
-                                                <h3 class="card__title">John Doe</h3>
-                                            </div>
-                                            <div class="card__item" data-type-card="medico" data-medico="2">
-                                                <span class="card__icon-container ">
-                                                    <i class="fa-solid fa-check"></i>
-                                                </span>
-                                                <h3 class="card__title">María Valles</h3>
-                                            </div>
-                                            <div class="card__item" data-type-card="medico" data-medico="3">
-                                                <span class="card__icon-container ">
-                                                    <i class="fa-solid fa-check"></i>
-                                                </span>
-                                                <h3 class="card__title">Juan Pablo Díaz</h3>
-                                            </div>
-                                            <div class="card__item" data-type-card="medico" data-medico="4">
-                                                <span class="card__icon-container ">
-                                                    <i class="fa-solid fa-check"></i>
-                                                </span>
-                                                <h3 class="card__title">Gabriela Solano Monge</h3>
-                                            </div>
-                                            <div class="card__item" data-type-card="medico" data-medico="5">
-                                                <span class="card__icon-container ">
-                                                    <i class="fa-solid fa-check"></i>
-                                                </span>
-                                                <h3 class="card__title">Kendall Mora Delgado</h3>
-                                            </div>
--->
                                         </div>
                                     </div>
     
@@ -232,401 +200,13 @@
                                         <h2 class="stepper__panel-title">Horarios disponibles de: <strong>John Doe</strong></h2>
                                         <p class="stepper__panel-paragraph">Seleccione un horario</p>
                                     </div>
-    
+
                                     <div class="stepper__panel-main-section">
-                                        <div class="schedule-container" th:if="${mostrarComponente}">
+                                        <div class="schedule-container">
+                                            <div class="schedule__title-container">
+                                                <p class="schedule__title" th:text="'Espacios semana del ' + ${fechaInicialSemana} + ' al ' + ${fechaFinalSemana}">Espacios semana del 06-07-2026 al 10-07-2026</p>
+                                            </div>
                                             <div class="schedule__days-container" id="daysContainer">
-                                                <!-- Se renderiza el día -->
-                                                <div class="schedule__day" th:each="dia : ${horarioMedico}">
-                                                    <div class="schedule__day-info">
-                                                        <p class="schedule__day-name" th:text="${dia.getNombreDia()}">Lunes</p>
-                                                        <p class="schedule__date" th:text="${dia.getFecha()}">06-07-2026</p>
-                                                    </div>
-    
-                                                    <div class="schedule__details">
-                                                        <!-- Se renderiza cada hora de atención -->
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-07-30"
-                                                            data-hora="05:00"
-                                                            >05:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-07-30"
-                                                            data-hora="05:00"
-                                                            >05:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-07-30"
-                                                            data-hora="05:00"
-                                                            >05:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-07-30"
-                                                            data-hora="05:00"
-                                                            >05:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-07-30"
-                                                            data-hora="05:00"
-                                                            >05:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-07-30"
-                                                            data-hora="05:00"
-                                                            >05:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-07-30"
-                                                            data-hora="05:00"
-                                                            >05:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-07-30"
-                                                            data-hora="05:00"
-                                                            >05:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-07-30"
-                                                            data-hora="05:00"
-                                                            >05:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-07-30"
-                                                            data-hora="05:00"
-                                                            >05:00</button>
-                                                            <!-- th:classappend="${espacioHora == '08:00'} ? 'espacio__reservado'" th:data-fecha="${dia.getFecha()}" th:data-hora="${espacioHora}" onclick="seleccionarEspacio(this)" -->
-                                                    </div>
-                                                </div>
-                                                <div class="schedule__day" th:each="dia : ${horarioMedico}">
-                                                    <div class="schedule__day-info">
-                                                        <p class="schedule__day-name" th:text="${dia.getNombreDia()}">Martes</p>
-                                                        <p class="schedule__date" th:text="${dia.getFecha()}">06-07-2026</p>
-                                                    </div>
-    
-                                                    <div class="schedule__details">
-                                                        <!-- Se renderiza cada hora de atención -->
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-30"
-                                                            data-hora="11:30"
-                                                            >05:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-07-30"
-                                                            data-hora="05:00"
-                                                            >05:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-07-30"
-                                                            data-hora="05:00"
-                                                            >05:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-07-30"
-                                                            data-hora="05:00"
-                                                            >05:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-07-30"
-                                                            data-hora="05:00"
-                                                            >05:00</button>
-                                                            <!-- th:classappend="${espacioHora == '08:00'} ? 'espacio__reservado'" th:data-fecha="${dia.getFecha()}" th:data-hora="${espacioHora}" onclick="seleccionarEspacio(this)" -->
-                                                    </div>
-                                                </div>
-                                                <div class="schedule__day" th:each="dia : ${horarioMedico}">
-                                                    <div class="schedule__day-info">
-                                                        <p class="schedule__day-name" th:text="${dia.getNombreDia()}">Miercoles</p>
-                                                        <p class="schedule__date" th:text="${dia.getFecha()}">06-07-2026</p>
-                                                    </div>
-    
-                                                    <div class="schedule__details">
-                                                        <!-- Se renderiza cada hora de atención -->
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-29"
-                                                            data-hora="16:30"
-                                                            >16:30</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-29"
-                                                            data-hora="16:30"
-                                                            >16:30</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-29"
-                                                            data-hora="16:30"
-                                                            >16:30</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-29"
-                                                            data-hora="16:30"
-                                                            >16:30</button>
-                                                            <!-- th:classappend="${espacioHora == '08:00'} ? 'espacio__reservado'" th:data-fecha="${dia.getFecha()}" th:data-hora="${espacioHora}" onclick="seleccionarEspacio(this)" -->
-                                                    </div>
-                                                </div>
-                                                <div class="schedule__day" th:each="dia : ${horarioMedico}">
-                                                    <div class="schedule__day-info">
-                                                        <p class="schedule__day-name" th:text="${dia.getNombreDia()}">Jueves</p>
-                                                        <p class="schedule__date" th:text="${dia.getFecha()}">06-07-2026</p>
-                                                    </div>
-    
-                                                    <div class="schedule__details">
-                                                        <!-- Se renderiza cada hora de atención -->
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-28"
-                                                            data-hora="12:00"
-                                                            >12:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-28"
-                                                            data-hora="12:00"
-                                                            >12:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-28"
-                                                            data-hora="12:00"
-                                                            >12:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-28"
-                                                            data-hora="12:00"
-                                                            >12:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-28"
-                                                            data-hora="12:00"
-                                                            >12:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-28"
-                                                            data-hora="12:00"
-                                                            >12:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-28"
-                                                            data-hora="12:00"
-                                                            >12:00</button>
-                                                            <!-- th:classappend="${espacioHora == '08:00'} ? 'espacio__reservado'" th:data-fecha="${dia.getFecha()}" th:data-hora="${espacioHora}" onclick="seleccionarEspacio(this)" -->
-                                                    </div>
-                                                </div>
-                                                <div class="schedule__day" th:each="dia : ${horarioMedico}">
-                                                    <div class="schedule__day-info">
-                                                        <p class="schedule__day-name" th:text="${dia.getNombreDia()}">Viernes</p>
-                                                        <p class="schedule__date" th:text="${dia.getFecha()}">06-07-2026</p>
-                                                    </div>
-    
-                                                    <div class="schedule__details">
-                                                        <!-- Se renderiza cada hora de atención -->
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-27"
-                                                            data-hora="08:00"
-                                                            >08:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-27"
-                                                            data-hora="08:00"
-                                                            >08:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-27"
-                                                            data-hora="08:00"
-                                                            >08:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-27"
-                                                            data-hora="08:00"
-                                                            >08:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-27"
-                                                            data-hora="08:00"
-                                                            >08:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-27"
-                                                            data-hora="08:00"
-                                                            >08:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-27"
-                                                            data-hora="08:00"
-                                                            >08:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-27"
-                                                            data-hora="08:00"
-                                                            >08:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-27"
-                                                            data-hora="08:00"
-                                                            >08:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-27"
-                                                            data-hora="08:00"
-                                                            >08:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-27"
-                                                            data-hora="08:00"
-                                                            >08:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-27"
-                                                            data-hora="08:00"
-                                                            >08:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-27"
-                                                            data-hora="08:00"
-                                                            >08:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-27"
-                                                            data-hora="08:00"
-                                                            >08:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-27"
-                                                            data-hora="08:00"
-                                                            >08:00</button>
-                                                        <button 
-                                                            type="button" 
-                                                            th:each="espacioHora : ${dia.listaEspacios}" 
-                                                            class="btn btn__opcion__horario"
-                                                            th:text="${espacioHora}"
-                                                            data-fecha="2026-06-27"
-                                                            data-hora="08:00"
-                                                            >08:00</button>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -648,34 +228,37 @@
                                                 </div>
                                                 <div class="summary__item-info">
                                                     <p class="summary__item-title">Especialidad</p>
-                                                    <p class="summary__item-paragraph" data-type-item="especialidad" data-value="">Nutrición</p>
+                                                    <p class="summary__item-paragraph" data-type-item="especialidad" data-value=""></p>
                                                 </div>
                                             </div>
+
                                             <div class="summary__item summary__item-right">
                                                 <div class="summary__item-icon">
                                                     <i class="fa-solid fa-user-doctor"></i>
                                                 </div>
                                                 <div class="summary__item-info">
                                                     <p class="summary__item-title">Médico</p>
-                                                    <p class="summary__item-paragraph" data-type-item="medico" data-value="">Catalina Rojas Durán</p>
+                                                    <p class="summary__item-paragraph" data-type-item="medico" data-value=""></p>
                                                 </div>
                                             </div>
+
                                             <div class="summary__item">
                                                 <div class="summary__item-icon">
                                                     <i class="fa-regular fa-calendar"></i>
                                                 </div>
                                                 <div class="summary__item-info">
                                                     <p class="summary__item-title">Fecha</p>
-                                                    <p class="summary__item-paragraph" data-type-item="fecha">12-09-2026</p>
+                                                    <p class="summary__item-paragraph" data-type-item="fecha" data-value=""></p>
                                                 </div>
                                             </div>
+
                                             <div class="summary__item summary__item-right">
                                                 <div class="summary__item-icon">
                                                     <i class="fa-regular fa-clock"></i>
                                                 </div>
                                                 <div class="summary__item-info">
                                                     <p class="summary__item-title">Hora</p>
-                                                    <p class="summary__item-paragraph" data-type-item="hora">12:30</p>
+                                                    <p class="summary__item-paragraph" data-type-item="hora" data-value=""></p>
                                                 </div>
                                             </div>
                                         </div>

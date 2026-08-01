@@ -28,18 +28,24 @@ document.getElementById('btnSiguiente').addEventListener('click', (e)=> {
         let medicoSelected = null;
 
         switch (parseInt(stepperActive.value)) {
-            case 2: // CARGAR MÉDICOS (sp_ConsultaMedicosPorEspecialidadReserva) Y NOMBRE DE LA ESPECIALIDAD SELECCIONADA
+            case 2:
                     especialidadSelected = document.getElementById('idEspecialidad').getAttribute('data-especialidad');
+                    findNombreEspecialidad(especialidadSelected, 'medicos');
                     findMedicos(especialidadSelected, '');
                 break;
             case 3: // CARGAR HORARIOS DEL MÉDICO SELECCIONADO
                     especialidadSelected = document.getElementById('idEspecialidad').getAttribute('data-especialidad');
                     medicoSelected = document.getElementById('idMedico').getAttribute('data-medico');
+                    findNombreMedico(medicoSelected, 'horario');
+                    findRangoFechasSemana();
+                    findHorarioMedico(medicoSelected);
                 break;
             case 4: // CARGAR ESPECIALIDAD, MÉDICOS PARA DEJAR LISTO EL RESUMEN
                     // se debe preparar el nombre de la especialidad y el médico, tomar el id del data-
                     especialidadSelected = document.getElementById('idEspecialidad').getAttribute('data-especialidad');
                     medicoSelected = document.getElementById('idMedico').getAttribute('data-medico');
+                    findNombreEspecialidad(especialidadSelected, 'resumen');
+                    findNombreMedico(medicoSelected, 'resumen');
                 break;
         
             default:
@@ -63,18 +69,6 @@ cardsEspecialidades.forEach(card => {
         
         const parentStepperPanel = cardsContainerEspecialidades.closest('.stepper__panel');
         parentStepperPanel.setAttribute('data-valid', 'true');
-    })
-});
-
-const cardsContainerMedicos = document.getElementById('containerMedicos');
-const cardsMedicos = cardsContainerMedicos.querySelectorAll('.card__item');
-cardsMedicos.forEach(card => {
-    card.addEventListener('click', ()=> {
-        selectCard(cardsMedicos, card);
-        cardSelectedUpdateValue(card);
-
-        const paredStepperPanel = cardsContainerMedicos.closest('.stepper__panel');
-        paredStepperPanel.setAttribute('data-valid', 'true');
     })
 });
 
@@ -158,7 +152,6 @@ function moverStepperContent(stepperActive, typeMove, panelList) {
     currentStepperPanel.classList.remove('stepper__panel--active');
 }
 
-// Esta función se llama al momento de renderizar los cards
 function selectCard(listCard, cardSelected) {
     listCard.forEach(card => {
         card.classList.remove('card__item--selected');
@@ -183,6 +176,7 @@ function cardSelectedUpdateValue(card) {
 
     switch (dataTypeCard) {
         case 'especialidad':
+            resetStepperPanels(1);
             cardValue = parseInt(card.getAttribute('data-especialidad'));
             document.getElementById('idEspecialidad').value = cardValue;
             document.getElementById('idEspecialidad').setAttribute('data-especialidad', cardValue);
@@ -191,6 +185,7 @@ function cardSelectedUpdateValue(card) {
             break;
 
         case 'medico':
+            resetStepperPanels(2);
             cardValue = parseInt(card.getAttribute('data-medico'));
             document.getElementById('idMedico').value = cardValue;
             document.getElementById('idMedico').setAttribute('data-medico', cardValue);
@@ -204,56 +199,6 @@ function cardSelectedUpdateValue(card) {
     }
 }
 
-// EVENTO MANUAL PARA PROBAR EL FUNCIONAMIENTO, CUANDO YA SE CONECTE AL BACKEND SE LLAMA A UNA FUNCIÓN
-/*
-const daysContainer = document.getElementById('daysContainer');
-const listScheduleSpaces = daysContainer.querySelectorAll('.btn.btn__opcion__horario');
-listScheduleSpaces.forEach(space => {
-    space.addEventListener('click', ()=> {
-        selectScheduleSpace(daysContainer, space);
-        updateScheduleSpaceSelected(space);
-        
-        const parentStepperPanel = daysContainer.closest('.stepper__panel');
-        parentStepperPanel.setAttribute('data-valid', 'true');
-    });
-});
-*/
-
-// se llama esta función al renderizar
-function selectScheduleSpace(daysContainer, spaceSelected) {
-    const spacesSelected = daysContainer.querySelectorAll('.btn.btn__opcion__horario.espacio__seleccionado');
-    
-    spacesSelected.forEach(space => {
-        space.classList.remove('espacio__seleccionado');
-    });
-
-    spaceSelected.classList.add('espacio__seleccionado');
-}
-
-function updateScheduleSpaceSelected(spaceSelected) {
-    const summaryContainer = document.getElementById('summaryContainer');
-    const summaryParagraphs = summaryContainer.querySelectorAll('.summary__item-paragraph');
-    let dataUpdated = false;
-
-    let dateSelected = spaceSelected.getAttribute('data-fecha');
-    let hourSelected = spaceSelected.getAttribute('data-hora');
-
-    document.getElementById('fecha').value = dateSelected;
-    document.getElementById('fecha').setAttribute('data-fecha', dateSelected);
-    document.getElementById('hora').value = hourSelected;
-    document.getElementById('hora').setAttribute('data-hora', hourSelected);
-
-    for (let index = 0; index < summaryParagraphs.length; index++) {
-        if(summaryParagraphs[index].getAttribute('data-type-item') == 'fecha') {
-            summaryParagraphs[index].textContent = dateSelected;
-        }else if(summaryParagraphs[index].getAttribute('data-type-item') == 'hora') {
-            summaryParagraphs[index].textContent = hourSelected;
-        }
-
-        if(dataUpdated) break;
-    }
-}
-
 const searchBoxEspecialidad = document.getElementById('searchInpEspecialidad');
 const searchBoxMedico = document.getElementById('searchInpMedico');
 
@@ -263,21 +208,42 @@ function findEspecialidades(nameEspecialidad) {
         .then(listaEspecialidades => {
             if(listaEspecialidades.length > 0) {
                 renderizarEspecialidades(listaEspecialidades);
-
-                // SE RESETEA EL PANEL DE ESPECIALIDADES
-                document.getElementById('panelEspecialidades').setAttribute('data-valid', 'false');
-                // SE RESETEA EL PÁRRAFO DEL RESUMEN
-                const paragraphValue = getParagraphSummary('especialidad');
-                paragraphValue.textContent = '-';
-                paragraphValue.setAttribute('data-value', '');
-                // SE RESETEA EL INPUT DEL FORM DE RESUMEN
-                const inpEspecialidad = document.getElementById('idEspecialidad');
-                inpEspecialidad.value = 0;
-                inpEspecialidad.setAttribute('data-especialidad', 0);
             }else {
                 alert("¡No se encontraron registros!")
             }
         }).catch(error => console.error('Error al cargar las especialidades:', error));
+}
+
+function findNombreEspecialidad(idEspecialidad, panelPorActualizar) {
+    fetch(`/reserva/especialidades/${idEspecialidad}`)
+        .then(response => response.json())
+        .then(especialidadEncontrada => {
+            if(especialidadEncontrada != null) {
+                if(panelPorActualizar == 'medicos') {
+                    actualizarNombreEspecialidadPanelMedicos(especialidadEncontrada);
+                }else {
+                    actualizarNombreEspecialidadPanelResumen(especialidadEncontrada);
+                }
+            }else {
+                alert("¡No se encontraron registros!")
+            }
+        }).catch(error => console.error('Error al cargar las especialidades:', error));
+}
+
+function findNombreMedico(idMedico, panelPorActualizar) {
+    fetch(`/reserva/medicos/${idMedico}`)
+        .then(response => response.json())
+        .then(medicoEncontrado => {
+            if(medicoEncontrado != null) {
+                if(panelPorActualizar == 'horario') {
+                    actualizarNombreMedicoPanelHorario(medicoEncontrado);
+                }else {
+                    actualizarNombreMedicoPanelResumen(medicoEncontrado);
+                }
+            }else {
+                alert("¡No se encontraron registros!")
+            }
+        }).catch(error => console.error('Error al cargar los médicos:', error));
 }
 
 function findMedicos(idEspecialidad, nameMedico) {
@@ -289,23 +255,40 @@ function findMedicos(idEspecialidad, nameMedico) {
         .then(listaMedicos => {
             if(listaMedicos.length > 0) {
                 renderizarMedicos(listaMedicos);
-
-                // CREAR UNA FUNCIÓN PARA RESETEAR TODOS LOS CAMPOS Y QUE PUEDE INICIAR DE UNA POSICIÓN ESPECÍFICA
-                // // // SE RESETEA EL PANEL DE MEDICOS
-                // document.getElementById('panelMedicos').setAttribute('data-valid', 'false');
-                // // // SE RESETEA EL PÁRRAFO DEL RESUMEN
-                // const paragraphValue = getParagraphSummary('medico');
-                // paragraphValue.textContent = '-';
-                // paragraphValue.setAttribute('data-value', '');
-                // // // SE RESETEA EL INPUT DEL FORM DE RESUMEN
-                // const inpEspecialidad = document.getElementById('idEspecialidad');
-                // inpEspecialidad.value = 0;
-                // inpEspecialidad.setAttribute('data-especialidad', 0);
-
             }else {
                 alert("¡No se encontraron registros!")
             }
         }).catch(error => console.error('Error al cargar los médicos:', error));
+}
+
+function findHorarioMedico(idMedico) {
+    fetch(`/reserva/horario/${idMedico}`)
+        .then(response => response.json())
+        .then(horarioEncontrado => {
+            if(horarioEncontrado != null) {
+                renderizarHorarioMedico(horarioEncontrado);
+            }else {
+                alert("¡No se encontraron registros!")
+            }
+        }).catch(error => console.error('Error al cargar el horario del médico:', error));
+}
+
+function findRangoFechasSemana() {
+    fetch(`/reserva/horario/fechas`)
+        .then(response => response.json())
+        .then(rangoFechas => {
+            if(rangoFechas != null) {
+                actualizarRangoFechasPanelHorario(rangoFechas);
+            }else {
+                alert("¡No se encontraron registros!")
+            }
+        }).catch(error => console.error('Error al cargar el horario del médico:', error));
+}
+
+function  actualizarRangoFechasPanelHorario(rangoFechas) {
+    const panelHorario = document.getElementById('panelHorario');
+    const scheduleTitle = panelHorario.querySelector('.schedule__title');
+    scheduleTitle.textContent = `Espacios semana del ${rangoFechas[0]} al ${rangoFechas[1]}`;
 }
 
 function getParagraphSummary(dataTypeCard) {
@@ -378,6 +361,119 @@ function renderizarMedicos(listaMedicos) {
     });
 }
 
+function renderizarHorarioMedico(horarioEncontrado){
+    const daysContainer = document.getElementById('daysContainer');
+    daysContainer.innerHTML = '';
+
+    horarioEncontrado.forEach(diaHorario => {
+        //Renderizar los días
+        const scheduleDay = document.createElement('div');
+        scheduleDay.classList.add('schedule__day');
+
+        const scheduleDayInfo = document.createElement('div');
+        scheduleDayInfo.classList.add('schedule__day-info');
+        scheduleDayInfo.innerHTML = 
+        `
+            <p class="schedule__day-name">${diaHorario.nombreDia}</p>
+            <p class="schedule__date">${diaHorario.fechaFormateada}</p>
+        `;
+
+        scheduleDay.appendChild(scheduleDayInfo);
+
+        // Renderizar las horas de ese cada día
+        const listaEspacios = diaHorario.listaEspacios;
+        const scheduleDayDetails = document.createElement('div');
+        scheduleDayDetails.classList.add('schedule__details');
+
+        listaEspacios.forEach(espacio => {
+            const buttonEspacio = document.createElement('button');
+            buttonEspacio.classList.add('btn', 'btn__opcion__horario');
+            buttonEspacio.setAttribute('type', 'button');
+            buttonEspacio.setAttribute('data-fecha', diaHorario.fecha);
+            buttonEspacio.setAttribute('data-hora', espacio);
+            buttonEspacio.textContent = espacio;
+
+            buttonEspacio.addEventListener('click', ()=> {
+                selectScheduleSpace(daysContainer, buttonEspacio);
+                updateScheduleSpaceSelected(buttonEspacio);
+                const parentStepperPanel = daysContainer.closest('.stepper__panel');
+                parentStepperPanel.setAttribute('data-valid', 'true');
+            });
+            scheduleDayDetails.appendChild(buttonEspacio);
+        });
+        scheduleDay.appendChild(scheduleDayDetails);
+        daysContainer.appendChild(scheduleDay);
+    });
+}
+
+function selectScheduleSpace(daysContainer, spaceSelected) {
+    const spacesSelected = daysContainer.querySelectorAll('.btn.btn__opcion__horario.espacio__seleccionado');
+    
+    spacesSelected.forEach(space => {
+        space.classList.remove('espacio__seleccionado');
+    });
+
+    spaceSelected.classList.add('espacio__seleccionado');
+}
+
+function updateScheduleSpaceSelected(spaceSelected) {
+    const summaryContainer = document.getElementById('summaryContainer');
+    const summaryParagraphs = summaryContainer.querySelectorAll('.summary__item-paragraph');
+    let dataUpdated = false;
+
+    let dateSelected = spaceSelected.getAttribute('data-fecha');
+    let hourSelected = spaceSelected.getAttribute('data-hora');
+
+    document.getElementById('fecha').value = dateSelected;
+    document.getElementById('fecha').setAttribute('data-fecha', dateSelected);
+    document.getElementById('hora').value = hourSelected;
+    document.getElementById('hora').setAttribute('data-hora', hourSelected);
+
+    for (let index = 0; index < summaryParagraphs.length; index++) {
+        if(summaryParagraphs[index].getAttribute('data-type-item') == 'fecha') {
+            summaryParagraphs[index].textContent = dateSelected;
+        }else if(summaryParagraphs[index].getAttribute('data-type-item') == 'hora') {
+            summaryParagraphs[index].textContent = hourSelected;
+        }
+
+        if(dataUpdated) break;
+    }
+}
+
+function actualizarNombreEspecialidadPanelMedicos(especialidadEncontrada) {
+    const panelMedico = document.getElementById('panelMedicos');
+    const titlePanel = panelMedico.querySelector('.stepper__panel-title');
+    titlePanel.innerHTML = `Médicos de: <strong>${especialidadEncontrada.descripcion}</strong></h2>`;
+}
+
+function actualizarNombreMedicoPanelHorario(medicoEncontrado) {
+    const panelHorario = document.getElementById('panelHorario');
+    const titlePanel = panelHorario.querySelector('.stepper__panel-title');
+    titlePanel.innerHTML = `Horarios disponibles de: <strong>${medicoEncontrado.nombre + ' ' + medicoEncontrado.primerApellido + ' ' + medicoEncontrado.segundoApellido}</strong></h2>`;
+}
+
+function actualizarNombreMedicoPanelResumen(medicoEncontrado) {
+    const summaryContainer = document.getElementById('summaryContainer');
+    const summaryItems = summaryContainer.querySelectorAll('.summary__item');
+    summaryItems.forEach(item => {
+        const summaryParagraph = item.querySelector('.summary__item-paragraph');
+        if(summaryParagraph.getAttribute('data-type-item') == 'medico') {
+            summaryParagraph.textContent = medicoEncontrado.nombre + ' ' + medicoEncontrado.primerApellido + ' ' + medicoEncontrado.segundoApellido;
+        }
+    });
+}
+
+function actualizarNombreEspecialidadPanelResumen(especialidadEncontrada) {
+    const summaryContainer = document.getElementById('summaryContainer');
+    const summaryItems = summaryContainer.querySelectorAll('.summary__item');
+    summaryItems.forEach(item => {
+        const summaryParagraph = item.querySelector('.summary__item-paragraph');
+        if(summaryParagraph.getAttribute('data-type-item') == 'especialidad') {
+            summaryParagraph.textContent = especialidadEncontrada.descripcion;
+        }
+    });
+}
+
 function debounce(func, delay) {
     let timeoutId;
     return function (...args) {
@@ -399,3 +495,59 @@ searchBoxMedico.addEventListener('input', (e)=> {
     const idEspecialidad = document.getElementById('idEspecialidad').value;
     buscarMedicos(idEspecialidad, e.target.value);
 });
+
+function resetStepperPanels(indexStart){
+    const listaPaneles = document.querySelectorAll('.stepper__panel');
+
+    // RECORRE CADA PANEL PARA RESETEAR EL ATRIBUTO DE DATA-VALID
+    for (let i = indexStart; i < listaPaneles.length; i++) {
+        let panel = listaPaneles[i];
+        // CUANDO LLEGA AL ÚLTIMO PANEL DEBE RESETEAR DIFERENTE
+        // DEBE LIMPIAR EL PÁRRAFO E INPUTS DEL FORM
+        if(i == 3) { 
+            let summaryItems = panel.querySelectorAll('.summary__item');
+            for (let j = indexStart; j < summaryItems.length - 1; j++) {
+                let summaryItem = summaryItems[j];                
+                let summaryParagraph = summaryItem.querySelector('.summary__item-paragraph');
+                summaryParagraph.textContent = '-';
+                summaryParagraph.setAttribute('data-value', '');
+                
+                if (j == 2) {
+                    summaryItem = summaryItems[j + 1];
+                    summaryParagraph = summaryItem.querySelector('.summary__item-paragraph');
+                    summaryParagraph.textContent = '-';
+                    summaryParagraph.setAttribute('data-value', '');
+                }
+            }
+
+            let inputsHidden = panel.querySelectorAll('input');
+            for (let j = indexStart; j < inputsHidden.length - 1; j++) {
+                switch (j) {
+                    case 0:
+                        const inputEspecialidad = document.getElementById('idEspecialidad');
+                        inputEspecialidad.value = '0';
+                        inputEspecialidad.setAttribute('data-especialidad', 0);
+                        break;
+                    case 1:
+                        const inputMedico = document.getElementById('idMedico');
+                        inputMedico.value = '0';
+                        inputMedico.setAttribute('data-medico', 0);
+                        break;
+                    case 2:
+                        const inputFecha = document.getElementById('fecha');
+                        inputFecha.value = '2026-01-01';
+                        inputFecha.setAttribute('data-fecha', '2026-01-01');
+                        
+                        const inputHora = document.getElementById('hora');
+                        inputHora.value = '08:00';
+                        inputHora.setAttribute('data-hora', '08:00');
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }else {
+            panel.setAttribute('data-valid', 'false');
+        }
+    }
+}

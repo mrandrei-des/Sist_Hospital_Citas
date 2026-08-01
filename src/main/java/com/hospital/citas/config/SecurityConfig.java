@@ -28,7 +28,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 //rutas publicas 
                 // RECURSOS
-                .requestMatchers("/css/**", "/js/**", "/img/**", "/fonts/**").permitAll()
+                .requestMatchers("/css/**", "/js/**", "/img/**", "/fonts/**", "/favicon.ico").permitAll()
 
                 // GET MAPPING PÚBLICO
                 .requestMatchers("/login", "/", "/registrarPaciente", "/recuperarContrasenna", "/verificacionCodigo").permitAll()
@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .requestMatchers("/acceso-denegado", "/logout", "/mi-perfil/{id}", "/actualizar-mi-cuenta", "/mostrar-horario", "/cargar-horario").hasAnyRole("1", "2")
 
                 // GET MAPPING PRIVADO PACIENTE
-                .requestMatchers("/inicio", "/mostrar-reserva", "/reserva/especialidades/**", "/reserva/**").hasAnyRole("1")
+                .requestMatchers("/inicio", "/mostrar-reserva", "/reserva/**").hasAnyRole("1")
                 
                 // POST MAPPING PRIVADO PACIENTE
                 // .requestMatchers().hasAnyRole("1")

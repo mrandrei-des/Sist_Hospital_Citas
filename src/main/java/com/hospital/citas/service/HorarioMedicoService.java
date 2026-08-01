@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -115,5 +116,27 @@ public class HorarioMedicoService {
         }else {
             return fechaActual.plusDays(5 - fechaActual.getDayOfWeek().getValue());
         }
+    }
+
+    public List<String> consultarRangoFechasSemana() {
+        List<String> rangoFechasSemana = new ArrayList<>();
+        rangoFechasSemana.add(consultarFechaInicioSemana());
+        rangoFechasSemana.add(consultarFechaFinSemana());
+        return rangoFechasSemana;
+    }
+
+    public List<String> eliminarEspaciosOcupados(List<String> listaPorRevisar, List<String> listaReestricciones) {
+
+        HashSet<String> reestricciones = new HashSet<String>();
+        for (String reestriccion : listaReestricciones) {
+            reestricciones.add(reestriccion);
+        }
+
+        List<String> listaEspaciosDisponibles = new ArrayList<>();
+        for (String espacio : listaPorRevisar) {
+            if(!reestricciones.contains(espacio)) listaEspaciosDisponibles.add(espacio);
+        }
+
+        return listaEspaciosDisponibles;
     }
 }

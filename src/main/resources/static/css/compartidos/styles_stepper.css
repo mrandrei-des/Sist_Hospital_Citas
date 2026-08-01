@@ -226,7 +226,7 @@
 
 /* stepper main section */
 .stepper__panel-main-section {
-    max-height: 200px;
+    max-height: 400px;
     overflow-y: auto;
 }
 

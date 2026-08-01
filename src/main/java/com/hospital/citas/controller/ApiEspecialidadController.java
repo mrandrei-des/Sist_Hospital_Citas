@@ -2,6 +2,8 @@ package com.hospital.citas.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.hospital.citas.model.dto.EspecialidadDTO;
 import com.hospital.citas.model.dto.EspecialidadReservaDTO;
 import com.hospital.citas.service.EspecialidadService;
 import java.util.List;
@@ -34,5 +36,14 @@ public class ApiEspecialidadController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(listaEspecialidades);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<EspecialidadDTO> buscarNombreEspecialidadPorId(@PathVariable Long id) {
+        EspecialidadDTO especialidadEncontrada = especialidadService.buscarPorId(id);
+        if (especialidadEncontrada == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(especialidadEncontrada);
     }
 }

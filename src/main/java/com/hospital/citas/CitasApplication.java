@@ -11,6 +11,3 @@ public class CitasApplication {
 		SpringApplication.run(CitasApplication.class, args);
 	}
 }
-
-// CONSTRUIR API PARA BUSQUEDA DE LOS MÉDICOS QUE PERTENECEN A UNA ESPECIALIDAD INDICADA
-// listaMedicosReservaPorEspecialidad
