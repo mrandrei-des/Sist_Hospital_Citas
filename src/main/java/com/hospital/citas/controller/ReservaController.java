@@ -20,6 +20,18 @@ public class ReservaController {
     @GetMapping("/mostrar-reserva")
     public String mostrarFormReserva(HttpSession session, Model model) {
 
+        boolean mostrarNotificacion  = (boolean)session.getAttribute("mostrarNotificacion");
+        String origenNotificacion = (String)session.getAttribute("origen");
+
+        if(mostrarNotificacion && origenNotificacion.equals("reservaCitas")) {
+            model.addAttribute("mostrarNotificacion", true);
+            model.addAttribute("tipoNotificacion", (String)session.getAttribute("tipoNotificacion"));
+            model.addAttribute("titulo", (String)session.getAttribute("titulo"));
+            model.addAttribute("detalle", (String)session.getAttribute("detalle"));
+            session.setAttribute("mostrarNotificacion", false);
+            session.setAttribute("origen", "");
+        }
+
         boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
         Long idUsuarioLoggeado = (Long)session.getAttribute("idUsuarioLoggeado");
         String nombreCompletoUsuarioLoggeado = (String)session.getAttribute("nombreUsuarioLoggeado") + " " + (String)session.getAttribute("primerApellidoUsuarioLoggeado") + " " + (String)session.getAttribute("segundoApellidoUsuarioLoggeado");
@@ -33,5 +45,15 @@ public class ReservaController {
         model.addAttribute("idUsuario", idUsuarioLoggeado);
         model.addAttribute("listaEspecialidades", especialidadService.listaEspecialidadesReserva(""));
         return "reserva";
+    }
+
+    @GetMapping("/confirmar-reserva")
+    public String confirmarReserva(HttpSession session) {
+        session.setAttribute("mostrarNotificacion", true);
+        session.setAttribute("origen", "reservaCitas");
+        session.setAttribute("tipoNotificacion", "success");
+        session.setAttribute("titulo", "¡Cita reservada!");
+        session.setAttribute("detalle", "La cita ha sido reservada correctamente.");
+        return "redirect:/mostrar-reserva";
     }
 }

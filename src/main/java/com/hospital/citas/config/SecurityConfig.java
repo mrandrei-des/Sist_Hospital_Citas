@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .requestMatchers("/acceso-denegado", "/logout", "/mi-perfil/{id}", "/actualizar-mi-cuenta", "/mostrar-horario", "/cargar-horario").hasAnyRole("1", "2")
 
                 // GET Y POST MAPPING PRIVADO PACIENTE
-                .requestMatchers("/inicio", "/mostrar-reserva", "/reserva/**").hasAnyRole("1")
+                .requestMatchers("/inicio", "/mostrar-reserva", "/reserva/**", "/confirmar-reserva").hasAnyRole("1")
 
                 // GET MAPPING PRIVADO ADMIN
                 .requestMatchers("/registroUsuario", "/mostrarPanel", "/especialidades", "/buscar-especialidad/{id}", "/medicos", "/buscar-medico/{id}", "/deshabilitar-medico/{id}", "/mostrar-panel-pacientes", "/configuracion-horario").hasAnyRole("2")

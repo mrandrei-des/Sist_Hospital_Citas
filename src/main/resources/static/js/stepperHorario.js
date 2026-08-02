@@ -262,7 +262,8 @@ function findMedicos(idEspecialidad, nameMedico) {
 }
 
 function findHorarioMedico(idMedico) {
-    fetch(`/reserva/horario/${idMedico}`)
+    const idUsuario = document.getElementById('idUsuario').value;
+    fetch(`/reserva/horario/${idUsuario}/${idMedico}`)
         .then(response => response.json())
         .then(horarioEncontrado => {
             if(horarioEncontrado != null) {
@@ -563,10 +564,10 @@ btnProcesarReserva.addEventListener('click', (e)=> {
 async function procesarReserva() {
     const token = document.querySelector("meta[name='_csrf']").getAttribute("content");
     const header = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
-
+    const idMedico = document.getElementById('idMedico').value;
     const reservaCitasReservaDTO = {
         "idEspecialidad": 0,
-        "idMedico": document.getElementById('idMedico').value,
+        "idMedico": idMedico,
         "idUsuario": document.getElementById('idUsuario').value,
         "fecha": document.getElementById('fecha').value,
         "hora": document.getElementById('hora').value
@@ -581,15 +582,14 @@ async function procesarReserva() {
         body: JSON.stringify(reservaCitasReservaDTO)
     });
     if(response.ok) {
-        alert("Cita reservada con éxito.")
-        // enviar a un controller que sea solo para cuando se procesa todo correctamente y ahí redirigir al mostrar-reserva para mostrar la notificación
-        window.location.href = '/mostrar-reserva'
+        window.location.href = '/confirmar-reserva'
     }else if (response.status === 400){
         // alguna validación no se cumplió
         const erroresEncontrados = await response.json();
         mostrarErroresEnResumen(erroresEncontrados);
     }else {
-        // no se procesó porque el espacio ya está ocupado o algún error del servidor
+        alert("El horario ya fue tomado por alguien más. Seleccione uno nuevo.")
+        findHorarioMedico(idMedico);
     }
 }
 
@@ -597,7 +597,6 @@ function mostrarErroresEnResumen(errores) {
     if (errores !== null) {
         const errorParagraph = document.getElementById('summaryErrorParagraph');
         for (const key in errores) {
-            console.log(key);
             errorParagraph.textContent = errores[key];
         }
         errorParagraph.classList.add('stepper__panel-footer-message--visible');

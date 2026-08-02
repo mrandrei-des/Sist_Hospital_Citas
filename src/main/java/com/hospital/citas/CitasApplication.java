@@ -11,9 +11,3 @@ public class CitasApplication {
 		SpringApplication.run(CitasApplication.class, args);
 	}
 }
-
-/*
-	IMPLEMENTAR LAS VALIDACIONES PARA EXCLUIR ALGUNOS HORARIOS SEGÚN RESTRICCIONES
-	FALTA IMPLEMENTAR LA RESERVA DE CITAS
-	revisar reglas de negocio
-*/

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.hospital.citas.model.dto.PanelGestionPacienteDTO;
 import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.model.entity.Medico;
 import com.hospital.citas.model.entity.ReservaCitas;
@@ -14,6 +15,7 @@ import jakarta.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 
 public interface ReservaCitasRepository extends JpaRepository<ReservaCitas, Long> {
@@ -26,5 +28,17 @@ public interface ReservaCitasRepository extends JpaRepository<ReservaCitas, Long
         @Param("idReservaAfectada") Long idReservaAfectada,
         @Param("descripcionAccion") String descripcionAccion,
         @Param("idUsuarioRealizoAccion") Long idUsuarioRealizoAccion
+    );
+
+    @Query(value = "{call sp_ConsultaHorasOcupadasUsuarioPorFecha(:idUsuario, :fechaBusqueda)}", nativeQuery = true)
+    Optional<List<LocalTime>> consultaHorasRestringidasUsuarioPorFecha(
+        @Param("idUsuario") Long idUsuario,
+        @Param("fechaBusqueda") LocalDate fechaBusqueda
+    );
+
+    @Query(value = "{call sp_ConsultaHorasOcupadasMedicoPorFecha(:idMedico, :fechaBusqueda)}", nativeQuery = true)
+    Optional<List<LocalTime>> consultaHorasOcupadasMedicoPorFecha(
+        @Param("idMedico") Long idMedico,
+        @Param("fechaBusqueda") LocalDate fechaBusqueda
     );
 }

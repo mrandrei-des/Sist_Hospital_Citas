@@ -21,12 +21,14 @@ public class HorarioMedicoService {
     private final DisponibilidadMedicoService disponibilidadMedicoService;
     private final ConsultaDBServerService consultaDBServerService;
     private final DiasDeLaSemanaService diasDeLaSemanaService;
+    private final ReservaCitasService reservaCitasService;
 
-    HorarioMedicoService(MedicoService medicoService, DisponibilidadMedicoService disponibilidadMedicoService, ConsultaDBServerService consultaDBServerService, DiasDeLaSemanaService diasDeLaSemanaService) {
+    HorarioMedicoService(MedicoService medicoService, DisponibilidadMedicoService disponibilidadMedicoService, ConsultaDBServerService consultaDBServerService, DiasDeLaSemanaService diasDeLaSemanaService, ReservaCitasService reservaCitasService) {
         this.medicoService = medicoService;
         this.disponibilidadMedicoService = disponibilidadMedicoService;
         this.consultaDBServerService = consultaDBServerService;
         this.diasDeLaSemanaService = diasDeLaSemanaService;
+        this.reservaCitasService = reservaCitasService;
     }
 
     public List<MedicoDTO> listaMedicosConHorario() {
@@ -123,6 +125,72 @@ public class HorarioMedicoService {
         rangoFechasSemana.add(consultarFechaInicioSemana());
         rangoFechasSemana.add(consultarFechaFinSemana());
         return rangoFechasSemana;
+    }
+
+public List<DiaHorarioDTO> consultarHorarioMedicoParaReservar (Long id, Long idUsuario) {
+        LocalDateTime fechaHoraActual = consultaDBServerService.consultaFechaHoraActualServer();
+        LocalDate fechaActual = fechaHoraActual.toLocalDate();
+        DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        // Calcular la fecha de inicio y fecha fin de la semana
+        LocalDate fechaInicioSemana = calcularFechaInicioSemana(fechaActual);
+        LocalDate fechaDiaActual;
+
+        //1. Consultar los días que atiende (PARA ADMIN SON TODOS, PARA PACIENTE SERÍA DEL DÍA ACTUAL EN ADELANTE PARA OMITIR DÍAS QUE YA PASARON)
+        List<DiaDeLaSemana> listaDiasAtencion = diasDeLaSemanaService.consultarDiasHorarioMedicoPorId(id);
+        List<DiaHorarioDTO> listaDiasHorario = new ArrayList<>();
+        List<HorarioMedicoVistaDTO> horarioMedico = new ArrayList<>();
+
+        List<String> horariosOcupadosMedico = new ArrayList<>();
+        List<String> horariosRestringidosUsuario = new ArrayList<>();
+
+        if(listaDiasAtencion != null && listaDiasAtencion.size() > 0) {
+            //2. Recorrer la lista de días que atiende (ciclo)
+            for (DiaDeLaSemana diaAtencion : listaDiasAtencion) {
+                // Generar la fecha de ese día, usando la fecha de inicio calculada
+                fechaDiaActual = fechaInicioSemana.plusDays(diaAtencion.getId() - 1);
+
+                // Las listas de horas que no deben salir al renderizar el horario del médico
+                horariosOcupadosMedico = reservaCitasService.consultaHorasOcupadasPorMedico(id, fechaDiaActual);
+                horariosRestringidosUsuario = reservaCitasService.consultaHoraRestrigidasPorUsuario(idUsuario, fechaDiaActual);
+                
+                //2.1 Por cada día que atiente, consultar los registros de horario para ese día
+                horarioMedico = disponibilidadMedicoService.consultarHorarioMedicoPorIdDia(id, diaAtencion.getId());
+                DiaHorarioDTO diaDTO;
+
+                diaDTO = new DiaHorarioDTO();
+                diaDTO.setIdDiaSemana(diaAtencion.getId());
+                diaDTO.setNombreDia(diaAtencion.getDescripcion());
+                diaDTO.setFecha(fechaDiaActual);
+                diaDTO.setFechaFormateada(fechaDiaActual.format(formater));
+
+                LocalTime horaFin, horaContador;
+                List<String> espaciosHorario = new ArrayList<>();
+                String espacio;
+
+                //2.2 Recorrer la lista de registros de horario para ese día (ciclo)
+                for (HorarioMedicoVistaDTO lineaHorarioMedico : horarioMedico) {
+                    horaContador = lineaHorarioMedico.getHoraInicio();
+                    horaFin = lineaHorarioMedico.getHoraFin();
+
+                    //2.2.1 Crear los espacios de reserva (ciclo)
+                    while (horaContador.isBefore(horaFin) || horaContador.equals(horaFin)) {
+                        espacio = horaContador.toString();
+                        espaciosHorario.add(espacio);
+                        horaContador = horaContador.plusMinutes(30);
+                    }
+                }
+                // QUITAR LOS ESPACIOS YA OCUPADOS O RESTRINGIDOS PARA EL USUARIO
+                if(horariosOcupadosMedico.size() > 0) espaciosHorario = eliminarEspaciosOcupados(espaciosHorario, horariosOcupadosMedico);
+                if(horariosRestringidosUsuario.size() > 0) espaciosHorario = eliminarEspaciosOcupados(espaciosHorario, horariosRestringidosUsuario);
+
+                if(espaciosHorario.size() > 0) {
+                    diaDTO.setListaEspacios(espaciosHorario);
+                    listaDiasHorario.add(diaDTO);
+                }
+            }
+        }
+        return listaDiasHorario;
     }
 
     public List<String> eliminarEspaciosOcupados(List<String> listaPorRevisar, List<String> listaReestricciones) {

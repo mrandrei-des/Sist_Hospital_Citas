@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.hospital.citas.exceptions.FechaCitaPasadaException;
+import com.hospital.citas.exceptions.HorarioOcupadoException;
 import com.hospital.citas.model.dto.ReservaCitasReservaDTO;
 import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.model.entity.Medico;
@@ -60,13 +62,8 @@ public class ReservaCitasService {
 
     @Transactional
     public boolean procesarReserva(ReservaCitasReservaDTO dto) {
-        // NUEVAMENTE SE VALIDA QUE EL ESPACIO NO ESTÁ YA OCUPADO
-        // ********** APLICAR EXCEPTIONES EN CASO DE ERRORES
         List<Long> listaEstados = List.of(1L, 2L);
-        List<ReservaCitasReservaDTO> listaReservasEncontradas = buscarCitasReservadasPorMedicoFechaHoraEstados(dto.getIdMedico(), dto.getFecha(), dto.getHora(), listaEstados);
-        if(listaReservasEncontradas.size() > 0) {
-            return false;
-        }
+        List<ReservaCitasReservaDTO> listaReservasEncontradas;
 
         ReservaCitas objReserva = new ReservaCitas();
         String descripcionAccion  = "La cita ha sido reservada con estado de ";
@@ -75,9 +72,9 @@ public class ReservaCitasService {
         Estado estado = new Estado();
         Long estadoObtenido = obtenerEstadoCitaPorReservar(dto.getFecha(), dto.getHora());
 
-        if(estadoObtenido.equals(-1L)) return false;
+        if(estadoObtenido.equals(-1L)) throw new FechaCitaPasadaException("La fecha de la cita a reservar no se encuentra disponible. Seleccione otra.");
+        
         descripcionAccion += estadoObtenido.equals(2L) ? "confirmada." : "pendiente.";
-
         medico.setId(dto.getIdMedico());
         usuario.setId(dto.getIdUsuario());
         estado.setId(estadoObtenido);
@@ -86,6 +83,11 @@ public class ReservaCitasService {
         objReserva.setFecha(dto.getFecha());
         objReserva.setHora(dto.getHora());
         objReserva.setEstado(estado);
+
+        listaReservasEncontradas = buscarCitasReservadasPorMedicoFechaHoraEstados(dto.getIdMedico(), dto.getFecha(), dto.getHora(), listaEstados);
+        if(listaReservasEncontradas.size() > 0) {
+            throw new HorarioOcupadoException("El horario seleccionado ya fue reservado. No está disponible.");
+        }
 
         ReservaCitas citaReservada = reservaCitasRepository.save(objReserva);
         if(citaReservada != null) {
@@ -104,5 +106,27 @@ public class ReservaCitasService {
         if(totalHoras < 0) return -1L;
         if(totalHoras == 0) return 2L;
         return 1L;
+    }
+
+    public List<String> consultaHorasOcupadasPorMedico(Long idMedico, LocalDate fechaBusqueda) {
+        List<String> listaHorasRestringidas = new ArrayList<>();
+        List<LocalTime> listaHoras = reservaCitasRepository.consultaHorasOcupadasMedicoPorFecha(idMedico, fechaBusqueda).orElse(new ArrayList<>());
+
+        for (LocalTime hora : listaHoras) {
+            listaHorasRestringidas.add(hora.toString());
+        }
+
+        return listaHorasRestringidas;
+    }
+
+    public List<String> consultaHoraRestrigidasPorUsuario(Long idUsuario, LocalDate fechaBusqueda) {
+        List<String> listaHorasRestringidas = new ArrayList<>();
+        List<LocalTime> listaHoras = reservaCitasRepository.consultaHorasRestringidasUsuarioPorFecha(idUsuario, fechaBusqueda).orElse(new ArrayList<>());
+
+        for (LocalTime hora : listaHoras) {
+            listaHorasRestringidas.add(hora.toString());
+        }
+
+        return listaHorasRestringidas;
     }
 }

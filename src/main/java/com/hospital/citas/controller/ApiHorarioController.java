@@ -18,10 +18,10 @@ public class ApiHorarioController {
         this.horarioMedicoService = horarioMedicoService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<DiaHorarioDTO>> consultarHorarioDisponibleMedicoPorId(@PathVariable Long id) {
+    @GetMapping("/{idUsuario}/{idMedico}")
+    public ResponseEntity<List<DiaHorarioDTO>> consultarHorarioDisponibleMedicoPorId(@PathVariable Long idUsuario, @PathVariable Long idMedico) {
 
-        List<DiaHorarioDTO> horarioMedico = horarioMedicoService.consultarHorarioMedicoPorId(id);
+        List<DiaHorarioDTO> horarioMedico = horarioMedicoService.consultarHorarioMedicoParaReservar(idMedico, idUsuario);
         if (horarioMedico == null){
             return ResponseEntity.notFound().build();
         }

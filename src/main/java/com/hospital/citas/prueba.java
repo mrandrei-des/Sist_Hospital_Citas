@@ -63,12 +63,5 @@ public class prueba {
             }
         }
 
-        LocalDate fecha = LocalDate.of(2026, 7, 1) ;
-        LocalTime hora = LocalTime.of(19, 30);
-        LocalDateTime fechaHoraCita = LocalDateTime.of(fecha, hora);
-        LocalDateTime fechaHoraActual = LocalDateTime.of(2026, 8, 1, 18, 0);
-
-        Long totalHoras = ChronoUnit.HOURS.between(fechaHoraActual, fechaHoraCita);
-        System.out.println("Cantidad de horas: " + totalHoras);
     }
 }

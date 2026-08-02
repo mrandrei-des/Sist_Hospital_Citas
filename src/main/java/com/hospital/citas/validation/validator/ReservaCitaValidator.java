@@ -70,12 +70,20 @@ public class ReservaCitaValidator implements ConstraintValidator<ReservaCitaVali
                     reservaValida = false;
                     mensajeValidacion = "El médico no tiene horario registrado para el día seleccionado.";
                 }else {
+                    boolean horarioValido = false;
                     for (HorarioMedicoVistaDTO registroHorario : registrosHorarioDia) {
-                        if((reserva.getHora().isBefore(registroHorario.getHoraInicio())) || (reserva.getHora().isAfter(registroHorario.getHoraFin()))) {
-                            reservaValida = false;
-                            mensajeValidacion = "El médico no tiene horario registrado para el día y hora seleccionado.";
+                        if((reserva.getHora().equals(registroHorario.getHoraInicio())) || (reserva.getHora().equals(registroHorario.getHoraFin()))) {
+                            horarioValido = true;
+                            break;
+                        }else if((reserva.getHora().isAfter(registroHorario.getHoraInicio())) && (reserva.getHora().isBefore(registroHorario.getHoraFin()))) {
+                            horarioValido = true;
                             break;
                         }
+                    }
+                    
+                    if(!horarioValido) {
+                        reservaValida = false;
+                        mensajeValidacion = "El médico no tiene horario registrado para el día y hora seleccionado.";
                     }
                 }
             }
