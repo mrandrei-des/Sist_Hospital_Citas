@@ -75,6 +75,10 @@ public class DisponibilidadMedicoService {
         return disponibilidadMedicoRepository.consultarHorarioMedicoPorIdDia(idMedico, idDia);
     }
 
+    public List<HorarioMedicoVistaDTO> consultarHorarioSiguientePorMedicoDiaHora(Long idMedico, Long idDia, LocalTime horaInicio){
+        return disponibilidadMedicoRepository.consultarHorarioSiguientePorMedicoDiaHora(idMedico, idDia, horaInicio);
+    }
+
     public boolean horasAtencionSonValidas(HorarioMedicoDTO horario) {
         if(!validaHorasDentroRegistro(horario)) return false;
         if(!validaHorasAfueraRegistro(horario)) return false;

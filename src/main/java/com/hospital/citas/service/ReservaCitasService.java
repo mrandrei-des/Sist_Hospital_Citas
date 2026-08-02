@@ -129,4 +129,10 @@ public class ReservaCitasService {
 
         return listaHorasRestringidas;
     }
+
+    public List<ReservaCitas> listaCitasEncontradasPorMedico(Long idMedico) {
+        Medico medico = new Medico();
+        medico.setId(idMedico);
+        return reservaCitasRepository.findAllByMedico(medico);
+    }
 }

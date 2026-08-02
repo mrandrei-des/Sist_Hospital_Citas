@@ -46,7 +46,7 @@ public class MedicoController {
         model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
 
         model.addAttribute("medico", new MedicoDTO());
-        model.addAttribute("listaMedicos", medicoService.listaMedicoRegistradoDTOs());
+        model.addAttribute("listaMedicos", medicoService.listadoMedicoDTO());
         model.addAttribute("listaEspecialidades", medicoService.listaEspecialidadesDTO());
         return "registroMedicos";
     }
@@ -64,7 +64,7 @@ public class MedicoController {
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("medico", medico);
-            model.addAttribute("listaMedicos", medicoService.listaMedicoRegistradoDTOs());
+            model.addAttribute("listaMedicos", medicoService.listadoMedicoDTO());
             model.addAttribute("listaEspecialidades", medicoService.listaEspecialidadesDTO());
             return "registroMedicos";
         }
@@ -85,7 +85,7 @@ public class MedicoController {
             session.setAttribute("origen", "medicos");
         }
 
-        model.addAttribute("listaMedicos", medicoService.listaMedicoRegistradoDTOs());
+        model.addAttribute("listaMedicos", medicoService.listadoMedicoDTO());
         model.addAttribute("listaEspecialidades", medicoService.listaEspecialidadesDTO());
         return medicoProcesado ? "redirect:/medicos" : "registroMedicos";
     }
@@ -98,7 +98,7 @@ public class MedicoController {
         model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
 
         model.addAttribute("medico", medicoService.buscarPorId(idMedico));
-        model.addAttribute("listaMedicos", medicoService.listaMedicoRegistradoDTOs());
+        model.addAttribute("listaMedicos", medicoService.listadoMedicoDTO());
         model.addAttribute("listaEspecialidades", medicoService.listaEspecialidadesDTO());
         return "registroMedicos";
     }
@@ -113,7 +113,7 @@ public class MedicoController {
 
         boolean eliminacionCompletada = medicoService.eliminarPorId(idMedico, idUsuarioLoggeado);
         model.addAttribute("medico", new MedicoDTO());
-        model.addAttribute("listaMedicos", medicoService.listaMedicoRegistradoDTOs());
+        model.addAttribute("listaMedicos", medicoService.listadoMedicoDTO());
         model.addAttribute("listaEspecialidades", medicoService.listaEspecialidadesDTO());
         session.setAttribute("mostrarNotificacion", true);
 

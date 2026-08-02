@@ -5,21 +5,25 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import com.hospital.citas.model.dto.EspecialidadDTO;
 import com.hospital.citas.model.dto.MedicoDTO;
+import com.hospital.citas.model.dto.MedicoListadoDTO;
 import com.hospital.citas.model.dto.MedicoRegistradoDTO;
 import com.hospital.citas.model.dto.MedicoReservaDTO;
 import com.hospital.citas.model.entity.Especialidad;
 import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.model.entity.Medico;
+import com.hospital.citas.model.entity.ReservaCitas;
 import com.hospital.citas.repository.MedicoRepository;
 
 @Service
 public class MedicoService {
     private final MedicoRepository medicoRepository;
     private EspecialidadService especialidadService;
+    private final ReservaCitasService reservaCitasService;
 
-    public MedicoService(MedicoRepository medicoRepository, EspecialidadService especialidadService) {
+    public MedicoService(MedicoRepository medicoRepository, EspecialidadService especialidadService, ReservaCitasService reservaCitasService) {
         this.medicoRepository = medicoRepository;
         this.especialidadService = especialidadService;
+        this.reservaCitasService = reservaCitasService;
     }
 
     public List<Medico> listarMedicosPorEstado(Long estadoMedicos){
@@ -73,6 +77,28 @@ public class MedicoService {
 
     public List<MedicoRegistradoDTO> listaMedicoRegistradoDTOs() {
         return medicoRepository.listaMedicosRegistradoMedicoRegistradoDTOs();
+    }
+
+    public List<MedicoListadoDTO> listadoMedicoDTO() {
+        List<MedicoListadoDTO> listadoMedicosDTO = new ArrayList<>();
+        List<MedicoRegistradoDTO> listadoMedicos = medicoRepository.listaMedicosRegistradoMedicoRegistradoDTOs();
+        MedicoListadoDTO dto;
+        List<ReservaCitas> listaCitasMedico;
+
+        for (MedicoRegistradoDTO medico : listadoMedicos) {
+            listaCitasMedico = reservaCitasService.listaCitasEncontradasPorMedico(medico.getId());
+
+            dto = new MedicoListadoDTO();
+            dto.setId(medico.getId());
+            dto.setNombre(medico.getNombre());
+            dto.setPrimerApellido(medico.getPrimerApellido());
+            dto.setSegundoApellido(medico.getSegundoApellido());
+            dto.setNombreEspecialidad(medico.getNombreEspecialidad());
+            dto.setEliminable(listaCitasMedico.size() == 0);
+            
+            listadoMedicosDTO.add(dto);
+        }
+        return listadoMedicosDTO;
     }
 
     public MedicoDTO buscarPorId(Long id) {

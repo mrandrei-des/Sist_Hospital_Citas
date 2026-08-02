@@ -11,4 +11,10 @@ import com.hospital.citas.model.entity.DiaDeLaSemana;
 public interface DiaDeLaSemanaRepository extends JpaRepository<DiaDeLaSemana, Long> {
     @Query(value = "{call sp_ConsultaDiasHorarioMedicoPorId(:idMedico)}", nativeQuery = true)
     List<DiaDeLaSemana> consultarDiasHorarioMedicoPorId(@Param("idMedico") Long idMedico);
+
+    @Query(value = "{call sp_ConsultaDiasSiguientesHorarioPorMedico(:idMedico, :idDiaInicio)}", nativeQuery = true)
+    List<DiaDeLaSemana> consultarDiasSiguientesHorarioPorIdMedico(
+        @Param("idMedico") Long idMedico,
+        @Param("idDiaInicio") Long idDiaInicio
+    );
 }

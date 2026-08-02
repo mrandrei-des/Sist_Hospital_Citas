@@ -42,4 +42,11 @@ public interface DisponibilidadMedicoRepository extends JpaRepository<Disponibil
         @Param("p_horaInicio") LocalTime horaInicio, 
         @Param("p_horaFin") LocalTime horaFin
     );
+
+    @Query(value = "{call sp_ConsultaHorarioSiguientePorMedicoDiaHora(:idMedico, :idDia, :horaInicioConsulta)}", nativeQuery = true)
+    List<HorarioMedicoVistaDTO> consultarHorarioSiguientePorMedicoDiaHora(
+        @Param("idMedico") Long idMedico, 
+        @Param("idDia") Long idDia,
+        @Param("horaInicioConsulta") LocalTime horaInicio
+    );
 }

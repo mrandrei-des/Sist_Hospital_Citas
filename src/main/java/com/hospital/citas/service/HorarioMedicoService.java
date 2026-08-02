@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import com.hospital.citas.model.dto.DiaHorarioDTO;
@@ -127,17 +128,21 @@ public class HorarioMedicoService {
         return rangoFechasSemana;
     }
 
-public List<DiaHorarioDTO> consultarHorarioMedicoParaReservar (Long id, Long idUsuario) {
+    public List<DiaHorarioDTO> consultarHorarioMedicoParaReservar (Long id, Long idUsuario) {
         LocalDateTime fechaHoraActual = consultaDBServerService.consultaFechaHoraActualServer();
+        LocalTime horaActual = fechaHoraActual.toLocalTime();
         LocalDate fechaActual = fechaHoraActual.toLocalDate();
+        LocalDate fechaActualFlag = fechaHoraActual.toLocalDate();
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
+        Long idDiaInicioHorario = estableceDiaInicioConsultaHorario(fechaHoraActual);
+        
         // Calcular la fecha de inicio y fecha fin de la semana
         LocalDate fechaInicioSemana = calcularFechaInicioSemana(fechaActual);
         LocalDate fechaDiaActual;
 
         //1. Consultar los días que atiende (PARA ADMIN SON TODOS, PARA PACIENTE SERÍA DEL DÍA ACTUAL EN ADELANTE PARA OMITIR DÍAS QUE YA PASARON)
-        List<DiaDeLaSemana> listaDiasAtencion = diasDeLaSemanaService.consultarDiasHorarioMedicoPorId(id);
+        List<DiaDeLaSemana> listaDiasAtencion = diasDeLaSemanaService.consultarDiasSiguientesHorarioPorIdMedico(id, idDiaInicioHorario);
+
         List<DiaHorarioDTO> listaDiasHorario = new ArrayList<>();
         List<HorarioMedicoVistaDTO> horarioMedico = new ArrayList<>();
 
@@ -149,12 +154,14 @@ public List<DiaHorarioDTO> consultarHorarioMedicoParaReservar (Long id, Long idU
             for (DiaDeLaSemana diaAtencion : listaDiasAtencion) {
                 // Generar la fecha de ese día, usando la fecha de inicio calculada
                 fechaDiaActual = fechaInicioSemana.plusDays(diaAtencion.getId() - 1);
+                horaActual = fechaActualFlag.equals(fechaDiaActual) ? horaActual : LocalTime.of(0, 0, 0);
 
                 // Las listas de horas que no deben salir al renderizar el horario del médico
                 horariosOcupadosMedico = reservaCitasService.consultaHorasOcupadasPorMedico(id, fechaDiaActual);
                 horariosRestringidosUsuario = reservaCitasService.consultaHoraRestrigidasPorUsuario(idUsuario, fechaDiaActual);
                 
                 //2.1 Por cada día que atiente, consultar los registros de horario para ese día
+                // horarioMedico = disponibilidadMedicoService.consultarHorarioSiguientePorMedicoDiaHora(id, diaAtencion.getId(), horaActual);
                 horarioMedico = disponibilidadMedicoService.consultarHorarioMedicoPorIdDia(id, diaAtencion.getId());
                 DiaHorarioDTO diaDTO;
 
@@ -175,8 +182,10 @@ public List<DiaHorarioDTO> consultarHorarioMedicoParaReservar (Long id, Long idU
 
                     //2.2.1 Crear los espacios de reserva (ciclo)
                     while (horaContador.isBefore(horaFin) || horaContador.equals(horaFin)) {
-                        espacio = horaContador.toString();
-                        espaciosHorario.add(espacio);
+                        if(horaContador.isAfter(horaActual)) {
+                            espacio = horaContador.toString();
+                            espaciosHorario.add(espacio);
+                        }
                         horaContador = horaContador.plusMinutes(30);
                     }
                 }
@@ -206,5 +215,24 @@ public List<DiaHorarioDTO> consultarHorarioMedicoParaReservar (Long id, Long idU
         }
 
         return listaEspaciosDisponibles;
+    }
+
+    private Long estableceDiaInicioConsultaHorario(LocalDateTime fechaHoraActual) {
+        int diaActual = fechaHoraActual.getDayOfWeek().getValue();
+        Long diaInicio;
+
+        if(diaActual > 5) diaInicio = 0L;
+        else diaInicio = Long.valueOf((diaActual - 1));
+        return diaInicio;
+    }
+
+    private Long estableceHoraInicioConsultaHorario(LocalTime horaActual) {
+        // int diaActual = fechaHoraActual.getDayOfWeek().getValue();
+        // Long diaInicio;
+
+        // if(diaActual > 5) diaInicio = 0L;
+        // else diaInicio = Long.valueOf((diaActual - 1));
+        // return diaInicio;
+        return 0L;
     }
 }

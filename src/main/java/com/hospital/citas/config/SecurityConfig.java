@@ -28,7 +28,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 //rutas publicas 
                 // RECURSOS
-                .requestMatchers("/css/**", "/js/**", "/img/**", "/fonts/**", "/favicon.ico").permitAll()
+                .requestMatchers("/css/**", "/js/**", "/img/**", "/fonts/**").permitAll()
 
                 // GET MAPPING PÚBLICO
                 .requestMatchers("/login", "/", "/registrarPaciente", "/recuperarContrasenna", "/verificacionCodigo").permitAll()

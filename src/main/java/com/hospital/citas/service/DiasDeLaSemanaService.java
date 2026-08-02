@@ -17,4 +17,8 @@ public class DiasDeLaSemanaService {
     public List<DiaDeLaSemana> consultarDiasHorarioMedicoPorId(Long idMedico) {
         return diasDeLaSemanaRepository.consultarDiasHorarioMedicoPorId(idMedico);
     }
+
+    public List<DiaDeLaSemana> consultarDiasSiguientesHorarioPorIdMedico(Long idMedico, Long idDiaInicio) {
+        return diasDeLaSemanaRepository.consultarDiasSiguientesHorarioPorIdMedico(idMedico, idDiaInicio);
+    }
 }

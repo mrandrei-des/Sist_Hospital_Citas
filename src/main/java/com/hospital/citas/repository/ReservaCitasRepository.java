@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.hospital.citas.model.dto.PanelGestionPacienteDTO;
 import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.model.entity.Medico;
 import com.hospital.citas.model.entity.ReservaCitas;
@@ -20,6 +19,8 @@ import java.util.Optional;
 
 public interface ReservaCitasRepository extends JpaRepository<ReservaCitas, Long> {
     List<ReservaCitas> findAllByMedicoAndFechaAndHoraAndEstadoIn(Medico medico, LocalDate fecha, LocalTime hora, List<Estado> estado);
+    List<ReservaCitas> findAllByMedico(Medico medico);
+
     @Transactional
     @Modifying
     @Query(value = "{call sp_Inserta_Registro_Bitacora_ReservaCitas(:idAccion, :idReservaAfectada, :descripcionAccion, :idUsuarioRealizoAccion)}", nativeQuery = true)

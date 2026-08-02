@@ -88,26 +88,23 @@
                     <section class="main__section">
                         <div class="main__list">
                             <div class="list__item" th:each="medico : ${listaMedicos}">
-                                
                                 <div class="list__info-container">
                                     <h2 class="list__info-title" th:text="${medico.getNombre()} + ' ' + ${medico.getPrimerApellido()} + ' ' + ${medico.getSegundoApellido()}">Luisa Viquez Chan</h2>
                                     <p class="list__info-subtitle" th:text="${medico.getNombreEspecialidad()}">Cardiología</p>
                                 </div>
-                                
+
                                 <div class="list__actions-container">
                                     <a href="/" th:href="@{/buscar-medico/{id}(id=${medico.getId()})}" class="btn__accion__elemento btn__modificar" title="Modificar Médico">
                                         <span class="lista__elemento__icono">
                                             <i class="fa-solid fa-pencil"></i>
                                         </span>
                                     </a>
-                                    
-                                    <a href="/" th:href="@{/deshabilitar-medico/{id}(id=${medico.getId()})}" class="btn__accion__elemento btn__eliminar" title="Eliminar Médico">
+                                    <a href="/" th:href="@{/deshabilitar-medico/{id}(id=${medico.getId()})}" class="btn__accion__elemento btn__eliminar" title="Eliminar Médico" th:if="${medico.isEliminable()}">
                                         <span class="lista__elemento__icono">
-                                            <i class="fa-solid fa-times"></i>
+                                            <i class="fa-solid fa-trash"></i>
                                         </span>
                                     </a>
                                 </div>
-                                
                             </div>
                         </div>
                     </section>
