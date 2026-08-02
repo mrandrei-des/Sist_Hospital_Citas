@@ -1,9 +1,15 @@
 package com.hospital.citas.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.model.entity.Medico;
 import com.hospital.citas.model.entity.ReservaCitas;
+
+import jakarta.transaction.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -12,4 +18,13 @@ import java.util.List;
 
 public interface ReservaCitasRepository extends JpaRepository<ReservaCitas, Long> {
     List<ReservaCitas> findAllByMedicoAndFechaAndHoraAndEstadoIn(Medico medico, LocalDate fecha, LocalTime hora, List<Estado> estado);
+    @Transactional
+    @Modifying
+    @Query(value = "{call sp_Inserta_Registro_Bitacora_ReservaCitas(:idAccion, :idReservaAfectada, :descripcionAccion, :idUsuarioRealizoAccion)}", nativeQuery = true)
+    void insertaRegistroBitacoraCambiosReservaCita(
+        @Param("idAccion") Long idAccion,
+        @Param("idReservaAfectada") Long idReservaAfectada,
+        @Param("descripcionAccion") String descripcionAccion,
+        @Param("idUsuarioRealizoAccion") Long idUsuarioRealizoAccion
+    );
 }

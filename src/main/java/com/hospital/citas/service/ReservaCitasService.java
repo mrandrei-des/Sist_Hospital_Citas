@@ -1,7 +1,9 @@
 package com.hospital.citas.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,14 +13,19 @@ import com.hospital.citas.model.dto.ReservaCitasReservaDTO;
 import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.model.entity.Medico;
 import com.hospital.citas.model.entity.ReservaCitas;
+import com.hospital.citas.model.entity.Usuario;
 import com.hospital.citas.repository.ReservaCitasRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class ReservaCitasService {
     private final ReservaCitasRepository reservaCitasRepository;
+    private final ConsultaDBServerService consultaDBServerService;
 
-    ReservaCitasService(ReservaCitasRepository reservaCitasRepository) {
+    ReservaCitasService(ReservaCitasRepository reservaCitasRepository, ConsultaDBServerService consultaDBServerService) {
         this.reservaCitasRepository = reservaCitasRepository;
+        this.consultaDBServerService = consultaDBServerService;
     }
 
     public List<ReservaCitasReservaDTO> buscarCitasReservadasPorMedicoFechaHoraEstados(Long idMedico, LocalDate fecha, LocalTime hora, List<Long> listaEstados) {
@@ -50,5 +57,52 @@ public class ReservaCitasService {
         }
         return listaReservas;
     }
-    
+
+    @Transactional
+    public boolean procesarReserva(ReservaCitasReservaDTO dto) {
+        // NUEVAMENTE SE VALIDA QUE EL ESPACIO NO ESTÁ YA OCUPADO
+        // ********** APLICAR EXCEPTIONES EN CASO DE ERRORES
+        List<Long> listaEstados = List.of(1L, 2L);
+        List<ReservaCitasReservaDTO> listaReservasEncontradas = buscarCitasReservadasPorMedicoFechaHoraEstados(dto.getIdMedico(), dto.getFecha(), dto.getHora(), listaEstados);
+        if(listaReservasEncontradas.size() > 0) {
+            return false;
+        }
+
+        ReservaCitas objReserva = new ReservaCitas();
+        String descripcionAccion  = "La cita ha sido reservada con estado de ";
+        Medico medico = new Medico();
+        Usuario usuario = new Usuario();
+        Estado estado = new Estado();
+        Long estadoObtenido = obtenerEstadoCitaPorReservar(dto.getFecha(), dto.getHora());
+
+        if(estadoObtenido.equals(-1L)) return false;
+        descripcionAccion += estadoObtenido.equals(2L) ? "confirmada." : "pendiente.";
+
+        medico.setId(dto.getIdMedico());
+        usuario.setId(dto.getIdUsuario());
+        estado.setId(estadoObtenido);
+        objReserva.setMedico(medico);
+        objReserva.setUsuario(usuario);
+        objReserva.setFecha(dto.getFecha());
+        objReserva.setHora(dto.getHora());
+        objReserva.setEstado(estado);
+
+        ReservaCitas citaReservada = reservaCitasRepository.save(objReserva);
+        if(citaReservada != null) {
+            reservaCitasRepository.insertaRegistroBitacoraCambiosReservaCita(1L, citaReservada.getId(), descripcionAccion, citaReservada.getUsuario().getId());
+            return true;
+        }
+        return false;
+    }
+
+    private Long obtenerEstadoCitaPorReservar(LocalDate fecha, LocalTime hora) {
+        LocalDateTime fechaHoraCita = LocalDateTime.of(fecha, hora);
+        LocalDateTime fechaHoraActual = consultaDBServerService.consultaFechaHoraActualServer();
+
+        Long totalHoras = ChronoUnit.HOURS.between(fechaHoraActual, fechaHoraCita);
+
+        if(totalHoras < 0) return -1L;
+        if(totalHoras == 0) return 2L;
+        return 1L;
+    }
 }

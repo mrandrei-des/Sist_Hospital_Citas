@@ -1,5 +1,9 @@
 package com.hospital.citas;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -55,8 +59,16 @@ public class prueba {
 
         if (listaEspaciosDisponibles.size() > 0) {
             for (String espacio : listaEspaciosDisponibles) {
-                System.out.println(espacio);
+                // System.out.println(espacio);
             }
         }
+
+        LocalDate fecha = LocalDate.of(2026, 7, 1) ;
+        LocalTime hora = LocalTime.of(19, 30);
+        LocalDateTime fechaHoraCita = LocalDateTime.of(fecha, hora);
+        LocalDateTime fechaHoraActual = LocalDateTime.of(2026, 8, 1, 18, 0);
+
+        Long totalHoras = ChronoUnit.HOURS.between(fechaHoraActual, fechaHoraCita);
+        System.out.println("Cantidad de horas: " + totalHoras);
     }
 }

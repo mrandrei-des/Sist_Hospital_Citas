@@ -582,10 +582,14 @@ async function procesarReserva() {
     });
     if(response.ok) {
         alert("Cita reservada con éxito.")
+        // enviar a un controller que sea solo para cuando se procesa todo correctamente y ahí redirigir al mostrar-reserva para mostrar la notificación
         window.location.href = '/mostrar-reserva'
-    }else {
+    }else if (response.status === 400){
+        // alguna validación no se cumplió
         const erroresEncontrados = await response.json();
         mostrarErroresEnResumen(erroresEncontrados);
+    }else {
+        // no se procesó porque el espacio ya está ocupado o algún error del servidor
     }
 }
 

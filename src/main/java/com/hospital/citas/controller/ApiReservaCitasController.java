@@ -3,9 +3,9 @@ package com.hospital.citas.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,8 +35,13 @@ public class ApiReservaCitasController {
             return ResponseEntity.badRequest().body(errores);
         }
         // GUARDAR LA RESERVA
-        
-        //PROCESAR LA RESERVA
-        return ResponseEntity.ok(Map.of("mensaje", "Reserva creada con éxito"));
+        Map<String, ?> mensajesRespuesta = new HashMap<>();
+        if (reservaCitasService.procesarReserva(reserva)) {
+            mensajesRespuesta = Map.of("procesada", true, "mensaje", "Cita reservada correctamente.");
+            return ResponseEntity.ok(mensajesRespuesta);
+        }else {
+            mensajesRespuesta = Map.of("procesada", false, "mensaje", "Cita no procesada. Inténtolo nuevamente.");
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_CONTENT).body(mensajesRespuesta);
+        }
     }
 }
