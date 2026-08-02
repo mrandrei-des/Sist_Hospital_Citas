@@ -11,5 +11,3 @@ public class CitasApplication {
 		SpringApplication.run(CitasApplication.class, args);
 	}
 }
-
-// BUSCAR UNA VALIDACION PARA QUE SOLO MUESTRE HORARIOS 

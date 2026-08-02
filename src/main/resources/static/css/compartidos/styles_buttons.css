@@ -70,8 +70,6 @@
     transition: color .2s ease-in-out;
 }
 
-
-
 .btn--enlace:hover {
     color: var(--primary-hover-color);
 }

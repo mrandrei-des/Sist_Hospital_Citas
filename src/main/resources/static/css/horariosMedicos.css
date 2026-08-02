@@ -24,15 +24,15 @@
 }
 
 @media screen and (max-width: 1200px) {
-.main__horario-section {
-    grid-area: 1/1/span 1/span 12;
-}
+    .main__horario-section {
+        grid-area: 1/1/span 1/span 12;
+    }
 
-.main__horario-section:nth-child(2) {
-    grid-area: 2/1/span 1/span 12;
-}
+    .main__horario-section:nth-child(2) {
+        grid-area: 2/1/span 1/span 12;
+    }
 
-.main__horario-section:nth-child(3) {
-    grid-area: 3/1/span 1/span 12;
-}
+    .main__horario-section:nth-child(3) {
+        grid-area: 3/1/span 1/span 12;
+    }
 }
