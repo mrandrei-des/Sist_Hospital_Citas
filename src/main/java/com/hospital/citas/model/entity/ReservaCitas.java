@@ -11,10 +11,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table (name = "ResevarCitas", uniqueConstraints = @UniqueConstraint(name = "UK_Reserva_Unica", columnNames = {"idMedico", "idUsuario", "fecha", "hora"}))
+@Table (name = "ResevarCitas")
 public class ReservaCitas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

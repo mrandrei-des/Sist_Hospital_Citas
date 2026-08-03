@@ -29,8 +29,6 @@
         <div class="main__content">
             <div class="main__container-historial">
                 <div class="main__historial-section">
-                    <!-- @{/mi-perfil/{id}(id=${paciente.getId()})} -->
-
                     <section class="main__section">
                         <h2 class="main__title">
                             Tus citas pendientes
@@ -41,20 +39,20 @@
                     </section>
                     <section class="main__section main__section--bg-transparent">
                         <div class="card-citas__container">
-                            <div class="card-cita">
+                            <div class="card-cita" th:each="cita : ${listaCitasPendientes}">
                                 <div class="card-cita__img-container">
-                                    <img src="/src/main/resources/static/img/action-required.svg" alt="Ilustración que indica acción requerida" class="card-cita__img">
+                                    <img src="/src/main/resources/static/img/action-required.svg" th:src="@{/img/action-required.svg}" alt="Ilustración que indica acción requerida" class="card-cita__img">
                                 </div>
                                 <div class="card-cita__info-container">
                                     <div class="card-cita__info">
                                         <p class="card-cita__paragraph">
-                                            Cita con <strong>John Doe</strong> de <strong>Nutrición</strong> el día <strong>27-08-2026</strong> a las <strong>10:30</strong>.
+                                            Cita con <strong th:text="${cita.getMedico()}">John Doe</strong> de <strong th:text="${cita.getEspecialidad()}">Nutrición</strong> el día <strong th:text="${cita.getFechaFormateada()}">27-08-2026</strong> a las <strong th:text="${cita.getHora()}">10:30</strong>.
                                         </p>
                                         <p class="card-cita__paragraph card-cita__paragraph--center">¿Te esperamos?</p>
                                     </div>
                                     <div class="card-cita__actions">
-                                        <a href="#" class="btn btn__eliminar">Cancelar</a>
-                                        <a href="#" class="btn btn__primary--md">Ahí estaré</a>
+                                        <a href="#" th:href="@{/citas/cancel/{id}(id=${cita.getId()})}" class="btn btn__eliminar">Cancelar</a>
+                                        <a href="#" th:href="@{/citas/confirm/{id}(id=${cita.getId()})}" class="btn btn__primary--md">Ahí estaré</a>
                                     </div>
                                 </div>
                             </div>
@@ -79,15 +77,28 @@
                                         <th>Médico</th>
                                         <th>Fecha</th>
                                         <th>Estado</th>
+                                        <th>Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="paciente : ${listaPacientes}">
-                                        <td th:text="${paciente.getNombreCompleto()}">Nutrición</td>
-                                        <td th:text="${paciente.getFechaRegistro()}">Vanessa Arias</td>
-                                        <td th:text="${paciente.getFechaRegistro()}">27-08-2026 08:30</td>
+                                    <tr th:each="citaPaciente : ${listaHistorial}">
+                                        <td th:text="${citaPaciente.getEspecialidad()}">Nutrición</td>
+                                        <td th:text="${citaPaciente.getMedico()}">Vanessa Arias</td>
+                                        <td th:text="${citaPaciente.getFechaFormateada()} + ' ' + ${citaPaciente.getHora()}">27-08-2026 08:30</td>
                                         <td>
-                                            <span th:if="${paciente.getEstado() == 4}" class="state__container state__container--pending">Pendiente</span> 
+                                            <span th:if="${citaPaciente.getIdEstado() == 1}" class="state__container state__container--pending">Pendiente</span> 
+                                            <span th:if="${citaPaciente.getIdEstado() == 2}" class="state__container state__container--active">Confirmada</span> 
+                                            <span th:if="${citaPaciente.getIdEstado() == 7}" class="state__container state__container--canceled">Cancelada</span> 
+                                        </td>
+                                        <td>
+                                            <div class="table__action-container" th:if="${citaPaciente.getIdEstado() == 2}">
+                                                <a href="/" th:href="@{/citas/cancel/{id}(id=${citaPaciente.getId()})}" class="btn__accion__elemento btn__cancelar">
+                                                    <span class="lista__elemento__icono">
+                                                        <i class="fa-solid fa-times"></i>
+                                                    </span>
+                                                    <span class="btn__accion__title">Cancelar</span>
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>

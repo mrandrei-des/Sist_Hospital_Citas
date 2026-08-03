@@ -11,3 +11,5 @@ public class CitasApplication {
 		SpringApplication.run(CitasApplication.class, args);
 	}
 }
+
+// falta trabajar la página de listado de citas para el admin

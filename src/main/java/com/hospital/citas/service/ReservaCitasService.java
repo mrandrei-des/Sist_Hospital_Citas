@@ -135,4 +135,36 @@ public class ReservaCitasService {
         medico.setId(idMedico);
         return reservaCitasRepository.findAllByMedico(medico);
     }
+
+    public boolean confirmarCita(Long idCita, Long idUsuario) {
+        ReservaCitas citaPorConfirmar = reservaCitasRepository.findById(idCita).orElse(null);
+        if(citaPorConfirmar != null) {
+            String descripcionAccion  = "La cita ha sido confirmada.";
+            Estado estadoConfirmado = new Estado();
+            estadoConfirmado.setId(2L);
+            citaPorConfirmar.setEstado(estadoConfirmado);
+            ReservaCitas citaConfirmada = reservaCitasRepository.save(citaPorConfirmar);
+            if(citaConfirmada != null) {
+                reservaCitasRepository.insertaRegistroBitacoraCambiosReservaCita(2L, citaConfirmada.getId(), descripcionAccion, idUsuario);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean cancelarCita(Long idCita, Long idUsuario) {
+        ReservaCitas citaPorCancelar = reservaCitasRepository.findById(idCita).orElse(null);
+        if(citaPorCancelar != null) {
+            String descripcionAccion  = "La cita ha sido cancelada.";
+            Estado estadoConfirmado = new Estado();
+            estadoConfirmado.setId(7L);
+            citaPorCancelar.setEstado(estadoConfirmado);
+            ReservaCitas citaCancelada = reservaCitasRepository.save(citaPorCancelar);
+            if(citaCancelada != null) {
+                reservaCitasRepository.insertaRegistroBitacoraCambiosReservaCita(2L, citaCancelada.getId(), descripcionAccion, idUsuario);
+                return true;
+            }
+        }
+        return false;
+    }
 }

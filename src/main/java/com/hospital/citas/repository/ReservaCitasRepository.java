@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.hospital.citas.model.dto.CitaPacientesDTO;
+import com.hospital.citas.model.dto.HistorialMedicoPacienteDTO;
 import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.model.entity.Medico;
 import com.hospital.citas.model.entity.ReservaCitas;
@@ -42,4 +44,13 @@ public interface ReservaCitasRepository extends JpaRepository<ReservaCitas, Long
         @Param("idMedico") Long idMedico,
         @Param("fechaBusqueda") LocalDate fechaBusqueda
     );
+    
+    @Query(value = "{call sp_consultaHistorialMedicoPaciente(:idUsuario)}", nativeQuery = true)
+    List<HistorialMedicoPacienteDTO> consultaHistorialMedicoPaciente(@Param("idUsuario") Long idUsuario);
+
+    @Query(value = "{call sp_consultaHistorialMedicoPendientePaciente(:idUsuario)}", nativeQuery = true)
+    List<HistorialMedicoPacienteDTO> consultaHistorialMedicoPendientePaciente(@Param("idUsuario") Long idUsuario);
+
+    @Query(value = "{call sp_consultaCitasPacientes()}", nativeQuery = true)
+    List<CitaPacientesDTO> consultaCitasPacientes();
 }

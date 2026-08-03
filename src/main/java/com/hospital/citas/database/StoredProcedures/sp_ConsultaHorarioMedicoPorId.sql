@@ -5,7 +5,7 @@ BEGIN
 	SELECT d.idMedico, d.idDiaSemana, s.descripcion as dia, d.horaInicioAtencion as horaInicio, d.horaFinAtencion as horaFin
 	FROM disponibilidadmedicos d
 	JOIN diasdelasemana s on d.idDiaSemana = s.id
-	WHERE d.idMedico = idMedico
+	WHERE d.idMedico = idMedico and d.estado = 4
 	ORDER BY d.idDiaSemana ASC, d.horaInicioAtencion ASC;
 END$$
 DELIMITER ;

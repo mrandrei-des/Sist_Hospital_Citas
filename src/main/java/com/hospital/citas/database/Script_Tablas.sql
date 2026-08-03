@@ -231,7 +231,7 @@ descripcion VARCHAR(25) NOT NULL
 );
 
 -- TABLA Disponibilidad de los médicos, registros que indican los espacios de atención del médico
-CREATE TABLE DisponibilidadMedicos (
+CREATE  TABLE DisponibilidadMedicos (
 id bigint NOT NULL auto_increment PRIMARY KEY,
 idMedico bigint NOT NULL,
 idDiaSemana bigint NOT NULL,
@@ -244,7 +244,7 @@ FOREIGN KEY (estado) References Estados(id)
 );
 
 -- TABLA BITÁCORA DE CAMBIOS REALIZADOS A LOS HORARIOS DISPONIBLES DEL MÉDICO
-CREATE TABLE BitacoraCambiosDisponibilidadMedicos (
+CREATE  TABLE BitacoraCambiosDisponibilidadMedicos (
 id bigint NOT NULL auto_increment PRIMARY KEY,
 idAccion bigint NOT NULL,
 idDisponibilidadAfectada bigint NOT NULL,
@@ -253,5 +253,31 @@ idUsuarioRealizoAccion bigint NOT NULL,
 fechaHoraAccion datetime NOT NULL,
 FOREIGN KEY (idAccion) REFERENCES Accionesensistema(id),
 FOREIGN KEY (idDisponibilidadAfectada) REFERENCES DisponibilidadMedicos(id),
+FOREIGN KEY (idUsuarioRealizoAccion) REFERENCES Usuarios(id)
+);
+
+-- TABLA Reserva 
+CREATE TABLE ResevarCitas (
+id bigint NOT NULL auto_increment PRIMARY KEY,
+idMedico bigint not null,
+idUsuario bigint not null,
+fecha date not null,
+hora time not null,
+estado bigint not null,
+FOREIGN KEY (idMedico) REFERENCES Medicos (id),
+FOREIGN KEY (idUsuario) REFERENCES Usuarios (id),
+FOREIGN KEY (estado) REFERENCES Estados (id)
+);
+
+-- TABLA BITÁCORA DE CAMBIOS REALIZADOS A LAS RESERVAS DE CITAS
+CREATE  TABLE BitacoraCambiosResevarCitas (
+id bigint NOT NULL auto_increment PRIMARY KEY,
+idAccion bigint NOT NULL,
+idReservaAfectada bigint NOT NULL,
+descripcionAccion VARCHAR(500) NOT NULL,
+idUsuarioRealizoAccion bigint NOT NULL,
+fechaHoraAccion datetime NOT NULL,
+FOREIGN KEY (idAccion) REFERENCES Accionesensistema(id),
+FOREIGN KEY (idReservaAfectada) REFERENCES ResevarCitas(id),
 FOREIGN KEY (idUsuarioRealizoAccion) REFERENCES Usuarios(id)
 );

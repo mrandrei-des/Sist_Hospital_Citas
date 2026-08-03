@@ -37,7 +37,6 @@ public class MedicoService {
         estado.setId(idEstado);
         
         Medico medico = medicoRepository.findByIdAndEstado(idMedico, estado).orElse(null);
-        // medico = medicoRepository.findById(idEstado).orElse(null);
         return medico;
     }
 
@@ -156,6 +155,3 @@ public class MedicoService {
         return listaRegistros != null ? listaRegistros : new ArrayList<MedicoReservaDTO>();
     }
 }
-
-/*
-*/
