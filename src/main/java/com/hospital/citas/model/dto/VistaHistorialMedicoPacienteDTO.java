@@ -4,25 +4,27 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class HistorialMedicoPacienteDTO {
+public class VistaHistorialMedicoPacienteDTO {
     private Long id;
     private String especialidad;
     private String medico;
     private LocalDate fecha;
     private LocalTime hora;
     private Long idEstado;
+    private boolean cancellable;
     
-    public HistorialMedicoPacienteDTO() {
+    public VistaHistorialMedicoPacienteDTO() {
     }
     
-    public HistorialMedicoPacienteDTO(Long id, String especialidad, String medico, LocalDate fecha, LocalTime hora,
-            Long idEstado) {
+    public VistaHistorialMedicoPacienteDTO(Long id, String especialidad, String medico, LocalDate fecha, LocalTime hora,
+            Long idEstado, boolean cancellable) {
         this.id = id;
         this.especialidad = especialidad;
         this.medico = medico;
         this.fecha = fecha;
         this.hora = hora;
         this.idEstado = idEstado;
+        this.cancellable = false;
     }
 
     public Long getId() {
@@ -77,4 +79,13 @@ public class HistorialMedicoPacienteDTO {
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return fecha.format(formater);
     }
+
+    public boolean isCancellable() {
+        return cancellable;
+    }
+
+    public void setCancellable(boolean cancellable) {
+        this.cancellable = cancellable;
+    }
+
 }

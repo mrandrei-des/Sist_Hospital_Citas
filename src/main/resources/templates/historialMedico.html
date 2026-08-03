@@ -20,9 +20,9 @@
 </head>
 <body>
     <div th:replace="~{fragments::header(mostrarOpcionesMenu=${true}, nombreUsuario=${nombreCompletoUsuario})}"></div>
-
     <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${tipoNotificacion}, ${titulo}, ${detalle})}"></div>
 
+    <!-- <a href="#" th:href="@{/citas/confirm/{id}(id=${cita.getId()})}" class="btn btn__primary--md">Ahí estaré</a> -->
     <main class="main">
         <aside th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></aside>
 
@@ -48,11 +48,10 @@
                                         <p class="card-cita__paragraph">
                                             Cita con <strong th:text="${cita.getMedico()}">John Doe</strong> de <strong th:text="${cita.getEspecialidad()}">Nutrición</strong> el día <strong th:text="${cita.getFechaFormateada()}">27-08-2026</strong> a las <strong th:text="${cita.getHora()}">10:30</strong>.
                                         </p>
-                                        <p class="card-cita__paragraph card-cita__paragraph--center">¿Te esperamos?</p>
+                                        <p class="card-cita__paragraph card-cita__paragraph--center">¿Cancelar cita?</p>
                                     </div>
                                     <div class="card-cita__actions">
                                         <a href="#" th:href="@{/citas/cancel/{id}(id=${cita.getId()})}" class="btn btn__eliminar">Cancelar</a>
-                                        <a href="#" th:href="@{/citas/confirm/{id}(id=${cita.getId()})}" class="btn btn__primary--md">Ahí estaré</a>
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +90,7 @@
                                             <span th:if="${citaPaciente.getIdEstado() == 7}" class="state__container state__container--canceled">Cancelada</span> 
                                         </td>
                                         <td>
-                                            <div class="table__action-container" th:if="${citaPaciente.getIdEstado() == 2}">
+                                            <div class="table__action-container" th:if="${citaPaciente.isCancellable()}">
                                                 <a href="/" th:href="@{/citas/cancel/{id}(id=${citaPaciente.getId()})}" class="btn__accion__elemento btn__cancelar">
                                                     <span class="lista__elemento__icono">
                                                         <i class="fa-solid fa-times"></i>

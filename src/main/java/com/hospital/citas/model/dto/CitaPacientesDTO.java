@@ -2,6 +2,7 @@ package com.hospital.citas.model.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class CitaPacientesDTO {
     private Long id;
@@ -82,4 +83,8 @@ public class CitaPacientesDTO {
         this.idEstado = idEstado;
     }
     
+    public String getFechaFormateada() {
+        DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return fecha.format(formater);
+    }
 }

@@ -106,10 +106,3 @@
         justify-content: center;
     }
 }
-
-/* 
-                                            <span th:if="${paciente.getEstado() == 4}" class="state__container state__container--pending">Pendiente</span>
-                                            <span th:if="${paciente.getEstado() == 4}" class="state__container state__container--active">Confirmada</span>
-                                            <span th:unless="${paciente.getEstado() > 4}" class="state__container state__container--canceled">Cancelada</span>
-                                            pending - canceled - active
-*/

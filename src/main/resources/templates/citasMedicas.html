@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historial Médico</title>
+    <title>Citas Médicas Pacientes</title>
     <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css" th:href="@{/css/compartidos/styles_fonts.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
@@ -16,25 +16,29 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css" th:href="@{/css/compartidos/styles_notificaciones.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_tabla.css" th:href="@{/css/compartidos/styles_tabla.css}">
 
-    <!-- <link rel="stylesheet" href="../static/css/historialMedico.css" th:href="@{/css/historialMedico.css}"> -->
+    <link rel="stylesheet" href="../static/css/citasMedicas.css" th:href="@{/css/citasMedicas.css}">
 </head>
 <body>
     <div th:replace="~{fragments::header(mostrarOpcionesMenu=${true}, nombreUsuario=${nombreCompletoUsuario})}"></div>
-
     <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${tipoNotificacion}, ${titulo}, ${detalle})}"></div>
 
     <main class="main">
         <aside th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></aside>
 
         <div class="main__content">
-            <div class="main__container- ">
-                <div class="main__ -section">
+            <div class="main__container-citas">
+                <div class="main__citas-section">
                     <section class="main__section">
                         <h2 class="main__title">
-                            Tu historial médico
+                            Citas médicas pacientes
                         </h2>
                         <p class="main__subtitle">
-                            Consultas médicas registradas
+                            Lista de movimientos de los pacientes
+                        </p>
+                    </section>
+                    <section class="main__section">
+                        <p class="main__subtitle">
+                            Filtros
                         </p>
                     </section>
                     <section class="main__section">
@@ -51,134 +55,31 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="paciente : ${listaPacientes}">
-                                        <td th:text="${paciente.getIdentificacion()}">Andrei Mesén Romero</td>
-                                        <td th:text="${paciente.getNombreCompleto()}">Nutrición</td>
-                                        <td th:text="${paciente.getFechaRegistro()}">Vanessa Arias</td>
-                                        <td th:text="${paciente.getFechaRegistro()}">27-08-2026 08:30</td>
+                                    <tr th:each="cita : ${listaCitas}">
+                                        <td th:text="${cita.getPaciente()}">Andrei Mesén Romero</td>
+                                        <td th:text="${cita.getEspecialidad()}">Nutrición</td>
+                                        <td th:text="${cita.getMedico()}">Vanessa Arias</td>
+                                        <td th:text="${cita.getFechaFormateada()} + ' ' + ${cita.getHora()}">27-08-2026 08:30</td>
                                         <td>
-                                            <span th:if="${paciente.getEstado() == 4}" class="state__container state__container--pending">Pendiente</span> 
+                                            <span th:if="${cita.getIdEstado() == 1}" class="state__container state__container--pending">Pendiente</span> 
+                                            <span th:if="${cita.getIdEstado() == 2}" class="state__container state__container--active">Confirmada</span> 
+                                            <span th:if="${cita.getIdEstado() == 7}" class="state__container state__container--canceled">Cancelada</span> 
                                         </td>
                                         <td>
-                                            <div class="table__action-container">
-                                                <a href="/" class="btn__accion__elemento btn__cancelar">
+                                            <div class="table__action-container" th:if="${cita.getIdEstado() == 1 || cita.getIdEstado() == 2}">
+                                                <a href="/" th:href="@{/citas/cancel/{id}(id=${cita.getId()})}" class="btn__accion__elemento btn__cancelar">
                                                     <span class="lista__elemento__icono">
                                                         <i class="fa-solid fa-times"></i>
                                                     </span>
                                                     <span class="btn__accion__title">Cancelar</span>
                                                 </a>
-                                                <a href="/" th:href="" class="btn__accion__elemento btn__confirmar">
+                                                <a href="/" th:href="@{/citas/confirm/{id}(id=${cita.getId()})}" class="btn__accion__elemento btn__confirmar" th:if="${cita.getIdEstado() == 1}">
                                                     <span class="lista__elemento__icono">
                                                         <i class="fa-solid fa-check"></i>
                                                     </span>
                                                     <span class="btn__accion__title">Confirmar</span>
                                                 </a>
                                             </div>
-                                            <!-- @{/mi-perfil/{id}(id=${paciente.getId()})} -->
-                                        </td>
-                                    </tr>
-                                    <tr th:each="paciente : ${listaPacientes}">
-                                        <td th:text="${paciente.getIdentificacion()}">Andrei Mesén Romero</td>
-                                        <td th:text="${paciente.getNombreCompleto()}">Nutrición</td>
-                                        <td th:text="${paciente.getFechaRegistro()}">Vanessa Arias</td>
-                                        <td th:text="${paciente.getFechaRegistro()}">27-08-2026 08:30</td>
-                                        <td>
-                                            <span th:if="${paciente.getEstado() == 4}" class="state__container state__container--pending">Pendiente</span> 
-                                        </td>
-                                        <td>
-                                            <div class="table__action-container">
-                                                <a href="/" class="btn__accion__elemento btn__cancelar">
-                                                    <span class="lista__elemento__icono">
-                                                        <i class="fa-solid fa-times"></i>
-                                                    </span>
-                                                    <span class="btn__accion__title">Cancelar</span>
-                                                </a>
-                                                <a href="/" th:href="" class="btn__accion__elemento btn__confirmar">
-                                                    <span class="lista__elemento__icono">
-                                                        <i class="fa-solid fa-check"></i>
-                                                    </span>
-                                                    <span class="btn__accion__title">Confirmar</span>
-                                                </a>
-                                            </div>
-                                            <!-- @{/mi-perfil/{id}(id=${paciente.getId()})} -->
-                                        </td>
-                                    </tr>
-                                    <tr th:each="paciente : ${listaPacientes}">
-                                        <td th:text="${paciente.getIdentificacion()}">Andrei Mesén Romero</td>
-                                        <td th:text="${paciente.getNombreCompleto()}">Nutrición</td>
-                                        <td th:text="${paciente.getFechaRegistro()}">Vanessa Arias</td>
-                                        <td th:text="${paciente.getFechaRegistro()}">27-08-2026 08:30</td>
-                                        <td>
-                                            <span th:if="${paciente.getEstado() == 4}" class="state__container state__container--active">Confirmada</span> 
-                                        </td>
-                                        <td>
-                                            <div class="table__action-container">
-                                                <a href="/" class="btn__accion__elemento btn__cancelar">
-                                                    <span class="lista__elemento__icono">
-                                                        <i class="fa-solid fa-times"></i>
-                                                    </span>
-                                                    <span class="btn__accion__title">Cancelar</span>
-                                                </a>
-                                                <a href="/" th:href="" class="btn__accion__elemento btn__confirmar">
-                                                    <span class="lista__elemento__icono">
-                                                        <i class="fa-solid fa-check"></i>
-                                                    </span>
-                                                    <span class="btn__accion__title">Confirmar</span>
-                                                </a>
-                                            </div>
-                                            <!-- @{/mi-perfil/{id}(id=${paciente.getId()})} -->
-                                        </td>
-                                    </tr>
-                                    <tr th:each="paciente : ${listaPacientes}">
-                                        <td th:text="${paciente.getIdentificacion()}">Andrei Mesén Romero</td>
-                                        <td th:text="${paciente.getNombreCompleto()}">Nutrición</td>
-                                        <td th:text="${paciente.getFechaRegistro()}">Vanessa Arias</td>
-                                        <td th:text="${paciente.getFechaRegistro()}">27-08-2026 08:30</td>
-                                        <td>
-                                            <span th:if="${paciente.getEstado() == 4}" class="state__container state__container--canceled">Cancelada</span> 
-                                        </td>
-                                        <td>
-                                            <div class="table__action-container">
-                                                <a href="/" class="btn__accion__elemento btn__cancelar">
-                                                    <span class="lista__elemento__icono">
-                                                        <i class="fa-solid fa-times"></i>
-                                                    </span>
-                                                    <span class="btn__accion__title">Cancelar</span>
-                                                </a>
-                                                <a href="/" th:href="" class="btn__accion__elemento btn__confirmar">
-                                                    <span class="lista__elemento__icono">
-                                                        <i class="fa-solid fa-check"></i>
-                                                    </span>
-                                                    <span class="btn__accion__title">Confirmar</span>
-                                                </a>
-                                            </div>
-                                            <!-- @{/mi-perfil/{id}(id=${paciente.getId()})} -->
-                                        </td>
-                                    </tr>
-                                    <tr th:each="paciente : ${listaPacientes}">
-                                        <td th:text="${paciente.getIdentificacion()}">Andrei Mesén Romero</td>
-                                        <td th:text="${paciente.getNombreCompleto()}">Nutrición</td>
-                                        <td th:text="${paciente.getFechaRegistro()}">Vanessa Arias</td>
-                                        <td th:text="${paciente.getFechaRegistro()}">27-08-2026 08:30</td>
-                                        <td>
-                                            <span th:if="${paciente.getEstado() == 4}" class="state__container state__container--pending">Pendiente</span> 
-                                        </td>
-                                        <td>
-                                            <div class="table__action-container">
-                                                <a href="/" class="btn__accion__elemento btn__cancelar">
-                                                    <span class="lista__elemento__icono">
-                                                        <i class="fa-solid fa-times"></i>
-                                                    </span>
-                                                    <span class="btn__accion__title">Cancelar</span>
-                                                </a>
-                                                <a href="/" th:href="" class="btn__accion__elemento btn__confirmar">
-                                                    <span class="lista__elemento__icono">
-                                                        <i class="fa-solid fa-check"></i>
-                                                    </span>
-                                                    <span class="btn__accion__title">Confirmar</span>
-                                                </a>
-                                            </div>
-                                            <!-- @{/mi-perfil/{id}(id=${paciente.getId()})} -->
                                         </td>
                                     </tr>
                                 </tbody>
