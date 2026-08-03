@@ -7,12 +7,87 @@
 }
 
 .main__historial-section {
-    grid-area: 1/1/span 1/span 10;
+    grid-area: 1/1/span 1/span 12;
 }
 
 .main__historial-section:nth-child(2) {
     grid-area: 2/1/span 1/span 10;
     margin-top: 1.5rem;
+}
+
+.card-citas__container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.card-cita {
+    grid-column: span 3;
+    width: 100%;
+    max-width: 275px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    background: hsl(0deg, 0%, 100%);
+    box-shadow: 0 0 15px 0 #2221;
+    transition: transform .25s ease-in-out;
+}
+
+.card-cita:hover {
+    transform: translateY(-5px);
+}
+
+.card-cita__img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-cita__img {
+    width: 100px;
+}
+
+.card-cita__info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.card-cita__info {
+    text-align: left;
+}
+
+.card-cita__paragraph {
+    font-size: clamp(.75rem, 3vw, .85rem);
+}
+
+.card-cita__paragraph strong {
+    color: hsl(210deg, 82%, 27%);
+    font-weight: 700;
+    /* text-decoration: underline; */
+}
+
+.card-cita__paragraph--center {
+    text-align: center;
+    margin-top: .5rem;
+    font-weight: 500;
+}
+
+.card-cita__actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+}
+
+.main__section--bg-transparent {
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
 }
 
 @media screen and (max-width: 1200px) {
@@ -25,7 +100,16 @@
     }
 }
 
+@media screen and (max-width: 610px) {
+    .card-citas__container {
+        display: flex;
+        justify-content: center;
+    }
+}
+
 /* 
-<span th:if="${paciente.getEstado() == 4}" class="state__container state__container--active">Activo</span>
-                                            <span th:unless="${paciente.getEstado() == 4}" class="state__container state__container--inactive">Inactivo</span>
+                                            <span th:if="${paciente.getEstado() == 4}" class="state__container state__container--pending">Pendiente</span>
+                                            <span th:if="${paciente.getEstado() == 4}" class="state__container state__container--active">Confirmada</span>
+                                            <span th:unless="${paciente.getEstado() > 4}" class="state__container state__container--canceled">Cancelada</span>
+                                            pending - canceled - active
 */

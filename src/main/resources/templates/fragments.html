@@ -129,6 +129,32 @@
                                         Horarios Disponibles
                                     </a>
                                 </li>
+                                <li class="sidebar-menu__item" th:if="${esAdmin}">
+                                    <a href="#" th:href="@{/dasjdnd}" class="sidebar-menu__link">
+                                    <span class="sidebar-menu__icon-box">
+                                        <i class="fa-solid fa-clipboard-list"></i>
+                                    </span>
+                                        Citas Médicas
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="sidebar-menu__section" th:if="${!esAdmin}">
+                        <div class="sidebar-menu__title">
+                            <h2 class="sidebar-menu__category">Expediente</h2>
+                        </div>
+                        <div class="sidebar-menu__links-container">
+                            <ul class="sidebar-menu__list">
+                                <li class="sidebar-menu__item">
+                                    <a href="#" th:href="@{/dsdsdasd}" class="sidebar-menu__link">
+                                        <span class="sidebar-menu__icon-box">
+                                            <i class="fa-solid fa-folder-open"></i>
+                                        </span>
+                                        Historial Médico
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </section>
@@ -198,132 +224,6 @@
                 </div>
             </nav>
         </aside>
-
-        <div class="main__content" id="mainContent">
-            <section class="contenedor__titulo__horario">
-                <div class="contenedor__titulo__principal">
-                    <h2 class="titulo__principal">
-                        Horario encontrado
-                    </h2>
-                    <p class="descripcion__principal">
-                        Ajuste el horario del médico
-                    </p>
-                </div>
-            </section>
-            <button id="btnCrear">Crear</button>
-            <div class="contenedor__section__tabla">
-                <div class="contenedor__tabla__registros">
-                    <form action="/" method="post">
-                        <table class="table" id="tablaHorarios">
-                            <thead>
-                                <tr>
-                                    <th>idRegistro</th>
-                                    <th>idDia</th>
-                                    <th>Día</th>
-                                    <th>Hora Inicio</th>
-                                    <th>Hora Fin</th>
-                                    <th>Estado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- <tr>
-                                    <td>
-                                        <input type="hidden" id="id" name="id">
-                                    </td>
-                                    <td>
-                                        <input type="hidden" id="idDia" name="idDia">
-                                    </td>
-                                    <td>
-                                        Lunes
-                                    </td>
-                                    <td>
-                                        <input type="time" id="horaInicio" name="horaInicio">
-                                    </td>
-                                    <td>
-                                        <input type="time" id="horaFin" name="horaFin">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="hidden" id="id" name="id">
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                        Martes
-                                    </td>
-                                    <td>
-                                        <input type="time" id="horaInicio" name="horaInicio">
-                                    </td>
-                                    <td>
-                                        <input type="time" id="horaFin" name="horaFin">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="hidden" id="id" name="id">
-                                    </td>
-                                    <td>
-                                        <input type="hidden" id="idDia" name="idDia">
-                                    </td>
-                                    <td>
-                                        Miércoles
-                                    </td>
-                                    <td>
-                                        <input type="time" id="horaInicio" name="horaInicio">
-                                    </td>
-                                    <td>
-                                        <input type="time" id="horaFin" name="horaFin">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="hidden" id="id" name="id">
-                                    </td>
-                                    <td>
-                                        <input type="hidden" id="idDia" name="idDia">
-                                    </td>
-                                    <td>
-                                        Jueves
-                                    </td>
-                                    <td>
-                                        <input type="time" id="horaInicio" name="horaInicio">
-                                    </td>
-                                    <td>
-                                        <input type="time" id="horaFin" name="horaFin">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="hidden" id="id" name="id">
-                                    </td>
-                                    <td>
-                                        <input type="hidden" id="idDia" name="idDia">
-                                    </td>
-                                    <td>
-                                        Viernes
-                                    </td>
-                                    <td>
-                                        <input type="time" id="horaInicio" name="horaInicio">
-                                    </td>
-                                    <td>
-                                        <input type="time" id="horaFin" name="horaFin">
-                                    </td>
-                                </tr> -->
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="6">
-                                        <button type="submit" class="btn btn__primary">Guardar Cambios</button>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </form>
-                </div>
-            </div>
-        </div>
-
     </main>
 
     <footer class="footer" th:fragment="footer">

@@ -47,6 +47,13 @@
     background-color: var(--tabla-fila-bg-color2) ;
 }
 
+.table__action-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+}
+
 .state__container {
     display: inline-block;
     padding: 4px 8px;
@@ -67,9 +74,14 @@
     outline-color: #9996;
 }
 
+.state__container--pending {
+    background-color: hsl(35deg, 100%, 45%);
+    outline-color: hsl(45deg, 100%, 50%);
+}
+
 .state__container--canceled {
-    background-color: #999;
-    outline-color: #9996;
+    background-color: rgb(202, 16, 16);
+    outline-color: rgb(228, 190, 190);
 }
 
 @media screen and (max-width: 950px) {

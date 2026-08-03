@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial Médico</title>
+    <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css" th:href="@{/css/compartidos/styles_fonts.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css" th:href="@{/css/compartidos/styles_buttons.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_text.css" th:href="@{/css/compartidos/styles_text.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_header.css" th:href="@{/css/compartidos/styles_header.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_footer.css" th:href="@{/css/compartidos/styles_footer.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_main_wrapper.css" th:href="@{/css/compartidos/styles_main_wrapper.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css" th:href="@{/css/compartidos/styles_menu_lateral.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css" th:href="@{/css/compartidos/styles_notificaciones.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_tabla.css" th:href="@{/css/compartidos/styles_tabla.css}">
+
+    <link rel="stylesheet" href="../static/css/historialMedico.css" th:href="@{/css/historialMedico.css}">
+</head>
+<body>
+    <div th:replace="~{fragments::header(mostrarOpcionesMenu=${true}, nombreUsuario=${nombreCompletoUsuario})}"></div>
+
+    <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${tipoNotificacion}, ${titulo}, ${detalle})}"></div>
+
+    <main class="main">
+        <aside th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></aside>
+
+        <div class="main__content">
+            <div class="main__container-historial">
+                <div class="main__historial-section">
+                    <!-- @{/mi-perfil/{id}(id=${paciente.getId()})} -->
+
+                    <section class="main__section">
+                        <h2 class="main__title">
+                            Tus citas pendientes
+                        </h2>
+                        <p class="main__subtitle">
+                            Recuerda cancelar o confirmar tus citas pendientes
+                        </p>
+                    </section>
+                    <section class="main__section main__section--bg-transparent">
+                        <div class="card-citas__container">
+                            <div class="card-cita">
+                                <div class="card-cita__img-container">
+                                    <img src="/src/main/resources/static/img/action-required.svg" alt="Ilustración que indica acción requerida" class="card-cita__img">
+                                </div>
+                                <div class="card-cita__info-container">
+                                    <div class="card-cita__info">
+                                        <p class="card-cita__paragraph">
+                                            Cita con <strong>John Doe</strong> de <strong>Nutrición</strong> el día <strong>27-08-2026</strong> a las <strong>10:30</strong>.
+                                        </p>
+                                        <p class="card-cita__paragraph card-cita__paragraph--center">¿Te esperamos?</p>
+                                    </div>
+                                    <div class="card-cita__actions">
+                                        <a href="#" class="btn btn__eliminar">Cancelar</a>
+                                        <a href="#" class="btn btn__primary--md">Ahí estaré</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="main__historial-section">
+                    <section class="main__section">
+                        <h2 class="main__title">
+                            Tu historial médico
+                        </h2>
+                        <p class="main__subtitle">
+                            Consultas médicas registradas
+                        </p>
+                    </section>
+                    <section class="main__section">
+                        <div class="table__container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Especialidad</th>
+                                        <th>Médico</th>
+                                        <th>Fecha</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="paciente : ${listaPacientes}">
+                                        <td th:text="${paciente.getNombreCompleto()}">Nutrición</td>
+                                        <td th:text="${paciente.getFechaRegistro()}">Vanessa Arias</td>
+                                        <td th:text="${paciente.getFechaRegistro()}">27-08-2026 08:30</td>
+                                        <td>
+                                            <span th:if="${paciente.getEstado() == 4}" class="state__container state__container--pending">Pendiente</span> 
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot></tfoot>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="~{fragments::footer}"></div>
+
+    <script src="../static/js/notificaciones.js" th:src="@{/js/notificaciones.js}"></script>
+    <script src="../static/js/menuLateral.js" th:src="@{/js/menuLateral.js}"></script>
+    <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
+</body>
+</html>

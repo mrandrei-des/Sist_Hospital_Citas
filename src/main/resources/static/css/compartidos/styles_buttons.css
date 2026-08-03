@@ -54,8 +54,14 @@
     color: #fff;
 }
 
-.btn__primary:hover {
+.btn__primary:hover, 
+.btn__primary--md:hover {
     background-color: var(--primary-hover-color);
+}
+
+.btn__primary--md {
+    background-color: var(--primary-color);
+    color: #fff;
 }
 
 .btn--enlace {
@@ -131,4 +137,37 @@
 
 .btn__step:hover {
     background-color: hsla(210deg, 72%, 72%, .5);
+}
+
+.btn__cancelar {
+    background-color: rgb(202, 16, 16);
+    color: hsl(0deg, 0%, 100%);
+    outline: 2px solid rgb(228, 190, 190);
+    position: relative;
+}
+
+.btn__confirmar {
+    background-color: #097;
+    color: hsl(0deg, 0%, 100%);
+    outline: 2px solid #0976;
+    position: relative;
+}
+
+.btn__accion__title {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    display: inline-block;
+    padding: .5rem;
+    font-size: .8rem;
+    border-radius: 8px;
+    background-color: hsl(0deg, 0%, 20%);
+    opacity: 0;
+    transition: transform .25s ease-in-out, opacity .25s ease-in-out;
+}
+
+.btn__accion__elemento:hover .btn__accion__title {
+    transform: translate(-50%, -120%) scale(1.05);
+    opacity: 1;
 }
