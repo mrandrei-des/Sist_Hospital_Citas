@@ -167,4 +167,30 @@ public class ReservaCitasService {
         }
         return false;
     }
+
+    public void botConfirmarCita() {
+        LocalDateTime fechaHoraActual = consultaDBServerService.consultaFechaHoraActualServer();
+        fechaHoraActual = fechaHoraActual.plusHours(1);
+
+        // Se le pasa la fecha y hora para que consulte desde ese registro hacia atrás.
+        LocalDate fechaCorte = fechaHoraActual.toLocalDate();
+        LocalTime horaCorte = fechaHoraActual.toLocalTime();
+
+        List<ReservaCitas> listaCitasPorConfirmar = reservaCitasRepository.consultaCitasPendientesParaBot(fechaCorte, horaCorte).orElse(new ArrayList<>());
+
+        if(listaCitasPorConfirmar.size() > 0) {
+            ReservaCitas citaConfirmada;
+            String descripcionAccion  = "La cita ha sido confirmada de forma automática por el bot.";
+            Estado estadoConfirmado = new Estado();
+            estadoConfirmado.setId(2L);
+
+            for (ReservaCitas citaPorConfirmar : listaCitasPorConfirmar) {
+                citaPorConfirmar.setEstado(estadoConfirmado);
+                citaConfirmada = reservaCitasRepository.save(citaPorConfirmar);
+                if(citaConfirmada != null) {
+                    reservaCitasRepository.insertaRegistroBitacoraCambiosReservaCita(2L, citaConfirmada.getId(), descripcionAccion, 17L);
+                }
+            }
+        }
+    }
 }

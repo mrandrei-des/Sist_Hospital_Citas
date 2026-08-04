@@ -5,15 +5,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.hospital.citas.model.dto.UsuarioInicioSesionDTO;
+import com.hospital.citas.service.ReservaCitasService;
 
 
 @Controller
 public class InicioSesionController {
+
+    private final ReservaCitasService reservaCitasService;
+
+    InicioSesionController(ReservaCitasService reservaCitasService) {
+        this.reservaCitasService = reservaCitasService;
+    }
+
     @GetMapping("/")
     public String cargarInicioSesion(Model model){
         model.addAttribute("usuario", new UsuarioInicioSesionDTO());
         model.addAttribute("mostrarNotificacion", false);
         model.addAttribute("mensaje", "");
+        reservaCitasService.botConfirmarCita();
         return "inicioSesion";
     }
 

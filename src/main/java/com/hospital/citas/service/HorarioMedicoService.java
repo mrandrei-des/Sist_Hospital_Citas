@@ -42,7 +42,7 @@ public class HorarioMedicoService {
 
         // Calcular la fecha de inicio y fecha fin de la semana
         LocalDate fechaInicioSemana = calcularFechaInicioSemana(fechaActual);
-        LocalDate fechaFinSemana = calcularFechaFinSemana(fechaActual);
+        // LocalDate fechaFinSemana = calcularFechaFinSemana(fechaActual);
         LocalDate fechaDiaActual;
 
         //1. Consultar los días que atiende (PARA ADMIN SON TODOS, PARA PACIENTE SERÍA DEL DÍA ACTUAL EN ADELANTE PARA OMITIR DÍAS QUE YA PASARON)
@@ -223,15 +223,5 @@ public class HorarioMedicoService {
         if(diaActual > 5) diaInicio = 0L;
         else diaInicio = Long.valueOf((diaActual - 1));
         return diaInicio;
-    }
-
-    private Long estableceHoraInicioConsultaHorario(LocalTime horaActual) {
-        // int diaActual = fechaHoraActual.getDayOfWeek().getValue();
-        // Long diaInicio;
-
-        // if(diaActual > 5) diaInicio = 0L;
-        // else diaInicio = Long.valueOf((diaActual - 1));
-        // return diaInicio;
-        return 0L;
     }
 }

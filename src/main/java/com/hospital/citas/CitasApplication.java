@@ -11,5 +11,3 @@ public class CitasApplication {
 		SpringApplication.run(CitasApplication.class, args);
 	}
 }
-
-// buscar forma de que las citas pendientes se confirmen de forma automática (tal vez cuando entra algún usuario, las citas que ocurran en menos de una hora se confirman todas)

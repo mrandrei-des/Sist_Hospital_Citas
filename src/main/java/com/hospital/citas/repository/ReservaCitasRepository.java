@@ -62,4 +62,10 @@ public interface ReservaCitasRepository extends JpaRepository<ReservaCitas, Long
         @Param("filtFechaInicio") LocalDate filtFechaInicio,
         @Param("filtFechaFin") LocalDate filtFechaFin
     );
+
+    @Query(value = "{call sp_consultaCitasPendientesParaBot(:fechaCorte, :horaCorte)}", nativeQuery = true)
+    Optional<List<ReservaCitas>> consultaCitasPendientesParaBot(
+        @Param("fechaCorte") LocalDate fechaCorte,
+        @Param("horaCorte") LocalTime horaCorte
+    );
 }
