@@ -2,7 +2,6 @@ package com.hospital.citas.model.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 public class CitaPacientesDTO {
     private Long id;
@@ -12,12 +11,13 @@ public class CitaPacientesDTO {
     private LocalDate fecha;
     private LocalTime hora;
     private Long idEstado;
+    private String fechaFormateada;
     
     public CitaPacientesDTO() {
     }
     
     public CitaPacientesDTO(Long id, String especialidad, String paciente, String medico, LocalDate fecha,
-            LocalTime hora, Long idEstado) {
+            LocalTime hora, Long idEstado, String fechaFormateada) {
         this.id = id;
         this.especialidad = especialidad;
         this.paciente = paciente;
@@ -25,6 +25,7 @@ public class CitaPacientesDTO {
         this.fecha = fecha;
         this.hora = hora;
         this.idEstado = idEstado;
+        this.fechaFormateada = fechaFormateada;
     }
 
     public Long getId() {
@@ -83,8 +84,16 @@ public class CitaPacientesDTO {
         this.idEstado = idEstado;
     }
     
+    // public String getFechaFormateada() {
+    //     DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    //     return fecha.format(formater);
+    // }
+
     public String getFechaFormateada() {
-        DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return fecha.format(formater);
+        return fechaFormateada;
+    }
+
+    public void setFechaFormateada(String fechaFormateada) {
+        this.fechaFormateada = fechaFormateada;
     }
 }

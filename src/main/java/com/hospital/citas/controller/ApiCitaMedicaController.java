@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hospital.citas.model.dto.CitaPacientesDTO;
 import com.hospital.citas.model.dto.CitasMedicasFiltrosDTO;
 import com.hospital.citas.model.dto.MedicoReservaDTO;
-import com.hospital.citas.model.dto.ReservaCitasReservaDTO;
 import com.hospital.citas.service.CitaPacienteService;
 import com.hospital.citas.service.MedicoService;
 
@@ -15,6 +14,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
@@ -49,10 +49,9 @@ public class ApiCitaMedicaController {
         return ResponseEntity.ok(listaMedicos);
     }
 
-    @GetMapping("/filter")
+    @PostMapping("/filter")
     public ResponseEntity<List<CitaPacientesDTO>> getCitasPorFiltros(@RequestBody CitasMedicasFiltrosDTO citasFiltro) {
         List<CitaPacientesDTO> listaCitas = citaPacienteService.consultaCitasPacientesConFiltros(citasFiltro);
-
         if(listaCitas == null) {
             return ResponseEntity.notFound().build();
         }

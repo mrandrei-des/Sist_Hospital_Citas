@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Citas Médicas Pacientes</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css" th:href="@{/css/compartidos/styles_fonts.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
@@ -41,6 +43,9 @@
                         <h2 class="main__title">
                             Filtros de búsqueda
                         </h2>
+                        <p class="main__subtitle">
+                            Puede aplicar filtros para hacer más preciso el listado. O bien puede <a href="/citas" th:href="@{/citas}" class="main__link">reiniciar filtros</a>.
+                        </p>
                         <div class="filters__container">
                             <div class="filter">
                                 <div class="form__group">
@@ -129,7 +134,6 @@
                             </table>
                         </div>
                         <div class="message-data__container">
-                            <p class="message-data">No se encontraron citas con los filtros aplicados.</p>
                         </div>
                     </section>
                 </div>
