@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import com.hospital.citas.model.dto.EspecialidadDTO;
 import com.hospital.citas.model.dto.EspecialidadReservaDTO;
 import com.hospital.citas.model.dto.UltimaEspecialidadRegistradaDTO;
 import com.hospital.citas.model.entity.Especialidad;
@@ -26,10 +28,13 @@ public interface EspecialidadRepository extends JpaRepository<Especialidad, Long
 
     @Query(value = "{call sp_listarUltimasEspecialidadesRegistradas()}", nativeQuery = true)
     List<UltimaEspecialidadRegistradaDTO> listaUltimasEspecialidadRegistradasDtos();
-
+    
     @Query(value = "{call sp_ConsultaEspecialidadesConMedicos(:p_estado)}", nativeQuery = true)
     List<Especialidad> consultarEspecialidadesConMedico(@Param("p_estado") Long idEstado);
-
+    
     @Query(value = "{call sp_ConsultaEspecialidadesReserva(:filtoBusqueda)}", nativeQuery = true)
     List<EspecialidadReservaDTO> consultarEspecialidadesReserva(@Param("filtoBusqueda") String filtoBusqueda);
+
+    @Query(value = "{call sp_consultaEspecialidadesConCitas()}", nativeQuery = true)
+    List<EspecialidadDTO> listaEspecialidadesConCitas();
 }

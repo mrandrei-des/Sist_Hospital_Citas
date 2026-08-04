@@ -100,4 +100,8 @@ public class EspecialidadService {
         Especialidad especialidadEncontrada = especialidadRepository.findById(id).orElse(null);
         return especialidadEncontrada == null ? "" : especialidadEncontrada.getDescripcion();
     }
+
+    public List<EspecialidadDTO> listaEspecialidadesConCitas() {
+        return especialidadRepository.listaEspecialidadesConCitas();
+    }
 }

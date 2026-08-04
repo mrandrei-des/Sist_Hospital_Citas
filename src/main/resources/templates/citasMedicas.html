@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_text.css" th:href="@{/css/compartidos/styles_text.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_header.css" th:href="@{/css/compartidos/styles_header.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_footer.css" th:href="@{/css/compartidos/styles_footer.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_form.css" th:href="@{/css/compartidos/styles_form.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_main_wrapper.css" th:href="@{/css/compartidos/styles_main_wrapper.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css" th:href="@{/css/compartidos/styles_menu_lateral.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css" th:href="@{/css/compartidos/styles_notificaciones.css}">
@@ -37,9 +38,50 @@
                         </p>
                     </section>
                     <section class="main__section">
-                        <p class="main__subtitle">
-                            Filtros
-                        </p>
+                        <h2 class="main__title">
+                            Filtros de búsqueda
+                        </h2>
+                        <div class="filters__container">
+                            <div class="filter">
+                                <div class="form__group">
+                                    <select id="filtEstado" class="form__input">
+                                        <option value="0" selected>Todos</option>
+                                        <option th:each="estado : ${listaEstados}" th:value="${estado.getId()}" th:text="${estado.getDescripcion()}">Pendiente</option>
+                                    </select>
+                                    <label for="filtEstado" class="form__label">Estado de citas</label>
+                                </div>
+                            </div>
+                            <div class="filter">
+                                <div class="form__group">
+                                    <select id="filtEspecialidades" class="form__input">
+                                        <option value="0" selected>Todas con citas</option>
+                                        <option th:each="especialidad : ${listaEspecialidades}" th:value="${especialidad.getId()}" th:text="${especialidad.getDescripcion()}">Nutrición</option>
+                                    </select>
+                                    <label for="filtEspecialidades" class="form__label">Especialidad</label>
+                                </div>
+                            </div>
+                            <div class="filter">
+                                <div class="form__group">
+                                    <select id="filtMedicos" class="form__input">
+                                        <option value="0">Todos</option>
+                                        <option th:each="medico : ${listaMedicos}" th:value="${medico.getId()}" th:text="${medico.getNombre() + ' ' + medico.getPrimerApellido() + ' ' + medico.getSegundoApellido()}">John Doe</option>
+                                    </select>
+                                    <label for="filtMedicos" class="form__label">Médico</label>
+                                </div>
+                            </div>
+                            <div class="filter">
+                                <div class="form__group">
+                                    <input type="date" name="filtFechaInicio" id="filtFechaInicio" class="form__input" placeholder="">
+                                    <label for="filtFechaInicio" class="form__label">Fecha Inicial</label>
+                                </div>
+                            </div>
+                            <div class="filter">
+                                <div class="form__group">
+                                    <input type="date" name="filtFechaFin" id="filtFechaFin" class="form__input" placeholder="">
+                                    <label for="filtFechaFin" class="form__label">Fecha Final</label>
+                                </div>
+                            </div>
+                        </div>
                     </section>
                     <section class="main__section">
                         <div class="table__container">
@@ -86,6 +128,9 @@
                                 <tfoot></tfoot>
                             </table>
                         </div>
+                        <div class="message-data__container">
+                            <p class="message-data">No se encontraron citas con los filtros aplicados.</p>
+                        </div>
                     </section>
                 </div>
             </div>
@@ -95,6 +140,7 @@
     <div th:replace="~{fragments::footer}"></div>
 
     <script src="../static/js/notificaciones.js" th:src="@{/js/notificaciones.js}"></script>
+    <script src="../static/js/citasMedicas.js" th:src="@{/js/citasMedicas.js}"></script>
     <script src="../static/js/menuLateral.js" th:src="@{/js/menuLateral.js}"></script>
     <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
 </body>

@@ -53,4 +53,13 @@ public interface ReservaCitasRepository extends JpaRepository<ReservaCitas, Long
 
     @Query(value = "{call sp_consultaCitasPacientes()}", nativeQuery = true)
     List<CitaPacientesDTO> consultaCitasPacientes();
+
+    @Query(value = "{call sp_consultaCitasPacientesFiltros(:filtEstado, :filtEspecialidad, :filtMedico, :filtFechaInicio, :filtFechaFin)}", nativeQuery = true)
+    List<CitaPacientesDTO> consultaCitasPacientesConFiltros(
+        @Param("filtEstado") Long filtEstado,
+        @Param("filtEspecialidad") Long filtEspecialidad,
+        @Param("filtMedico") Long filtMedico,
+        @Param("filtFechaInicio") LocalDate filtFechaInicio,
+        @Param("filtFechaFin") LocalDate filtFechaFin
+    );
 }

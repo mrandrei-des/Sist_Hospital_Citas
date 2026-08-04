@@ -20,6 +20,7 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
     List<Medico> findAllByEstado(Estado estado);
     List<Medico> findAllByEspecialidadId(Long idEspecialidad);
     Optional<Medico> findByIdAndEstado(Long id, Estado estado);
+    List<Medico> findAllByEstadoAndEspecialidadId(Estado estado, Long idEspecialidad);
 
     @Transactional
     @Modifying
@@ -33,7 +34,7 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
 
     @Query(value = "{call sp_listarMedicosRegistrados()}", nativeQuery = true)
     List<MedicoRegistradoDTO> listaMedicosRegistradoMedicoRegistradoDTOs();
-
+    
     @Transactional
     @Modifying
     @Query(value = "{call sp_EliminarMedico(:idMedico)}", nativeQuery = true)
@@ -49,4 +50,10 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
         @Param("idEspecialidad") Long idEspecialidad,
         @Param("filtoBusqueda") String filtroBusqueda
     );
+
+    @Query(value = "{call sp_consultaMedicosConCitas()}", nativeQuery = true)
+    List<MedicoReservaDTO> listaMedicosConCitas();
+
+    @Query(value = "{call sp_consultaMedicosConCitasPorEspecialidad(:idEspecialidad)}", nativeQuery = true)
+    List<MedicoReservaDTO> listaMedicosConCitasPorEspecialidad(@Param("idEspecialidad") Long idEspecialidad);
 }

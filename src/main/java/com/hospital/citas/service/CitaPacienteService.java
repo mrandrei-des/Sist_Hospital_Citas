@@ -1,5 +1,6 @@
 package com.hospital.citas.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.hospital.citas.model.dto.CitaPacientesDTO;
+import com.hospital.citas.model.dto.CitasMedicasFiltrosDTO;
 import com.hospital.citas.model.dto.HistorialMedicoPacienteDTO;
 import com.hospital.citas.model.dto.VistaHistorialMedicoPacienteDTO;
 import com.hospital.citas.repository.ReservaCitasRepository;
@@ -77,5 +79,9 @@ public class CitaPacienteService {
             listaVistaHistorial.add(dto);
         }
         return listaVistaHistorial;
+    }
+
+    public List<CitaPacientesDTO> consultaCitasPacientesConFiltros(CitasMedicasFiltrosDTO citasFiltros) {
+        return reservaCitasRepository.consultaCitasPacientesConFiltros(citasFiltros.getFiltEstado(), citasFiltros.getFiltEspecialidad(), citasFiltros.getFiltMedico(), citasFiltros.getFiltFechaInicio(), citasFiltros.getFiltFechaFin());
     }
 }

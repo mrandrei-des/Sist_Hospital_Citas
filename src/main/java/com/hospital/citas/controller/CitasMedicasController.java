@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.hospital.citas.service.CitaPacienteService;
+import com.hospital.citas.service.EspecialidadService;
+import com.hospital.citas.service.EstadoService;
+import com.hospital.citas.service.MedicoService;
 import com.hospital.citas.service.ReservaCitasService;
 
 import jakarta.servlet.http.HttpSession;
@@ -15,10 +18,16 @@ public class CitasMedicasController {
 
     private final CitaPacienteService citaPacienteService;
     private final ReservaCitasService reservaCitasService;
+    private final EstadoService estadoService;
+    private final EspecialidadService especialidadService;
+    private final MedicoService medicoService;
 
-    CitasMedicasController(CitaPacienteService citaPacienteService, ReservaCitasService reservaCitasService) {
+    CitasMedicasController(CitaPacienteService citaPacienteService, ReservaCitasService reservaCitasService, EstadoService estadoService, EspecialidadService especialidadService, MedicoService medicoService) {
         this.citaPacienteService = citaPacienteService;
         this.reservaCitasService = reservaCitasService;
+        this.estadoService = estadoService;
+        this.especialidadService = especialidadService;
+        this.medicoService = medicoService;
     }
 
     @GetMapping("/historial")
@@ -74,6 +83,9 @@ public class CitasMedicasController {
             model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
             model.addAttribute("usuarioEsAdmin", esAdmin);
             model.addAttribute("idRolUsuario", idRolUsuario);
+            model.addAttribute("listaEstados", estadoService.consultarEstadosCitas());
+            model.addAttribute("listaEspecialidades", especialidadService.listaEspecialidadesConCitas());
+            model.addAttribute("listaMedicos", medicoService.listaMedicosConCitas());
             model.addAttribute("listaCitas", citaPacienteService.consultaCitasPacientes());
         }
         return "citasMedicas";

@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .requestMatchers("/inicio", "/mostrar-reserva", "/reserva/**", "/confirmar-reserva", "/historial/**").hasAnyRole("1")
 
                 // GET MAPPING PRIVADO ADMIN
-                .requestMatchers("/registroUsuario", "/mostrarPanel", "/especialidades", "/buscar-especialidad/{id}", "/medicos", "/buscar-medico/{id}", "/deshabilitar-medico/{id}", "/mostrar-panel-pacientes", "/configuracion-horario", "/citas").hasAnyRole("2")
+                .requestMatchers("/registroUsuario", "/mostrarPanel", "/especialidades", "/buscar-especialidad/{id}", "/medicos", "/buscar-medico/{id}", "/deshabilitar-medico/{id}", "/mostrar-panel-pacientes", "/configuracion-horario", "/citas", "/api/citas/medicos/**", "/api/citas/filter").hasAnyRole("2")
 
                 // POST MAPPING PRIVADO ADMIN
                 .requestMatchers("/registro-especialidad", "/registro-medico", "/procesar-horario-medico", "/api/medicos/consulta/por-especialidad/{id}").hasAnyRole("2")

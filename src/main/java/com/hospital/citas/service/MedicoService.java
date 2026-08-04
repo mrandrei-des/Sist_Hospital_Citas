@@ -154,4 +154,39 @@ public class MedicoService {
         List<MedicoReservaDTO> listaRegistros = medicoRepository.consultarMedicosPorEspecialidadReserva(idEspecialidad, queryBusqueda);
         return listaRegistros != null ? listaRegistros : new ArrayList<MedicoReservaDTO>();
     }
+
+    public List<MedicoReservaDTO> listaMedicosFiltrosPorEspecialidad(Long idEspecialidad) {
+        List<Medico> listaMedicos = new ArrayList<>();
+        List<MedicoReservaDTO> listaMedicosDTO = new ArrayList<>();
+        MedicoReservaDTO dto;
+        Estado estado = new Estado();
+        estado.setId(4L);
+
+        if(idEspecialidad.equals(0L)) {
+            listaMedicos = medicoRepository.findAllByEstado(estado);
+        }else {
+            listaMedicos = medicoRepository.findAllByEstadoAndEspecialidadId(estado, idEspecialidad);
+        }
+
+        if(listaMedicos.size() > 0) {
+            for (Medico medico : listaMedicos) {
+                dto = new MedicoReservaDTO();
+                dto.setId(medico.getId());
+                dto.setNombre(medico.getNombre());
+                dto.setPrimerApellido(medico.getPrimerApellido());
+                dto.setSegundoApellido(medico.getSegundoApellido());
+                listaMedicosDTO.add(dto);
+            }
+        }
+
+        return listaMedicosDTO;
+    }
+
+    public List<MedicoReservaDTO> listaMedicosConCitas(){
+        return medicoRepository.listaMedicosConCitas();
+    }
+
+    public List<MedicoReservaDTO> listaMedicosConCitasPorEspecialidad(Long idEspecialidad){
+        return medicoRepository.listaMedicosConCitasPorEspecialidad(idEspecialidad);
+    }
 }
