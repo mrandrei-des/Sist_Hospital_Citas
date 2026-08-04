@@ -94,7 +94,7 @@ public class ReservaCitaValidator implements ConstraintValidator<ReservaCitaVali
                 List<ReservaCitasReservaDTO> listaReservasEncontradas = reservaCitasService.buscarCitasReservadasPorMedicoFechaHoraEstados(reserva.getIdMedico(), reserva.getFecha(), reserva.getHora(), listaEstados);
                 if(listaReservasEncontradas.size() > 0) {
                     reservaValida = false;
-                    mensajeValidacion = "El espacio de cita seleccionado no se encuentra disponible.";
+                    mensajeValidacion = "El espacio de cita seleccionado no se encuentra disponible. Por favor seleccione otro.";
                 }
             }
         }

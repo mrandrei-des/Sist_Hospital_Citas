@@ -587,6 +587,7 @@ async function procesarReserva() {
         // alguna validación no se cumplió
         const erroresEncontrados = await response.json();
         mostrarErroresEnResumen(erroresEncontrados);
+        findHorarioMedico(idMedico);
     }else {
         alert("El horario ya fue tomado por alguien más. Seleccione uno nuevo.")
         findHorarioMedico(idMedico);
