@@ -5,6 +5,7 @@
     font-weight: 700;
     padding: 10px 20px;
     border-radius: 16px;
+    text-align: center;
     transition: background-color .2s ease-in-out,
                 color .2s ease-in-out;
 }
@@ -89,13 +90,20 @@
     background-color: var(--primary--border-color);
 }
 
+button.btn__opcion__horario {
+    cursor: pointer;
+}
+
+span.btn__opcion__horario {
+    cursor: auto;
+}
+
 .btn__opcion__horario {
     padding: 8px 12px;
     color: #000;
     border-radius: 4px;
     font-weight: 600;
     outline: 2px solid transparent;
-    background-color: #0973;
     background-color: hsla(0deg, 0%, 70%, .4);
 }
 
@@ -103,15 +111,21 @@
     background-color: hsla(0deg, 0%, 70%, .6);
 }
 
-.btn__opcion__horario.espacio__reservado {
-    background-color: #ccc;
-    outline-color: #ccc;
-}
-
 .btn__opcion__horario.espacio__seleccionado {
     background-color: var(--primary-color);
     color: #fff;
     outline-color: var(--primary-color);
+}
+
+.btn__opcion__horario.espacio__restringido {
+    background-color: var(--secondary-color);
+    text-decoration: line-through;
+}
+
+.btn__opcion__horario.espacio__reservado {
+    background-color: var(--lista-elemento-bg-color-hover);
+    outline-color: var(--lista-elemento-bg-color-hover);
+    text-decoration: line-through;
 }
 
 .btn__lista__elemento {

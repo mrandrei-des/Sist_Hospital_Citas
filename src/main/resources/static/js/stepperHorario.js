@@ -385,22 +385,29 @@ function renderizarHorarioMedico(horarioEncontrado){
         const listaEspacios = diaHorario.listaEspacios;
         const scheduleDayDetails = document.createElement('div');
         scheduleDayDetails.classList.add('schedule__details');
-
+        
         listaEspacios.forEach(espacio => {
-            const buttonEspacio = document.createElement('button');
-            buttonEspacio.classList.add('btn', 'btn__opcion__horario');
-            buttonEspacio.setAttribute('type', 'button');
-            buttonEspacio.setAttribute('data-fecha', diaHorario.fecha);
-            buttonEspacio.setAttribute('data-hora', espacio);
-            buttonEspacio.textContent = espacio;
+            let espacioHorario = null;
 
-            buttonEspacio.addEventListener('click', ()=> {
-                selectScheduleSpace(daysContainer, buttonEspacio);
-                updateScheduleSpaceSelected(buttonEspacio);
-                const parentStepperPanel = daysContainer.closest('.stepper__panel');
-                parentStepperPanel.setAttribute('data-valid', 'true');
-            });
-            scheduleDayDetails.appendChild(buttonEspacio);
+            if(espacio.available) {
+                espacioHorario = document.createElement('button');
+                espacioHorario.classList.add('btn', 'btn__opcion__horario');
+                espacioHorario.setAttribute('type', 'button');
+                espacioHorario.setAttribute('data-fecha', diaHorario.fecha);
+                espacioHorario.setAttribute('data-hora', espacio.text);
+                espacioHorario.addEventListener('click', ()=> {
+                    selectScheduleSpace(daysContainer, espacioHorario);
+                    updateScheduleSpaceSelected(espacioHorario);
+                    const parentStepperPanel = daysContainer.closest('.stepper__panel');
+                    parentStepperPanel.setAttribute('data-valid', 'true');
+                });
+            }else {
+                espacioHorario = document.createElement('span');
+                espacioHorario.classList.add('btn', 'btn__opcion__horario', espacio.selected ? 'espacio__reservado' : 'espacio__restringido');
+            }
+
+            espacioHorario.textContent = espacio.text;
+            scheduleDayDetails.appendChild(espacioHorario);
         });
         scheduleDay.appendChild(scheduleDayDetails);
         daysContainer.appendChild(scheduleDay);
