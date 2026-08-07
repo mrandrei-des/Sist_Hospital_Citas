@@ -21,8 +21,6 @@ public class ApiHorarioController {
     }
 
     @GetMapping("/{idUsuario}/{idMedico}")
-    // public ResponseEntity<List<DiaHorarioDTO>> consultarHorarioDisponibleMedicoPorId(@PathVariable Long idUsuario, @PathVariable Long idMedico) {
-    //     List<DiaHorarioDTO> horarioMedico = horarioMedicoService.consultarHorarioMedicoParaReservarAntiguo(idMedico, idUsuario);
     public ResponseEntity<List<DiaHorarioReservaDTO>> consultarHorarioDisponibleMedicoPorId(@PathVariable Long idUsuario, @PathVariable Long idMedico) {
         List<DiaHorarioReservaDTO> horarioMedico = horarioMedicoService.consultarHorarioMedicoParaReservar(idMedico, idUsuario);
         

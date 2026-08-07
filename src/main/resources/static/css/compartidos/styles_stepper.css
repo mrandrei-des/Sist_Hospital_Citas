@@ -247,6 +247,13 @@
     background-color: transparent;
 }
 
+.stepper__panel-footer-simbology {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
 .stepper__footer {
     width: 100%;
     margin-top: .5rem;

@@ -11,3 +11,5 @@ public class CitasApplication {
 		SpringApplication.run(CitasApplication.class, args);
 	}
 }
+
+// FALTA AGREGAR UNA SIMBOILOGÍA DE LOS ESTILOS DE LOS BOTONES
