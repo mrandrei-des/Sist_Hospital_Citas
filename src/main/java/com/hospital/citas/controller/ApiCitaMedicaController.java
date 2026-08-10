@@ -49,6 +49,16 @@ public class ApiCitaMedicaController {
         return ResponseEntity.ok(listaMedicos);
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<Long> getCantidadCitas() {
+        Long cantidadCitas = citaPacienteService.consultaCantidadRegistrosCitasPacientes();
+        if(cantidadCitas == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(cantidadCitas);
+    }
+
+    // Implementar la paginación
     @PostMapping("/filter")
     public ResponseEntity<List<CitaPacientesDTO>> getCitasPorFiltros(@RequestBody CitasMedicasFiltrosDTO citasFiltro) {
         List<CitaPacientesDTO> listaCitas = citaPacienteService.consultaCitasPacientesConFiltros(citasFiltro);
@@ -56,5 +66,11 @@ public class ApiCitaMedicaController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(listaCitas);
+    }
+
+    @PostMapping("/filter/count")
+    public ResponseEntity<Integer> getCantidadCitasPorFiltros(@RequestBody CitasMedicasFiltrosDTO citasFiltro) {
+        int cantidadCitas = citaPacienteService.consultaCantidadCitasPacientesConFiltros(citasFiltro);
+        return ResponseEntity.ok(cantidadCitas);
     }
 }

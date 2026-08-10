@@ -3,9 +3,13 @@ const filtroEspecialidad = document.getElementById('filtEspecialidades');
 const filtroMedicos = document.getElementById('filtMedicos');
 const filtroFechaInicio = document.getElementById('filtFechaInicio');
 const filtroFechaFin = document.getElementById('filtFechaFin');
+let paginaActual = 1;
+let cantidadCitasPorPagina = 5;
+let cantidadPaginas = 0;
+let cantidadCitas = 0;
 
 filtroEstado.addEventListener('change', ()=> {
-    refrescarTablaCitas();
+    refrescarTablaCitas(1);
 });
 
 filtroEspecialidad.addEventListener('change', ()=> {
@@ -14,7 +18,7 @@ filtroEspecialidad.addEventListener('change', ()=> {
         actualizarOptionesMedico(especialidadSeleccionada);
         filtroMedicos.value = '0';
     }
-    refrescarTablaCitas();
+    refrescarTablaCitas(1);
 });
 
 function actualizarOptionesMedico(especialidadSeleccionada) {
@@ -50,19 +54,43 @@ function renderizarOptionsMedicos(listaMedicos) {
 }
 
 filtroMedicos.addEventListener('change', ()=> {
-    refrescarTablaCitas();
+    refrescarTablaCitas(1);
 });
 
 filtroFechaInicio.addEventListener('change', ()=> {
     rangoFechasValido();
-    refrescarTablaCitas();
+    refrescarTablaCitas(1);
 });
 
 filtroFechaFin.addEventListener('change', ()=> {    
     rangoFechasValido();
-    refrescarTablaCitas();
+    refrescarTablaCitas(1);
 });
 
+document.addEventListener('DOMContentLoaded', ()=> {
+    agregarPaginacionCargaInicial();
+});
+
+function agregarPaginacionCargaInicial() {
+    consultarCantidadCitas();
+}
+
+async function consultarCantidadCitas() {
+    const endPoint = '/api/citas/count';
+    const response = await fetch(endPoint, {
+        method: 'GET'
+    });
+    const responseData = await response.json();
+    if(response.ok) {
+        cantidadCitas = responseData;
+        cantidadPaginas = Math.ceil(cantidadCitas / cantidadCitasPorPagina);
+        document.querySelector('.pagination__paragraph strong.pagination__total').textContent = responseData;
+        renderizarBotonesPaginacion();
+    }else {
+        const erroresEncontrados = await response.json();
+        console.error(erroresEncontrados);
+    }
+}
 
 function rangoFechasValido() {
     if(filtroFechaInicio.value != '' && filtroFechaFin.value != '') {
@@ -79,19 +107,45 @@ function rangoFechasValido() {
     }
 }
 
-function refrescarTablaCitas() {
+function refrescarTablaCitas(numPagina) {
     const objFiltros = {
         "filtEstado": filtroEstado.value == '0' ? null : filtroEstado.value,
         "filtEspecialidad": filtroEspecialidad.value == '0' ? null : filtroEspecialidad.value,
         "filtMedico": filtroMedicos.value == '0' ? null : filtroMedicos.value,
         "filtFechaInicio": filtroFechaInicio.value == '' ? null : filtroFechaInicio.value,
-        "filtFechaFin": filtroFechaFin.value == '' ? null : filtroFechaFin.value
+        "filtFechaFin": filtroFechaFin.value == '' ? null : filtroFechaFin.value,
+        "pagina": numPagina,
+        "cantidadCitasPorPagina": cantidadCitasPorPagina
     };
-
+    paginaActual = numPagina;
+    consultarCantidadCitasAplicandoFiltros(objFiltros);
     consultarCitasAplicandoFiltros(objFiltros);
 }
 
-// "/api/citas/filter"
+async function consultarCantidadCitasAplicandoFiltros(citasMedicasFiltrosDTO){
+    const token = document.querySelector("meta[name='_csrf']").getAttribute("content");
+    const header = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
+    const endPoint = '/api/citas/filter/count';
+    const response = await fetch(endPoint, {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            [header]: token
+        },
+        body: JSON.stringify(citasMedicasFiltrosDTO)
+    });
+    const responseData = await response.json();
+    if(response.ok) {
+        cantidadCitas = responseData;
+        cantidadPaginas = Math.ceil(cantidadCitas / cantidadCitasPorPagina);
+        document.querySelector('.pagination__paragraph strong.pagination__total').textContent = responseData;
+        renderizarBotonesPaginacion();
+    }else {
+        const erroresEncontrados = await response.json();
+        console.error(erroresEncontrados);
+    }
+}
+
 async function consultarCitasAplicandoFiltros(citasMedicasFiltrosDTO){
     const token = document.querySelector("meta[name='_csrf']").getAttribute("content");
     const header = document.querySelector("meta[name='_csrf_header']").getAttribute("content");
@@ -108,6 +162,7 @@ async function consultarCitasAplicandoFiltros(citasMedicasFiltrosDTO){
     if(response.ok) {
         if(responseData.length > 0) {
             renderizarCitasConsultadas(responseData);
+            renderizarBotonesPaginacion();
         }else {
             mostrarMensajeSinRegistros();
         }
@@ -197,6 +252,25 @@ function renderizarCitasConsultadas(listaCitas) {
     });
 }
 
+function renderizarBotonesPaginacion() {
+    const paginationItems = document.getElementById('paginationItems');
+    paginationItems.innerHTML = '';
+
+    for (let index = 0; index < cantidadPaginas; index++) {
+        const boton = document.createElement('button');
+
+        boton.classList.add('btn', 'btn__pagination');
+        boton.classList = 'btn btn__pagination' + (paginaActual == (index + 1) ? ' btn__pagination--active' : '') ;
+
+        boton.textContent = (index + 1);
+        boton.addEventListener('click', ()=> {
+            refrescarTablaCitas(index + 1);
+            paginaActual = index + 1;
+        });
+        paginationItems.appendChild(boton);
+    }
+}
+
 function mostrarMensajeSinRegistros(){
     const tablaCitas = document.querySelector('.table');
     const tbodyCitas = tablaCitas.querySelector('tbody');
@@ -209,4 +283,18 @@ function mostrarMensajeSinRegistros(){
     parafo.classList.add('message-data');
     parafo.textContent = 'No se encontraron citas con los filtros aplicados.';
     contenedorMensajes.appendChild(parafo);
+}
+
+function paginaSiguiente() {
+    if(paginaActual < cantidadPaginas) {
+        paginaActual++;
+        refrescarTablaCitas(paginaActual);
+    }
+}
+
+function paginaAnterior() {
+    if(paginaActual > 1) {
+        paginaActual--;
+        refrescarTablaCitas(paginaActual);
+    }
 }

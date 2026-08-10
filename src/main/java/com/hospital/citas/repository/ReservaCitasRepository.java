@@ -14,10 +14,10 @@ import com.hospital.citas.model.entity.ReservaCitas;
 import jakarta.transaction.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
-
 
 public interface ReservaCitasRepository extends JpaRepository<ReservaCitas, Long> {
     List<ReservaCitas> findAllByMedicoAndFechaAndHoraAndEstadoIn(Medico medico, LocalDate fecha, LocalTime hora, List<Estado> estado);
@@ -51,21 +51,35 @@ public interface ReservaCitasRepository extends JpaRepository<ReservaCitas, Long
     @Query(value = "{call sp_consultaHistorialMedicoPendientePaciente(:idUsuario)}", nativeQuery = true)
     List<HistorialMedicoPacienteDTO> consultaHistorialMedicoPendientePaciente(@Param("idUsuario") Long idUsuario);
 
-    @Query(value = "{call sp_consultaCitasPacientes()}", nativeQuery = true)
-    List<CitaPacientesDTO> consultaCitasPacientes();
+    @Query(value = "{call sp_consultaCitasPacientes(:numeroPagina, :tamannoPagina)}", nativeQuery = true)
+    List<CitaPacientesDTO> consultaCitasPacientes(
+        @Param("numeroPagina") int numeroPagina,
+        @Param("tamannoPagina") int tamannoPagina
+    );
 
-    @Query(value = "{call sp_consultaCitasPacientesFiltros(:filtEstado, :filtEspecialidad, :filtMedico, :filtFechaInicio, :filtFechaFin)}", nativeQuery = true)
+    @Query(value = "{call sp_consultaCitasPacientesFiltros(:filtEstado, :filtEspecialidad, :filtMedico, :filtFechaInicio, :filtFechaFin, :numeroPagina, :tamannoPagina)}", nativeQuery = true)
     List<CitaPacientesDTO> consultaCitasPacientesConFiltros(
         @Param("filtEstado") Long filtEstado,
         @Param("filtEspecialidad") Long filtEspecialidad,
         @Param("filtMedico") Long filtMedico,
         @Param("filtFechaInicio") LocalDate filtFechaInicio,
-        @Param("filtFechaFin") LocalDate filtFechaFin
+        @Param("filtFechaFin") LocalDate filtFechaFin,
+        @Param("numeroPagina") int numeroPagina,
+        @Param("tamannoPagina") int tamannoPagina
     );
 
     @Query(value = "{call sp_consultaCitasPendientesParaBot(:fechaCorte, :horaCorte)}", nativeQuery = true)
     Optional<List<ReservaCitas>> consultaCitasPendientesParaBot(
         @Param("fechaCorte") LocalDate fechaCorte,
         @Param("horaCorte") LocalTime horaCorte
+    );
+    
+    @Query(value = "{call sp_consultaCantidadCitasPacientesFiltros(:filtEstado, :filtEspecialidad, :filtMedico, :filtFechaInicio, :filtFechaFin)}", nativeQuery = true)
+    int consultaCantidadCitasPacientesConFiltros(
+        @Param("filtEstado") Long filtEstado,
+        @Param("filtEspecialidad") Long filtEspecialidad,
+        @Param("filtMedico") Long filtMedico,
+        @Param("filtFechaInicio") LocalDate filtFechaInicio,
+        @Param("filtFechaFin") LocalDate filtFechaFin
     );
 }

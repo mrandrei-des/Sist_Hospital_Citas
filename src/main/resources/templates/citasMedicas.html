@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css" th:href="@{/css/compartidos/styles_menu_lateral.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css" th:href="@{/css/compartidos/styles_notificaciones.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_tabla.css" th:href="@{/css/compartidos/styles_tabla.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_pagination.css" th:href="@{/css/compartidos/styles_pagination.css}">
 
     <link rel="stylesheet" href="../static/css/citasMedicas.css" th:href="@{/css/citasMedicas.css}">
 </head>
@@ -130,11 +131,39 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tfoot></tfoot>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="6">
+                                            <div class="pagination__container">
+                                                <div class="pagination__info">
+                                                    <p class="pagination__paragraph">
+                                                        Total de registros: <strong class="pagination__total">0</strong>
+                                                    </p>
+                                                </div>
+        
+                                                <div class="pagination__items-container">
+                                                    <button class="btn btn__pagination" onclick="paginaAnterior()">
+                                                        <i class="fa-solid fa-angle-left"></i>
+                                                    </button>
+        
+                                                    <div class="pagination__items" id="paginationItems">
+                                                        <button class="btn btn__pagination">1</button>
+                                                        <button class="btn btn__pagination btn__pagination--active">2</button>
+                                                        <button class="btn btn__pagination">3</button>
+                                                        <button class="btn btn__pagination">4</button>
+                                                    </div>
+        
+                                                    <button class="btn btn__pagination" onclick="paginaSiguiente()">
+                                                        <i class="fa-solid fa-angle-right"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
-                        <div class="message-data__container">
-                        </div>
+                        <div class="message-data__container"></div>
                     </section>
                 </div>
             </div>

@@ -86,7 +86,7 @@ public class CitasMedicasController {
             model.addAttribute("listaEstados", estadoService.consultarEstadosCitas());
             model.addAttribute("listaEspecialidades", especialidadService.listaEspecialidadesConCitas());
             model.addAttribute("listaMedicos", medicoService.listaMedicosConCitas());
-            model.addAttribute("listaCitas", citaPacienteService.consultaCitasPacientes());
+            model.addAttribute("listaCitas", citaPacienteService.consultaCitasPacientes(1, 5));
         }
         return "citasMedicas";
     }

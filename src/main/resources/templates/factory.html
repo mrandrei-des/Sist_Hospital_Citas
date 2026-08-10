@@ -16,9 +16,10 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css" th:href="@{/css/compartidos/styles_notificaciones.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_tabla.css" th:href="@{/css/compartidos/styles_tabla.css}">
 
-    <link rel="stylesheet" href="../static/css/historialMedico.css" th:href="@{/css/historialMedico.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_pagination.css" th:href="@{/css/styles_pagination.css}">
 </head>
 <body>
+    <!-- 
     <div th:replace="~{fragments::header(mostrarOpcionesMenu=${true}, nombreUsuario=${nombreCompletoUsuario})}"></div>
 
     <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${tipoNotificacion}, ${titulo}, ${detalle})}"></div>
@@ -29,21 +30,101 @@
         <div class="main__content">
             <div class="main__container-historial">
                 <div class="main__historial-section">
-                    <div class="contenedor__btn">
-                        <button type="button" class="btn__opcion__horario">07:00</button>
-                        <button type="button" class="btn__opcion__horario espacio__seleccionado">09:00</button>
-                        <span class="btn__opcion__horario espacio__restringido">10:00</span>
-                        <span class="btn__opcion__horario espacio__reservado">12:00</span>
-                    </div>
                 </div>
             </div>
         </div>
     </main>
 
     <div th:replace="~{fragments::footer}"></div>
+    -->
+    <div class="tfooter">
+        <div class="pagination__info">
+            <p class="pagination__paragraph">
+                Total de registros: <strong class="pagination__total">25</strong>
+            </p>
+        </div>
+
+        <div class="pagination__container">
+            <button class="btn btn__pagination" onclick="paginaAnterior()">
+                <i class="fa-solid fa-angle-left"></i>
+            </button>
+    
+            <div class="pagination__items" id="paginationItems">
+                <button class="btn btn__pagination">1</button>
+                <button class="btn btn__pagination btn__pagination--active">2</button>
+                <button class="btn btn__pagination">3</button>
+                <button class="btn btn__pagination">4</button>
+            </div>
+    
+            <button class="btn btn__pagination" onclick="paginaSiguiente()">
+                <i class="fa-solid fa-angle-right"></i>
+            </button>
+        </div>
+    </div>
 
     <script src="../static/js/notificaciones.js" th:src="@{/js/notificaciones.js}"></script>
     <script src="../static/js/menuLateral.js" th:src="@{/js/menuLateral.js}"></script>
     <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
+
+    <script>
+        const arregloCitas = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+
+        let paginaActual = 1;
+        const cantPaginas = Math.ceil(arregloCitas.length / 5);
+
+        function renderizarBotones() {
+            const paginationItems = document.getElementById('paginationItems');
+            paginationItems.innerHTML = '';
+
+            for (let index = 0; index < cantPaginas; index++) {
+                const boton = document.createElement('button');
+
+                boton.classList.add('btn', 'btn__pagination');
+                boton.classList = 'btn btn__pagination' + (paginaActual == (index + 1) ? ' btn__pagination--active' : '') ;
+
+                boton.textContent = (index + 1);
+                boton.addEventListener('click', ()=> {
+                    cargarPagina((index + 1));
+                });
+                paginationItems.appendChild(boton);
+            }
+        }
+
+        function cargarPagina(pagina) {
+            paginaActual = pagina;
+            renderizarBotones();
+            console.log(`Cargando la página #${pagina}`);
+        }
+
+        function paginaSiguiente() {
+            if(paginaActual < cantPaginas) {
+                paginaActual++;
+                renderizarBotones();
+                // Cargar la tabla
+                console.log(`Avanzar a la página #${paginaActual}`);
+            }
+        }
+
+        function paginaAnterior() {
+            if(paginaActual > 1) {
+                paginaActual--;
+                renderizarBotones();
+                // Cargar la tabla
+                console.log(`Retroceder a la página #${paginaActual}`);
+            }
+        }
+
+        function actualizarBotonActivo(botonActivo) {
+            const listaBotonesActivos = document.querySelectorAll('.btn.btn__pagination.btn__pagination--active');
+
+            listaBotonesActivos.forEach(boton => {
+                boton.classList.remove('btn__pagination--active');
+            })
+
+            botonActivo.classList.add('btn__pagination--active');
+        }
+
+        renderizarBotones();
+    </script>
 </body>
 </html>

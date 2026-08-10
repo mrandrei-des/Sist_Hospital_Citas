@@ -8,17 +8,21 @@ public class CitasMedicasFiltrosDTO {
     private Long filtMedico;
     private LocalDate filtFechaInicio;
     private LocalDate filtFechaFin;
+    private int pagina;
+    private int cantidadCitasPorPagina;
     
     public CitasMedicasFiltrosDTO() {
     }
     
     public CitasMedicasFiltrosDTO(Long filtEstado, Long filtEspecialidad, Long filtMedico, LocalDate filtFechaInicio,
-            LocalDate filtFechaFin) {
+            LocalDate filtFechaFin, int pagina, int cantidadCitasPorPagina) {
         this.filtEstado = filtEstado;
         this.filtEspecialidad = filtEspecialidad;
         this.filtMedico = filtMedico;
         this.filtFechaInicio = filtFechaInicio;
         this.filtFechaFin = filtFechaFin;
+        this.pagina = pagina;
+        this.cantidadCitasPorPagina = cantidadCitasPorPagina;
     }
 
     public Long getFiltEstado() {
@@ -41,7 +45,13 @@ public class CitasMedicasFiltrosDTO {
         return filtFechaFin;
     }
 
-}
+    public int getPagina() {
+        return pagina;
+    }
 
+    public int getCantidadCitasPorPagina() {
+        return cantidadCitasPorPagina;
+    }
+}
 
 //filtEstado bigint, IN filtEspecialidad bigint, IN filtMedico bigint, IN filtFechaInicio date, IN filtFechaFin DATE

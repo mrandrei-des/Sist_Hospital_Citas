@@ -86,13 +86,20 @@
 
 .message-data__container {
     text-align: center;
-    margin-top: .5rem;
 }
 
 .message-data {
     font-size: .9rem;
     font-weight: 800;
     color: #d00;
+}
+
+.table tfoot {
+    width: 100%;
+}
+
+.table tfoot td {
+    padding: 0;
 }
 
 @media screen and (max-width: 950px) {

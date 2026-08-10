@@ -22,8 +22,12 @@ public class CitaPacienteService {
         this.consultaDBServerService = consultaDBServerService;
     }
 
-    public List<CitaPacientesDTO> consultaCitasPacientes() {
-        return reservaCitasRepository.consultaCitasPacientes();
+    public List<CitaPacientesDTO> consultaCitasPacientes(int numPagina, int tamanoPagina) {
+        return reservaCitasRepository.consultaCitasPacientes(numPagina, tamanoPagina);
+    }
+
+    public Long consultaCantidadRegistrosCitasPacientes() {
+        return reservaCitasRepository.count();
     }
 
     public List<VistaHistorialMedicoPacienteDTO> consultaHistorialPaciente(Long idUsuario) {
@@ -81,6 +85,10 @@ public class CitaPacienteService {
     }
 
     public List<CitaPacientesDTO> consultaCitasPacientesConFiltros(CitasMedicasFiltrosDTO citasFiltros) {
-        return reservaCitasRepository.consultaCitasPacientesConFiltros(citasFiltros.getFiltEstado(), citasFiltros.getFiltEspecialidad(), citasFiltros.getFiltMedico(), citasFiltros.getFiltFechaInicio(), citasFiltros.getFiltFechaFin());
+        return reservaCitasRepository.consultaCitasPacientesConFiltros(citasFiltros.getFiltEstado(), citasFiltros.getFiltEspecialidad(), citasFiltros.getFiltMedico(), citasFiltros.getFiltFechaInicio(), citasFiltros.getFiltFechaFin(), citasFiltros.getPagina(), citasFiltros.getCantidadCitasPorPagina());
+    }
+    
+    public int consultaCantidadCitasPacientesConFiltros(CitasMedicasFiltrosDTO citasFiltros) {
+        return reservaCitasRepository.consultaCantidadCitasPacientesConFiltros(citasFiltros.getFiltEstado(), citasFiltros.getFiltEspecialidad(), citasFiltros.getFiltMedico(), citasFiltros.getFiltFechaInicio(), citasFiltros.getFiltFechaFin());
     }
 }
