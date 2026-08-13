@@ -56,13 +56,13 @@ public class SecurityConfig {
                 .successHandler(loginSuccessHandler)
                 .permitAll()
             )
+
             .logout(logout -> logout
                 .logoutSuccessUrl("/login?logout")
                 .permitAll()
             )
             .exceptionHandling(ex -> ex.accessDeniedPage("/acceso-denegado"))
             .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()));
-            // .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"));
             return http.build();
     }
 }

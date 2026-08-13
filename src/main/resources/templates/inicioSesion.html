@@ -20,6 +20,12 @@
 <body>    
     <div th:replace="~{fragments::header(mostrarOpcionesMenu=${false}, nombreUsuario=${''})}"></div>
     <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${tipoNotificacion}, ${titulo}, ${detalle})}"></div>
+    <div th:if="${param.error}">
+        <div th:replace="~{fragments::notificacion(mostrarNotificacion=${true}, tipoNotificacion=${'warning'}, titulo=${'Credenciales Incorrectas'}, detalle=${'Usuario o contraseña no válidos.'})}"></div>
+    </div>
+    <div th:if="${param.logout}">
+        <div th:replace="~{fragments::notificacion(mostrarNotificacion=${true}, tipoNotificacion=${'success'}, titulo=${'Sesión Cerrada'}, detalle=${'Sesión cerrada correctamente.'})}"></div>
+    </div>
 
     <main class="main">
         <div class="main__content">
@@ -38,6 +44,7 @@
                     <h2 class="main__title">
                         Bienvenido de nuevo
                     </h2>
+                    <p class="main__link-paragraph" th:if="${param.error}">Usuario o contraseña no válidos.</p>
                 </section>
     
                 <section class="main__section-content">
