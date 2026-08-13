@@ -21,6 +21,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(error);
     }
 
+    @ExceptionHandler(ReporteCitaCsvException.class)
+    public ResponseEntity<RespuestaErrorDTO> catchReporteCitaCsv(ReporteCitaCsvException ex) {
+        RespuestaErrorDTO error = new RespuestaErrorDTO(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage(), false);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error); // HTTP 500
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<RespuestaErrorDTO> catchErroresGenerales(Exception ex) {
         RespuestaErrorDTO error = new RespuestaErrorDTO(500, "Error interno en el servidor. [" + ex.getMessage() + "]", false);

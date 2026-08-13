@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es" xmlns="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte Citas Médicas</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css" th:href="@{/css/compartidos/styles_fonts.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_buttons.css" th:href="@{/css/compartidos/styles_buttons.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_text.css" th:href="@{/css/compartidos/styles_text.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_header.css" th:href="@{/css/compartidos/styles_header.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_footer.css" th:href="@{/css/compartidos/styles_footer.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_form.css" th:href="@{/css/compartidos/styles_form.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_main_wrapper.css" th:href="@{/css/compartidos/styles_main_wrapper.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css" th:href="@{/css/compartidos/styles_menu_lateral.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css" th:href="@{/css/compartidos/styles_notificaciones.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_tabla.css" th:href="@{/css/compartidos/styles_tabla.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_pagination.css" th:href="@{/css/compartidos/styles_pagination.css}">
+
+    <link rel="stylesheet" href="../static/css/reporteCitas.css" th:href="@{/css/reporteCitas.css}">
+</head>
+<body>
+    <div th:replace="~{fragments::header(mostrarOpcionesMenu=${true}, nombreUsuario=${nombreCompletoUsuario})}"></div>
+    <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${tipoNotificacion}, ${titulo}, ${detalle})}"></div>
+
+    <main class="main">
+        <aside th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></aside>
+
+        <div class="main__content">
+            <div class="main__container-reporte-citas">
+                <div class="main__citas-section">
+                    <section class="main__section">
+                        <h2 class="main__title">
+                            Reporte Citas Médicas
+                        </h2>
+                        <p class="main__subtitle">
+                            Lista de citas médicas de los pacientes
+                        </p>
+                    </section>
+                    <section class="main__section main__section-report">
+                        <div class="main__title-container">
+                            <h2 class="main__title">
+                                Filtros de búsqueda
+                            </h2>
+                            <p class="main__subtitle">
+                                Puede aplicar filtros para hacer más preciso el listado. O bien puede <a href="/citas" th:href="@{/citas}" class="main__link">reiniciar filtros</a>.
+                            </p>
+                        </div>
+                        <div class="main__actions-container">
+                            <button type="button" class="btn btn__export" id="btnExportCSV">
+                                <span>
+                                    <i class="fa-solid fa-download"></i>
+                                </span>
+                                Exportar a CSV
+                            </button>
+                        </div>
+                        <div class="filters__container">
+                            <div class="filter">
+                                <div class="form__group">
+                                    <select id="filtEstado" class="form__input">
+                                        <option value="0" selected>Todos</option>
+                                        <option th:each="estado : ${listaEstados}" th:value="${estado.getId()}" th:text="${estado.getDescripcion()}">Pendiente</option>
+                                    </select>
+                                    <label for="filtEstado" class="form__label">Estado de citas</label>
+                                </div>
+                            </div>
+                            <div class="filter">
+                                <div class="form__group">
+                                    <select id="filtEspecialidades" class="form__input">
+                                        <option value="0" selected>Todas con citas</option>
+                                        <option th:each="especialidad : ${listaEspecialidades}" th:value="${especialidad.getId()}" th:text="${especialidad.getDescripcion()}">Nutrición</option>
+                                    </select>
+                                    <label for="filtEspecialidades" class="form__label">Especialidad</label>
+                                </div>
+                            </div>
+                            <div class="filter">
+                                <div class="form__group">
+                                    <select id="filtMedicos" class="form__input">
+                                        <option value="0">Todos</option>
+                                        <option th:each="medico : ${listaMedicos}" th:value="${medico.getId()}" th:text="${medico.getNombre() + ' ' + medico.getPrimerApellido() + ' ' + medico.getSegundoApellido()}">John Doe</option>
+                                    </select>
+                                    <label for="filtMedicos" class="form__label">Médico</label>
+                                </div>
+                            </div>
+                            <div class="filter">
+                                <div class="form__group">
+                                    <input type="date" name="filtFechaInicio" id="filtFechaInicio" class="form__input" placeholder="">
+                                    <label for="filtFechaInicio" class="form__label">Fecha Inicial</label>
+                                </div>
+                            </div>
+                            <div class="filter">
+                                <div class="form__group">
+                                    <input type="date" name="filtFechaFin" id="filtFechaFin" class="form__input" placeholder="">
+                                    <label for="filtFechaFin" class="form__label">Fecha Final</label>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="main__section">
+                        <div class="table__container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Paciente</th>
+                                        <th>Especialidad</th>
+                                        <th>Médico</th>
+                                        <th>Fecha</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="cita : ${listaCitas}">
+                                        <td th:text="${cita.getPaciente()}">Andrei Mesén Romero</td>
+                                        <td th:text="${cita.getEspecialidad()}">Nutrición</td>
+                                        <td th:text="${cita.getMedico()}">Vanessa Arias</td>
+                                        <td th:text="${cita.getFechaFormateada()} + ' ' + ${cita.getHora()}">27-08-2026 08:30</td>
+                                        <td>
+                                            <span th:if="${cita.getIdEstado() == 1}" class="state__container state__container--pending">Pendiente</span> 
+                                            <span th:if="${cita.getIdEstado() == 2}" class="state__container state__container--active">Confirmada</span> 
+                                            <span th:if="${cita.getIdEstado() == 7}" class="state__container state__container--canceled">Cancelada</span> 
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="6">
+                                            <div class="pagination__container">
+                                                <div class="pagination__info">
+                                                    <p class="pagination__paragraph">
+                                                        Total de registros: <strong class="pagination__total">0</strong>
+                                                    </p>
+                                                </div>
+        
+                                                <div class="pagination__items-container">
+                                                    <button class="btn btn__pagination" onclick="paginaAnterior()">
+                                                        <i class="fa-solid fa-angle-left"></i>
+                                                    </button>
+        
+                                                    <div class="pagination__items" id="paginationItems">
+                                                        <button class="btn btn__pagination">1</button>
+                                                        <button class="btn btn__pagination btn__pagination--active">2</button>
+                                                        <button class="btn btn__pagination">3</button>
+                                                        <button class="btn btn__pagination">4</button>
+                                                    </div>
+        
+                                                    <button class="btn btn__pagination" onclick="paginaSiguiente()">
+                                                        <i class="fa-solid fa-angle-right"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="message-data__container"></div>
+                        <!-- <div class="export-container">
+
+                        </div> -->
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="~{fragments::footer}"></div>
+
+    <script src="../static/js/notificaciones.js" th:src="@{/js/notificaciones.js}"></script>
+    <script src="../static/js/reporteCitas.js" th:src="@{/js/reporteCitas.js}"></script>
+    <script src="../static/js/menuLateral.js" th:src="@{/js/menuLateral.js}"></script>
+    <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
+</body>
+</html>

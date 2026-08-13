@@ -189,3 +189,15 @@ span.btn__opcion__horario {
     transform: translate(-50%, -120%) scale(1.05);
     opacity: 1;
 }
+
+.btn__export {
+    display: none;
+}
+
+.btn__export.btn__export-visible {
+    display: block;
+}
+
+.btn__export:hover {
+    background-color: hsla(0deg, 0%, 70%, .6);
+}

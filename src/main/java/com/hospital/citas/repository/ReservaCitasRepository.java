@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.hospital.citas.model.dto.CitaPacientesDTO;
 import com.hospital.citas.model.dto.HistorialMedicoPacienteDTO;
+import com.hospital.citas.model.dto.ReporteCitaCsvDTO;
 import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.model.entity.Medico;
 import com.hospital.citas.model.entity.ReservaCitas;
@@ -76,6 +77,15 @@ public interface ReservaCitasRepository extends JpaRepository<ReservaCitas, Long
     
     @Query(value = "{call sp_consultaCantidadCitasPacientesFiltros(:filtEstado, :filtEspecialidad, :filtMedico, :filtFechaInicio, :filtFechaFin)}", nativeQuery = true)
     int consultaCantidadCitasPacientesConFiltros(
+        @Param("filtEstado") Long filtEstado,
+        @Param("filtEspecialidad") Long filtEspecialidad,
+        @Param("filtMedico") Long filtMedico,
+        @Param("filtFechaInicio") LocalDate filtFechaInicio,
+        @Param("filtFechaFin") LocalDate filtFechaFin
+    );
+
+    @Query(value = "{call sp_consultaCitasPacientesFiltrosParaReporte(:filtEstado, :filtEspecialidad, :filtMedico, :filtFechaInicio, :filtFechaFin)}", nativeQuery = true)
+    List<ReporteCitaCsvDTO> consultaCitasReporteCsv(
         @Param("filtEstado") Long filtEstado,
         @Param("filtEspecialidad") Long filtEspecialidad,
         @Param("filtMedico") Long filtMedico,

@@ -67,7 +67,7 @@ public class ApiCitaMedicaController {
         }
         return ResponseEntity.ok(listaCitas);
     }
-
+    
     @PostMapping("/filter/count")
     public ResponseEntity<Integer> getCantidadCitasPorFiltros(@RequestBody CitasMedicasFiltrosDTO citasFiltro) {
         int cantidadCitas = citaPacienteService.consultaCantidadCitasPacientesConFiltros(citasFiltro);
