@@ -4,11 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acceso denegado</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css" th:href="@{/css/compartidos/styles_fonts.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
+    <link rel="stylesheet" href="../static/css/accesoDenegado.css" th:href="@{/css/accesoDenegado.css}">
 </head>
 <body>
-    <h1> 403 - Acceso denegado</h1>
-    <p> No tiene permisos para ver esta pagina.</p>
-    <a th:href="@{/inicio}">Volver a inicio</a>
+    <main class="main">
+        <div class="main__access-denied-structure">
+            <div class="content__container content__container--error">
+                <h1 class="content__title"> 403 - Acceso denegado</h1>
+                <p class="content__paragraph"> No tiene permisos para ver esta página.</p>
+                <a th:href="@{/inicio}" class="content__link content__link--error">Volver a inicio</a>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
