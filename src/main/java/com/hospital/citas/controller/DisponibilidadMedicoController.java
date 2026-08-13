@@ -23,6 +23,10 @@ public class DisponibilidadMedicoController {
     @GetMapping("/configuracion-horario")
     public String configurarHorarioMedico(HttpSession session, Model model) {
 
+        Long idUsuarioLoggeado = (Long)session.getAttribute("idUsuarioLoggeado");
+        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        String nombreCompletoUsuarioLoggeado = (String)session.getAttribute("nombreUsuarioLoggeado") + " " + (String)session.getAttribute("primerApellidoUsuarioLoggeado") + " " + (String)session.getAttribute("segundoApellidoUsuarioLoggeado");
+
         boolean mostrarNotificacion  = (boolean)session.getAttribute("mostrarNotificacion");
         String origenNotificacion = (String)session.getAttribute("origen");
 
@@ -36,9 +40,7 @@ public class DisponibilidadMedicoController {
             session.setAttribute("origen", "");
         }
 
-        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
-        String nombreCompletoUsuarioLoggeado = (String)session.getAttribute("nombreUsuarioLoggeado") + " " + (String)session.getAttribute("primerApellidoUsuarioLoggeado") + " " + (String)session.getAttribute("segundoApellidoUsuarioLoggeado");
-
+        model.addAttribute("idRolUsuario", idUsuarioLoggeado);
         model.addAttribute("usuarioEsAdmin", esAdmin);
         model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
         model.addAttribute("horario", new HorarioMedicoDTO());

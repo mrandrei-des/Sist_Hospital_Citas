@@ -33,13 +33,22 @@ public class UsuarioService {
     private PasswordEncoder passwordEncoder;
 
     public Usuario crearCuenta(Usuario usuarioNuevo) {
-
         usuarioNuevo.setContrasennaHash(passwordEncoder.encode(usuarioNuevo.getContrasennaHash()));
         Usuario usuarioRegistrado = usuarioRepository.save(usuarioNuevo);
         if(usuarioRegistrado != null) {
             usuarioRepository.insertaRegistroBitacoraCambiosUsuario(1L, usuarioRegistrado.getId(), "El usuario ha sido registrado en el sistema.", usuarioRegistrado.getId());
         }
         return usuarioRegistrado;
+    }
+
+    public boolean crearCuentaPorAdmin(Usuario usuarioNuevo, Long idUsuarioAdmin) {
+        usuarioNuevo.setContrasennaHash(passwordEncoder.encode(usuarioNuevo.getContrasennaHash()));
+        Usuario usuarioRegistrado = usuarioRepository.save(usuarioNuevo);
+        if(usuarioRegistrado != null) {
+            usuarioRepository.insertaRegistroBitacoraCambiosUsuario(1L, usuarioRegistrado.getId(), "El usuario ha sido registrado en el sistema por un usuario admin.", idUsuarioAdmin);
+            return true;
+        }
+        return false;
     }
 
     public Usuario buscarPorCorreoElectronico(String correoElectronicoBuscar) {

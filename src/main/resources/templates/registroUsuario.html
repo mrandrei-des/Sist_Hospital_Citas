@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_form.css" th:href="@{/css/compartidos/styles_form.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css" th:href="@{/css/compartidos/styles_menu_lateral.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css" th:href="@{/css/compartidos/styles_notificaciones.css}">
-    
-    <link rel="stylesheet" href="../static/css/miPerfil.css" th:href="@{/css/miPerfil.css}">
+
+    <link rel="stylesheet" href="../static/css/registroUsuario.css" th:href="@{/css/registroUsuario.css}">
 </head>
 <body>
     <div th:replace="~{fragments::header(mostrarOpcionesMenu=${true}, nombreUsuario=${nombreCompletoUsuario})}"></div>
@@ -26,8 +26,8 @@
         <aside th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></aside>
 
         <div class="main__content">
-            <div class="main__container-perfil">
-                <div class="main__perfil-section">
+            <div class="main__container-usuario">
+                <div class="main__usuario-section">
                     <section class="main__section section__profile-picture-container">
                         <div class="profile__picture-container">
                             <div class="profile__picture">
@@ -35,21 +35,19 @@
                             </div>
                         </div>
                         <div class="profile__info-container">
-                            <h2 class="main__title" th:text="${!esAdminMant} ? 'Mi Perfil' : |Perfil de ${nombreCompletoUsuario}|">
-                                Mi Perfil
+                            <h2 class="main__title">
+                                Creación de Usuarios
                             </h2>
-                            <p class="main__subtitle" th:text="${!esAdminMant} ? 'Puede actualizar la información de su cuenta' : 'Puede actualizar la información de la cuenta'">
-                                Actualice la información de su cuenta
+                            <p class="main__subtitle">
+                                Complete la información para crear una cuenta
                             </p>
                         </div>
                     </section>
                 </div>
-                
-                <div class="main__perfil-section">
+
+                <div class="main__usuario-section">
                     <section class="main__section contenedor__formulario__cuenta">
-                        <form th:action="@{/actualizar-mi-cuenta}" method="post" class="form" th:object="${usuario}" novalidate>
-                            <input type="hidden" th:field="*{id}">
-    
+                        <form th:action="@{/cuenta-nueva}" method="post" class="form" th:object="${cuentaNueva}" novalidate>
                             <div class="form__section">
                                 <div class="form__legend-section">
                                     <p class="form__legend">
@@ -61,11 +59,11 @@
                                 </div>
                                 <div class="form__inputs-section">
                                     <div class="form__group">
-                                        <select id="tipoIdentificacion" class="form__input" th:field="*{idTipoIdentificacion}">
+                                        <select id="tipoIdentificacion" class="form__input" th:field="*{tipoIdentificacion.id}">
                                             <option th:each="tipoIdentificacion : ${listaTipoIdentificacion}" th:value="${tipoIdentificacion.getId()}" th:text="${tipoIdentificacion.getDescripcion()}">Tipo identificación</option>
                                         </select>
                                         <label for="tipoIdentificacion" class="form__label">Tipo Identificación</label>
-                                        <p class="form__paragraph--error" th:if="${#fields.hasErrors('idTipoIdentificacion')}" th:errors="*{idTipoIdentificacion}"></p>
+                                        <p class="form__paragraph--error" th:if="${#fields.hasErrors('tipoIdentificacion.id')}" th:errors="*{tipoIdentificacion.id}"></p>
                                     </div>
                                     <div class="form__group">
                                         <input type="text" class="form__input" id="identificacion" placeholder="" th:field="*{identificacion}">
@@ -118,30 +116,30 @@
                                     </p>
                                 </div>
                                 <div class="form__inputs-section">
-                                    <div class="form__group form__group--spc-2" th:if="${!esAdminMant}">
-                                        <input type="password" class="form__input" id="password" placeholder="" th:field="*{contrasenna}">
+                                    <div class="form__group form__group--spc-2">
+                                        <input type="password" class="form__input" id="password" placeholder="" th:field="*{contrasennaHash}">
                                         <label for="password" class="form__label">Contraseña</label>
-                                        <!-- <p class="input__error" th:if="${#fields.hasErrors('contrasennaHash')}" th:errors="*{contrasennaHash}"></p> -->
+                                        <p class="form__paragraph--error" th:if="${#fields.hasErrors('contrasennaHash')}" th:errors="*{contrasennaHash}"></p>
                                     </div>
-                                    <div class="form__group form__group--spc-2" th:if="${esAdminMant}">
-                                        <select id="rolUsuario" class="form__input" th:field="*{idRol}">
+                                    <div class="form__group form__group--spc-2">
+                                        <select id="rolUsuario" class="form__input" th:field="*{rol.id}">
                                             <option th:each="rol : ${listaRoles}" th:value="${rol.getId()}" th:text="${rol.getDescripcion()}">Paciente</option>
                                         </select>
                                         <label for="rolUsuario" class="form__label">Rol Usuario</label>
-                                        <p class="form__paragraph--error" th:if="${#fields.hasErrors('idRol')}" th:errors="*{idRol}"></p>
+                                        <p class="form__paragraph--error" th:if="${#fields.hasErrors('rol.id')}" th:errors="*{rol.id}"></p>
                                     </div>
-                                    <div class="form__group form__group--spc-2" th:if="${esAdminMant}">
-                                        <select id="estadoUsuario" class="form__input" th:field="*{idEstado}">
+                                    <div class="form__group form__group--spc-2">
+                                        <select id="estadoUsuario" class="form__input" th:field="*{estado.id}">
                                             <option th:each="estado : ${listaEstados}" th:value="${estado.getId()}" th:text="${estado.getDescripcion()}">Activo</option>
                                         </select>
                                         <label for="estadoUsuario" class="form__label">Estado Usuario</label>
-                                        <!-- <p class="input__error" th:if="${#fields.hasErrors('idEstado')}" th:errors="*{idEstado}"></p> -->
+                                        <p class="input__error" th:if="${#fields.hasErrors('estado.id')}" th:errors="*{estado.id}"></p>
                                     </div>
                                 </div>
                             </div>
     
                             <div class="form__actions">
-                                <button type="submit" class="btn btn__primary">Guardar Cambios</button>
+                                <button type="submit" class="btn btn__primary">Crear cuenta</button>
                             </div>
                         </form>
                     </section>

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import com.hospital.citas.model.dto.UsuarioInicioSesionDTO;
+import com.hospital.citas.model.dto.UsuarioMiPerfilDTO;
 import com.hospital.citas.model.entity.CodigoResetContrasenna;
 import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.model.entity.Rol;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class UsuarioController {
@@ -52,9 +55,7 @@ public class UsuarioController {
             usuario.setEstado(estado);
         }
 
-        usuarioService.crearCuenta(usuario);        
-        // model.addAttribute("mostrarNotificacion", true);
-        // model.addAttribute("mensaje", "¡Usuario Creado!");
+        usuarioService.crearCuenta(usuario);
 
         if(origenPeticion.equals("S")) {
             return "redirect:/inicio";
@@ -185,5 +186,78 @@ public class UsuarioController {
         model.addAttribute("listaRoles", rolService.consultarRolesDTO());
         model.addAttribute("listaEstados", estadoService.consultarEstadosUsuarios());
         return "formularioCuenta";
+    }
+
+    @GetMapping("/cuenta-nueva")
+    public String mostrarFormularioUsuarioNuevo(HttpSession session, Model model) {
+        Long idUsuarioLoggeado = (Long)session.getAttribute("idUsuarioLoggeado");
+        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        String nombreCompletoUsuarioLoggeado = (String)session.getAttribute("nombreUsuarioLoggeado") + " " + (String)session.getAttribute("primerApellidoUsuarioLoggeado") + " " + (String)session.getAttribute("segundoApellidoUsuarioLoggeado");
+
+        boolean mostrarMensaje = (boolean)session.getAttribute("mostrarNotificacion");
+        String origenNotificacion = (String)session.getAttribute("origen");
+        
+        if(mostrarMensaje && origenNotificacion.equals("cuentaNueva")) {
+            model.addAttribute("mostrarNotificacion", true);
+            model.addAttribute("tipoNotificacion", (String)session.getAttribute("tipoNotificacion"));
+            model.addAttribute("titulo", (String)session.getAttribute("titulo"));
+            model.addAttribute("detalle", (String)session.getAttribute("detalle"));
+
+            session.setAttribute("mostrarNotificacion", false);
+            session.setAttribute("origen", "");
+        }
+
+        model.addAttribute("idRolUsuario", idUsuarioLoggeado);
+        model.addAttribute("usuarioEsAdmin", esAdmin);
+        model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
+
+        Usuario cuentaNueva = new Usuario();
+        Rol rol = new Rol();
+        TipoIdentificacion tipoIdentificacion = new TipoIdentificacion();
+        Estado estado = new Estado();
+
+        cuentaNueva.setRol(rol);
+        cuentaNueva.setTipoIdentificacion(tipoIdentificacion);
+        cuentaNueva.setEstado(estado);
+
+        model.addAttribute("cuentaNueva", cuentaNueva);
+        model.addAttribute("listaTipoIdentificacion", tipoIdentificacionService.consultarTiposDeIdentificacion());
+        model.addAttribute("listaRoles", rolService.consultarRolesDTO());
+        model.addAttribute("listaEstados", estadoService.consultarEstadosUsuarios());
+        return "registroUsuario";
+    }
+
+    @PostMapping("/cuenta-nueva")
+    public String crearCuentaNueva(@Valid @ModelAttribute("cuentaNueva") Usuario usuario, BindingResult bindingResult, HttpSession session, Model model) {
+        Long idUsuarioLoggeado = (Long)session.getAttribute("idUsuarioLoggeado");
+        boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
+        String nombreCompletoUsuarioLoggeado = (String)session.getAttribute("nombreUsuarioLoggeado") + " " + (String)session.getAttribute("primerApellidoUsuarioLoggeado") + " " + (String)session.getAttribute("segundoApellidoUsuarioLoggeado");
+
+        model.addAttribute("usuarioEsAdmin", esAdmin);
+        model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
+
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("cuentaNueva", usuario);
+            model.addAttribute("listaTipoIdentificacion", tipoIdentificacionService.consultarTiposDeIdentificacion());
+            model.addAttribute("listaRoles", rolService.consultarRolesDTO());
+            model.addAttribute("listaEstados", estadoService.consultarEstadosUsuarios());
+            return "registroUsuario";
+        }
+
+        boolean cuentaCreada = usuarioService.crearCuentaPorAdmin(usuario, idUsuarioLoggeado);
+        session.setAttribute("mostrarNotificacion", true);
+        session.setAttribute("origen", "cuentaNueva");
+
+        if (cuentaCreada) {
+            session.setAttribute("tipoNotificacion", "success");
+            session.setAttribute("titulo", "¡Cuenta creada!");
+            session.setAttribute("detalle", "Cuenta creada correctamente");
+        }else {
+            session.setAttribute("tipoNotificacion", "warning");
+            session.setAttribute("titulo", "¡Cuenta no creada!");
+            session.setAttribute("detalle", "Ocurrió un problema, la cuenta no fue creada. Inténtelo nuevamente.");
+            session.setAttribute("origen", "cuentaNueva");
+        }
+        return "redirect:/cuenta-nueva";
     }
 }
