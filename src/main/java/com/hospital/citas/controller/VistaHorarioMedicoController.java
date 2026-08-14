@@ -8,7 +8,7 @@ import com.hospital.citas.service.HorarioMedicoService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+// Controlador encargado del enrutamiento y consulta del horario de atención médico solamente para al vista general, no para la reserva.
 @Controller
 public class VistaHorarioMedicoController {
 

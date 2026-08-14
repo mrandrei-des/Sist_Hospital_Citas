@@ -14,6 +14,7 @@ import com.hospital.citas.model.entity.Medico;
 import com.hospital.citas.model.entity.ReservaCitas;
 import com.hospital.citas.repository.MedicoRepository;
 
+// Servicio que se centra en la creación y mantenimiento de médicos, así como la consulta de estos para los filtros de registros.
 @Service
 public class MedicoService {
     private final MedicoRepository medicoRepository;

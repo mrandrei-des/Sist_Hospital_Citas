@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hospital.citas.model.dto.DiaHorarioDTO;
 import com.hospital.citas.model.dto.DiaHorarioReservaDTO;
 import com.hospital.citas.service.HorarioMedicoService;
 
+// API para la consulta y acceso a los horarios médicos y fechas para la reserva de citas.
 @RestController
 @RequestMapping("/reserva/horario")
 public class ApiHorarioController {

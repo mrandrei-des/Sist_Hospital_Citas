@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 
+// Controlador para la creación, consulta y mantenimiento de las especialidades médicas.
 @Controller
 public class EspecialidadController {
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+// API para la consulta de médicos, especialidades y citas para los reportes o consultas de citas médicas
 @RestController
 @RequestMapping("/api/citas")
 public class ApiCitaMedicaController {
@@ -58,7 +59,7 @@ public class ApiCitaMedicaController {
         return ResponseEntity.ok(cantidadCitas);
     }
 
-    // Implementar la paginación
+
     @PostMapping("/filter")
     public ResponseEntity<List<CitaPacientesDTO>> getCitasPorFiltros(@RequestBody CitasMedicasFiltrosDTO citasFiltro) {
         List<CitaPacientesDTO> listaCitas = citaPacienteService.consultaCitasPacientesConFiltros(citasFiltro);

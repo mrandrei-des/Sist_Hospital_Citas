@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hospital.citas.model.dto.CitasMedicasFiltrosDTO;
 import com.hospital.citas.service.ReporteCitaService;
 
+// API para la consulta y retorno de data al exportar a CSV.
 @RestController
 @RequestMapping("/api/citas/reporte")
 public class ApiReporteCitaExportarController {

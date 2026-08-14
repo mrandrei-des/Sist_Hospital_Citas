@@ -11,6 +11,7 @@ import com.hospital.citas.service.TipoIdentificacionService;
 
 import jakarta.servlet.http.HttpSession;
 
+// Controlador encargado para el enrutamiento del formulario para la creación de pacientes desde fuera del login.
 @Controller
 public class PacienteController {
     private final TipoIdentificacionService tipoIdentificacionService;
@@ -20,10 +21,6 @@ public class PacienteController {
 
     @GetMapping("/registrarPaciente")
     public String mostrarFormularioRegistroPaciente(HttpSession session, Model model) {
-
-        // boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
-        // model.addAttribute("usuarioEsAdmin", esAdmin);
-        // model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
 
         Usuario pacienteNuevo = new Usuario();
         Rol rolPaciente = new Rol();

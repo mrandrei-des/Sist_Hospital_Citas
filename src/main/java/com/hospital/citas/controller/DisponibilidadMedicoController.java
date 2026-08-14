@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 
+// Controlador para al creación de horarios médicos.
 @Controller
 public class DisponibilidadMedicoController {
     
@@ -44,7 +45,6 @@ public class DisponibilidadMedicoController {
         model.addAttribute("usuarioEsAdmin", esAdmin);
         model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
         model.addAttribute("horario", new HorarioMedicoDTO());
-        // CARGAR ESPECIALIDADES CON DOCTORES
         model.addAttribute("listaEspecialidades", disponibilidadMedicoService.listaEspecialidadesConMedico(4L));
         return "configuracionHorarios";
     }
@@ -66,7 +66,6 @@ public class DisponibilidadMedicoController {
             return "configuracionHorarios";
         }
 
-        // SE VALIDAN LAS HORAS
         boolean horasValidas = disponibilidadMedicoService.horasAtencionSonValidas(horario);
         if(!horasValidas) {
             model.addAttribute("horario", horario);

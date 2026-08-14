@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import jakarta.servlet.http.HttpSession;
 
+// Controlador para el enrutamiento y carga del panel de inicio para el usuario administrador al iniciar sesión.
 @Controller
 public class PanelController {
     @GetMapping("/mostrarPanel")

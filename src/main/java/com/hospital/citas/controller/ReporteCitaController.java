@@ -11,6 +11,7 @@ import com.hospital.citas.service.MedicoService;
 
 import jakarta.servlet.http.HttpSession;
 
+// Controlador para el enrutamiento y carga de las citas médicas en la consulta de citas que ve el usuario administrador.
 @Controller
 public class ReporteCitaController {
     private final CitaPacienteService citaPacienteService;

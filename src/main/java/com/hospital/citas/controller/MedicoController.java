@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+// Controlador para la creación, consulta y mantenimiento de los médicos del sistema.
 @Controller
 public class MedicoController {
     private final MedicoService medicoService;

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import jakarta.servlet.http.HttpSession;
 
+// Controlador para acceso a página de inicio o para acceso denegado.
 @Controller
 public class InicioController {
     @GetMapping("/inicio")

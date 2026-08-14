@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
+// Controlador encargado de actualizar, consultar y gestionar los datos del perfil del paciente.
 @Controller
 public class MiPerfilController {
 

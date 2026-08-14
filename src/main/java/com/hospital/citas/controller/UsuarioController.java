@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 
+// Controlador para el enrutamiento, consulta, creación y mantenimiento de los usuarios del sistema.
 @Controller
 public class UsuarioController {
     private final UsuarioService usuarioService;
@@ -94,7 +95,6 @@ public class UsuarioController {
             return "verificacionCodigo";
         }
 
-        // EJECUTAR LA VALIDACIÓN DEL CÓDIGO OTP, TANTO VALOR COMO EXPIRACIÓN
         boolean codigoEsCorrecto = usuarioService.codigoSeguridadEsValido(codigoOTP, correoUsuario);
         boolean codigoEstaActivo = usuarioService.codigoSeguridadEstaActivo(codigoOTP, correoUsuario);
 
@@ -112,7 +112,6 @@ public class UsuarioController {
             return "verificacionCodigo";
         }
 
-        // EL CÓDIGO ES CORRECTO Y NO HA VENCIDO, SE PROCEDE A PROCESAR
         usuarioService.procesarCodigoSeguridad(codigoOTP, correoUsuario);
 
         UsuarioInicioSesionDTO usuarioDTO = new UsuarioInicioSesionDTO();
@@ -129,7 +128,6 @@ public class UsuarioController {
             return "cambioContrasena";
         }
 
-        //  PROCESAR EL CAMBIO DE LA CONTRASEÑA
         boolean respuestaCambioContrasenna = usuarioService.procesarCambioContrasenna(usuarioDTO);
         model.addAttribute("mostrarNotificacion", true);
         if(respuestaCambioContrasenna) {

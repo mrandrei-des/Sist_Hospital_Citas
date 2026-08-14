@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+// API para la consulta de médicos
 @RestController
 @RequestMapping("/reserva/medicos")
 public class ApiMedicosController {

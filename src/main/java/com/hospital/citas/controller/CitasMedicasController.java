@@ -13,6 +13,7 @@ import com.hospital.citas.service.ReservaCitasService;
 
 import jakarta.servlet.http.HttpSession;
 
+// Controlador para al consulta de citas médicas y también para la confirmación y cancelación de estas.
 @Controller
 public class CitasMedicasController {
 

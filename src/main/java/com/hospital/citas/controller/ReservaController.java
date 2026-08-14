@@ -8,6 +8,7 @@ import com.hospital.citas.model.dto.ReservaCitasReservaDTO;
 import com.hospital.citas.service.EspecialidadService;
 import jakarta.servlet.http.HttpSession;
 
+// Controlador para el enrutamiento, consulta y procesamiento de las reservas médicas.
 @Controller
 public class ReservaController {
 

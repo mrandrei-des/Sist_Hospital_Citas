@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+// API para la reserva de citas médicas.
 @RestController
 @RequestMapping("/reserva/citas")
 public class ApiReservaCitasController {
@@ -34,7 +35,6 @@ public class ApiReservaCitasController {
             }
             return ResponseEntity.badRequest().body(errores);
         }
-        // GUARDAR LA RESERVA
         Map<String, ?> mensajesRespuesta = new HashMap<>();
         if (reservaCitasService.procesarReserva(reserva)) {
             mensajesRespuesta = Map.of("procesada", true, "mensaje", "Cita reservada correctamente.");

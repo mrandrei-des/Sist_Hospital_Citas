@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.hospital.citas.model.dto.UsuarioInicioSesionDTO;
 import com.hospital.citas.service.ReservaCitasService;
 
-
+// Controlador para el enrutamiento de las páginas de login y recuperación de contraseña.
 @Controller
 public class InicioSesionController {
 

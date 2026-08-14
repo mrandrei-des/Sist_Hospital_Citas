@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.hospital.citas.service.PanelGestionPacienteService;
 import jakarta.servlet.http.HttpSession;
 
+// Controlador para el enrutamiento y carga del panel de inicio para el usuario paciente al iniciar sesión.
 @Controller
 public class PanelGestionPacienteController {
 
