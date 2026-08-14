@@ -12,6 +12,7 @@ import com.hospital.citas.model.entity.Usuario;
 import com.hospital.citas.repository.UsuarioRepository;
 import jakarta.servlet.http.HttpSession;
 
+// Servicio que se encarga de validar y ejecutar el inicio de sesión. Además se agregan datos a la variable de session.
 @Service
 public class UsuarioDetailsService implements UserDetailsService {
     private final UsuarioRepository usuarioRepository;

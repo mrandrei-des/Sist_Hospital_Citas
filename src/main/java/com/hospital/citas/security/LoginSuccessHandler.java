@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+// Componente que controla el redireccionamiento del usuario según su rol en el sistema una vez que inicia sesión correctamente.
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
