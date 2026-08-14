@@ -9,6 +9,7 @@ import com.hospital.citas.model.entity.Usuario;
 
 import jakarta.transaction.Transactional;
 
+// Repository para el guardado de bitácora de cambios en el perfil del usuario.
 public interface MiPerfilRepository extends JpaRepository<Usuario, Long> {
     @Transactional
     @Modifying

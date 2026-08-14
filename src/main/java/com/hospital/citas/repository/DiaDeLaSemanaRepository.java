@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.hospital.citas.model.entity.DiaDeLaSemana;
 
+// Repository para la consulta de los días de la semana.
 public interface DiaDeLaSemanaRepository extends JpaRepository<DiaDeLaSemana, Long> {
     @Query(value = "{call sp_ConsultaDiasHorarioMedicoPorId(:idMedico)}", nativeQuery = true)
     List<DiaDeLaSemana> consultarDiasHorarioMedicoPorId(@Param("idMedico") Long idMedico);

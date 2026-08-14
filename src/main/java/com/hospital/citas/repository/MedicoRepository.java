@@ -16,6 +16,7 @@ import com.hospital.citas.model.entity.Medico;
 
 import jakarta.transaction.Transactional;
 
+// Repository para la consulta y mantenimienot de los médicos.
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
     List<Medico> findAllByEstado(Estado estado);
     List<Medico> findAllByEspecialidadId(Long idEspecialidad);

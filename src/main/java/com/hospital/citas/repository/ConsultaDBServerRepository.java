@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import com.hospital.citas.model.entity.ConsultaBDServer;
 
+// Repository para la consulta al servidor de base de datos.
 public interface ConsultaDBServerRepository extends JpaRepository<ConsultaBDServer, Long> {
     @Query(value = "SELECT NOW()", nativeQuery = true)
     LocalDateTime consultaFechaHoraActualServer();

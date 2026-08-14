@@ -15,11 +15,11 @@ import com.hospital.citas.model.entity.ReservaCitas;
 import jakarta.transaction.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
+// Repository para el manejo y consulta de insumos necesarios para la reserva de citas médicas.
 public interface ReservaCitasRepository extends JpaRepository<ReservaCitas, Long> {
     List<ReservaCitas> findAllByMedicoAndFechaAndHoraAndEstadoIn(Medico medico, LocalDate fecha, LocalTime hora, List<Estado> estado);
     List<ReservaCitas> findAllByMedico(Medico medico);

@@ -11,6 +11,7 @@ import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.model.entity.Usuario;
 import jakarta.transaction.Transactional;
 
+// Repository para la consulta y manejo de los usuarios en el sistema.
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     Optional<Usuario>findByCorreoElectronico(String correoElectronicoBuscar);
     Optional<Usuario>findByCorreoElectronicoAndEstado(String correoElectronicoBuscar, Estado estado);

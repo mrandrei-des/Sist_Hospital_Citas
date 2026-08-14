@@ -12,6 +12,7 @@ import com.hospital.citas.model.entity.CodigoResetContrasenna;
 import com.hospital.citas.model.entity.Usuario;
 import jakarta.transaction.Transactional;
 
+// Repository para el manejo de la recuperación de la contraseña.
 public interface CodigoResetContrasennaRepository extends JpaRepository<CodigoResetContrasenna, Long> {
     List<CodigoResetContrasenna> findAllByUsuario(Usuario usuario);
     Optional<CodigoResetContrasenna> findByCodigoGeneradoAndUsuario(String codigoGenerado, Usuario usuario);

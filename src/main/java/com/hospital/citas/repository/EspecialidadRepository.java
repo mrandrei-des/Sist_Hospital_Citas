@@ -13,6 +13,7 @@ import com.hospital.citas.model.entity.Especialidad;
 import com.hospital.citas.model.entity.Estado;
 import jakarta.transaction.Transactional;
 
+// Repository para el manejo y consulta de las especialidades médicas.
 public interface EspecialidadRepository extends JpaRepository<Especialidad, Long> {
     List<Especialidad>findAllByEstado(Estado estado);
 

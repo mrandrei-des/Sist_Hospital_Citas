@@ -10,6 +10,7 @@ import com.hospital.citas.model.dto.HorarioMedicoVistaDTO;
 import com.hospital.citas.model.entity.DisponibilidadMedico;
 import jakarta.transaction.Transactional;
 
+// Repository para la consulta y manejo de cambios de los registro de horario del médico.
 public interface DisponibilidadMedicoRepository extends JpaRepository<DisponibilidadMedico, Long> {
     @Transactional
     @Modifying
