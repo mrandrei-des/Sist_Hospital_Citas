@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
+// Entidad de la tabla de roles del sistema.
 @Entity
 @Table (name = "Roles")
 public class Rol {

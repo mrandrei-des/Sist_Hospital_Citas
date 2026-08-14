@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+// Entidad para la consulta directa al servidor de base de datos.
 @Entity
 public class ConsultaBDServer {
     @Id

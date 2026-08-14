@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+// Entidad de la tabla de grupos permisos creada para agrupar en categorías los diferentes permisos del sistema.
 @Entity
 @Table (name = "GruposPermisos")
 public class GrupoPermiso {

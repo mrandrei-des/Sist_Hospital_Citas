@@ -9,6 +9,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+// Entidad de la tabla de tipo de identificaciones de los usuarios del sistema.
 @Entity
 @Table (name = "TipoIdentificaciones")
 public class TipoIdentificacion {

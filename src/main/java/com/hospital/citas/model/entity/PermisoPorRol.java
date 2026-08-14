@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+// Entidad de la tabla de permisos por rol que es el intermedio entre roles y permisos.
 @Entity
 @Table (name = "PermisosPorRol")
 public class PermisoPorRol {

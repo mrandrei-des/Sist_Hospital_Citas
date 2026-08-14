@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+// Entidad de la tabla de disponibilidad de médicos que es la que guarda los registros de disponibilidad de médicos.
 @Entity
 @Table (name = "DisponibilidadMedicos")
 public class DisponibilidadMedico {

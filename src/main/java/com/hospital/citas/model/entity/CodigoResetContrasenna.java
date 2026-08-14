@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
 
+// Entidad de la tabla de códigos de recuperación de contraseña.
 @Entity
 @Table(name = "CodigosRecuperacionContrasenna_Activos", uniqueConstraints = @UniqueConstraint(
     name = "UK_codigoGenerado", columnNames = {"codigoGenerado"}

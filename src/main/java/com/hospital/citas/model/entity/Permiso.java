@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
+// Entidad de la tabla de permisos generales del sistema.
 @Entity
 @Table (name = "Permisos", uniqueConstraints = @UniqueConstraint(
     name = "UK_titulo_permiso", columnNames = {"titulo"}

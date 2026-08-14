@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+// Entidad de la tabla de dias de la semana.
 @Entity
 @Table (name = "DiasDeLaSemana")
 public class DiaDeLaSemana {

@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+// Entidad de la tabla de estados de registros en el sistema.
 @Entity
 @Table (name = "Estados")
 public class Estado {

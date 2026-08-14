@@ -16,6 +16,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
 
+// Entidad de la tabla de usuarios del sistema.
 @Entity
 @Table (name = "Usuarios", uniqueConstraints = @UniqueConstraint(
     name = "UK_cedula_correo_usuario", columnNames = {"identificacion", "correoElectronico"}
@@ -36,9 +37,6 @@ public class Usuario {
 
     @Column(name = "ContrasennaHash", nullable = false)
     @NotBlank(message = "Debe indicar una contraseña.")
-    // @PasswordSeguro
-    // @Min(value = 5, message = "La contraseña debe tener mínimo 5 caracteres.")
-    // @Max(value = 15, message = "La contraseña debe tener máximo 15 caracteres.")
     private String contrasennaHash;
     
     @Column(name = "nombre", nullable = false)

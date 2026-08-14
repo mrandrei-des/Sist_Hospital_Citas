@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+// Entidad de la tabla de reserva de citas médicas.
 @Entity
 @Table (name = "ResevarCitas")
 public class ReservaCitas {
