@@ -5,6 +5,7 @@ import com.hospital.citas.validation.annotation.SoloLetras;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
+// Validator que un string cumpla con que todo sus carácteres sean únicamente letras.
 public class SoloLetrasValidator implements ConstraintValidator<SoloLetras, String> {
     @Override
     public boolean isValid(String cadenaPorEvaluar, ConstraintValidatorContext context) {

@@ -10,6 +10,7 @@ import com.hospital.citas.validation.annotation.IdentificacionUnica;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
+// Validator que se encarga de que la identificación del usuario sea única en el sistema. Se usa al momento de registrarse como paciente.
 @Component
 public class IdentificacionUnicaValidator implements ConstraintValidator<IdentificacionUnica, String> {
 

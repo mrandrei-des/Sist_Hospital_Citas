@@ -8,6 +8,7 @@ import com.hospital.citas.validation.validator.SoloLetrasValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
+// Anotación que se usa en la validación de strings para solo permitir letras.
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = SoloLetrasValidator.class)

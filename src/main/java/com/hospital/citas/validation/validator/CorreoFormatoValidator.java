@@ -4,6 +4,7 @@ import com.hospital.citas.validation.annotation.CorreoFormato;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
+// Validator que se encarga de validar que el correo tenga un formato válido.
 public class CorreoFormatoValidator implements ConstraintValidator<CorreoFormato, String> {
     @Override
     public boolean isValid(String correoPorEvaluar, ConstraintValidatorContext context) {

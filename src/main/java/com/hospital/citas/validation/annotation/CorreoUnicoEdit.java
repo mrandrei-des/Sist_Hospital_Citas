@@ -9,6 +9,7 @@ import com.hospital.citas.validation.validator.CorreoUnicoEditValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
+// Anotación que se usa en la validación del correo único en el sistema, usado en el mantenimiento de usuarios y en mi perfil.
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = CorreoUnicoEditValidator.class)

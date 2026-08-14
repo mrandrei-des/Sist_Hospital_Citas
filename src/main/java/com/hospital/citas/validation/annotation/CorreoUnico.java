@@ -8,6 +8,7 @@ import com.hospital.citas.validation.validator.CorreoUnicoValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
+// Anotación que se usa en la validación del correo único en el sistema al momento de registrarse como paciente desde afuera.
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = CorreoUnicoValidator.class)

@@ -5,6 +5,7 @@ import com.hospital.citas.validation.annotation.HoraFinValida;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
+// Validator que se encarga de validar que la hora fin de un registro horario sea válido.
 public class HoraFinValidator implements ConstraintValidator<HoraFinValida, HorarioMedicoDTO> {
     
     @Override

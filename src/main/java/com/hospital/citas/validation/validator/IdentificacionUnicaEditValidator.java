@@ -7,6 +7,7 @@ import com.hospital.citas.validation.annotation.IdentificacionUnicaEdit;
 
 import jakarta.validation.ConstraintValidator;
 
+// Validator que se encarga de que la identificación del usuario sea única en el sistema. Se usa al editar un usuario y en mi perfil.
 public class IdentificacionUnicaEditValidator implements ConstraintValidator<IdentificacionUnicaEdit, UsuarioMiPerfilDTO> {
     private final UsuarioService usuarioService;
 

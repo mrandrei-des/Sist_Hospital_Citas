@@ -8,6 +8,7 @@ import com.hospital.citas.validation.validator.IdentificacionUnicaEditValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
+// Anotación que se usa en la validación de única existencia de la identificación en el sistema. Usado en el mantenimiento de usuarios y en mi perfil.
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = IdentificacionUnicaEditValidator.class)

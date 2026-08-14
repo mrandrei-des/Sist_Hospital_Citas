@@ -5,6 +5,7 @@ import com.hospital.citas.validation.annotation.HoraInicioValida;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
+// Validator que se encarga de validar que la hora inicio de un registro horario sea válido.
 public class HoraInicioValidator implements ConstraintValidator<HoraInicioValida, HorarioMedicoDTO> {
     @Override
     public boolean isValid(HorarioMedicoDTO horario, ConstraintValidatorContext context) {

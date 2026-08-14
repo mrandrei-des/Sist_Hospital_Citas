@@ -8,6 +8,7 @@ import com.hospital.citas.validation.validator.HoraFinValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
+// Anotación que se usa en la validación de la hora fin del registro de atención del médico en la configuración de horarios.
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = HoraFinValidator.class)

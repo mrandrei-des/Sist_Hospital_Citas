@@ -14,6 +14,7 @@ import com.hospital.citas.validation.annotation.ReservaCitaValida;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
+// Validator que se encarga de una reserva de cita médica sea válida para poder procesarla.
 public class ReservaCitaValidator implements ConstraintValidator<ReservaCitaValida, ReservaCitasReservaDTO> {
 
     private final MedicoService medicoService;

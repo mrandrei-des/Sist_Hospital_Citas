@@ -10,6 +10,7 @@ import com.hospital.citas.validation.validator.ReservaCitaValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
+// Anotación que se usa en la validación de la disponibilidad de un espacio de cita médica.
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = ReservaCitaValidator.class)

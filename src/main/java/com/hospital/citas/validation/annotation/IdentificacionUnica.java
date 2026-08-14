@@ -10,6 +10,7 @@ import com.hospital.citas.validation.validator.IdentificacionUnicaValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
+// Anotación que se usa en la validación de única existencia de la identificación en el sistema. Usado en el registro como paciente desde fuera del sistema.
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = IdentificacionUnicaValidator.class)

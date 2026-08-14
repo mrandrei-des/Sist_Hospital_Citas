@@ -9,6 +9,7 @@ import com.hospital.citas.validation.validator.PasswordSeguroValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
+// Anotación que se usa en la validación de la seguridad de la contraseña.
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = PasswordSeguroValidator.class)

@@ -8,6 +8,7 @@ import com.hospital.citas.validation.annotation.CorreoUnicoEdit;
 
 import jakarta.validation.ConstraintValidator;
 
+// Validator que se encarga de validar que el correo solo exista una vez en el sistema, usado al modificar un usuario y en mi perfil.
 public class CorreoUnicoEditValidator implements ConstraintValidator<CorreoUnicoEdit, UsuarioMiPerfilDTO> {
     private final UsuarioService usuarioService;
 
