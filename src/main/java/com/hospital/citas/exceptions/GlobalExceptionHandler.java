@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.hospital.citas.model.dto.RespuestaErrorDTO;
 
+// Controlador de errores del sistema. Se  encarga de capturar el error y dar una respuesta según sea el caso.
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-@ExceptionHandler(HorarioOcupadoException.class)
+    @ExceptionHandler(HorarioOcupadoException.class)
     public ResponseEntity<RespuestaErrorDTO> catchHorarioOcupado(HorarioOcupadoException ex) {
         RespuestaErrorDTO error = new RespuestaErrorDTO(HttpStatus.CONFLICT.value(), ex.getMessage(), false);
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error); // HTTP 409
