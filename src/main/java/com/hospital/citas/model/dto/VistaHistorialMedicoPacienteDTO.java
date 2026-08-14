@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+// DTO con la estructura requerida para la visualización de las citas médicas del paciente.
 public class VistaHistorialMedicoPacienteDTO {
     private Long id;
     private String especialidad;

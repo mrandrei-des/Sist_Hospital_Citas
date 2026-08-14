@@ -1,5 +1,6 @@
 package com.hospital.citas.model.dto;
 
+// DTO con la estructura de la respuesta HTTP en caso de que suceda alguna exception.
 public class RespuestaErrorDTO {
     private int status;
     private String mensaje;

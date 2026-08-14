@@ -3,6 +3,7 @@ package com.hospital.citas.model.dto;
 import java.time.LocalDate;
 import java.util.List;
 
+// DTO para la construcción del horario médico por cada día donde cada espacio de atención se guarda de forma simple en una lista.
 public class DiaHorarioDTO {
     private Long idDiaSemana;
     private String nombreDia;

@@ -2,6 +2,7 @@ package com.hospital.citas.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
+// DTO para el manejo del código OTP al momento de recuperar una contraseña.
 public class CodigoResetContrasennaDTO {
     private Long idUsuario;
     @NotBlank(message = "Debe indicar el código recibido.")

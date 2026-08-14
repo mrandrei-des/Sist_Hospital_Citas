@@ -1,5 +1,6 @@
 package com.hospital.citas.model.dto;
 
+// DTO con la estructura necesaria para la carga de las últimas especialidades médicas.
 public class UltimaEspecialidadRegistradaDTO {
     private Long id;
     private String descripcion;

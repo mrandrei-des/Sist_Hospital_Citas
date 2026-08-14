@@ -1,5 +1,6 @@
 package com.hospital.citas.model.dto;
 
+// DTO con la estructura de los atributos para cada espacio de atención médica.
 public class EspacioHorarioDTO {
     private boolean isAvailable;
     private boolean isSelected;

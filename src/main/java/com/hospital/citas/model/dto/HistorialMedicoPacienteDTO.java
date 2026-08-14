@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+// DTO para la consulta de las citas médicas que conforman el historial médico del paciente.
 public class HistorialMedicoPacienteDTO {
     private Long id;
     private String especialidad;

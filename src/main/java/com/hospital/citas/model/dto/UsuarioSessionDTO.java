@@ -1,5 +1,6 @@
 package com.hospital.citas.model.dto;
 
+// DTO con la estructura del objeto que se envía al HTTP Session.
 public class UsuarioSessionDTO {
     private Long id;
     private String identificacion;

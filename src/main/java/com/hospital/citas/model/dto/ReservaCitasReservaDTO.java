@@ -5,6 +5,7 @@ import java.time.LocalTime;
 
 import com.hospital.citas.validation.annotation.ReservaCitaValida;
 
+// DTO con la estructura para la carga de citas médicas reservadas por los usuarios pacientes.
 @ReservaCitaValida
 public class ReservaCitasReservaDTO {
     private Long idEspecialidad;

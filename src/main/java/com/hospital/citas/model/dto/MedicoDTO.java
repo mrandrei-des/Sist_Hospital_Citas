@@ -5,6 +5,7 @@ import com.hospital.citas.validation.annotation.SoloLetras;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+// DTO para la creación y consulta de médicos al sistema.
 public class MedicoDTO {
     private Long id;
     

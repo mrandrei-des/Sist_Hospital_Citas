@@ -1,5 +1,6 @@
 package com.hospital.citas.model.dto;
 
+// DTO con la estructura necesaria para la consulta de médicos para el renderizado.
 public class MedicoRegistradoDTO {
     private Long id;
     private String nombre;

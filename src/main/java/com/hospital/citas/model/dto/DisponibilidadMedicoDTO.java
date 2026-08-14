@@ -2,6 +2,7 @@ package com.hospital.citas.model.dto;
 
 import java.time.LocalTime;
 
+// DTO para la consulta de los registros de configuración del horario médico.
 public class DisponibilidadMedicoDTO {
     private Long id;
     private Long idMedico;

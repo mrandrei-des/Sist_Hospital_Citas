@@ -2,6 +2,7 @@ package com.hospital.citas.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
+// DTO para la consulta de las especialidades médicas.
 public class EspecialidadDTO {
     private Long id;
     @NotBlank(message = "Debe indicar el nombre.")

@@ -1,5 +1,6 @@
 package com.hospital.citas.model.dto;
 
+// DTO con la estructura para la consulta de los usuarios paciente en la gestión de usuarios del usuario administrador.
 public class PanelGestionPacienteDTO {
     private Long id;
     private String identificacion;

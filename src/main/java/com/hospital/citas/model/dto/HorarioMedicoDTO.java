@@ -9,6 +9,7 @@ import com.hospital.citas.validation.annotation.HoraInicioValida;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
+// DTO para la consulta y manejo de los registros de configuración de horarios médicos.
 @HoraInicioValida
 @HoraFinValida
 public class HorarioMedicoDTO {

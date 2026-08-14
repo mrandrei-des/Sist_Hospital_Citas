@@ -2,6 +2,7 @@ package com.hospital.citas.model.dto;
 
 import java.time.LocalDate;
 
+// DTO para los filtros utilizados en la consulta de las citas médicas.
 public class CitasMedicasFiltrosDTO {
     private Long filtEstado;
     private Long filtEspecialidad;

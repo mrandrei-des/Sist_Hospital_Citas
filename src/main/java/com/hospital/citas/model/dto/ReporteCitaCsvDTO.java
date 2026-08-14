@@ -5,17 +5,18 @@ import java.time.LocalTime;
 
 import com.opencsv.bean.CsvBindByName;
 
+// DTO con la estructura que mostrará el CSV al exportar las citas médicas en el reporte.
 public class ReporteCitaCsvDTO 
 {
     @CsvBindByName(column = "ID Cita")
     private Long idCita;
 
     @CsvBindByName(column = "ID Especialidad")
-    private Long idEspecialidad
-    ;
+    private Long idEspecialidad;
+
     @CsvBindByName(column = "Especialidad")
-    private String especialidad
-    ;
+    private String especialidad;
+
     @CsvBindByName(column = "ID Paciente")
     private Long idPaciente;
 

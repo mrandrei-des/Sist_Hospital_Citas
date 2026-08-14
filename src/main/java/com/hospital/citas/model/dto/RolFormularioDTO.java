@@ -1,5 +1,6 @@
 package com.hospital.citas.model.dto;
 
+// DTO con la estructura a utilizar para la consulta de los roles del sistema.
 public class RolFormularioDTO {
     private Long id;
     private String descripcion;

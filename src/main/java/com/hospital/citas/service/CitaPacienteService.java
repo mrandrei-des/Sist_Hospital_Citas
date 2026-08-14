@@ -38,7 +38,7 @@ public class CitaPacienteService {
     }
 
     // Consulta todas las citas médicas del paciente indicado.
-    // No se fija en estados.}
+    // No se fija en estados.
     // Utilizado para renderizar la tabla de citas que tiene el paciente en el historial médico.
     public List<VistaHistorialMedicoPacienteDTO> consultaHistorialPaciente(Long idUsuario) {
         LocalDateTime fechaHoraActual = consultaDBServerService.consultaFechaHoraActualServer();

@@ -3,6 +3,7 @@ package com.hospital.citas.model.dto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+// DTO para la consulta de las citas médicas de los pacientes.
 public class CitaPacientesDTO {
     private Long id;
     private String especialidad;

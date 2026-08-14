@@ -1,5 +1,6 @@
 package com.hospital.citas.model.dto;
 
+// DTO para la consulta de las especialidades médicas para la reserva de citas médicas.
 public class EspecialidadReservaDTO {
     private Long id;
     private String descripcion;

@@ -3,6 +3,7 @@ package com.hospital.citas.model.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
+// DTO con la estructura del inicio de sesión.
 public class UsuarioInicioSesionDTO {
     private Long id;
     @NotBlank(message = "Debe indicar una contraseña.")

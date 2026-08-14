@@ -1,5 +1,6 @@
 package com.hospital.citas.model.dto;
 
+// DTO con la estructura para la consulta de médicos en la reserva de citas médicas.
 public class MedicoReservaDTO {
     private Long id;
     private String nombre;

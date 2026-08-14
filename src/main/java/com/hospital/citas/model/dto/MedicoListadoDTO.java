@@ -1,5 +1,6 @@
 package com.hospital.citas.model.dto;
 
+// DTO para la consulta de médicos para el listado en el mantenimiento de médicos.
 public class MedicoListadoDTO {
     private Long id;
     private String nombre;

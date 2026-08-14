@@ -8,6 +8,7 @@ import com.hospital.citas.validation.annotation.SoloLetras;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+// DTO con la estructura necesaria para modificar los datos de un usuario en mi perfil.
 @CorreoUnicoEdit
 @IdentificacionUnicaEdit
 public class UsuarioMiPerfilDTO {
