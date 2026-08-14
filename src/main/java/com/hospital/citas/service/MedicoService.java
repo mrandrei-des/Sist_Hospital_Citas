@@ -26,12 +26,16 @@ public class MedicoService {
         this.reservaCitasService = reservaCitasService;
     }
 
+    // Método que busca a todos los médicos que tengan el estado indicado.
+    // Utilizado al renderizar los card de médico en el mantenimiento de médicos.
     public List<Medico> listarMedicosPorEstado(Long estadoMedicos){
         Estado estado = new Estado();
         estado.setId(estadoMedicos);
         return medicoRepository.findAllByEstado(estado);
     }
 
+    // Método que busca al médico por id y por el estado indicado.
+    // Utilizado en las validaciones de reserva de citas médicas.
     public Medico buscarPorIdYEstado(Long idMedico, Long idEstado) {
         Estado estado = new Estado();
         estado.setId(idEstado);
@@ -40,10 +44,14 @@ public class MedicoService {
         return medico;
     }
 
+    // Consulta las especialidades médicas activas que se encuentran registradas en el sistema.
+    // Utilizado para cargar las opciones de select de filtro de especialidad.
     public List<EspecialidadDTO> listaEspecialidadesDTO() {
         return especialidadService.listarEspecialidades(4L);
     }
 
+    // Método que registra o actualiza un médico.
+    // Utilizado en la creación y mantenimiento de médicos.
     public boolean procesarMedico(MedicoDTO medicoDTO, Long idUsuarioLoggeado) {
         Medico medico = new Medico();
         Especialidad especialidad = new Especialidad();
@@ -74,10 +82,14 @@ public class MedicoService {
         return false;
     }
 
+    // Consulta a todos los médicos que se encuentren registrados en el sistema.
+    // Utilizado al cargar la lista de médicos registrados en el mantenimiento de médicos.
     public List<MedicoRegistradoDTO> listaMedicoRegistradoDTOs() {
         return medicoRepository.listaMedicosRegistradoMedicoRegistradoDTOs();
     }
 
+    // Consulta y devuelve la lista de médicos registrados en el sistema.
+    // Utilizado para cargar los card de médicos a editar o eliminar en el mantenimiento de médicos.
     public List<MedicoListadoDTO> listadoMedicoDTO() {
         List<MedicoListadoDTO> listadoMedicosDTO = new ArrayList<>();
         List<MedicoRegistradoDTO> listadoMedicos = medicoRepository.listaMedicosRegistradoMedicoRegistradoDTOs();
@@ -100,6 +112,8 @@ public class MedicoService {
         return listadoMedicosDTO;
     }
 
+    // Busca y devuelve al médico que encuentre con el id indicado.
+    // Utilizado al editar la información del médico.
     public MedicoDTO buscarPorId(Long id) {
         Medico medico = medicoRepository.findById(id).orElse(null);
         MedicoDTO dto = new MedicoDTO();
@@ -114,6 +128,8 @@ public class MedicoService {
         return dto;
     }
 
+    // Método que elimina al médico indicado en el id que se le pasa.
+    // Usado al eliminar a los médicos que no tienen citas reservadas.
     public boolean eliminarPorId(Long id, Long idUsuarioLoggeado) {
         try {
             medicoRepository.eliminarMedico(id);
@@ -124,11 +140,15 @@ public class MedicoService {
         }
     }
 
+    // Consulta el nombre completo del médico que corresponda al id indicado.
+    // Usado para cargar nombre completo del médico en el registro de horarios médicos.
     public String consultaNombreMedicoPorId(Long idMedico) {
         MedicoDTO dto = buscarPorId(idMedico);
         return dto.getNombre() + " " + dto.getPrimerApellido() + " " + dto.getSegundoApellido();
     }
 
+    // Consulta todos los médicos que pertenecen a la especialidad indicada.
+    // Usado para cargar los select de filtros de médicos.
     public List<MedicoDTO> listarMedicosPorEspecialidad(Long idEspecialidad) {
         List<Medico> medicos = medicoRepository.findAllByEspecialidadId(idEspecialidad);
         List<MedicoDTO> listaMedicosDtos = new ArrayList<>();
@@ -145,16 +165,22 @@ public class MedicoService {
         return listaMedicosDtos;
     }
 
+    // Consulta los médicos que ya tienen un horario de atención definido.
+    // Usado para cargar el select de médicos en la vista del horario médico. 
     public List<MedicoDTO> listaMedicosConHorario() {
         return medicoRepository.listaMedicosConHorarioCreado();
     }
 
+    // Busca y devuelve a los médicos que tengan el dato indicado en alguna parte de su nombre.
+    // Usado en el filtro de médicos de la reserva de citas médicas.
     public List<MedicoReservaDTO> listaMedicosReservaPorEspecialidad(Long idEspecialidad, String filtroBusqueda) {
         String queryBusqueda = "%" + filtroBusqueda + "%";
         List<MedicoReservaDTO> listaRegistros = medicoRepository.consultarMedicosPorEspecialidadReserva(idEspecialidad, queryBusqueda);
         return listaRegistros != null ? listaRegistros : new ArrayList<MedicoReservaDTO>();
     }
 
+    // Consulta a todos los médicos que pertenecen a la especialidad indicada.
+    // Usado para cargar los option del select de filtros.
     public List<MedicoReservaDTO> listaMedicosFiltrosPorEspecialidad(Long idEspecialidad) {
         List<Medico> listaMedicos = new ArrayList<>();
         List<MedicoReservaDTO> listaMedicosDTO = new ArrayList<>();
@@ -182,10 +208,14 @@ public class MedicoService {
         return listaMedicosDTO;
     }
 
+    // Consulta todos los médicos que tengan citas médicas pendientes, confirmadas o canceldas.
+    // Usado en la carga de los select de filtros de reporte de citas.
     public List<MedicoReservaDTO> listaMedicosConCitas(){
         return medicoRepository.listaMedicosConCitas();
     }
 
+    // Consulta todos los médicos que tengan citas médicas pendientes, confirmadas o canceldas y además, que pertecen a la especialidad indicada.
+    // Usado para cargar el select de médicos en la reserva de citas.
     public List<MedicoReservaDTO> listaMedicosConCitasPorEspecialidad(Long idEspecialidad){
         return medicoRepository.listaMedicosConCitasPorEspecialidad(idEspecialidad);
     }

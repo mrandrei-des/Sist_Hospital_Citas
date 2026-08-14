@@ -9,6 +9,7 @@ import com.hospital.citas.model.entity.TipoIdentificacion;
 import com.hospital.citas.model.entity.Usuario;
 import com.hospital.citas.repository.MiPerfilRepository;
 
+// Servicio dedicado al mantenimiento del perfil del usuario.
 @Service
 public class MiPerfilService {
     private final UsuarioService usuarioService;
@@ -21,6 +22,8 @@ public class MiPerfilService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    // Método que actualiza la información del usuario indicado.
+    // Usado en el mantenimiento de usuarios.
     public boolean actualizarPerfil(UsuarioMiPerfilDTO usuario, Long idUsuarioLoggeado) {
         Usuario usuarioEncontrado = miPerfilRepository.findById(usuario.getId()).orElse(null);
         if(usuarioEncontrado != null) {
@@ -63,8 +66,9 @@ public class MiPerfilService {
         return false;
     }
 
+    // Método que busca la información del usuario indicado.
+    // Usado en el mantenimiento de usuarios.
     public UsuarioMiPerfilDTO buscarPorId(Long idUsuario) {
-
         UsuarioMiPerfilDTO usuarioDTO = new UsuarioMiPerfilDTO();
         Usuario usuarioEncontrado = usuarioService.buscarPorId(idUsuario);
 

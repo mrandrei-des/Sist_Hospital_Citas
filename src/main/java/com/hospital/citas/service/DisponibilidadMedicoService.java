@@ -12,6 +12,7 @@ import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.model.entity.Medico;
 import com.hospital.citas.repository.DisponibilidadMedicoRepository;
 
+// Servicio que contiene los métodos necesarios para trabajar con el horario de atención del médico tanto al registrarlo como al utilizarlo.
 @Service
 public class DisponibilidadMedicoService {
     private final DisponibilidadMedicoRepository disponibilidadMedicoRepository;
@@ -25,14 +26,21 @@ public class DisponibilidadMedicoService {
         this.medicoService = medicoService;
     }
 
+    // Consulta todas las especialidades que tengan médicos registrados.
+    // Busca por el estado que se le pase.
+    // Usado para cargar los select de filtros de especialidad para que no muestre especialidades sin médicos.
     public List<EspecialidadDTO> listaEspecialidadesConMedico(Long idEstadoEspecialidad){
         return especialidadService.listarEspecialidadesConMedicos(idEstadoEspecialidad);
     }
 
+    // Consulta el nombre completo del médico indicado.
+    // Usado al cargar el resumen de la reserva de una cita.
     public String consultaNombreMedicoPorId(Long idMedico) {
         return medicoService.consultaNombreMedicoPorId(idMedico);
     }
 
+    // Método que se encargar de registrar el horario de atención nuevo para el médico que corresponda. A este punto ya se encuentra validado que es permitido este horario.
+    // Usado al momento de registrar horarios nuevos par a los médicos.
     public boolean procesarHorarioMedico(HorarioMedicoDTO horario, Long idUsuarioLoggeado) {
         DisponibilidadMedico horarioNuevo;
         DiaDeLaSemana diaSemana;
@@ -71,20 +79,25 @@ public class DisponibilidadMedicoService {
         return procesoExitoso;
     }
 
+    // Consulta los registros de horario médico que tiene el médico indicado para el día de la semana indicado.
     public List<HorarioMedicoVistaDTO> consultarHorarioMedicoPorIdDia(Long idMedico, Long idDia){
         return disponibilidadMedicoRepository.consultarHorarioMedicoPorIdDia(idMedico, idDia);
     }
 
+    // En caso de que un médico tenga más de un horario para un mismo día, se consulta el siguiente registro de horario de atención a partir del día y hora indicada.
+    // Usado para construir el horario médico que se renderiza al reservar una cita.
     public List<HorarioMedicoVistaDTO> consultarHorarioSiguientePorMedicoDiaHora(Long idMedico, Long idDia, LocalTime horaInicio){
         return disponibilidadMedicoRepository.consultarHorarioSiguientePorMedicoDiaHora(idMedico, idDia, horaInicio);
     }
 
+    // Método general que valida que las horas de atención seleccionadas sean válidas para registrar un nuevo horario médico
     public boolean horasAtencionSonValidas(HorarioMedicoDTO horario) {
         if(!validaHorasDentroRegistro(horario)) return false;
         if(!validaHorasAfueraRegistro(horario)) return false;
         return true;
     }
 
+    // Método que valida que las horas de atención seleccionadas al configurar un horario médico no se encuentren dentro de otro registro médico.
     private boolean validaHorasDentroRegistro(HorarioMedicoDTO horario) {
         List<Long> diasSeleccionados = horario.getDiasSemana();
         List<DisponibilidadMedico> listaRegistros;
@@ -99,6 +112,7 @@ public class DisponibilidadMedicoService {
         return true;
     }
 
+    // Método que valida que las horas de atención seleccionadas al configurar un horario médico no se encuentren fuera de otro registro médico. Es decir, que las horas seleccionadas no contengan otro registro de horario en su interior.
     private boolean validaHorasAfueraRegistro(HorarioMedicoDTO horario) {
         List<Long> diasSeleccionados = horario.getDiasSemana();
         List<DisponibilidadMedico> listaRegistros;

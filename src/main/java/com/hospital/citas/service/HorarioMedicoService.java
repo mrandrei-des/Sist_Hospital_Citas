@@ -17,6 +17,7 @@ import com.hospital.citas.model.dto.HorarioMedicoVistaDTO;
 import com.hospital.citas.model.dto.MedicoDTO;
 import com.hospital.citas.model.entity.DiaDeLaSemana;
 
+// Servicio dedicado a la contrucción y gestión del horario de atención médico y todos sus espacios de disponibilidad.
 @Service
 public class HorarioMedicoService {
     private final MedicoService medicoService;
@@ -33,10 +34,14 @@ public class HorarioMedicoService {
         this.reservaCitasService = reservaCitasService;
     }
 
+    // Consulta los médicos que cuenten con horario de atención configurado.
+    // Usado para renderizar el select de médicos en los filtros.
     public List<MedicoDTO> listaMedicosConHorario() {
         return medicoService.listaMedicosConHorario();
     }
 
+    // Consulta todo el horario de atención del médico indicado.
+    // Usado al momento de construir los espacios de atención del médico al en la reserva de citas
     public List<DiaHorarioDTO> consultarHorarioMedicoPorId (Long id) {
         LocalDateTime fechaHoraActual = consultaDBServerService.consultaFechaHoraActualServer();
         LocalDate fechaActual = fechaHoraActual.toLocalDate();
@@ -91,6 +96,8 @@ public class HorarioMedicoService {
         return listaDiasHorario;
     }
 
+    // Devuelve la fecha formateada del primer día de la semana actual o de la semana siguiente.
+    // Usado en el título de la semana al renderizar el horario de atención del médico en la reserva de citas o consulta de horarios de atención.
     public String consultarFechaInicioSemana() {
         LocalDateTime fechaHoraActual = consultaDBServerService.consultaFechaHoraActualServer();
         LocalDate fechaInicialSemana = calcularFechaInicioSemana(fechaHoraActual.toLocalDate());
@@ -98,6 +105,8 @@ public class HorarioMedicoService {
         return fechaInicialSemana.format(dateTimeFormatter);
     }
     
+    // Devuelve la fecha formateada del último día de la semana actual o de la semana siguiente.
+    // Usado en el título de la semana al renderizar el horario de atención del médico en la reserva de citas o consulta de horarios de atención.
     public String consultarFechaFinSemana() {
         LocalDateTime fechaHoraActual = consultaDBServerService.consultaFechaHoraActualServer();
         LocalDate fechaFinalSemana = calcularFechaFinSemana(fechaHoraActual.toLocalDate());
@@ -105,6 +114,9 @@ public class HorarioMedicoService {
         return fechaFinalSemana.format(dateTimeFormatter);
     }
 
+    // Calcula y devuelve el la fecha de inicio de la semana:
+    // Semana actual si el día de la consulta está entre incluyendo lunes y viernes.
+    // Semana siguiente si el día de la consulta es sábado o domingo.
     private LocalDate calcularFechaInicioSemana(LocalDate fechaActual) {
         if(fechaActual.getDayOfWeek().getValue() >= 6) {
             return fechaActual.plusDays((7 - fechaActual.getDayOfWeek().getValue() + 1));
@@ -114,6 +126,9 @@ public class HorarioMedicoService {
         }
     }
 
+    // Calcula y devuelve el la fecha de fin de la semana:
+    // Semana actual si el día de la consulta está entre incluyendo lunes y viernes.
+    // Semana siguiente si el día de la consulta es sábado o domingo.
     private LocalDate calcularFechaFinSemana(LocalDate fechaActual) {
         if(fechaActual.getDayOfWeek().getValue() >= 6) {
             return fechaActual.plusDays((7 - fechaActual.getDayOfWeek().getValue() + 5));
@@ -122,6 +137,8 @@ public class HorarioMedicoService {
         }
     }
 
+    // Consulta la fecha de inicio y fecha fin de la semana.
+    // Usado en el título de la semana al renderizar el horario de atención del médico en la reserva de citas o consulta de horarios de atención.
     public List<String> consultarRangoFechasSemana() {
         List<String> rangoFechasSemana = new ArrayList<>();
         rangoFechasSemana.add(consultarFechaInicioSemana());
@@ -129,6 +146,8 @@ public class HorarioMedicoService {
         return rangoFechasSemana;
     }
 
+    // Método utilizado anteriormente para construir el los espacios de atención del médico indicado. 
+    // Los espacios ya reservados o restringidos por horario para el paciente, eran quitados de la lista para que no se rendericen. 
     public List<DiaHorarioDTO> consultarHorarioMedicoParaReservarAntiguo (Long id, Long idUsuario) {
         LocalDateTime fechaHoraActual = consultaDBServerService.consultaFechaHoraActualServer();
         LocalTime horaActual = fechaHoraActual.toLocalTime();
@@ -202,8 +221,9 @@ public class HorarioMedicoService {
         }
         return listaDiasHorario;
     }
-    
 
+    // Método utilizado para construir el los espacios de atención del médico indicado. 
+    // Cada espacio se identifica según su disponibilidad o restricción.
     public List<DiaHorarioReservaDTO> consultarHorarioMedicoParaReservar (Long id, Long idUsuario) {
         LocalDateTime fechaHoraActual = consultaDBServerService.consultaFechaHoraActualServer();
         LocalTime horaActual = fechaHoraActual.toLocalTime();
@@ -299,6 +319,7 @@ public class HorarioMedicoService {
         return listaDiasHorario;
     }
 
+    // Método que elimina de la lista los espacios que se encuentran en otra lista.
     public List<String> eliminarEspaciosOcupados(List<String> listaPorRevisar, List<String> listaReestricciones) {
 
         HashSet<String> reestricciones = new HashSet<String>();
@@ -314,6 +335,7 @@ public class HorarioMedicoService {
         return listaEspaciosDisponibles;
     }
 
+    // Método que construye un HashSet de espacios de atención restringidos que debían ser eliminadas de la lista de espacios disponibles
     private HashSet<String> devolverSetRestricciones(List<String> listaReestricciones) {
         HashSet<String> reestricciones = new HashSet<String>();
         for (String reestriccion : listaReestricciones) {
@@ -323,6 +345,7 @@ public class HorarioMedicoService {
         return reestricciones;
     }
 
+    // Método que estable el id del día de la semana desde donde debe arrancar la consulta de horarios.
     private Long estableceDiaInicioConsultaHorario(LocalDateTime fechaHoraActual) {
         int diaActual = fechaHoraActual.getDayOfWeek().getValue();
         Long diaInicio;

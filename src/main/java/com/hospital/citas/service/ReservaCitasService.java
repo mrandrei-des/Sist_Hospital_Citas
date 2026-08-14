@@ -20,6 +20,7 @@ import com.hospital.citas.repository.ReservaCitasRepository;
 
 import jakarta.transaction.Transactional;
 
+// Servicio encargado de la reserva de citas al igual que la consulta de espacios ya ocupados o restringidos y de la confirmación o cancelación de citas.
 @Service
 public class ReservaCitasService {
     private final ReservaCitasRepository reservaCitasRepository;
@@ -30,6 +31,8 @@ public class ReservaCitasService {
         this.consultaDBServerService = consultaDBServerService;
     }
 
+    // Consulta las citas médicas que tengan lo o el estado indicado. Según el médico y su fecha y hora de atención.
+    // Utilizado para marcar los espacios del horario de atención que ya han sido seleccionados.
     public List<ReservaCitasReservaDTO> buscarCitasReservadasPorMedicoFechaHoraEstados(Long idMedico, LocalDate fecha, LocalTime hora, List<Long> listaEstados) {
         List<ReservaCitasReservaDTO> listaReservas = new ArrayList<>();
 
@@ -60,6 +63,8 @@ public class ReservaCitasService {
         return listaReservas;
     }
 
+    // Método que se encarga de reservar un espacio de cita médica.
+    // Este método es el que permite que las reservas médicas se den.
     @Transactional
     public boolean procesarReserva(ReservaCitasReservaDTO dto) {
         List<Long> listaEstados = List.of(1L, 2L);
@@ -97,6 +102,9 @@ public class ReservaCitasService {
         return false;
     }
 
+    // Obtiene el estado de la cita que se desea reservar.
+    // Si la cita a reservar está más lejos de una hora de diferencia con la fecha y hora actual se registra como pendiente.
+    // Si la cita a reservar está a una hora o menos de diferencia con la fecha y hora actual se registra como confirmada.
     private Long obtenerEstadoCitaPorReservar(LocalDate fecha, LocalTime hora) {
         LocalDateTime fechaHoraCita = LocalDateTime.of(fecha, hora);
         LocalDateTime fechaHoraActual = consultaDBServerService.consultaFechaHoraActualServer();
@@ -108,6 +116,8 @@ public class ReservaCitasService {
         return 1L;
     }
 
+    // Consulta las horas de las citas médicas que ya han sido reservadas para el médico indicado en la fecha indicada.
+    // Utilizado al construir los espacios de atención para el horario de atención del médico.
     public List<String> consultaHorasOcupadasPorMedico(Long idMedico, LocalDate fechaBusqueda) {
         List<String> listaHorasRestringidas = new ArrayList<>();
         List<LocalTime> listaHoras = reservaCitasRepository.consultaHorasOcupadasMedicoPorFecha(idMedico, fechaBusqueda).orElse(new ArrayList<>());
@@ -119,6 +129,9 @@ public class ReservaCitasService {
         return listaHorasRestringidas;
     }
 
+    // Consulta las horas de las citas médicas reservadas para el usuario indicado en la fecha que se le pasa.
+    // Estas horas se consultan para saber cuales son los espacios que no se le deben habilitar al usuario porque generaría una duplicación de citas para el mismo día a la misma hora.
+    // Utilizado al construir los espacios de atención para el horario de atención del médico.
     public List<String> consultaHoraRestrigidasPorUsuario(Long idUsuario, LocalDate fechaBusqueda) {
         List<String> listaHorasRestringidas = new ArrayList<>();
         List<LocalTime> listaHoras = reservaCitasRepository.consultaHorasRestringidasUsuarioPorFecha(idUsuario, fechaBusqueda).orElse(new ArrayList<>());
@@ -130,12 +143,16 @@ public class ReservaCitasService {
         return listaHorasRestringidas;
     }
 
+    // Consulta todas las citas médicas que el médico indicado ya tiene registradas.
+    // Utilizado al cargar la tabla de citas médicas por médico seleccionado.
     public List<ReservaCitas> listaCitasEncontradasPorMedico(Long idMedico) {
         Medico medico = new Medico();
         medico.setId(idMedico);
         return reservaCitasRepository.findAllByMedico(medico);
     }
 
+    // Método que confirma la cita médica indicada para el paciente correspondiente.
+    // Utilizado en el mantenimiento de citas médica tanto del usuario paciente como del admin.
     public boolean confirmarCita(Long idCita, Long idUsuario) {
         ReservaCitas citaPorConfirmar = reservaCitasRepository.findById(idCita).orElse(null);
         if(citaPorConfirmar != null) {
@@ -152,6 +169,8 @@ public class ReservaCitasService {
         return false;
     }
 
+    // Método que cancela la cita médica indicada para el paciente correspondiente.
+    // Utilizado en el mantenimiento de citas médica tanto del usuario paciente como del admin.
     public boolean cancelarCita(Long idCita, Long idUsuario) {
         ReservaCitas citaPorCancelar = reservaCitasRepository.findById(idCita).orElse(null);
         if(citaPorCancelar != null) {
@@ -168,6 +187,8 @@ public class ReservaCitasService {
         return false;
     }
 
+    // Método que confirma de forma automática las citas médicas que se encuentran pendienes.
+    // Utilizado al confirmar citas de forma automática cuando cualquier usuario inicia sesión.
     public void botConfirmarCita() {
         LocalDateTime fechaHoraActual = consultaDBServerService.consultaFechaHoraActualServer();
         fechaHoraActual = fechaHoraActual.plusHours(1);

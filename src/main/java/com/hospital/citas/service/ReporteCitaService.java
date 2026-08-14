@@ -13,6 +13,7 @@ import com.hospital.citas.repository.ReservaCitasRepository;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 
+// Servicio para la confección de los datos formateados para el reporte y exportación de citas médicas.
 @Service
 public class ReporteCitaService {
     private final ReservaCitasRepository reservaCitasRepository;
@@ -22,6 +23,7 @@ public class ReporteCitaService {
     }
 
     // Consulta la información aplicando los filtros utilizados por el usuario y construye el arreglo de bytes ya con los separadores.
+    // Utilizado en la exportación a CSV del reporte de citas médicas.
     public byte[] generarReporteCitasCsv(CitasMedicasFiltrosDTO citasFiltro) {
         List<ReporteCitaCsvDTO> listadoCitas = reservaCitasRepository.consultaCitasReporteCsv(citasFiltro.getFiltEstado(), citasFiltro.getFiltEspecialidad(), citasFiltro.getFiltMedico(), citasFiltro.getFiltFechaInicio(), citasFiltro.getFiltFechaFin());
 

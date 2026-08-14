@@ -6,6 +6,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+// Servicio dedicado al envío del correo con el código para la recuperación de contraseña.
 @Service
 public class CorreoService {
     @Autowired

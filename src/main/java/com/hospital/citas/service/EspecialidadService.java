@@ -12,6 +12,7 @@ import com.hospital.citas.model.entity.Especialidad;
 import com.hospital.citas.model.entity.Estado;
 import com.hospital.citas.repository.EspecialidadRepository;
 
+// Servicio que controla y gestiona las especilidades médicas.
 @Service
 public class EspecialidadService {
     private final EspecialidadRepository especialidadRepository;
@@ -20,6 +21,8 @@ public class EspecialidadService {
         this.especialidadRepository = especialidadRepository;
     }
 
+    // Método que registra una especialidad médica con los datos recibidos.
+    // Usado por el admin al registrar especialidades.
     public boolean registrarEspecialidad(EspecialidadDTO especialidadDTO, Long idUsuarioLoggeado) {
         Especialidad especialidad = new Especialidad();
         Estado estado = new Estado();
@@ -44,6 +47,8 @@ public class EspecialidadService {
         return false;
     }
 
+    // Consulta todas las especialidades médicas registradas que tengan el estado indicado.
+    // Usado al renderizar las card de especialidades en el registro de especialidades.
     public List<EspecialidadDTO> listarEspecialidades(Long estadoEspecialidades) {
         Estado estado = new Estado();
         estado.setId(estadoEspecialidades);
@@ -61,6 +66,8 @@ public class EspecialidadService {
         return listaDTO;
     }
 
+    // Consulta las especialidades médicas que tengan el estado indicado y que además tengan médicos asociados.
+    // Usado al cargar los select de filtros de especialidades.
     public List<EspecialidadDTO> listarEspecialidadesConMedicos(Long estadoEspecialidades){
         List<Especialidad> listaEspecialidades = especialidadRepository.consultarEspecialidadesConMedico(estadoEspecialidades);
         List<EspecialidadDTO> listaDTO = new ArrayList<>();
@@ -75,6 +82,8 @@ public class EspecialidadService {
         return listaDTO;
     }
 
+    // Busca las especialidades que en su descripción contengan el dato indicado.
+    // Usado al filtrar especilidades en la reservas de citas médicas.
     public List<EspecialidadReservaDTO> listaEspecialidadesReserva(String filtroBusqueda) {
         String queryBusqueda = "%" + filtroBusqueda + "%";
         List<EspecialidadReservaDTO> listaRegistros = especialidadRepository.consultarEspecialidadesReserva(queryBusqueda);
@@ -92,6 +101,8 @@ public class EspecialidadService {
         return dto;
     }
 
+    // Consulta las últimas 5 especialidades médicas registradas.
+    // Usado al renderizar los card de últimas especilidades registradas en el mantenimiento de especilidades.
     public List<UltimaEspecialidadRegistradaDTO> listarUltimaEspecialidadRegistradaDTOs (){
         return especialidadRepository.listaUltimasEspecialidadRegistradasDtos();
     }
@@ -101,6 +112,7 @@ public class EspecialidadService {
         return especialidadEncontrada == null ? "" : especialidadEncontrada.getDescripcion();
     }
 
+    // Consulta las especialidades médicas que cuyos médicos asociados tengan citas reservadas por pacientes
     public List<EspecialidadDTO> listaEspecialidadesConCitas() {
         return especialidadRepository.listaEspecialidadesConCitas();
     }
