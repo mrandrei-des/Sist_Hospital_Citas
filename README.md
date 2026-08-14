@@ -13,4 +13,4 @@ Usuario paciente de ejemplo:
 Usuario: paciente@paciente.com
 Contraseña: paciente
 
-Para la base de datos se utilizó MySQL
+Para la base de datos se utilizó MySQL y se adjunta tanto el esquema de tablas, script con valores iniciales y los scripts de procedimientos almacenados.
