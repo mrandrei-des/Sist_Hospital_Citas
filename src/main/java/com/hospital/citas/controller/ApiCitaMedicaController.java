@@ -59,7 +59,6 @@ public class ApiCitaMedicaController {
         return ResponseEntity.ok(cantidadCitas);
     }
 
-
     @PostMapping("/filter")
     public ResponseEntity<List<CitaPacientesDTO>> getCitasPorFiltros(@RequestBody CitasMedicasFiltrosDTO citasFiltro) {
         List<CitaPacientesDTO> listaCitas = citaPacienteService.consultaCitasPacientesConFiltros(citasFiltro);

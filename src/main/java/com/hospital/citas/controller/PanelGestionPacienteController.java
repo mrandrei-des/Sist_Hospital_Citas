@@ -37,7 +37,7 @@ public class PanelGestionPacienteController {
         model.addAttribute("usuarioEsAdmin", esAdmin);
         model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
         model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
-        model.addAttribute("listaPacientes", panelGestionPacienteService.listaUsuariosPacienteDTO());
+        model.addAttribute("listaPacientes", panelGestionPacienteService.listaUsuariosPacienteDTO(1));
 
         return "panelGestionPacientes";
     }

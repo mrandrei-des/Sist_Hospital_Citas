@@ -98,11 +98,13 @@
                                         <span class="lista__elemento__icono">
                                             <i class="fa-solid fa-pencil"></i>
                                         </span>
+                                        <span class="btn__accion__title">Editar</span>
                                     </a>
                                     <a href="/" th:href="@{/deshabilitar-medico/{id}(id=${medico.getId()})}" class="btn__accion__elemento btn__eliminar" title="Eliminar Médico" th:if="${medico.isEliminable()}">
                                         <span class="lista__elemento__icono">
                                             <i class="fa-solid fa-trash"></i>
                                         </span>
+                                        <span class="btn__accion__title">Eliminar</span>
                                     </a>
                                 </div>
                             </div>

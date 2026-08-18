@@ -25,6 +25,7 @@
     background-color: var(--secondary-color);
     color: var(--secondary-bg-color);
     outline: 2px solid var(--secondary-color-hover-color);
+    position: relative;
     /* display: flex; */
     /* justify-content: center;
     align-items: center;
@@ -43,6 +44,7 @@
     justify-content: center;
     align-items: center;
     gap: .5rem;
+    position: relative;
 }
 
 .btn__eliminar:hover {
@@ -169,6 +171,10 @@ span.btn__opcion__horario {
     color: hsl(0deg, 0%, 100%);
     outline: 2px solid #0976;
     position: relative;
+}
+
+.btn__eliminar .btn__accion__title {
+    color: hsl(0deg, 0%, 100%);
 }
 
 .btn__accion__title {

@@ -36,8 +36,14 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
         @Param("contrasennaNueva") String descripcionAccion
     );
 
-    @Query(value = "{call sp_listaUsuariosPaciente()}", nativeQuery = true)
-    List<PanelGestionPacienteDTO> listaUsuarPacienteDTOs();
+    @Query(value = "{call sp_listaUsuariosPaciente(:numeroPagina, :tamannoPagina)}", nativeQuery = true)
+    List<PanelGestionPacienteDTO> listaUsuarPacienteDTOs(
+        @Param("numeroPagina") int numeroPagina,
+        @Param("tamannoPagina") int tamannoPagina
+    );
+
+    @Query(value = "{call sp_consultaCantidadUsuariosPaciente()}", nativeQuery = true)
+    int consultaCantidadUsuariosPaciente();
 
     boolean existsByCorreoElectronicoAndIdNot(String correo, Long id);
     boolean existsByIdentificacionAndIdNot(String identificacion, Long id);

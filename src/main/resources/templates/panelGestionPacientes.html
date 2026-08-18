@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Pacientes</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css" th:href="@{/css/compartidos/styles_fonts.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
@@ -16,6 +18,7 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_main_wrapper.css" th:href="@{/css/compartidos/styles_main_wrapper.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css" th:href="@{/css/compartidos/styles_menu_lateral.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css" th:href="@{/css/compartidos/styles_notificaciones.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_pagination.css" th:href="@{/css/compartidos/styles_pagination.css}">
     
     <link rel="stylesheet" href="../static/css/panelPacientes.css" th:href="@{/css/panelPacientes.css}">
 </head>
@@ -60,17 +63,50 @@
                                             <span th:unless="${paciente.getEstado() == 4}" class="state__container state__container--inactive">Inactivo</span>
                                         </td>
                                         <td>
-                                            <a href="/" th:href="@{/mi-perfil/{id}(id=${paciente.getId()})}" class="btn__accion__elemento btn__modificar" title="Modificar Paciente">
-                                                <span class="lista__elemento__icono">
-                                                    <i class="fa-solid fa-pencil"></i>
-                                                </span>
-                                            </a>
+                                            <div class="table__action-container">
+                                                <a href="/" th:href="@{/mi-perfil/{id}(id=${paciente.getId()})}" class="btn__accion__elemento btn__modificar">
+                                                    <span class="lista__elemento__icono">
+                                                        <i class="fa-solid fa-pencil"></i>
+                                                    </span>
+                                                    <span class="btn__accion__title">Editar</span>
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tfoot></tfoot>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="6">
+                                            <div class="pagination__container">
+                                                <div class="pagination__info">
+                                                    <p class="pagination__paragraph">
+                                                        Total de registros: <strong class="pagination__total">0</strong>
+                                                    </p>
+                                                </div>
+        
+                                                <div class="pagination__items-container">
+                                                    <button class="btn btn__pagination" onclick="paginaAnterior()">
+                                                        <i class="fa-solid fa-angle-left"></i>
+                                                    </button>
+        
+                                                    <div class="pagination__items" id="paginationItems">
+                                                        <button class="btn btn__pagination">1</button>
+                                                        <button class="btn btn__pagination btn__pagination--active">2</button>
+                                                        <button class="btn btn__pagination">3</button>
+                                                        <button class="btn btn__pagination">4</button>
+                                                    </div>
+        
+                                                    <button class="btn btn__pagination" onclick="paginaSiguiente()">
+                                                        <i class="fa-solid fa-angle-right"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
+                        <div class="message-data__container"></div>
                     </section>
                 </div>
             </div>
@@ -79,6 +115,7 @@
 
     <div th:replace="~{fragments::footer}"></div>
 
+    <script src="../static/js/panelGestionPacientes.js" th:src="@{/js/panelGestionPacientes.js}"></script>
     <script src="../static/js/notificaciones.js" th:src="@{/js/notificaciones.js}"></script>
     <script src="../static/js/menuLateral.js" th:src="@{/js/menuLateral.js}"></script>
     <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
