@@ -52,7 +52,6 @@ public class MiPerfilController {
         }
 
         model.addAttribute("usuarioEsAdmin", esAdmin);
-        model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
 
         if(!esAdmin) {
             model.addAttribute("esAdminMant", false);
@@ -65,8 +64,10 @@ public class MiPerfilController {
                 model.addAttribute("esAdminMant", false);
         }
 
+        UsuarioMiPerfilDTO usuarioPorCargar = miPerfilService.buscarPorId(id);
         model.addAttribute("idRolUsuario", session.getAttribute("idUsuarioLoggeado"));
-        model.addAttribute("usuario", miPerfilService.buscarPorId(id));
+        model.addAttribute("usuario", usuarioPorCargar);
+        model.addAttribute("nombreCompletoUsuario", usuarioPorCargar.getNombre() + " " + usuarioPorCargar.getPrimerApellido() + " " + usuarioPorCargar.getSegundoApellido());
         model.addAttribute("listaTipoIdentificacion", tipoIdentificacionService.consultarTiposDeIdentificacion());
         model.addAttribute("listaRoles", rolService.consultarRolesDTO());
         model.addAttribute("listaEstados", estadoService.consultarEstadosUsuarios());

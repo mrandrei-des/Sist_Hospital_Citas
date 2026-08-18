@@ -69,7 +69,7 @@
                             </div>
 
                             <div class="form__actions">
-                                <button type="submit" class="btn btn__primary">Agregar</button>
+                                <button type="submit" class="btn btn__primary" th:text="${medico.getId() == null ? 'Agregar' : 'Guardar Cambios'}">Agregar</button>
                             </div>
                         </form>
                     </section>

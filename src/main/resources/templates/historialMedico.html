@@ -28,7 +28,7 @@
 
         <div class="main__content">
             <div class="main__container-historial">
-                <div class="main__historial-section">
+                <div class="main__historial-section" th:if="${listaCitasPendientes.size() > 0}">
                     <section class="main__section">
                         <h2 class="main__title">
                             Tus citas pendientes

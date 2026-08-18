@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Perfil</title>
+    <title>Mi perfil</title>
     <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css" th:href="@{/css/compartidos/styles_fonts.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
@@ -35,8 +35,8 @@
                             </div>
                         </div>
                         <div class="profile__info-container">
-                            <h2 class="main__title" th:text="${!esAdminMant} ? 'Mi Perfil' : |Perfil de ${nombreCompletoUsuario}|">
-                                Mi Perfil
+                            <h2 class="main__title" th:text="${!esAdminMant} ? 'Mi perfil' : |Perfil de ${nombreCompletoUsuario}|">
+                                Mi perfil
                             </h2>
                             <p class="main__subtitle" th:text="${!esAdminMant} ? 'Puede actualizar la información de su cuenta' : 'Puede actualizar la información de la cuenta'">
                                 Actualice la información de su cuenta

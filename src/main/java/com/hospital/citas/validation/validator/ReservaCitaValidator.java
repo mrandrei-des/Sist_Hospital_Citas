@@ -81,7 +81,7 @@ public class ReservaCitaValidator implements ConstraintValidator<ReservaCitaVali
                             break;
                         }
                     }
-                    
+
                     if(!horarioValido) {
                         reservaValida = false;
                         mensajeValidacion = "El médico no tiene horario registrado para el día y hora seleccionado.";

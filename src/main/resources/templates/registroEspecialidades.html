@@ -52,7 +52,7 @@
                             </div>
 
                             <div class="form__actions">
-                                <button type="submit" class="btn btn__primary">Agregar</button>
+                                <button type="submit" class="btn btn__primary" th:text="${especialidad.getId() == null ? 'Agregar' : 'Guardar Cambios'}">Agregar</button>
                             </div>
 
                         </form>
@@ -72,16 +72,12 @@
                         <div class="main__list">
                             <div class="list__item" th:each="especialidad : ${listaEspecialidades}">
                                 <input type="hidden" th:value="${especialidad.getId()}" name="idEspecialidad">
-
                                 <a href="/" th:href="@{/buscar-especialidad/{id}(id=${especialidad.getId()})}" class="btn btn__lista__elemento">
-
                                     <span class="list__icon-box">
                                         <i class="fa-solid fa-pencil"></i>
                                     </span>
-
                                     <span th:text="${especialidad.getDescripcion()}"></span>
                                 </a>
-
                             </div>
                         </div>
                     </section>
