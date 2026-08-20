@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial Médico</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="stylesheet" href="../static/css/compartidos/styles_fonts.css" th:href="@{/css/compartidos/styles_fonts.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_resetElements.css" th:href="@{/css/compartidos/styles_resetElements.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_colors.css" th:href="@{/css/compartidos/styles_colors.css}">
@@ -15,6 +17,7 @@
     <link rel="stylesheet" href="../static/css/compartidos/styles_menu_lateral.css" th:href="@{/css/compartidos/styles_menu_lateral.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_notificaciones.css" th:href="@{/css/compartidos/styles_notificaciones.css}">
     <link rel="stylesheet" href="../static/css/compartidos/styles_tabla.css" th:href="@{/css/compartidos/styles_tabla.css}">
+    <link rel="stylesheet" href="../static/css/compartidos/styles_pagination.css" th:href="@{/css/compartidos/styles_pagination.css}">
 
     <link rel="stylesheet" href="../static/css/historialMedico.css" th:href="@{/css/historialMedico.css}">
 </head>
@@ -22,7 +25,6 @@
     <div th:replace="~{fragments::header(mostrarOpcionesMenu=${true}, nombreUsuario=${nombreCompletoUsuario})}"></div>
     <div th:replace="~{fragments::notificacion(${mostrarNotificacion}, ${tipoNotificacion}, ${titulo}, ${detalle})}"></div>
 
-    <!-- <a href="#" th:href="@{/citas/confirm/{id}(id=${cita.getId()})}" class="btn btn__primary--md">Ahí estaré</a> -->
     <main class="main">
         <aside th:replace="~{fragments::menuLateral(${usuarioEsAdmin}, ${idRolUsuario})}"></aside>
 
@@ -101,9 +103,36 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tfoot></tfoot>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="6">
+                                            <div class="pagination__container">
+                                                <div class="pagination__info">
+                                                    <p class="pagination__paragraph">
+                                                        Total de registros: <strong class="pagination__total">0</strong>
+                                                    </p>
+                                                </div>
+        
+                                                <div class="pagination__items-container">
+                                                    <button class="btn btn__pagination" onclick="paginaAnterior()">
+                                                        <i class="fa-solid fa-angle-left"></i>
+                                                    </button>
+        
+                                                    <div class="pagination__items" id="paginationItems">
+                                                        <button class="btn btn__pagination">1</button>
+                                                    </div>
+        
+                                                    <button class="btn btn__pagination" onclick="paginaSiguiente()">
+                                                        <i class="fa-solid fa-angle-right"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
+                        <div class="message-data__container"></div>
                     </section>
                 </div>
             </div>
@@ -112,8 +141,10 @@
 
     <div th:replace="~{fragments::footer}"></div>
 
+    <script src="../static/js/historialMedico.js" th:src="@{/js/historialMedico.js}"></script>
     <script src="../static/js/notificaciones.js" th:src="@{/js/notificaciones.js}"></script>
     <script src="../static/js/menuLateral.js" th:src="@{/js/menuLateral.js}"></script>
     <script src="https://kit.fontawesome.com/1de8be47a9.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.23/dayjs.min.js"></script>
 </body>
 </html>

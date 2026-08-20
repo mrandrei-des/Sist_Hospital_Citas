@@ -33,7 +33,6 @@ public class CitasMedicasController {
 
     @GetMapping("/historial")
     public String mostrarHistorial(HttpSession session, Model model) {
-
         Long idUsuario = (Long)session.getAttribute("idUsuarioLoggeado");
         Long idRolUsuario = (Long)session.getAttribute("idRolUsuarioLoggeado");
         boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
@@ -56,7 +55,7 @@ public class CitasMedicasController {
         model.addAttribute("usuarioEsAdmin", esAdmin);
         model.addAttribute("idRolUsuario", idRolUsuario);
         model.addAttribute("listaCitasPendientes", citaPacienteService.consultaHistorialPendientePaciente(idUsuario));
-        model.addAttribute("listaHistorial", citaPacienteService.consultaHistorialPaciente(idUsuario));
+        model.addAttribute("listaHistorial", citaPacienteService.consultaHistorialPaciente(idUsuario, 1));
         return "historialMedico";
     }
 

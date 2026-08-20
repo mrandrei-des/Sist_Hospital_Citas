@@ -46,8 +46,17 @@ public interface ReservaCitasRepository extends JpaRepository<ReservaCitas, Long
         @Param("fechaBusqueda") LocalDate fechaBusqueda
     );
     
-    @Query(value = "{call sp_consultaHistorialMedicoPaciente(:idUsuario)}", nativeQuery = true)
-    List<HistorialMedicoPacienteDTO> consultaHistorialMedicoPaciente(@Param("idUsuario") Long idUsuario);
+    @Query(value = "{call sp_consultaHistorialMedicoPaciente(:idUsuario, :numeroPagina, :tamannoPagina)}", nativeQuery = true)
+    List<HistorialMedicoPacienteDTO> consultaHistorialMedicoPaciente(
+        @Param("idUsuario") Long idUsuario,
+        @Param("numeroPagina") Integer numeroPagina,
+        @Param("tamannoPagina") Integer cantidadElementosPorPagina
+    );
+
+    @Query(value = "{call sp_consultaCantidadCitasReservadasPorPaciente(:idUsuario)}", nativeQuery = true)
+    int consultaCantidadCitasReservadasPorPaciente(
+        @Param("idUsuario") Long idUsuario
+    );
 
     @Query(value = "{call sp_consultaHistorialMedicoPendientePaciente(:idUsuario)}", nativeQuery = true)
     List<HistorialMedicoPacienteDTO> consultaHistorialMedicoPendientePaciente(@Param("idUsuario") Long idUsuario);
@@ -92,4 +101,6 @@ public interface ReservaCitasRepository extends JpaRepository<ReservaCitas, Long
         @Param("filtFechaInicio") LocalDate filtFechaInicio,
         @Param("filtFechaFin") LocalDate filtFechaFin
     );
+
+
 }

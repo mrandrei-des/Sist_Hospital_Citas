@@ -31,7 +31,7 @@ public class SecurityConfig {
                 .requestMatchers("/css/**", "/js/**", "/img/**", "/fonts/**").permitAll()
 
                 // GET MAPPING PÚBLICO
-                .requestMatchers("/login", "/", "/registrarPaciente", "/recuperarContrasenna", "/verificacionCodigo").permitAll()
+                .requestMatchers("/login", "/", "/registrarPaciente", "/recuperarContrasenna", "/verificacionCodigo", "/api/historial/**").permitAll()
 
                 // POST MAPPING PÚBLICO
                 .requestMatchers("/cuentaNueva", "/procesarRecuperacion", "/procesarVerificacion", "/procesarCambioContrasenna", "/reenviarCodigoReset", "/api/citas/filter/count").permitAll()

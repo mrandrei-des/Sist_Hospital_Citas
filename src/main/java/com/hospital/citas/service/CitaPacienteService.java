@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.hospital.citas.model.dto.CitaPacientesDTO;
 import com.hospital.citas.model.dto.CitasMedicasFiltrosDTO;
 import com.hospital.citas.model.dto.HistorialMedicoPacienteDTO;
+import com.hospital.citas.model.dto.PaginacionDTO;
 import com.hospital.citas.model.dto.VistaHistorialMedicoPacienteDTO;
 import com.hospital.citas.repository.ReservaCitasRepository;
 
@@ -39,11 +40,47 @@ public class CitaPacienteService {
 
     // Consulta todas las citas médicas del paciente indicado.
     // No se fija en estados.
-    // Utilizado para renderizar la tabla de citas que tiene el paciente en el historial médico.
-    public List<VistaHistorialMedicoPacienteDTO> consultaHistorialPaciente(Long idUsuario) {
+    // Utilizado para renderizar la tabla de citas que tiene el paciente en el historial médico en la carga inicial.
+    public List<VistaHistorialMedicoPacienteDTO> consultaHistorialPaciente(Long idUsuario, Integer paginaCargaInicial) {
+        Integer cantidadElementosPorPagina = 5;
         LocalDateTime fechaHoraActual = consultaDBServerService.consultaFechaHoraActualServer();
         LocalDateTime fechaHoraCita;
-        List<HistorialMedicoPacienteDTO> listaHistorial = reservaCitasRepository.consultaHistorialMedicoPaciente(idUsuario);
+
+        List<HistorialMedicoPacienteDTO> listaHistorial = reservaCitasRepository.consultaHistorialMedicoPaciente(idUsuario, paginaCargaInicial, cantidadElementosPorPagina);
+
+        List<VistaHistorialMedicoPacienteDTO> listaVistaHistorial = new ArrayList<>();
+        VistaHistorialMedicoPacienteDTO dto;
+
+        for (HistorialMedicoPacienteDTO lineaHistorial : listaHistorial) {
+            dto = new VistaHistorialMedicoPacienteDTO();
+            dto.setId(lineaHistorial.getId());
+            dto.setEspecialidad(lineaHistorial.getEspecialidad());
+            dto.setMedico(lineaHistorial.getMedico());
+            dto.setFecha(lineaHistorial.getFecha());
+            dto.setHora(lineaHistorial.getHora());
+            dto.setIdEstado(lineaHistorial.getIdEstado());
+
+            if(lineaHistorial.getIdEstado() == 7) {
+                dto.setCancellable(false);
+            }else {
+                fechaHoraCita = LocalDateTime.of(lineaHistorial.getFecha(), lineaHistorial.getHora());
+                dto.setCancellable(fechaHoraCita.isAfter(fechaHoraActual));
+            }
+            listaVistaHistorial.add(dto);
+        }
+        return listaVistaHistorial;
+    }
+
+    // Consulta todas las citas médicas del paciente indicado.
+    // No se fija en estados.
+    // Utilizado para renderizar la tabla de citas que tiene el paciente en el historial médico en la paginación.
+    public List<VistaHistorialMedicoPacienteDTO> consultaHistorialPacientePaginacion(Long idUsuario, PaginacionDTO paginacionAttr) {
+        Integer cantidadElementosPorPagina = 5;
+        LocalDateTime fechaHoraActual = consultaDBServerService.consultaFechaHoraActualServer();
+        LocalDateTime fechaHoraCita;
+
+        List<HistorialMedicoPacienteDTO> listaHistorial = reservaCitasRepository.consultaHistorialMedicoPaciente(idUsuario, paginacionAttr.getNumeroPagina(), 5);
+
         List<VistaHistorialMedicoPacienteDTO> listaVistaHistorial = new ArrayList<>();
         VistaHistorialMedicoPacienteDTO dto;
 
@@ -111,5 +148,9 @@ public class CitaPacienteService {
     // Utilizado al renderizar la tabla de citas médicas que usa el usuario admin para darle mantenimiento a las citas de los pacientes.
     public int consultaCantidadCitasPacientesConFiltros(CitasMedicasFiltrosDTO citasFiltros) {
         return reservaCitasRepository.consultaCantidadCitasPacientesConFiltros(citasFiltros.getFiltEstado(), citasFiltros.getFiltEspecialidad(), citasFiltros.getFiltMedico(), citasFiltros.getFiltFechaInicio(), citasFiltros.getFiltFechaFin());
+    }
+
+    public int consultarCantidadCitasReservadasPorPaciente(Long idUsuario) {
+        return reservaCitasRepository.consultaCantidadCitasReservadasPorPaciente(idUsuario);
     }
 }
