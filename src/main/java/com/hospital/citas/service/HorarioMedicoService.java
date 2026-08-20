@@ -120,7 +120,6 @@ public class HorarioMedicoService {
     private LocalDate calcularFechaInicioSemana(LocalDate fechaActual) {
         if(fechaActual.getDayOfWeek().getValue() >= 6) {
             return fechaActual.plusDays((7 - fechaActual.getDayOfWeek().getValue() + 1));
-
         }else {
             return fechaActual.minusDays(fechaActual.getDayOfWeek().getValue() - 1);
         }

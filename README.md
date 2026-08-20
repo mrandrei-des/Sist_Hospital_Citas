@@ -1,4 +1,4 @@
-Proyecto de gestión de reservas de citas médicas.
+Proyecto de Gestión de Reservas de Citas Médicas.
 Desarrollado por Andrei Mesén Romero.
 
 Para el uso del sistema se requiere de un usuario paciente que se puede crear accediendo al formulario desde la pantalla de inicio de sesión, haciendo clic en el enlace de Crear Cuenta, luego se completa el formulario de registro, si todos los datos están correctos redirigirá hacia el login para que inicie sesión con el correo como usuario y la contraseña. Datos que al iniciar sesión podrá administrar y actualizar para el usuario que inició sesión.
@@ -14,3 +14,5 @@ Usuario: paciente@paciente.com
 Contraseña: paciente
 
 Para la base de datos se utilizó MySQL y se adjunta tanto el esquema de tablas, script con valores iniciales y los scripts de procedimientos almacenados.
+
+** Para acceder a la generación del reporte, se debe ingresar al sistema como usuario administrador y dar clic sobre el enlace Reportes -> Citas, al cargar la página se mostrarán las citas médicas reservadas con sus diferentes estados y una serie de filtros para reducir la cantidad de elementos de la lista. Además, se incluye un botón para la exportación de la data en pantalla hacia un archivo CSV.

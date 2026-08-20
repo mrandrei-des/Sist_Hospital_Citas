@@ -59,10 +59,8 @@ public class ReservaCitaValidator implements ConstraintValidator<ReservaCitaVali
                 reservaValida = false;
                 mensajeValidacion = "La fecha y hora de la cita ya ha transcurrido. Seleccione otra.";
             }
-
             // EL DÍA Y HORA DE LA FECHA ESTÉ ENTRE LOS HORARIOS DISPONIBLES DEL MÉDICO
             if(reservaValida) {
-                // traer el día de la fecha para buscar el registro de disponibilidad del médico
                 int diaSemanaFecha = reserva.getFecha().getDayOfWeek().getValue();
                 Long dia = Long.valueOf(diaSemanaFecha);
 
@@ -81,7 +79,6 @@ public class ReservaCitaValidator implements ConstraintValidator<ReservaCitaVali
                             break;
                         }
                     }
-
                     if(!horarioValido) {
                         reservaValida = false;
                         mensajeValidacion = "El médico no tiene horario registrado para el día y hora seleccionado.";
