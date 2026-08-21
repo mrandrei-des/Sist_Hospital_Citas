@@ -81,6 +81,7 @@ async function consultarRegistrosPaginacion(paginationDTO){
 }
 
 function renderizarRegistrosConsultadas(listaRegistros) {
+    dayjs.extend(dayjs_plugin_customParseFormat);
     const contenedorMensajes = document.querySelector('.message-data__container');
     contenedorMensajes.innerHTML = '';
     const tablaRegistros = document.querySelector('.table');
@@ -102,7 +103,7 @@ function renderizarRegistrosConsultadas(listaRegistros) {
         tr.innerHTML = `
             <td>${registro.especialidad}</td>
             <td>${registro.medico}</td>
-            <td>${dayjs(registro.fecha).format('DD/MM/YYYY') + ' ' + dayjs(registro.hora).format('HH:mm')}</td>
+            <td>${dayjs(registro.fecha).format('DD-MM-YYYY') + ' ' + dayjs(registro.hora, "HH:mm:ss").format('HH:mm')}</td>
             <td>
                 <span class="state__container state__container--${claseEstado}">${descripcionEstado}</span>
             </td>

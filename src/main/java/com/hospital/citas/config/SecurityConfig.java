@@ -31,7 +31,7 @@ public class SecurityConfig {
                 .requestMatchers("/css/**", "/js/**", "/img/**", "/fonts/**").permitAll()
 
                 // GET MAPPING PÚBLICO
-                .requestMatchers("/login", "/", "/registrarPaciente", "/recuperarContrasenna", "/verificacionCodigo", "/api/historial/**").permitAll()
+                .requestMatchers("/login", "/", "/registrarPaciente", "/recuperarContrasenna", "/verificacionCodigo").permitAll()
 
                 // POST MAPPING PÚBLICO
                 .requestMatchers("/cuentaNueva", "/procesarRecuperacion", "/procesarVerificacion", "/procesarCambioContrasenna", "/reenviarCodigoReset", "/api/citas/filter/count").permitAll()
@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .requestMatchers("/acceso-denegado", "/logout", "/mi-perfil/{id}", "/actualizar-mi-cuenta", "/mostrar-horario", "/cargar-horario", "/citas/confirm/**", "/citas/cancel/**").hasAnyRole("1", "2")
 
                 // GET Y POST MAPPING PRIVADO PACIENTE
-                .requestMatchers("/inicio", "/mostrar-reserva", "/reserva/**", "/confirmar-reserva", "/historial/**").hasAnyRole("1")
+                .requestMatchers("/inicio", "/mostrar-reserva", "/reserva/**", "/confirmar-reserva", "/historial/**", "/api/historial/**").hasAnyRole("1")
 
                 // GET MAPPING PRIVADO ADMIN
                 .requestMatchers("/registroUsuario", "/mostrarPanel", "/especialidades", "/buscar-especialidad/{id}", "/medicos", "/buscar-medico/{id}", "/deshabilitar-medico/{id}", "/mostrar-panel-pacientes", "/configuracion-horario", "/citas", "/api/citas/medicos/**", "/api/citas/count", "/citas/reporte", "/cuenta-nueva", "/api/pacientes/**").hasAnyRole("2")
