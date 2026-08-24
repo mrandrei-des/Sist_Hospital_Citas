@@ -34,7 +34,7 @@ public class CitasMedicasController {
     @GetMapping("/historial")
     public String mostrarHistorial(HttpSession session, Model model) {
         Long idUsuario = (Long)session.getAttribute("idUsuarioLoggeado");
-        Long idRolUsuario = (Long)session.getAttribute("idRolUsuarioLoggeado");
+        // Long idRolUsuario = (Long)session.getAttribute("idRolUsuarioLoggeado");
         boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
         String nombreCompletoUsuarioLoggeado = (String)session.getAttribute("nombreUsuarioLoggeado") + " " + (String)session.getAttribute("primerApellidoUsuarioLoggeado") + " " + (String)session.getAttribute("segundoApellidoUsuarioLoggeado");
 
@@ -53,7 +53,7 @@ public class CitasMedicasController {
 
         model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
         model.addAttribute("usuarioEsAdmin", esAdmin);
-        model.addAttribute("idRolUsuario", idRolUsuario);
+        model.addAttribute("idRolUsuario", idUsuario);
         model.addAttribute("listaCitasPendientes", citaPacienteService.consultaHistorialPendientePaciente(idUsuario));
         model.addAttribute("listaHistorial", citaPacienteService.consultaHistorialPaciente(idUsuario, 1));
         return "historialMedico";
@@ -61,7 +61,7 @@ public class CitasMedicasController {
 
     @GetMapping("/citas")
     public String mostrarListadoCitas(HttpSession session, Model model) {
-
+        Long idUsuario = (Long)session.getAttribute("idUsuarioLoggeado");
         Long idRolUsuario = (Long)session.getAttribute("idRolUsuarioLoggeado");
         boolean esAdmin = (Long)session.getAttribute("idRolUsuarioLoggeado") == 2 ? true : false;
         String nombreCompletoUsuarioLoggeado = (String)session.getAttribute("nombreUsuarioLoggeado") + " " + (String)session.getAttribute("primerApellidoUsuarioLoggeado") + " " + (String)session.getAttribute("segundoApellidoUsuarioLoggeado");
@@ -82,7 +82,7 @@ public class CitasMedicasController {
 
             model.addAttribute("nombreCompletoUsuario", nombreCompletoUsuarioLoggeado);
             model.addAttribute("usuarioEsAdmin", esAdmin);
-            model.addAttribute("idRolUsuario", idRolUsuario);
+            model.addAttribute("idRolUsuario", idUsuario);
             model.addAttribute("listaEstados", estadoService.consultarEstadosCitas());
             model.addAttribute("listaEspecialidades", especialidadService.listaEspecialidadesConCitas());
             model.addAttribute("listaMedicos", medicoService.listaMedicosConCitas());
